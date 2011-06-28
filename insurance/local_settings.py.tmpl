@@ -1,0 +1,16 @@
+# local_settings.py file template. Correct the file to settings your prefer and rename it into "local_settings.py"
+
+# Debug mode on (static and media files will be served throught Django mechanisms)
+DEBUG = True
+TEMPLATE_DEBUG = DEBUG
+
+# DB settings
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'insurance.db',                      # Or path to database file if using sqlite3.
+    }
+}
+
+# Unique 
+SECRET_KEY = 'y8!nb5y#di-gm&6glczhn1x6!anpk#i$$(qtq7p@^0k)x*(qb$'
