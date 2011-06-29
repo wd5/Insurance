@@ -1,0 +1,67 @@
+/*
+==================== Alignment ====================
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    border: 0 none;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    height:30px;
+    margin: 0 auto;
+    width: 700px;
+}
+
+/* Logo */
+#logo {
+    float:left;
+}
+
+/* Navigation */
+#navigation {
+    height:25px;
+    float:right;
+}
+
+#navigation ul {
+    display: inline;
+    list-style-type: none;
+}
+
+#navigation ul li {
+    margin: 0; padding: 0;
+    float: left;
+}
+
+#navigation ul li.separator {
+    margin-left:4px;
+    margin-right:4px;
+}
+
+/* Content */
+.content {
+    position: relative;
+    margin: 0 auto;
+    width: 700px;
+    min-height: 700px;
+}
+
+/*
+==================== Fonts ====================
+*/
+
+* {
+    font-family: Helvetica, sans-serif;
+    font-size: 1em;
+}
+
+#logo {
+    font-size: 2em;
+}
