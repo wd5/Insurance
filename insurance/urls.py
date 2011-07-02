@@ -14,7 +14,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'insurance.views.home', name='home'),
     # url(r'^insurance/', include('insurance.foo.urls')),
 
-    url(r'^$', direct_to_template, {'template':'index.html'}),
+    url(r'^$', direct_to_template, {'template':'index.html'}, name='site_root'),
 
     (r'^accounts/', include('registration.backends.default.urls')),
 

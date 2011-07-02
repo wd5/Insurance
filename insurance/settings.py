@@ -81,6 +81,8 @@ except ImportError, e:
 
 # ========== Custom third-party application settings ==========
 
-# days given to a user to approve the registration, used by the registration app
+# Days given to a user to approve the registration, used by the registration app
 ACCOUNT_ACTIVATION_DAYS = 7
 
+# Login redirect url (should be user cabinet, but for now site root url will do)
+LOGIN_REDIRECT_URL = '/'

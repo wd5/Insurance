@@ -8,9 +8,28 @@
   </head>
   <body>
     <div class="header">
-      <div id="logo">Insurance Inc</div>
+      <div id="logo"><a href="{% url site_root %}">Insurance Inc</a></div>
       <div id="navigation">
         {% block navigation %}
+        <ul>
+          {% if user.is_anonymous %}
+          <li>
+            <a href="{% url registration_register %}" >Зарегистрироваться</a>
+          </li>
+          <li class="separator">|</li>
+          <li>
+            <a href="{% url auth_login %}">Войти</a>
+          </li>
+          {% else %}
+          <li>
+            Hello, {{ user }}!&nbsp;
+          </li>
+          <li>
+            <a href="{% url auth_logout %}">Выйти</a>
+          </li>
+          {% endif %}
+          
+        </ul>
         {% endblock %}
       </div>
     </div>
