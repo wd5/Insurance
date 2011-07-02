@@ -19,7 +19,7 @@ SITE_ID = 1
 USE_I18N = False
 USE_L10N = False
 
-# Static/media files urls/paths
+# ========== Static/media files urls/paths ==========
 MEDIA_ROOT = os.path.join(PROJECT_PATH, '../media')
 MEDIA_URL = '/media/'
 STATIC_ROOT = os.path.join(PROJECT_PATH, '../static')
@@ -28,6 +28,9 @@ ADMIN_MEDIA_PREFIX = '/static/admin/'
 STATICFILES_DIRS = (
     os.path.join(PROJECT_PATH, 'static'),
 )
+
+# ========== Usual Django settings ==========
+
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
@@ -53,6 +56,7 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    # Django apps
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -60,10 +64,23 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-)
+
+    # Third-party apps
+    'registration',
+
+    # Projects apps (none yet)
+    )
 
 # Import deploy-specific settings, if present
 try:
     from local_settings import *
 except ImportError, e:
     pass
+
+
+
+# ========== Custom third-party application settings ==========
+
+# days given to a user to approve the registration, used by the registration app
+ACCOUNT_ACTIVATION_DAYS = 7
+

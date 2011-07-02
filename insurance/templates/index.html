@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block navigation %}
+<ul>
+  {% if user.is_anonymous %}
+  <li>
+    <a href="{% url registration_register %}" >Зарегистрироваться</a>
+  </li>
+  <li class="separator">|</li>
+  <li>
+    <a href="{% url auth_login %}">Войти</a>
+  </li>
+  {% else %}
+  <li>
+    Hello, {{ user }}!&nbsp;
+  </li>
+  <li>
+    <a href="{% url auth_logout %}">Выйти</a>
+  </li>
+  {% endif %}
+  
+</ul>
+{% endblock %}
+
+
+{% block content %}
+Welcome to the Insurance project!
+{% endblock %}
