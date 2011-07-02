@@ -22,10 +22,13 @@
           </li>
           {% else %}
           <li>
-            Hello, {{ user }}!&nbsp;
+            {{ user }}&nbsp
           </li>
           <li>
-            <a href="{% url auth_logout %}">Выйти</a>
+            <a href="{% url auth_logout %}">Выйти</a>&nbsp
+          </li>
+          <li>
+            <a href="{% url auth_password_change %}">Сменить пароль</a>
           </li>
           {% endif %}
           
