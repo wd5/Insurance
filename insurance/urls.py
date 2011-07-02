@@ -10,13 +10,9 @@ import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'insurance.views.home', name='home'),
-    # url(r'^insurance/', include('insurance.foo.urls')),
+    url(r'^$', direct_to_template, {'template':'index.html'}, name='home'),
 
-    url(r'^$', direct_to_template, {'template':'index.html'}, name='site_root'),
-
-    (r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/', include('email_login.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 )

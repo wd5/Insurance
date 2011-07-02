@@ -81,8 +81,17 @@ except ImportError, e:
 
 # ========== Custom third-party application settings ==========
 
+# --- Login and registration ---
+
 # Days given to a user to approve the registration, used by the registration app
 ACCOUNT_ACTIVATION_DAYS = 7
 
 # Login redirect url (should be user cabinet, but for now site root url will do)
 LOGIN_REDIRECT_URL = '/'
+
+# Email login backend
+AUTHENTICATION_BACKENDS = (
+    'email_login.backends.AuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+)
+REGISTRATION_BACKEND = 'email_login.backends.RegistrationBackend'
