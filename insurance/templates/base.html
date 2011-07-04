@@ -20,6 +20,10 @@
           <li>
             <a href="{% url auth_login %}">Войти</a>
           </li>
+          <li class="separator">|</li>
+          <li>
+            <a href="{% url auth_password_reset %}">Забыли пароль?</a>
+          </li>
           {% else %}
           <li>
             {{ user }}&nbsp
