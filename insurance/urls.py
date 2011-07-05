@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     url(r'^$', direct_to_template, {'template':'index.html'}, name='home'),
 
     url(r'^accounts/', include('email_login.urls')),
+    url(r'^profile/', include('profile.urls')),
 
     url(r'^admin/', include(admin.site.urls)),
 )

@@ -68,7 +68,8 @@ INSTALLED_APPS = (
     # Third-party apps
     'registration',
 
-    # Projects apps (none yet)
+    # Projects apps 
+    'profile' # user profile file and private cabinet
     )
 
 # Import deploy-specific settings, if present
@@ -95,3 +96,6 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 REGISTRATION_BACKEND = 'email_login.backends.RegistrationBackend'
+
+# Custom user profile chosen
+AUTH_PROFILE_MODULE = "profile.UserProfile"

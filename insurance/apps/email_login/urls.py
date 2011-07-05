@@ -6,6 +6,8 @@ from registration.views import activate, register
 
 from email_login.forms import AuthenticationForm
 
+
+
 urlpatterns = patterns('',
                        url(r'^activate/complete/$', direct_to_template,
                            { 'template': 'registration/activation_complete.html' },
