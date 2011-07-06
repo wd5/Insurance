@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+{% block profile_nav  %}
+<div id="profile-navigation">
+  <ul>
+    <li><a href="{% url userprofile_edit %}">Personal data</a></li>
+    <li class="separator"> | </li>
+    <li><a href="#">Insurance helper</a></li>
+    <li class="separator"> | </li>
+    <li><a href="#">Insurance calc</a></li>
+    <li class="separator"> | </li>
+    <li><a href="#">My policies</a></li>
+    <!-- <li>Invite a friend</li> -->
+  </ul>
+</div>
+<div style="clear:both;"></div>
+{% endblock %}
+
+{% block inner_content %}
+{% endblock %}
+
+{% endblock %}
