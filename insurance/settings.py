@@ -69,7 +69,8 @@ INSTALLED_APPS = (
     'registration',
 
     # Projects apps 
-    'profile' # user profile file and private cabinet
+    'profile', # user profile file and private cabinet
+    'calc'     # insurance policy related fields
     )
 
 # Import deploy-specific settings, if present
