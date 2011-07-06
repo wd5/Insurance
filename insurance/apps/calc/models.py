@@ -19,7 +19,7 @@ class InsurancePolicy(models.Model):
         (2, 'Second type'),
     )
 
-    user = models.ForeignKey(User, unique=True)
+    user = models.ForeignKey(User)
 
     buy_date = models.DateField(name="Buy date", null=True)
     end_date = models.DateField(name="End date", null=True)
