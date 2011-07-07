@@ -10,6 +10,8 @@ import settings
 admin.autodiscover()
 
 urlpatterns = patterns('',
+    # A simple template to close the site just in case...
+    # url(r'^$', direct_to_template, {'template':'undercon.html'}),
     url(r'^$', direct_to_template, {'template':'index.html'}, name='home'),
 
     url(r'^accounts/', include('email_login.urls')),
