@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import *
 from django.contrib.auth.views import login
+from django.contrib.sites.models import Site
 from django.views.generic.simple import direct_to_template
 
 from registration.views import activate, register
@@ -20,7 +21,8 @@ urlpatterns = patterns('',
                            { 'backend': 'email_login.backends.RegistrationBackend' },
                            name='registration_activate'),
                        url(r'^register/$', register,
-                           { 'backend': 'email_login.backends.RegistrationBackend' },
+                           { 'backend': 'email_login.backends.RegistrationBackend',
+                             },
                            name='registration_register'),
                        url(r'^login/$', login,
                            { 'template_name': 'registration/login.html',
