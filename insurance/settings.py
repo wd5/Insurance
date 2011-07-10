@@ -15,7 +15,6 @@ MANAGERS = ADMINS
 
 TIME_ZONE = None
 LANGUAGE_CODE = 'en-us'
-SITE_ID = 1
 USE_I18N = False
 USE_L10N = False
 
