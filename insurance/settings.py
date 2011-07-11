@@ -13,10 +13,10 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-TIME_ZONE = None
-LANGUAGE_CODE = 'en-us'
-USE_I18N = False
-USE_L10N = False
+TIME_ZONE = "Europe/Moscow"
+LANGUAGE_CODE = 'RU-ru'
+USE_I18N = True
+USE_L10N = True
 
 # ========== Static/media files urls/paths ==========
 MEDIA_ROOT = os.path.join(PROJECT_PATH, '../media')
@@ -66,6 +66,7 @@ INSTALLED_APPS = (
 
     # Third-party apps
     'registration',
+    'django_ipgeobase',
 
     # Projects apps 
     'profile', # user profile file and private cabinet

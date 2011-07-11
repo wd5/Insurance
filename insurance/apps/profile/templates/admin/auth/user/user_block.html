@@ -1,0 +1,40 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_modify adminmedia %}
+{% load url from future %}
+{% block extrahead %}{{ block.super }}
+{% url 'admin:jsi18n' as jsi18nurl %}
+<script type="text/javascript" src="{{ jsi18nurl|default:"../../../../jsi18n/" }}"></script>
+{% endblock %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% admin_media_prefix %}css/forms.css" />{% endblock %}
+{% block bodyclass %}{{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
+{% block breadcrumbs %}{% if not is_popup %}
+<div class="breadcrumbs">
+     <a href="../../../../">{% trans "Home" %}</a> &rsaquo;
+     <a href="../../../">{{ opts.app_label|capfirst|escape }}</a> &rsaquo;
+     <a href="../../">{{ opts.verbose_name_plural|capfirst }}</a> &rsaquo;
+     <a href="../">{{ original|truncatewords:"18" }}</a> &rsaquo;
+     Block user
+</div>
+{% endif %}{% endblock %}
+{% block content %}<div id="content-main">
+<form action="{{ form_url }}" method="post" id="{{ opts.module_name }}_form">{% csrf_token %}{% block form_top %}{% endblock %}
+<div>
+
+<p>Укажите причину блокировки пользователя</p>
+
+<fieldset class="module aligned">
+
+<div class="form-row">
+  {{ form.reason_blocked.errors }}
+  <label for="reason_blocked" class="required">Причина блокировки:</label> {{ form.reason_blocked }}
+</div>
+
+</fieldset>
+
+<div class="submit-row">
+<input type="submit" value="Заблокировать" class="default" />
+</div>
+
+</div>
+</form></div>
+{% endblock %}

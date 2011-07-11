@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -30,3 +31,7 @@ class InsurancePolicy(models.Model):
     state = models.CharField(name="Policy state", max_length=10, null=False, blank=False, default="init",
                              choices=STATE_CHOICES)
     
+    class Meta:
+        app_label = u"Полисы"
+        verbose_name = u"Страховой полис"
+        verbose_name_plural = u"Страховые полисы"
