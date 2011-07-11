@@ -14,12 +14,16 @@ from profile.models import UserProfile
 
 
 
-def make_published(modeladmin, request, queryset):
+def unblock(modeladmin, request, queryset):
     queryset.update(is_active=True)
-make_published.short_description = u"Разблокировать выбранных пользователей"
+unblock.short_description = u"Разблокировать выбранных пользователей"
+
+def block(modeladmin, request, queryset):
+    queryset.update(is_active=False)
+block.short_description = u"Заблокировать выбранных пользователей"
 
 class CustomUserAdmin(UserAdmin):
-    actions= [ make_published ]
+    actions= [ block, unblock ]
     list_display = ('p_last_name', 'p_first_name', 'p_middle_name',
                     'email', 'p_last_ip', 'p_city', 'p_reason_blocked', 'is_active')
     list_display_links = ('email','p_last_name', 'p_first_name', 'p_middle_name')
