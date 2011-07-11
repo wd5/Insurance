@@ -1,2 +1,2 @@
-Confirm your registration on Directif.ru
+Подтверждение регистрации на сайте {{ site_name }} 
 
