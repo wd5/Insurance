@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     # Third-party apps
     'registration',
     'django_ipgeobase',
+    'django_messages',
 
     # Projects apps 
     'profile', # user profile file and private cabinet
