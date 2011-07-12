@@ -2,12 +2,12 @@
 
 {% block inner_content %}
 
-<p>Policy type | Buy date | End date | Payment | State</p>
 <br/>
 {% for policy in policy_list %}
+<p>Тип полиса | Дата покупки | Дата окочания | Платежи | Текущий статус</p>
 <p>{{ policy.type }}|{{ policy.buy_date }}|{{ policy.end_date }}|{{ policy.type }}|{{ policy.payment }}|{{ policy.state }}</p>
 {% empty %}
-There are no policies yet
+Полисов пока нет.
 {% endfor %}
 
 {% endblock %}
