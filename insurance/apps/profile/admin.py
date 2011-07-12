@@ -18,12 +18,15 @@ def unblock(modeladmin, request, queryset):
     queryset.update(is_active=True)
 unblock.short_description = u"Разблокировать выбранных пользователей"
 
-def block(modeladmin, request, queryset):
-    queryset.update(is_active=False)
-block.short_description = u"Заблокировать выбранных пользователей"
+# Should NOT use mass block feature as one can't normally specify block reason
+# this way. 
+# 
+# def block(modeladmin, request, queryset):
+# queryset.update(is_active=False) block.short_description = u"Заблокировать
+# выбранных пользователей"
 
 class CustomUserAdmin(UserAdmin):
-    actions= [ block, unblock ]
+    actions= [ unblock ]
     list_display = ('p_last_name', 'p_first_name', 'p_middle_name',
                     'email', 'p_last_ip', 'p_city', 'p_reason_blocked', 'is_active')
     list_display_links = ('email','p_last_name', 'p_first_name', 'p_middle_name')
