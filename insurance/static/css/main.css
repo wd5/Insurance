@@ -16,7 +16,7 @@ body {
 .header {
     height:30px;
     margin: 0 auto;
-    width: 700px;
+    width: 900px;
 }
 
 /* Logo */
@@ -70,7 +70,7 @@ body {
 .content {
     position: relative;
     margin: 0 auto;
-    width: 700px;
+    width: 900px;
     min-height: 700px;
     padding-top: 200px;
     text-align: center;

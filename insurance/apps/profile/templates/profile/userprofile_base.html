@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load inbox %}
 
 
 {% block content %}
@@ -14,6 +14,8 @@
     <li><a href="#">Страховой калькулятор</a></li>
     <li class="separator"> | </li>
     <li><a href="{% url userprofile_policylist %}">Мои полисы</a></li>
+    <li class="separator"> | </li>
+    <li><a href="{% url messages_inbox %}">Мои уведомления ({% inbox_count %})</a></li>
     <!-- <li>Invite a friend</li> -->
   </ul>
 </div>

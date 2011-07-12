@@ -1,6 +1,6 @@
 {% extends "django_messages/base.html" %} 
 {% load i18n %} 
-{% block content %}
+{% block inner_content %}
 <h1>{% trans "View Message" %}</h1>
 <dl class="message-headers">
     <dt>{% trans "Subject" %}</dt>
@@ -14,8 +14,5 @@
 </dl>
 {{ message.body|linebreaksbr }}<br /><br />
 
-{% ifequal message.recipient.pk user.pk %}
-<a href="{% url messages_reply message.id %}">{% trans "Reply" %}</a>
-{% endifequal %}
 <a href="{% url messages_delete message.id %}">{% trans "Delete" %}</a>
 {% endblock %}
