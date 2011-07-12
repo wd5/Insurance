@@ -32,6 +32,5 @@ class InsurancePolicy(models.Model):
                              choices=STATE_CHOICES)
     
     class Meta:
-        app_label = u"Полисы"
         verbose_name = u"Страховой полис"
         verbose_name_plural = u"Страховые полисы"

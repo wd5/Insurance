@@ -25,6 +25,11 @@ class UserProfile(models.Model):
     city = models.CharField(verbose_name='Город по геолокации', max_length=100, null=True)
     reason_blocked = models.CharField(verbose_name='Причина блокировки', max_length=100, null=True)
 
+    class Meta:
+        verbose_name = u"Профиль пользователя"
+        verbose_name_plural = u"Профили пользователей"
+
+
 @receiver(user_logged_in)
 def save_ip(user, **kwargs):
     request = kwargs['request']

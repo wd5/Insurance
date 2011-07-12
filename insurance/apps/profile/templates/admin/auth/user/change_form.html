@@ -2,14 +2,15 @@
 {% load i18n %}
 {% block object-tools %}
 {% if change %}{% if not is_popup %}
+  <ul class="object-tools">
+    <li><a href="../../../profile/userprofile/{{ original.get_profile.id }}" class="historylink">Перейти к профилю</a></li>    
 {% if original.is_active %}
-  <ul class="object-tools">
     <li><a href="block/" class="historylink">Заблокировать</a></li>
-  </ul>
 {% else %}
-  <ul class="object-tools">
     <li><a href="unblock/" class="historylink">Разблокировать</a></li>
-  </ul>
 {% endif %}
+  </ul>
+  <ul class="object-tools">
+  </ul>
 {% endif %}{% endif %}
 {% endblock %}
