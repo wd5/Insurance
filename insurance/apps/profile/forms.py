@@ -1,21 +1,14 @@
 from django.forms import ModelForm
-from django.contrib.auth.models import User
 from django import forms
 
 from profile.models import UserProfile
 
 
 
-class UserForm(ModelForm):
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name')
-
-
 class ProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('address', 'phone')
+        fields = ('last_name', 'first_name', 'middle_name', 'address', 'phone')
 
 class AdminUserBlockForm(ModelForm):
     reason_blocked = forms.CharField(widget=forms.TextInput(attrs={'size':'100', 'required':True}))

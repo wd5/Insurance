@@ -5,10 +5,11 @@
 {% block inner_content %}
 <form action="" method="post">
   {% csrf_token %}
-  <p>User form:</p>
-  {{ user_form.as_p }}
-  <p>Profile form:</p>
+  <p>Профиль пользователя</p>
 {{ profile_form.as_p }}
-<input type="submit" value="Submit" />
+<input type="submit" value="Сохранить" />
 </form>
+{% if saved %}
+<p>Данные сохранены</p>
+{% endif %}
 {% endblock %}
