@@ -130,11 +130,30 @@ class CustomUserAdmin(UserAdmin):
             raise PermissionDenied
         user = get_object_or_404(self.model, pk=id)
         user.is_active = True
+        profile = user.get_profile()
+        profile.reason_blocked = None
         user.save()
+        profile.save()
         msg = 'Пользователь разблокирован.'
         messages.success(request, msg)
         return HttpResponseRedirect('..')
-    
+
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('last_name', 'first_name', 'middle_name',
+                    'u_email', 'last_ip', 'city', 'reason_blocked', 'u_is_active')
+    list_display_links = ('u_email','last_name', 'first_name', 'middle_name')
+    readonly_fields = ('last_ip', 'city', 'reason_blocked')
+
+    def u_email(self, profile):
+        return profile.user.email
+    u_email.short_description = 'Адрес электронной почты'
+
+    def u_is_active(self, profile):
+        return profile.user.is_active
+    u_is_active.short_description = 'Активный'
+
+
 admin.site.unregister(User) 
 admin.site.register(User, CustomUserAdmin)
-admin.site.register(UserProfile)
+admin.site.register(UserProfile, ProfileAdmin)
