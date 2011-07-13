@@ -46,6 +46,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.contrib.flatpages.middleware.FlatpageFallbackMiddleware',
 )
 
 ROOT_URLCONF = 'insurance.urls'
@@ -64,6 +65,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+    'django.contrib.flatpages',
 
     # Third-party apps
     'registration',
@@ -74,6 +76,10 @@ INSTALLED_APPS = (
     'profile', # user profile file and private cabinet
     'calc'     # insurance policy related fields
     )
+
+FIXTURE_DIRS = (
+    os.path.join(PROJECT_PATH, 'fixtures'),
+)
 
 # Import deploy-specific settings, if present
 try:

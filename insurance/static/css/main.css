@@ -65,6 +65,31 @@ body {
     margin-right:4px;
 }
 
+/* Site menu */
+
+#site-menu {
+    height: 40px;
+    padding: 20px;
+    text-align:center;
+}
+
+#site-menu ul  {
+    list-style-type: none;
+    margin:0 auto;
+}
+
+#site-menu ul li {
+    display: inline;
+}
+
+#site-menu ul li.separator {
+    margin-left:4px;
+    margin-right:4px;
+}
+
+#site-menu a {
+    text-decoration: none;
+}
 
 /* Content */
 .content {
