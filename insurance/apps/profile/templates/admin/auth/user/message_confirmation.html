@@ -1,0 +1,34 @@
+{% extends "admin/base_site.html" %}
+{% load i18n l10n %}
+
+
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+     <a href="../../../">{% trans "Home" %}</a> &rsaquo;
+     <a href="../../">{{ app_label|capfirst }}</a> &rsaquo;
+     <a href="../">{{ model_label|capfirst }}</a> &rsaquo;
+     Послать пользователям уведомления
+</div>
+{% endblock %}
+
+{% block content %}
+<p>Уведомление будет послано следующим пользователям:</p>
+<ul>
+  {% for u in users %}
+  <li>{{ u.email }}</li>
+  {% endfor %}
+</ul>
+<form action="" method="post">{% csrf_token %}
+  <div>
+    {% for field in form %}
+    {{ field.label_tag }}:
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field }}
+    </div>
+    {% endfor %}
+    <input type="submit" value="Послать уведомление" />
+  </div>
+</form>
+{% endblock %}

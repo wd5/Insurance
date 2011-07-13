@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+from datetime import datetime
+
+from django.db import transaction
 from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
@@ -8,9 +11,14 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.template import RequestContext
+from django.views.decorators.csrf import csrf_protect
+from django.utils.decorators import method_decorator
 
 from profile.forms import AdminUserBlockForm
+from profile.forms import AdminUserMessageConfirmForm
 from profile.models import UserProfile
+
+csrf_protect_m = method_decorator(csrf_protect)
 
 
 
@@ -18,15 +26,20 @@ def unblock(modeladmin, request, queryset):
     queryset.update(is_active=True)
 unblock.short_description = u"Разблокировать выбранных пользователей"
 
+def message(modeladmin, request, queryset):
+    selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+    return HttpResponseRedirect("message/?ids=%s" % ",".join(selected))
+message.short_description = u"Послать уведомление пользователям"
+
 # Should NOT use mass block feature as one can't normally specify block reason
-# this way. 
-# 
+# this way.
+#
 # def block(modeladmin, request, queryset):
 # queryset.update(is_active=False) block.short_description = u"Заблокировать
 # выбранных пользователей"
 
 class CustomUserAdmin(UserAdmin):
-    actions= [ unblock ]
+    actions= [ unblock, message ]
     list_display = ('p_last_name', 'p_first_name', 'p_middle_name',
                     'email', 'p_last_ip', 'p_city', 'p_reason_blocked', 'is_active')
     list_display_links = ('email','p_last_name', 'p_first_name', 'p_middle_name')
@@ -41,6 +54,8 @@ class CustomUserAdmin(UserAdmin):
 
     user_block_form = AdminUserBlockForm
     user_block_template = 'admin/auth/user/user_block.html'
+
+    # ===== Profile field getters =====
 
     def p_last_ip(self, user):
         profile = user.get_profile()
@@ -72,21 +87,67 @@ class CustomUserAdmin(UserAdmin):
         return profile.reason_blocked
     p_reason_blocked.short_description = 'Причина блокировки'
 
+    # ==== Additional urls =====
+
     def __call__(self, request, url):
         if url is None:
             return self.changelist_view(request)
-        if url.endswith('block'):
-            return self.user_block(request, url.split('/')[0])
-        elif url.endswith('unblock'):
-            return self.user_block(request, url.split('/')[0])
+        additional = {
+            'message': self.user_message,
+            'block': self.user_block,
+            'unblock': self.user_unblock
+        }
+        for ad_url, view in additional:
+            if url.endswith(ad_url):
+                return additional[ad_url](request, url.split('/')[0])
         return super(UserAdmin, self).__call__(request, url)
 
     def get_urls(self):
         from django.conf.urls.defaults import patterns
         return patterns('',
+            (r'^message/$', self.admin_site.admin_view(self.user_message)),
             (r'^(\d+)/block/$', self.admin_site.admin_view(self.user_block)),
             (r'^(\d+)/unblock/$', self.admin_site.admin_view(self.user_unblock))
         ) + super(UserAdmin, self).get_urls()
+
+    # ===== Custom actions =====
+
+    @csrf_protect_m
+    @transaction.commit_on_success
+    def user_message(self, request):
+        def _get_users(request):
+            ids = request.GET['ids'].split(',')
+            return User.objects.in_bulk(ids).values()
+        users = _get_users(request)
+
+        if request.method == 'POST':
+            form = AdminUserMessageConfirmForm(request.POST)
+            if form.is_valid():
+                message = form.cleaned_data['message']
+                subject = form.cleaned_data['subject']
+                from django_messages.models import Message
+                for u in users:
+                    Message.objects.create(
+                        subject=subject,
+                        body=message,
+                        sender=request.user,
+                        recipient=u,
+                        sent_at=datetime.now()
+                    )
+                msg = 'Пользователям отправлено уведомление.'
+                messages.success(request, msg)
+                return HttpResponseRedirect('..')
+        else:
+            form = AdminUserMessageConfirmForm()
+        context = {
+            'app_label': 'auth',
+            'model_label': 'пользователи',
+            'form': form,
+            'users': users,
+        }
+        return render_to_response("admin/auth/user/message_confirmation.html",
+                context,
+                context_instance=RequestContext(request))
 
     def user_block(self, request, id):
         if not self.has_change_permission(request):
@@ -144,6 +205,8 @@ class ProfileAdmin(admin.ModelAdmin):
                     'u_email', 'last_ip', 'city', 'reason_blocked', 'u_is_active')
     list_display_links = ('u_email','last_name', 'first_name', 'middle_name')
     readonly_fields = ('last_ip', 'city', 'reason_blocked')
+
+    # ===== User field getters =====
 
     def u_email(self, profile):
         return profile.user.email

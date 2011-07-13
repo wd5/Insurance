@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.forms import ModelForm
 from django import forms
 
@@ -27,3 +28,7 @@ class AdminUserBlockForm(ModelForm):
             self.profile.save()
             self.user.save()
         return self.profile
+
+class AdminUserMessageConfirmForm(forms.Form):
+    subject = forms.CharField(label=u"Тема", min_length=10, max_length=100)
+    message = forms.CharField(label=u"Уведомление", min_length=10, max_length=400, widget=forms.Textarea())
