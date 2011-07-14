@@ -74,7 +74,8 @@ INSTALLED_APPS = (
 
     # Projects apps 
     'profile', # user profile file and private cabinet
-    'calc'     # insurance policy related fields
+    'calc',     # insurance policy related fields
+    'ins_flatpages',                 # Reconfiguration of 'django.contrib.flatpages'
     )
 
 FIXTURE_DIRS = (
