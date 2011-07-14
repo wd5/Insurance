@@ -29,8 +29,7 @@ class ServletTestForm(forms.Form):
                       label='Мощность',
                       help_text='')
 
-
-    price = forms.CharField(required=False,
+    price = forms.BooleanField(required=False,
                       label='Стоимость',
                       help_text='')
 
@@ -55,26 +54,27 @@ class ServletTestForm(forms.Form):
                              help_text='')
 
 
-    factor_easepay = forms.CharField(required=False,
-                               label='Простота выплат',
-                               help_text='')
+    factor_easepay = forms.BooleanField(required=False,
+                                        label='Простота выплат',
+                                        help_text='')
 
-    factor_insuranceterms = forms.CharField(required=False,
-                                      label='Условия страхования',
-                                      help_text='')
+    factor_insuranceterms = forms.BooleanField(required=False,
+                                               label='Условия страхования',
+                                               help_text='')
 
-    factor_qualitysupport = forms.CharField(required=False,
-                                      label='Качество информационной поддержки',
-                                      help_text='')
+    factor_qualitysupport = forms.BooleanField(required=False,
+                                               label='Качество информационной поддержки',
+                                               help_text='')
+    
+    factor_reputation = forms.BooleanField(required=False,
+                                           label='Репутация компании',
+                                           help_text='')
 
-    factor_reputation = forms.CharField(required=False,
-                                  label='Репутация компании',
-                                  help_text='')
+    factor_accessibility = forms.BooleanField(required=False,
+                                              label='Доступность компании',
+                                              help_text='')
 
-    factor_accessibility = forms.CharField(required=False,
-                                     label='Доступность компании',
-                                     help_text='')
+    factor_service = forms.BooleanField(required=False,
+                                        label='Сервис',
+                                        help_text='')
 
-    factor_service = forms.CharField(required=False,
-                               label='Сервис',
-                               help_text='')
