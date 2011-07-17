@@ -1,9 +1,12 @@
+{% autoescape off %}
 Здравствуйте!
 
 Вы получили это письмо, т.к. вы или кто-то другой указали этот email для регистрации аккаунта на сайте {{ site_name }}. 
 
 Перейдите по следующей ссылке для подтверждения регистрации:
-{{ protocol }}://{{ site.domain }}{% url registration_activate activation_key %}
+http://{{ site.domain }}{% url registration_activate activation_key %}
 
 Спасибо за то что пользуетесь нашим сервисом!
-С наилучшими пожеланиями, команда {{ site_name }} 
+С наилучшими пожеланиями, команда {{ site.domain }} 
+
+{% endautoescape %}

@@ -53,7 +53,7 @@
         "fields": {
             "registration_required": false, 
             "title": "\u041b\u0438\u0446\u0435\u043d\u0437\u0438\u043e\u043d\u043d\u043e\u0435 \u0441\u043e\u0433\u043b\u0430\u0448\u0435\u043d\u0438\u0435", 
-            "url": "/fp/lisence_agreement/", 
+            "url": "/fp/license_agreement/", 
             "template_name": "flatpages/license_agreement.html", 
             "sites": [
                 2, 

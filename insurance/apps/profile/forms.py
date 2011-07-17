@@ -25,7 +25,6 @@ class AdminUserBlockForm(ModelForm):
     def save(self, commit=True):
         self.user.is_active = False
         if commit:
-            self.profile.save()
             self.user.save()
         return self.profile
 
