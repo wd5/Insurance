@@ -10,13 +10,13 @@ def servlet_test(request):
         for k,v in servlet_test_form.cleaned_data.items():
             print >> sys.stderr, k, "=> ", v
             if v == True:
-                form_fields[k] = '1'
+                #form_fields[k] = '1'
                 #form_fields[k] = 'yes'
-                #form_fields[k] = 'on'
+                form_fields[k] = 'on'
             elif v == False:
-                form_fields[k] = '0'
+                #form_fields[k] = '0'
                 #form_fields[k] = 'no'
-                #form_fields[k] = ''
+                form_fields[k] = ''
             else:
                 form_fields[k] = v
 
