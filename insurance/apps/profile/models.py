@@ -49,10 +49,11 @@ def save_ip(user, **kwargs):
     profile.save()
 
 class Persona(models.Model):
+    user = models.ForeignKey(User)
     last_name = models.CharField(verbose_name='Фамилия', max_length=30)
     first_name = models.CharField(verbose_name='Имя', max_length=30)
     middle_name = models.CharField(verbose_name='Отчество', max_length=30)
-    birth_date = models.DateField(blank=True)
+    birth_date = models.DateField(blank=True,null='True')
     me = models.BooleanField(default=False)
 
     def __unicode__(self):
@@ -64,9 +65,21 @@ class Persona(models.Model):
 
  
 @receiver(post_save,sender=UserProfile)
-def add_persona(sender, **kwargs):
-    import sys
-    print >> sys.stderr, "add_persona(sender, **kwargs):"
-    print >> sys.stderr, "sender =", kwargs["instance"].user.email
-    user_id = kwargs["instance"].user.id
-    print >> sys.stderr, "user_id =", user_id
+def add_persona_himself(sender, **kwargs):
+    """
+    ДОбавить при регистрации персону - самого себя
+    """
+    user_profile = kwargs["instance"]
+    user = user_profile.user
+    try:
+        user_persona = Persona.objects.get(user=user,me=True)
+    except Persona.DoesNotExist:
+        user_persona = Persona(user=user) # Создать новую запись
+    user_persona.first_name = user_profile.first_name
+    user_persona.last_name = user_profile.last_name
+    user_persona.middle_name = user_profile.middle_name
+    user_persona.me = True
+    user_persona.save()
+
+        
+        
