@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 from django_ipgeobase.models import IPGeoBase
 
@@ -46,3 +47,26 @@ def save_ip(user, **kwargs):
         ipgeobase = ipgeobases[0]
         profile.city = ipgeobase.city
     profile.save()
+
+class Persona(models.Model):
+    last_name = models.CharField(verbose_name='Фамилия', max_length=30)
+    first_name = models.CharField(verbose_name='Имя', max_length=30)
+    middle_name = models.CharField(verbose_name='Отчество', max_length=30)
+    birth_date = models.DateField(blank=True)
+    me = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return u'%s %s' % (self.id,self.name)
+    
+    class Meta:
+        verbose_name = "Персона"
+        verbose_name_plural = "Персоны"
+
+ 
+@receiver(post_save,sender=UserProfile)
+def add_persona(sender, **kwargs):
+    import sys
+    print >> sys.stderr, "add_persona(sender, **kwargs):"
+    print >> sys.stderr, "sender =", kwargs["instance"].user.email
+    user_id = kwargs["instance"].user.id
+    print >> sys.stderr, "user_id =", user_id
