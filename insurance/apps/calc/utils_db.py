@@ -1,7 +1,15 @@
 # -*- coding: utf-8 -*-
-import _mysql
+
+MYSQL_AVAILABLE = False
+try:
+    import _mysql
+    MYSQL_AVAILABLE = True
+except ImportError, e:
+    pass
 
 def connect():
+    if not MYSQL_AVAILABLE:
+        return None
     try:
         db = _mysql.connect(host='127.0.0.1',
                             user='insdu',
@@ -10,7 +18,7 @@ def connect():
                             db='inservlet'
                             )
         return db
-    except _mysql_exceptions.OperationalError:
+    except _mysql.exceptions.OperationalError:
         return None
     
 def get_choices(db, id_field='',name_field='',table=''):
