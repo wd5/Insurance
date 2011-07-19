@@ -2,10 +2,21 @@
 
 {% block inner_content %}
 
+<div id="policy-navigation">
+  <ul>
+    {% for type_id, type_name in policy_types.items %}
+    <li><a href="{% url userprofile_policylist_type type_id %}">{{ type_name }}</a></li>
+    {% if not forloop.last  %}
+    <li class="separator"> | </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+
 <br/>
 {% for policy in policy_list %}
-<p>Тип полиса | Дата покупки | Дата окочания | Платежи | Текущий статус</p>
-<p>{{ policy.type }}|{{ policy.buy_date }}|{{ policy.end_date }}|{{ policy.type }}|{{ policy.payment }}|{{ policy.state }}</p>
+<p> Дата покупки | Дата окочания | Платежи | Текущий статус</p>
+<p>{{ policy.buy_date }}|{{ policy.end_date }}|{{ policy.payment }}|{{ policy.state }}</p>
 {% empty %}
 Полисов пока нет.
 {% endfor %}

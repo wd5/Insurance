@@ -12,23 +12,26 @@ class InsurancePolicy(models.Model):
         ('ended', 'Ended'),
     )
     PAYMENT_CHOICES = (
-        ('payed', 'Fully payed'),
-        ('unpayed', 'Yet to be payed'),
+        ('payed', 'Оплачено'),
+        ('unpayed', 'Не оплачено'),
     )
     TYPE_CHOICES = (
-        (1, 'First type'),
-        (2, 'Second type'),
+        (1, u'КАСКО'),
+        (2, u'ОСАГО'),
+        (3, u'ДМС'),
+        (4, u'ОМС'),
+        (5, u'Другие'),
     )
 
     user = models.ForeignKey(User)
 
-    buy_date = models.DateField(name="Buy date", null=True)
-    end_date = models.DateField(name="End date", null=True)
-    type = models.SmallIntegerField(name="Policy type", null=False, blank=False,
+    buy_date = models.DateField(verbose_name=u"Время начала действия", null=True)
+    end_date = models.DateField(verbose_name=u"Время окончания действия", null=True)
+    type = models.SmallIntegerField(verbose_name=u"Тип полиса", null=False, blank=False,
                                choices=TYPE_CHOICES)
-    payment = models.CharField(name="Payment", max_length=10, null=False, blank=False, default="unpayed",
+    payment = models.CharField(verbose_name=u"Оплата", max_length=10, null=False, blank=False, default="unpayed",
                                choices=PAYMENT_CHOICES)
-    state = models.CharField(name="Policy state", max_length=10, null=False, blank=False, default="init",
+    state = models.CharField(verbose_name=u"Статус полиса", max_length=10, null=False, blank=False, default="init",
                              choices=STATE_CHOICES)
     
     class Meta:

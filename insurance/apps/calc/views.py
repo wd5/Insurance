@@ -37,7 +37,3 @@ def servlet_test(request):
     extra_content = {'servlet_test_form':servlet_test_form,
                      'result':result}
     return direct_to_template(request, 'servlet_test.html',extra_content)
-
-
-
-

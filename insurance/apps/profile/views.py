@@ -76,12 +76,20 @@ def profile(request):
 
 
 @login_required
-def policy_list(request):
+def policy_list(request, policy_type=None):
+    policy_types = dict(InsurancePolicy.TYPE_CHOICES)
+    if not policy_type:
+        policy_type, _ = InsurancePolicy.TYPE_CHOICES[0]
     user = request.user
-    query = InsurancePolicy.objects.filter(user=user)
+    query = InsurancePolicy.objects.filter(user=user, type=policy_type)
+    extra_context = {
+        "policy_type": policy_type,
+        "policy_types": policy_types,
+    }
     context = {
         "template_name": "profile/userprofile_policylist.html",
         "queryset": query,
-        "template_object_name": "policy"
+        "template_object_name": "policy",
+        "extra_context": extra_context,
     }
     return object_list(request, **context)

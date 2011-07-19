@@ -65,6 +65,26 @@ body {
     margin-right:4px;
 }
 
+/* Policy navigation */
+
+#policy-navigation {
+    height: 40px;
+}
+
+#policy-navigation ul  {
+    list-style-type: none;
+}
+
+#policy-navigation ul li {
+    display: inline;
+}
+
+
+#policy-navigation ul li.separator {
+    margin-left:4px;
+    margin-right:4px;
+}
+
 /* Site menu */
 
 #site-menu {
