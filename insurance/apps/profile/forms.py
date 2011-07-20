@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 from django.forms import ModelForm
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
@@ -33,6 +34,10 @@ class AdminUserMessageConfirmForm(forms.Form):
     subject = forms.CharField(label=u"Тема", min_length=10, max_length=100)
     message = forms.CharField(label=u"Уведомление", min_length=10, max_length=400, widget=forms.Textarea())
 
+# Get list for SelectDateWidget()
+year = datetime.datetime.now().year
+years_list = range(year-100,year)
+
 class PersonaForm(ModelForm):
     
     def __init__(self,*args,**kwargs):
@@ -54,15 +59,13 @@ class PersonaForm(ModelForm):
             self.fields['me'] = forms.BooleanField(initial=False,
                                                    required=False,
                                                    widget=forms.HiddenInput())
-            
 
     class Meta:
         model = Persona
         fields = ('last_name','first_name','middle_name','birth_date','me')
         widgets = {
-            'birth_date': SelectDateWidget(),
+            'birth_date': SelectDateWidget(years=years_list),
         }
-    #persona_flag = forms.HiddenInput()
 
 
     
