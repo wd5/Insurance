@@ -28,13 +28,21 @@
       {% if forloop.first %}
       <form method="post" id="" action="">{% csrf_token %}
 	<tr>
-	  <!-- <td>{{ p_f.last_name.value }}</td> -->
-	  <!-- <td>{{ p_f.first_name.value }}</td> -->
-	  <!-- <td>{{ p_f.middle_name.value }}</td> -->
-	  <td>{{ p_f.last_name }}</td>
-	  <td>{{ p_f.first_name }}</td>
-	  <td>{{ p_f.middle_name }}</td>
-
+	  <td>
+	    <input id="id_last_name" type="text" maxlength="30" 
+		   value="{{ p_f.last_name.value }}" 
+		   name="last_name"  readonly="readonly">
+	  </td>
+	  <td>
+	    <input id="id_first_name" type="text" maxlength="30" 
+		   value="{{ p_f.first_name.value }}" 
+		   name="first_name"  readonly="readonly">
+	  </td>
+	  <td>
+	    <input id="id_middle_name" type="text" maxlength="30" 
+		   value="{{ p_f.middle_name.value }}" 
+		   name="middle_name"  readonly="readonly">
+	  </td>
 	  <td>{{ p_f.birth_date }}</td>
 	  <td><input type="submit" value="Изменить"></td>
 	  <td>
