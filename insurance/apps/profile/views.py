@@ -19,6 +19,20 @@ def profile(request):
 
     persona_post_flag = False
 
+    # Process delete form
+    if request.method == 'POST' and request.POST.has_key('delete_flag'):
+        persona_post_flag = True
+        if request.POST['action_type'] == 'ask':
+            print '!!!!! ASK !!!!!'
+            persona_obj = Persona.objects.get(id=request.POST['persona_id'])
+            return render_to_response('profile/userprofile_edit_delete_ask.html', {
+                    'persona':persona_obj,
+                    }, context_instance=RequestContext(request))
+        if request.POST['action_type'] == 'delete':
+            print '!!!!! DELETE !!!!!'
+            persona = Persona.objects.get(id=request.POST['persona_id'])
+            persona.delete()
+
     # Process persona forms
     if request.method == 'POST' and request.POST.has_key('persona_flag'):
         persona_post_flag = True

@@ -1,7 +1,5 @@
 {% extends "profile/userprofile_base.html" %}
 
-
-
 {% block inner_content %}
 <form action="" method="post">
   {% csrf_token %}
@@ -54,21 +52,30 @@
       </form>
       {% endif %}
       {% if not forloop.first and not forloop.last %}
-      <form method="post" id="" action="">{% csrf_token %}
 	<tr>
-	  <td>{{ p_f.last_name }}</td>
-	  <td>{{ p_f.first_name }}</td>
-	  <td>{{ p_f.middle_name }}</td>
-	  <td>{{ p_f.birth_date }}</td>
-	  <td><input type="submit" value="Изменить"></td>
+	    <td>
+	      <form method="post" id="" action="">{% csrf_token %}
+	      {{ p_f.last_name }}
+	    </td>
+	    <td>{{ p_f.first_name }}</td>
+	    <td>{{ p_f.middle_name }}</td>
+	    <td>{{ p_f.birth_date }}</td>
+	    <td>
+	      <input type="submit" value="Изменить">
+	      {{ p_f.persona_flag }}
+	      {{ p_f.persona_id }}
+	      {{ p_f.me }}
+	  </form>
+	  </td>
 	  <td>
-	    <input type="submit" value="Удалить">
-	    {{ p_f.persona_flag }}
-	    {{ p_f.persona_id }}
-	    {{ p_f.me }}
+	    <form method="POST" id="" action="">{% csrf_token %}
+	      {{ p_f.persona_id }}
+	      <input type="hidden" name="delete_flag" value="True">
+	      <input type="hidden" name="action_type" value="ask">
+	      <input type="submit" value="Удалить">
+	    </form>
 	  </td>
 	</tr>
-      </form>
       {% endif %}
       {% if forloop.last %}
       <form method="post" id="" action="">{% csrf_token %}
