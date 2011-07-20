@@ -28,12 +28,20 @@
       {% if forloop.first %}
       <form method="post" id="" action="">{% csrf_token %}
 	<tr>
-	  <td>{{ p_f.last_name.value }}</td>
-	  <td>{{ p_f.first_name.value }}</td>
-	  <td>{{ p_f.middle_name.value }}</td>
+	  <!-- <td>{{ p_f.last_name.value }}</td> -->
+	  <!-- <td>{{ p_f.first_name.value }}</td> -->
+	  <!-- <td>{{ p_f.middle_name.value }}</td> -->
+	  <td>{{ p_f.last_name }}</td>
+	  <td>{{ p_f.first_name }}</td>
+	  <td>{{ p_f.middle_name }}</td>
+
 	  <td>{{ p_f.birth_date }}</td>
 	  <td><input type="submit" value="Изменить"></td>
-	  <td></td>
+	  <td>
+	    {{ p_f.persona_flag }}
+	    {{ p_f.persona_id }}
+	    {{ p_f.me }}
+	  </td>
 	</tr>
       </form>
       {% endif %}
@@ -45,7 +53,12 @@
 	  <td>{{ p_f.middle_name }}</td>
 	  <td>{{ p_f.birth_date }}</td>
 	  <td><input type="submit" value="Изменить"></td>
-	  <td><input type="submit" value="Удалить"></td>
+	  <td>
+	    <input type="submit" value="Удалить">
+	    {{ p_f.persona_flag }}
+	    {{ p_f.persona_id }}
+	    {{ p_f.me }}
+	  </td>
 	</tr>
       </form>
       {% endif %}
@@ -57,7 +70,9 @@
 	  <td>{{ p_f.middle_name }}</td>
 	  <td>{{ p_f.birth_date }}</td>
 	  <td><input type="submit" value="Добавить"></td>
-	  <td></td>
+	  <td>
+	    {{ p_f.persona_flag }}
+	  </td>
 	</tr>
       </form>
       {% endif %}

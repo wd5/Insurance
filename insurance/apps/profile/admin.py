@@ -221,7 +221,7 @@ admin.site.register(User, CustomUserAdmin)
 admin.site.register(UserProfile, ProfileAdmin)
 
 class PersonaAdmin(admin.ModelAdmin):
-    list_display   = ('last_name','first_name','middle_name','birth_date','me')
+    list_display   = ('id','last_name','first_name','middle_name','birth_date','me')
 
 admin.site.register(Persona, PersonaAdmin)
 
