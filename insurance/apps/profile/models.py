@@ -57,7 +57,7 @@ class Persona(models.Model):
     me = models.BooleanField(default=False)
 
     def __unicode__(self):
-        return u'%s %s' % (self.id,self.name)
+        return u'%s %s' % (self.id,self.first_name)
     
     class Meta:
         verbose_name = "Персона"
@@ -67,7 +67,7 @@ class Persona(models.Model):
 @receiver(post_save,sender=UserProfile)
 def add_persona_himself(sender, **kwargs):
     """
-    ДОбавить при регистрации персону - самого себя
+    Добавить при регистрации персону - самого себя
     """
     user_profile = kwargs["instance"]
     user = user_profile.user

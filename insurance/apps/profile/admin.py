@@ -16,7 +16,7 @@ from django.utils.decorators import method_decorator
 
 from profile.forms import AdminUserBlockForm
 from profile.forms import AdminUserMessageConfirmForm
-from profile.models import UserProfile
+from profile.models import UserProfile,Persona
 
 csrf_protect_m = method_decorator(csrf_protect)
 
@@ -199,13 +199,12 @@ class CustomUserAdmin(UserAdmin):
         messages.success(request, msg)
         return HttpResponseRedirect('..')
 
-
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('last_name', 'first_name', 'middle_name',
                     'u_email', 'last_ip', 'city', 'reason_blocked', 'u_is_active')
     list_display_links = ('u_email','last_name', 'first_name', 'middle_name')
     readonly_fields = ('last_ip', 'city', 'reason_blocked')
-
+    
     # ===== User field getters =====
 
     def u_email(self, profile):
@@ -220,3 +219,9 @@ class ProfileAdmin(admin.ModelAdmin):
 admin.site.unregister(User) 
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(UserProfile, ProfileAdmin)
+
+class PersonaAdmin(admin.ModelAdmin):
+    list_display   = ('last_name','first_name','middle_name','birth_date','me')
+
+admin.site.register(Persona, PersonaAdmin)
+

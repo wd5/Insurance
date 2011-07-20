@@ -2,8 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 
-from profile.forms import ProfileForm
-from profile.models import UserProfile
+from profile.forms import ProfileForm, PersonaForm
+from profile.models import UserProfile,Persona
 from calc.models import InsurancePolicy
 
 from django.views.generic.list_detail import object_list
@@ -12,8 +12,19 @@ from django.views.generic.list_detail import object_list
 
 @login_required
 def profile(request):
+    print "========================================"
     user = request.user
     profile, _ = UserProfile.objects.get_or_create(user=user)
+
+    persona_me = Persona.objects.get(user=user,me=True)
+    persona = Persona.objects.filter(user = user,me=False)
+
+    persona_forms = []
+    persona_forms.append(PersonaForm(instance=persona_me))
+    for p in persona:
+        persona_forms.append(PersonaForm(instance=p))
+
+    persona_forms.append(PersonaForm())
 
     saved=False
     if request.method == 'POST': 
@@ -26,7 +37,10 @@ def profile(request):
 
     return render_to_response('profile/userprofile_edit.html', {
         'profile_form': profile_form,
-        'saved': saved
+        'saved': saved,
+        'persona':persona,
+        'persona_me':persona_me,
+        'persona_forms':persona_forms,
     }, context_instance=RequestContext(request))
 
 

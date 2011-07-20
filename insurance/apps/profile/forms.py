@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.forms import ModelForm
 from django import forms
+from django.forms.extras.widgets import SelectDateWidget
 
-from profile.models import UserProfile
+from profile.models import UserProfile,Persona
 
 
 
@@ -31,3 +32,13 @@ class AdminUserBlockForm(ModelForm):
 class AdminUserMessageConfirmForm(forms.Form):
     subject = forms.CharField(label=u"Тема", min_length=10, max_length=100)
     message = forms.CharField(label=u"Уведомление", min_length=10, max_length=400, widget=forms.Textarea())
+
+class PersonaForm(ModelForm):
+    class Meta:
+        model = Persona
+        fields = ('last_name','first_name','middle_name','birth_date','me')
+        widgets = {
+            'birth_date': SelectDateWidget(),
+        }
+
+
