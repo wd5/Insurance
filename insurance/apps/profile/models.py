@@ -51,8 +51,8 @@ def save_ip(user, **kwargs):
 class Persona(models.Model):
     user = models.ForeignKey(User)
     last_name = models.CharField(verbose_name='Фамилия', max_length=30)
-    first_name = models.CharField(verbose_name='Имя', max_length=30)
-    middle_name = models.CharField(verbose_name='Отчество', max_length=30)
+    first_name = models.CharField(verbose_name='Имя', max_length=30,blank='True')
+    middle_name = models.CharField(verbose_name='Отчество', max_length=30,blank='True')
     birth_date = models.DateField(blank=True,null='True')
     me = models.BooleanField(default=False)
 
