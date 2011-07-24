@@ -37,7 +37,6 @@ def save_ip(user, **kwargs):
     if 'HTTP_X_FORWARDED_FOR' in request.META:
         # TODO: find out how this works with Apache/nginx
         ip = request.META['HTTP_X_FORWARDED_FOR']
-        print ">>>>>>>>>>", ip
     else:
         ip = request.META['REMOTE_ADDR']
     profile, _ = UserProfile.objects.get_or_create(user=user)
@@ -51,9 +50,9 @@ def save_ip(user, **kwargs):
 class Persona(models.Model):
     user = models.ForeignKey(User)
     last_name = models.CharField(verbose_name='Фамилия', max_length=30)
-    first_name = models.CharField(verbose_name='Имя', max_length=30,blank='True')
-    middle_name = models.CharField(verbose_name='Отчество', max_length=30,blank='True')
-    birth_date = models.DateField(blank=True,null='True')
+    first_name = models.CharField(verbose_name='Имя', max_length=30,blank=True)
+    middle_name = models.CharField(verbose_name='Отчество', max_length=30,blank=True)
+    birth_date = models.DateField(blank=True, null=True)
     me = models.BooleanField(default=False)
 
     def __unicode__(self):
