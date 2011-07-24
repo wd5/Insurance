@@ -1,0 +1,44 @@
+{% extends "profile/userprofile_base.html" %}
+
+{% block inner_content %}
+
+{% block policy_navigation %}
+<div id="policy-navigation">
+  <ul>
+    {% for type_id, type_name in policy_types.items %}
+    <li><a href="{% url userprofile_policylist_type type_id %}">{{ type_name }}</a></li>
+    {% if not forloop.last  %}
+    <li class="separator"> | </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
+
+{% block policy_content %}
+
+<br/>
+{% for policy in policy_list %}
+<p> Дата покупки | Дата окочания | Платежи | Текущий статус</p>
+<p>{{ policy.buy_date }}|{{ policy.end_date }}|{{ policy.payment }}|{{ policy.state }}</p>
+<p>Действия:
+  <a href="{% url userprofile_policy_detail policy.id%}">Посмотреть</a>
+  |
+  {% ifequal policy.state "process"%}
+  <a href="{% url userprofile_policy_edit policy.id%}">Редактировать</a>
+  |
+  {% endifequal %}
+  {% ifequal policy.state "process"%}
+  <a href="{% url userprofile_policy_delete policy.id%}">Удалить</a>
+  | 
+  {% endifequal %}
+  Печать
+</p>
+<br/>
+{% empty %}
+Полисов пока нет.
+{% endfor %}
+
+{% endblock %}
+
+{% endblock %}
