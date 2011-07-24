@@ -1,5 +1,84 @@
 {% extends "base.html" %}
 
+
 {% block content %}
-Добро пожаловать на directif.ru!
+	<!-- Контент -->
+	<div class="content_home">
+		<div id="phoneCarousel">
+			<div class="previous arrow"></div>
+			<div class="next arrow"></div>
+			
+			<div id="stage">
+				<a href="#"><img id="iphone" class="default" src="{{ STATIC_URL }}/images/scroll/scroll_img_1.png" width="229" height="302"/></a>
+				<a href="#"><img id="nexus" src="{{ STATIC_URL }}/images/scroll/scroll_img_2.png" width="229" height="302" /></a>
+				<a href="#"><img id="nokia" src="{{ STATIC_URL }}/images/scroll/scroll_img_3.png"  width="229" height="302" /></a>
+			</div>
+		</div>
+		<script type="text/javascript" src="{{ STATIC_URL }}/js/carousel.js"></script>
+		<div class="tabs">
+			<img src="{{ STATIC_URL }}/images/tabs.jpg" alt="" />
+		</div>
+	</div>
+	
+	<div class="benefits">
+		<div class="header_benefits">
+			<span>Н</span>АШИ ПРЕИМУЩЕСТВА >>
+		</div>
+		<div class="benefits_link">
+			<a href="#">Большая</a>
+			<a href="#">Надежная</a>
+			<a href="#">Инновационная</a>
+			<a href="#">Сервисная</a>
+			<a href="#">Ответственная</a>
+			<a href="#">Больше чем просто страховая компания</a>
+		</div>
+	</div>
+	<div class="button_box">
+		<div class="button_link"><a href="#"><img src="{{ STATIC_URL }}/images/button_1.jpg" alt="" /></a></div>
+		<div class="button_link"><a href="#"><img src="{{ STATIC_URL }}/images/button_2.jpg" alt="" /></a></div>
+		<div class="button_link"><a href="#"><img src="{{ STATIC_URL }}/images/button_3.jpg" alt="" /></a></div>
+		<div class="button_link"><a href="#"><img src="{{ STATIC_URL }}/images/button_4.jpg" alt="" /></a></div>
+		<div class="button_link"><a href="#"><img src="{{ STATIC_URL }}/images/button_5.jpg" alt="" /></a></div>
+		<div class="button_link"><a href="#"><img src="{{ STATIC_URL }}/images/button_6.jpg" alt="" /></a></div>
+		
+	</div>
+	<div class="tabs_footer">
+		<ul class="tabs_footer_link">
+			<li class="active"><a href="#">Прочее</a></li>
+			<li><a href="#">Новости</a></li>
+			<li><a href="#">Анонсы</a></li>
+		</ul>
+		<div class="tabs_footer_cont">
+			<div class="tabs_footer_cont_left">
+				<div class="tabs_footer_cont_img">
+					<img src="{{ STATIC_URL }}/images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					  
+					<a href="#">Наш сайт,как и все, что делает наша страховая</a> компания 
+создан для вас,наших уважаемых клиентов!
+Здесь вы сможете легко рассчитывать стоимость и заказать 
+полис для всех видов страхования авто,недвижимости...
+					<a href="#" class="pointer"><img src="{{ STATIC_URL }}/images/pointer.png" alt="" /></a>
+					 
+				</div>
+			</div>
+			<div class="tabs_footer_cont_right">
+				<div class="tabs_footer_cont_img">
+					<img src="{{ STATIC_URL }}/images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					
+					<a href="#">Страхование</a>: особый вид экономических отношений, 
+призванный обеспечить страховую защиту людей и 
+их дел от различного рода опасностей...
+					<a href="#" class="pointer"><img src="{{ STATIC_URL }}/images/pointer.png" alt="" /></a>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Конец контент -->
+
+
 {% endblock %}

@@ -1,0 +1,199 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+margin: 0;
+padding: 0;
+border: 0;
+outline: 0;
+font-size: 100%;
+vertical-align: baseline;
+background: transparent;
+}
+
+
+
+html           {height:100%;}
+
+body           {font-family:Arial, Helvetica, sans-serif; margin:0 auto;
+	            font-size:13px; color:#1d428e; position:relative; margin:0 auto; min-height:100%; height:auto !important; height:100%;
+	            z-index:0; width:100%; width:1000px;}
+
+a              {text-decoration:underline}
+a:hover        {text-decoration:none}
+
+
+/*---------------------
+	header
+---------------------*/
+.head	{height:145px;}
+	.logo	{padding:10px 0 0 30px; float:left;}
+	.navi	{float:right; padding:24px 146px 0 0;}	
+		.navi li	{list-style:none; float:left; padding:0 0 0 9px;}
+
+
+/*---------------------
+	content
+----------------------*/
+.content_home	{height:356px;}
+	.flash	{float:left; width:535px; padding:0 0 0 18px;}
+	.tabs	{float:right; padding:0 26px 0 0;}
+	
+.benefits	{padding:0 0 22px 0; overflow:hidden;}
+	.header_benefits	{font-size:18px; color:#472313; font-weight:bold; width:394px; float:left; text-align:center;}
+		.header_benefits span	{color:#e65a02;}
+	.benefits_link	{float:left; width:590px;}
+		.benefits_link a	{padding:2px 0 4px 25px; background:url(../images/plus.jpg) 0 0 no-repeat; margin:0 16px 0 0; color:#472313; font-size:14px; text-decoration:none; line-height:30px;}
+		.benefits_link a:hover	{text-decoration:underline;}
+		
+.tabs_footer	{padding:0 0 0 25px;}
+	.tabs_footer_link	{overflow:hidden; padding:0 30px 0 10px; float:left;}
+		.tabs_footer_link li	{float:left; list-style:none;}
+			.tabs_footer_link a	{display:block; width:169px; height:28px; text-align:center; text-decoration:none; color:#fff; font-size:18px; padding:15px 0 0 0; background:url(../images/tabs_link.png) 0 0 no-repeat; margin-right:-15px; position:relative;}
+			.tabs_footer_link a:hover	{background:url(../images/tabs_link_active.png) 0 0 no-repeat; z-index:10;}
+			.tabs_footer_link .active a	{background:url(../images/tabs_link_active.png) 0 0 no-repeat; z-index:10;}
+	.tabs_footer_cont	{background:url(../images/tabs_footer_bg.jpg) 0 -5px no-repeat; width:966px; margin:0 -11px 0 -10px; height:143px; clear:both;}
+		.tabs_footer_cont_left	{float:left; padding:10px 0 0 39px;}
+			.tabs_footer_cont_img	{background:url(../images/ramka.jpg) 0 0 no-repeat; width:109px; height:112px; float:left; text-align:center; padding:4px 0 0 0;}
+				.tabs_footer_cont_img img	{max-width:109px; max-height:112px;}
+			.tabs_footer_cont_text	{float:left; padding:0 0 0 12px; line-height:26px; font-size:11px; color:#472313; width:313px; position:relative;}
+				.tabs_footer_cont_text a	{color:#472313;}
+				.pointer	{position:absolute; right:0; margin-top:5px;}
+		.tabs_footer_cont_right	{float:right; padding:10px 43px 0 0;}
+			.tabs_footer_cont_right .tabs_footer_cont_text	{width:298px;}
+			
+		.baner_left	{float:left; width:285px;}
+		.calk_form	{float:right; width:902px;}
+			.calk_tabs_link	{overflow:hidden; padding:0 30px 0 15px; float:left; height:43px;}
+				.calk_tabs_link li	{float:left; list-style:none;}
+					.calk_tabs_link a	{display:block; width:126px; height:28px; text-align:center; text-decoration:none; color:#fff; font-size:18px; padding:15px 0 0 0; background:url(../images/tabs_link2.png) 0 0 no-repeat; margin-right:-15px; position:relative;}
+					.calk_tabs_link a:hover	{background:url(../images/tabs_link2_active.png) 0 0 no-repeat; z-index:10;}
+					.calk_tabs_link a.selected	{background:url(../images/tabs_link2_active.png) 0 0 no-repeat; z-index:10;}
+			.calk_content	{background:url(../images/calk_content.jpg) 0 0 no-repeat; width:902px; height:527px; clear:both; overflow:hidden;}
+				.select_style	{padding:28px 0 0 67px;}
+				.cuselText	{background:url(../images/select.jpg) 0 0 no-repeat; width:769px; height:43px; font-size:30px; color:#b9a49c; padding:7px 0 0 10px;}
+					.cusel-scroll-wrap	{border:1px solid #734834; padding:10px; margin:0 0 0 7px; width:745px; position:absolute; background:#fff;}
+					#cusel-scroll-country span	{display:block; font-size:20px; color:#b9a49c; cursor:pointer;}
+					.jScrollPaneContainer	{position:relative; overflow:hidden;}
+					.jScrollPaneTrack	{background:#501c07; position:absolute; right:30px;}
+					.jScrollPaneDrag	{background:#e65a02; position:absolute; margin:0 -10px; width:30px !important;}
+				.search_box	{background:url(../images/search_box.jpg) 0 0 no-repeat; width:787px; height:367px; margin:0 0 0 63px;}
+					.link_search_table	{width:716px; margin:4px 0 0 30px;}
+						.link_search_table th	{padding:0 31px 20px 0; text-align:left; font-weight:normal; color:#fff; font-size:12px;}
+						.link_search_table td	{font-size:12px; color:#fff; vertical-align:top; padding:0 0 10px 0;}
+							.link_search_table td a	{color:#fff; text-decoration:none; margin:0 10px 0 0;}
+							.link_search_table td a:hover	{text-decoration:underline;}
+				.assume	{text-align:right; padding:28px 50px 40px 0;}
+		.button_box	{overflow:hidden; padding:0 0 27px 0;}
+			.button_link	{float:left; padding:0 16px;}
+
+/*-------------------
+	footer
+-------------------*/
+
+.footer        {height:73px; padding:20px 24px 0 0; clear:both;}
+	.copy	{float:left; width:375px; padding:0 0 0 20px;}
+	.baner_footer	{float:left; width:136px; padding:0 21px 0 0; font-size:10px; color:#472313;}
+		.baner_footer a	{color:#e65a02;}
+	.contacts_button	{float:right;}
+	
+	
+	
+/*---------------------------*/
+#logoh1{ margin:40px 0 0;}
+
+#page{
+	/* This the main container div */
+	width:1000px;
+	min-height:700px;
+	margin:0 auto;
+	background:url('img/bokeh.jpg') no-repeat 0 120px;
+	position:relative;
+	padding-top:1px;
+}
+
+#phoneCarousel{
+	height:390px;
+	position:relative;
+	width:539px;
+	float:left;
+}
+
+
+#phoneCarousel .arrow{
+	position:absolute;
+	top:25px;
+	left:0;
+	cursor:pointer;
+	width:137px;
+	height:181px;
+	z-index:50;
+}
+
+#phoneCarousel .next{
+	left:auto;
+	top:25px;
+	right:0;
+	width:137px;
+	height:181px;
+	z-index:50;
+}
+
+
+#logo{
+	background:url('img/logo.png') no-repeat;
+	height:40px;
+	text-indent:-9999px;
+	width:210px;
+	display:block;
+}
+
+#stage{
+	position:relative;
+	width:536px;
+	height:100%;
+	z-index:10;
+}
+
+#stage img{
+	/* Hiding all the images by default */
+	display:none;
+}
+
+#stage .default{
+	/*	This class is applied only to the iphone img by default
+		and it is the only one visible if JS is disabled */
+	display:block;
+	left:50%;
+	margin-left:-135px;
+	position:absolute;
+}
+
+#stage .animationReady{
+	/* This class is assigned to the images on load */
+	display:block;
+	position:absolute;
+	top:0;
+	left:0;
+}
+
+.text{	margin-top:70px;width:700px;}
+
+.text p,
+.text h3{
+	padding-bottom:15px;
+	line-height:1.4;
+	text-align:justify;
+}
+
+.text h3{	font-size:30px;}
+.text p{	font-size:20px;}
+
+.thumb{	float:left;margin-right:40px;}
+
+.availableAppStore{float:right;}

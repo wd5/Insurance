@@ -1,62 +1,81 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     {% block title %}
-    <title>Проект Insurance, предварительный набросок верстки для
-    разработчиков</title>
+    <title>Directif - Сравнить и купить дешевый страховой полис быстро и удобно</title>
     {% endblock %} <!-- title -->
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/main.css" type="text/css"/>
+    
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.6.1.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/cusel.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css"/> 
   </head>
   <body>
-    <div class="header">
-      <div id="logo"><a href="{% url home %}">Directif.ru</a></div>
-      <div id="navigation">
-        {% block navigation %}
-        <ul>
-          {% if user.is_anonymous %}
-          <li>
-            <a href="{% url registration_register %}" >Зарегистрироваться</a>
-          </li>
-          <li class="separator">|</li>
-          <li>
-            <a href="{% url auth_login %}">Войти</a>
-          </li>
-          <li class="separator">|</li>
-          <li>
-            <a href="{% url auth_password_reset %}">Забыли пароль?</a>
-          </li>
-          {% else %}
-          <li>
-            <a href="{% url userprofile_edit %}">Мой кабинет</a>&nbsp
-          </li>
-          <li>
-            <a href="{% url auth_logout %}">Выйти</a>&nbsp
-          </li>
-          <li>
-            <a href="{% url auth_password_change %}">Сменить пароль</a>
-          </li>
-          {% endif %}
-          
-        </ul>
+  
+  
+  
+  
+  
+  
+  
+<div class="body">
+	<!-- Шапка-->
+	<div class="head">
+		<div class="logo">
+			<a href="{% url home %}"><img src="{{ STATIC_URL }}/images/logo.gif" alt="" /></a>
+		</div>
+		
+		{% block navigation %}     
+		  <ul class="navi">
+	          {% if user.is_anonymous %}
+				<li><a href="{% url registration_register %}"><img src="{{ STATIC_URL }}images/ico_1.jpg" alt="Зарегистрироваться" /></a></li>
+				<li><a href="{% url auth_login %}"><img src="{{ STATIC_URL }}images/ico_2.jpg" alt="Войти" /></a></li>
+				<li><a href="{% url auth_password_reset %}">Забыли пароль?</a></li>
+		      {% else %}
+				<li><a href="{% url auth_logout %}"><img src="{{ STATIC_URL }}images/ico_2.jpg" alt="Выйти" /></a></li>
+				<li><a href="{% url userprofile_edit %}"><img src="{{ STATIC_URL }}images/ico_3.jpg" alt="Мой кабинет" /></a></li>
+				<!-- <li><a href="{% url auth_password_change %}">Сменить пароль</a></li>  -->
+	          {% endif %}
+          </ul>
         {% endblock %}
-      </div>
-    </div>
-    
-    <div id="site-menu">
-      {% block site_menu %}
+	</div>
+	<!-- Конец шапки -->
+	
+	{% block content %}
+	
+
+	{% endblock%}
+
+
+	<!-- Подвал  -->
+	<div class="footer">
+		<div class="copy">
+			<a href="/fp/about/">
+				<img src="{{ STATIC_URL }}/images/copy.jpg" alt="" />
+			</a>
+		</div>
+		<div class="baner_footer">
+			Все жалобы и предложения<br />
+принимаются по адресу:<br />
+<a href="mailto:info@directif.ru">info@derectif.ru</a>
+		</div>
+		
+		<div class="baner_footer">
+			 {% block site_menu %}
       <ul>
 	<li><a href="/fp/faq/">FAQ</a></li>
 	<li><a href="/fp/about/">О компании</a></li>
 	<li><a href="/fp/license_agreement/">Лицензионнное соглашение</a></li>
       </ul>
-      {% endblock %} <!-- site_menu -->
-    </div>
-
-    <div class="content">
-      {% block content %}
-      {% endblock%}
-    </div>
+      {% endblock %}
+		</div>
+		<div class="contacts_button">
+			<a href="/fp/contacts/"><img src="{{ STATIC_URL }}/images/contacts_button.jpg" alt="" /></a>
+		</div>
+	</div>
+	<!-- Конец подвал  --> 
+</div>
+  
   </body>
 </html>
