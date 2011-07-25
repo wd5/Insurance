@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
-from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
-from django.dispatch import receiver
+from django.core.validators import MaxValueValidator
+from django.core.validators import MinValueValidator
+from django.db import models
 from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 from django_ipgeobase.models import IPGeoBase
 
@@ -12,18 +14,16 @@ from django_ipgeobase.models import IPGeoBase
 class UserProfile(models.Model):
     user = models.ForeignKey(User, verbose_name='Пользователь', unique=True)
 
-    # Personal - got to do this, as you can't really change the User model
+    # == ФИО ==
     last_name = models.CharField(verbose_name='Фамилия', max_length=30)
     first_name = models.CharField(verbose_name='Имя', max_length=30)
     middle_name = models.CharField(verbose_name='Отчество', max_length=30)
 
-    # Arbitrary fields as a mockup
-    address = models.TextField(verbose_name='Адрес пользователя', max_length=200, blank=True)
-    phone = models.CharField(verbose_name='Телефонный номер', max_length=14, blank=True)   # TODO: phone number validation
-
-    # Geolocation-related
+    # == Геолокация ==
     last_ip = models.CharField(verbose_name='Последний IP-адрес', max_length=15, null=True)
     city = models.CharField(verbose_name='Город по геолокации', max_length=100, null=True)
+
+    # == Другое ==
     reason_blocked = models.CharField(verbose_name='Причина блокировки', max_length=100, null=True)
 
     class Meta:
@@ -49,10 +49,27 @@ def save_ip(user, **kwargs):
 
 class Persona(models.Model):
     user = models.ForeignKey(User)
+
+    # == Адрес/контакты ==
+
+    # TODO: Список городов брать из БД Вигена!
+    city_id = models.IntegerField(verbose_name='Город', null=False, blank=False)
+    address = models.TextField(verbose_name='Адрес', max_length=200, null=False, blank=False)
+    phone = models.CharField(verbose_name='Телефонный номер', max_length=14, blank=True)   # TODO: phone number validation
+
+    # == Фио ==
     last_name = models.CharField(verbose_name='Фамилия', max_length=30)
     first_name = models.CharField(verbose_name='Имя', max_length=30,blank=True)
     middle_name = models.CharField(verbose_name='Отчество', max_length=30,blank=True)
-    birth_date = models.DateField(blank=True, null=True)
+
+    # == Другое ==
+    birth_date = models.DateField(blank=True, null=True,
+                    validators=[MinValueValidator(18), MaxValueValidator(80)])
+    additional_contacts = models.TextField(verbose_name="Дополнительные контакты",
+                                           blank=True, null=True)
+    comment = models.TextField(verbose_name="Комментарии", blank=True, null=True)
+
+    # == Бизнес-логика ==
     me = models.BooleanField(default=False)
 
     def __unicode__(self):
