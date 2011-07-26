@@ -1,7 +1,7 @@
 {% extends "profile/userprofile_base.html" %}
 
 {% block inner_content %}
-<div id="notification_notices">
+<div id="ins_notification_inbox">
   <h3>Мои уведомления</h3>
   <table width="" cellspacing="" cellpadding="" border="">
     <tr>
@@ -14,7 +14,7 @@
 
 	<tr>
 	  <td>{{ notice.sender }}</td>
-	  <td>{{ notice.subject }}</td>
+	  <td>{{ notice.sub }}</td>
 	  <td>{{ notice.sent_at }}</td>
 	  <td></td>
 	</tr>
