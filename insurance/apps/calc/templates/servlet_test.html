@@ -1,4 +1,7 @@
+{% extends "base.html" %}
 
+
+{% block content %}
 <div  id="servlet_test">
   <h1>Проверка сервлета</h1>
 <form action="/calc/servlet_test/" method="post">{% csrf_token %}
@@ -24,5 +27,6 @@
 {% else %}
 {% endif %}
 
+{% endblock %}
 
   

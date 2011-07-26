@@ -29,12 +29,12 @@
 		{% block navigation %}     
 		  <ul class="navi">
 	          {% if user.is_anonymous %}
-				<li><a href="{% url registration_register %}"><img src="{{ STATIC_URL }}images/ico_1.jpg" alt="Зарегистрироваться" /></a></li>
+				<li><a href="{% url calc_page %}"><img src="{{ STATIC_URL }}images/ico_3.jpg" alt="Калькулятор" /></a></li>
 				<li><a href="{% url auth_login %}"><img src="{{ STATIC_URL }}images/ico_2.jpg" alt="Войти" /></a></li>
-				<li><a href="{% url auth_password_reset %}">Забыли пароль?</a></li>
 		      {% else %}
+		        <li><a href="{% url calc_page %}"><img src="{{ STATIC_URL }}images/ico_3.jpg" alt="Калькулятор" /></a></li>
+				<li><a href="{% url userprofile_edit %}"><img src="{{ STATIC_URL }}images/ico_1.jpg" alt="Мой кабинет" /></a></li>
 				<li><a href="{% url auth_logout %}"><img src="{{ STATIC_URL }}images/ico_2.jpg" alt="Выйти" /></a></li>
-				<li><a href="{% url userprofile_edit %}"><img src="{{ STATIC_URL }}images/ico_3.jpg" alt="Мой кабинет" /></a></li>
 				<!-- <li><a href="{% url auth_password_change %}">Сменить пароль</a></li>  -->
 	          {% endif %}
           </ul>
