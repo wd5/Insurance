@@ -22,82 +22,43 @@
       <th>Дата рождения</th>
       <th></th>
       <th></th>
-    {% for p_f in persona_forms %}
-      {% if forloop.first %}
-      <form method="post" id="" action="">{% csrf_token %}
 	<tr>
 	  <td>
-	    <input id="id_last_name" type="text" maxlength="30" 
-		   value="{{ p_f.last_name.value }}" 
-		   name="last_name"  readonly="readonly">
+            {{ persona_me.last_name }}
 	  </td>
 	  <td>
-	    <input id="id_first_name" type="text" maxlength="30" 
-		   value="{{ p_f.first_name.value }}" 
-		   name="first_name"  readonly="readonly">
+            {{ persona_me.middle_name }}
 	  </td>
 	  <td>
-	    <input id="id_middle_name" type="text" maxlength="30" 
-		   value="{{ p_f.middle_name.value }}" 
-		   name="middle_name"  readonly="readonly">
+            {{ persona_me.last_name }}
 	  </td>
-	  <td>{{ p_f.birth_date }}</td>
-	  <td><input type="submit" value="Изменить"></td>
 	  <td>
-	    {{ p_f.persona_flag }}
-	    {{ p_f.persona_id }}
-	    {{ p_f.me }}
-	  </td>
+            {{ persona_me.birth_date }}
+          </td>
+	  <td></a></td>
+	  <td><a href="#">Изменить</a></td>
 	</tr>
-      </form>
-      {% endif %}
-      {% if not forloop.first and not forloop.last %}
+    {% for persona in personas %}
 	<tr>
-	    <td>
-	      <form method="post" id="" action="">{% csrf_token %}
-	      {{ p_f.last_name }}
-	    </td>
-	    <td>{{ p_f.first_name }}</td>
-	    <td>{{ p_f.middle_name }}</td>
-	    <td>{{ p_f.birth_date }}</td>
-	    <td>
-	      <input type="submit" value="Изменить">
-	      {{ p_f.persona_flag }}
-	      {{ p_f.persona_id }}
-	      {{ p_f.me }}
-	  </form>
+	  <td>
+            {{ p.last_name }}
 	  </td>
 	  <td>
-	    <form method="POST" id="" action="">{% csrf_token %}
-	      {{ p_f.persona_id }}
-	      <input type="hidden" name="delete_flag" value="True">
-	      <input type="hidden" name="action_type" value="ask">
-	      <input type="submit" value="Удалить">
-	    </form>
+            {{ p.middle_name }}
 	  </td>
-	</tr>
-      {% endif %}
-      {% if forloop.last %}
-      <form method="post" id="" action="">{% csrf_token %}
-	<tr>
-	  <td>{{ p_f.last_name }}</td>
-	  <td>{{ p_f.first_name }}</td>
-	  <td>{{ p_f.middle_name }}</td>
-	  <td>{{ p_f.birth_date }}</td>
-	  <td><input type="submit" value="Добавить"></td>
 	  <td>
-	    {{ p_f.persona_flag }}
+            {{ p.last_name }}
 	  </td>
+	  <td>
+            {{ p.birth_date }}
+          </td>
+	  <td><a href="#">Удалить</a></td>
+	  <td><a href="#">Изменить</a></td>
 	</tr>
-      </form>
-      {% endif %}
-
-
     {% endfor %}
-    
   </table>
 </div>
-{% endblock %} <!-- persona_table -->
+{% endblock %} 
 
 {% endblock %}
 

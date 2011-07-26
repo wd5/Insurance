@@ -12,19 +12,21 @@ from django_ipgeobase.models import IPGeoBase
 
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, verbose_name='Пользователь', unique=True)
+    user = models.ForeignKey(User, verbose_name=u'Пользователь', unique=True)
 
-    # == ФИО ==
-    last_name = models.CharField(verbose_name='Фамилия', max_length=30)
-    first_name = models.CharField(verbose_name='Имя', max_length=30)
-    middle_name = models.CharField(verbose_name='Отчество', max_length=30)
+    # == Личные данные ==
+    last_name = models.CharField(verbose_name=u'Фамилия', max_length=30)
+    first_name = models.CharField(verbose_name=u'Имя', max_length=30)
+    middle_name = models.CharField(verbose_name=u'Отчество', max_length=30)
+
+    birth_date = models.DateField(verbose_name=u'Дата рождения', blank=True, null=True)
 
     # == Геолокация ==
-    last_ip = models.CharField(verbose_name='Последний IP-адрес', max_length=15, null=True)
-    city = models.CharField(verbose_name='Город по геолокации', max_length=100, null=True)
+    last_ip = models.CharField(verbose_name=u'Последний IP-адрес', max_length=15, null=True)
+    city = models.CharField(verbose_name=u'Город по геолокации', max_length=100, null=True)
 
     # == Другое ==
-    reason_blocked = models.CharField(verbose_name='Причина блокировки', max_length=100, null=True)
+    reason_blocked = models.CharField(verbose_name=u'Причина блокировки', max_length=100, null=True)
 
     class Meta:
         verbose_name = u"Профиль пользователя"
@@ -52,21 +54,20 @@ class Persona(models.Model):
 
     # == Адрес/контакты ==
     # TODO: Список городов брать из БД Вигена!
-    city_id = models.IntegerField(verbose_name='Город', null=True, blank=True)
-    address = models.TextField(verbose_name='Адрес', max_length=200, null=True, blank=True)
-    phone = models.CharField(verbose_name='Телефонный номер', max_length=14, blank=True)   # TODO: phone number validation
+    city_id = models.IntegerField(verbose_name=u'Город', null=True, blank=True)
+    address = models.TextField(verbose_name=u'Адрес', max_length=200, null=True, blank=True)
+    phone = models.CharField(verbose_name=u'Телефонный номер', max_length=14, blank=True)   # TODO: phone number validation
 
     # == Фио ==
-    last_name = models.CharField(verbose_name='Фамилия', max_length=30)
-    first_name = models.CharField(verbose_name='Имя', max_length=30)
-    middle_name = models.CharField(verbose_name='Отчество', max_length=30)
+    last_name = models.CharField(verbose_name=u'Фамилия', max_length=30)
+    first_name = models.CharField(verbose_name=u'Имя', max_length=30)
+    middle_name = models.CharField(verbose_name=u'Отчество', max_length=30)
 
     # == Другое ==
-    birth_date = models.DateField(blank=True, null=True,
-                    validators=[MinValueValidator(18), MaxValueValidator(80)])
-    additional_contacts = models.TextField(verbose_name="Дополнительные контакты",
+    birth_date = models.DateField(verbose_name=u"", blank=True, null=True)
+    additional_contacts = models.TextField(verbose_name=u"Дополнительные контакты",
                                            blank=True, null=True)
-    comment = models.TextField(verbose_name="Комментарии", blank=True, null=True)
+    comment = models.TextField(verbose_name=u"Комментарии", blank=True, null=True)
 
     # == Бизнес-логика ==
     me = models.BooleanField(default=False)
@@ -93,5 +94,6 @@ def add_persona_himself(sender, **kwargs):
     user_persona.first_name = user_profile.first_name
     user_persona.last_name = user_profile.last_name
     user_persona.middle_name = user_profile.middle_name
+    user_persona.birth_date = user_profile.birth_date
     user_persona.me = True
     user_persona.save()

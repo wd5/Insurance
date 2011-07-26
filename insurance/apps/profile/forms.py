@@ -8,10 +8,17 @@ from profile.models import UserProfile,Persona
 
 
 
+# Get list for SelectDateWidget()
+year = datetime.datetime.now().year
+years_list = range(year-100,year)
+
 class ProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('last_name', 'first_name', 'middle_name')
+        fields = ('last_name', 'first_name', 'middle_name', 'birth_date')
+        widgets = {
+            'birth_date': SelectDateWidget(years=years_list),
+        }
 
 class AdminUserBlockForm(ModelForm):
     reason_blocked = forms.CharField(widget=forms.TextInput(attrs={'size':'100', 'required':True}))
@@ -34,12 +41,8 @@ class AdminUserMessageConfirmForm(forms.Form):
     subject = forms.CharField(label=u"Тема", min_length=10, max_length=100)
     message = forms.CharField(label=u"Уведомление", min_length=10, max_length=400, widget=forms.Textarea())
 
-# Get list for SelectDateWidget()
-year = datetime.datetime.now().year
-years_list = range(year-100,year)
-
 class PersonaForm(ModelForm):
-    
+
     def __init__(self,*args,**kwargs):
         super(PersonaForm,self).__init__(*args,**kwargs)
         self.fields['persona_flag'] = forms.BooleanField(initial=True,
