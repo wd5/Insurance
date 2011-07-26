@@ -54,6 +54,8 @@ ROOT_URLCONF = 'insurance.urls'
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates'),
     os.path.join(PROJECT_PATH, 'apps','calc','templates'),
+    os.path.join(PROJECT_PATH, 'apps','notification','templates'),
+    os.path.join(PROJECT_PATH, 'apps','ins_notification','templates'),
 )
 
 INSTALLED_APPS = (
@@ -71,11 +73,13 @@ INSTALLED_APPS = (
     'registration',
     'django_ipgeobase',
     'django_messages',
+    'notification',
 
     # Projects apps 
     'profile', # user profile file and private cabinet
     'calc',     # insurance policy related fields
     'ins_flatpages',                 # Reconfiguration of 'django.contrib.flatpages'
+    'ins_notification'               # Notifications system for this site
     )
 
 FIXTURE_DIRS = (

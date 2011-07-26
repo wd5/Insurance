@@ -1,0 +1,38 @@
+{% extends "profile/userprofile_base.html" %}
+
+{% block inner_content %}
+<div id="notification_notices">
+  <h3>Мои уведомления</h3>
+  <table width="" cellspacing="" cellpadding="" border="">
+    <tr>
+      <th>Отправитель</th>
+      <th>Тема</th>
+      <th>Получено</th>
+      <th>Действие</th>
+    </tr>
+    {% for notice in notices %}
+
+	<tr>
+	  <td>{{ notice.sender }}</td>
+	  <td>{{ notice.subject }}</td>
+	  <td>{{ notice.sent_at }}</td>
+	  <td></td>
+	</tr>
+	{% endfor %}
+	
+  </table>
+
+  <div id="buttons">
+  <ul>
+    {# <li><a href="{% url notification_user_ask %}">Задать вопрос</a></li> #}
+    <li><a href="#">Задать вопрос</a></li>
+    <li class="separator"> | </li>
+    <li><a href="{% url userprofile_edit %}">Назад</a></li>
+
+  </ul>
+</div>
+    
+  </div>
+
+</div>
+{% endblock %}

@@ -16,9 +16,10 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('email_login.urls')),
     url(r'^profile/', include('profile.urls')),
     url(r'^profile/messages/', include('django_messages.urls')),
+    url(r'^notification/', include('notification.urls')),
     url(r'^calc/', include('calc.urls')),
     url(r'^admin/', include(admin.site.urls)),
-
+                       
 )
 
 if settings.DEBUG:
