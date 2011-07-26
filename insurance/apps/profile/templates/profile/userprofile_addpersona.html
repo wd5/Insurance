@@ -1,0 +1,14 @@
+{% extends "profile/userprofile_base.html" %}
+
+{% block inner_content %}
+<form action="" method="post">{% csrf_token %}
+  <p>Добавить Персону</p>
+  {{ persona_form.as_p }}
+  <input type="submit" value="Сохранить" />
+</form>
+{% if saved %}
+<p>Данные сохранены</p>
+{% endif %}
+
+{% endblock %}
+

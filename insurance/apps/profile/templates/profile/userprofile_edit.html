@@ -27,36 +27,37 @@
             {{ persona_me.last_name }}
 	  </td>
 	  <td>
-            {{ persona_me.middle_name }}
+            {{ persona_me.first_name }}
 	  </td>
 	  <td>
-            {{ persona_me.last_name }}
+            {{ persona_me.middle_name }}
 	  </td>
 	  <td>
             {{ persona_me.birth_date }}
           </td>
-	  <td></a></td>
-	  <td><a href="#">Изменить</a></td>
+	  <td></td>
+	  <td></td>
 	</tr>
     {% for persona in personas %}
 	<tr>
 	  <td>
-            {{ p.last_name }}
+            {{ persona.last_name }}
 	  </td>
 	  <td>
-            {{ p.middle_name }}
+            {{ persona.first_name }}
 	  </td>
 	  <td>
-            {{ p.last_name }}
+            {{ persona.middle_name }}
 	  </td>
 	  <td>
-            {{ p.birth_date }}
+            {{ persona.birth_date }}
           </td>
-	  <td><a href="#">Удалить</a></td>
-	  <td><a href="#">Изменить</a></td>
+	  <td><a href="{% url userprofile_deletepersona persona.id %}">Удалить</a></td>
+	  <td><a href="{% url userprofile_editpersona persona.id %}">Изменить</a></td>
 	</tr>
     {% endfor %}
   </table>
+<a href="{% url userprofile_addpersona %}">Добавить</a>
 </div>
 {% endblock %} 
 

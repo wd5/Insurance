@@ -1,6 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
+from django.shortcuts import get_object_or_404
 from django.template import RequestContext
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
 
 from profile.forms import ProfileForm, PersonaForm
 from profile.models import UserProfile,Persona
@@ -12,46 +15,6 @@ from django.views.generic.list_detail import object_list
 
 @login_required
 def profile(request):
-
-    # # Process delete form
-    # persona_post_flag = False
-    # if request.method == 'POST' and request.POST.has_key('delete_flag'):
-    #     persona_post_flag = True
-    #     if request.POST['action_type'] == 'ask':
-    #         persona_obj = Persona.objects.get(id=request.POST['persona_id'])
-    #         return render_to_response('profile/userprofile_edit_delete_ask.html', {
-    #                 'persona':persona_obj,
-    #                 }, context_instance=RequestContext(request))
-    #     if request.POST['action_type'] == 'delete':
-    #         persona = Persona.objects.get(id=request.POST['persona_id'])
-    #         persona.delete()
-
-    # # Process persona forms
-    # if request.method == 'POST' and request.POST.has_key('persona_flag'):
-    #     persona_post_flag = True
-    #     if request.POST.has_key('persona_id'):
-    #         persona_id = int(request.POST['persona_id'])
-    #         instance = Persona.objects.get(pk=persona_id)
-    #         persona_form = PersonaForm(request.POST,instance=instance)
-    #         if persona_form.is_valid():
-    #             persona_form.save()
-    #     else:
-    #         new = Persona()
-    #         new.first_name = request.POST['first_name']
-    #         new.last_name = request.POST['last_name']
-    #         new.middle_name = request.POST['middle_name']
-    #         new.me = False
-    #         new.user = user
-    #         new.save()
-
-    # persona_forms = []
-    # # For the first row
-    # persona_forms.append(PersonaForm(instance=persona_me))
-    # for p in persona:
-    #     persona_forms.append(PersonaForm(instance=p))
-    # # For the last empty row
-    # persona_forms.append(PersonaForm())
-
     user = request.user
     profile, _ = UserProfile.objects.get_or_create(user=user)
 
@@ -73,6 +36,38 @@ def profile(request):
         'personas': personas,
         'persona_me': persona_me,
     }, context_instance=RequestContext(request))
+
+@login_required
+def edit_persona(request, persona_id=None):
+    user = request.user
+    if persona_id:
+        persona = get_object_or_404(Persona, pk=persona_id)
+        if request.method == 'POST': 
+            persona_form = PersonaForm(request.POST, instance=persona)
+            if persona_form.is_valid():
+                persona_form.save()
+        else:
+            persona_form = PersonaForm(instance=persona)
+    else:
+        if request.method == 'POST': 
+            persona_form = PersonaForm(request.POST)
+            if persona_form.is_valid():
+                persona = persona_form.save(commit=False)
+                persona.user = user
+                persona.save()
+                return HttpResponseRedirect(reverse('userprofile_edit'))
+        else:
+            persona_form = PersonaForm()
+    return render_to_response('profile/userprofile_addpersona.html', {
+        'persona_form': persona_form,
+    }, context_instance=RequestContext(request))
+
+@login_required
+def delete_persona(request, persona_id):
+    # TODO: Removal confirmation 
+    persona = get_object_or_404(Persona, pk=persona_id)
+    persona.delete()
+    return HttpResponseRedirect(reverse('userprofile_edit'))
 
 
 @login_required
