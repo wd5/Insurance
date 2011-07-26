@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var deg=0;
+	var deg=90; /* стартовый угол, был 0 */
 
 	/* Storing all the images into a variable */
 
@@ -36,7 +36,7 @@ $(document).ready(function(){
 			/	will give us the horizontal movement.
 			*/
 			
-			q = (0.6+eSin*0.4);
+			q = (0.6+eSin*0.3);
 			newWidth	= q*dim.width;
 			newHeight	= q*dim.height;
 			
@@ -47,8 +47,8 @@ $(document).ready(function(){
 			*/
 			
 			images.eq(i).css({
-				top			: centerY+15*eSin,
-				left		: centerX+200*eCos,
+				top			: centerY-50*eSin,
+				left		     : centerX+180*eCos,  /* было 100, расстояние между шарами */
 				opacity		: 0.8+eSin*0.2,
 				marginLeft	: -newWidth/2,
 				zIndex		: Math.round(80+eSin*20)
@@ -66,12 +66,12 @@ $(document).ready(function(){
 	// Running the animation once at load time (and moving the iPhone into view):
 	rotate(10,360/cnt);
 	
-	$('#phoneCarousel .previous').click(function(){
+	$('#phoneCarousel .previous').mouseenter(function(){
 		// 360/cnt lets us distribute the phones evenly in a circle
 		rotate(-10,360/cnt);
 	});
 	
-	$('#phoneCarousel .next').click(function(){
+	$('#phoneCarousel .next').mouseenter(function(){
 		rotate(10,360/cnt);
 	});
 });

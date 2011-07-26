@@ -56,7 +56,7 @@ a:hover        {text-decoration:none}
 		.tabs_footer_link li	{float:left; list-style:none;}
 			.tabs_footer_link a	{display:block; width:169px; height:28px; text-align:center; text-decoration:none; color:#fff; font-size:18px; padding:15px 0 0 0; background:url(../images/tabs_link.png) 0 0 no-repeat; margin-right:-15px; position:relative;}
 			.tabs_footer_link a:hover	{background:url(../images/tabs_link_active.png) 0 0 no-repeat; z-index:10;}
-			.tabs_footer_link .active a	{background:url(../images/tabs_link_active.png) 0 0 no-repeat; z-index:10;}
+			.tabs_footer_link a.selected	{background:url(../images/tabs_link_active.png) 0 0 no-repeat; z-index:10;}
 	.tabs_footer_cont	{background:url(../images/tabs_footer_bg.jpg) 0 -5px no-repeat; width:966px; margin:0 -11px 0 -10px; height:143px; clear:both;}
 		.tabs_footer_cont_left	{float:left; padding:10px 0 0 39px;}
 			.tabs_footer_cont_img	{background:url(../images/ramka.jpg) 0 0 no-repeat; width:109px; height:112px; float:left; text-align:center; padding:4px 0 0 0;}
@@ -67,16 +67,16 @@ a:hover        {text-decoration:none}
 		.tabs_footer_cont_right	{float:right; padding:10px 43px 0 0;}
 			.tabs_footer_cont_right .tabs_footer_cont_text	{width:298px;}
 			
-		.baner_left	{float:left; width:285px;}
-		.calk_form	{float:right; width:902px;}
+		.baner_left	{float:left; width:225px;}
+		.calk_form	{float:right; width:702px;}
 			.calk_tabs_link	{overflow:hidden; padding:0 30px 0 15px; float:left; height:43px;}
 				.calk_tabs_link li	{float:left; list-style:none;}
 					.calk_tabs_link a	{display:block; width:126px; height:28px; text-align:center; text-decoration:none; color:#fff; font-size:18px; padding:15px 0 0 0; background:url(../images/tabs_link2.png) 0 0 no-repeat; margin-right:-15px; position:relative;}
 					.calk_tabs_link a:hover	{background:url(../images/tabs_link2_active.png) 0 0 no-repeat; z-index:10;}
 					.calk_tabs_link a.selected	{background:url(../images/tabs_link2_active.png) 0 0 no-repeat; z-index:10;}
-			.calk_content	{background:url(../images/calk_content.jpg) 0 0 no-repeat; width:902px; height:527px; clear:both; overflow:hidden;}
+			.calk_content	{background:url(../images/calk_content.jpg) 0 0 no-repeat; width:702px; height:527px; clear:both; overflow:hidden;}
 				.select_style	{padding:28px 0 0 67px;}
-				.cuselText	{background:url(../images/select.jpg) 0 0 no-repeat; width:769px; height:43px; font-size:30px; color:#b9a49c; padding:7px 0 0 10px;}
+				.cuselText	{background:url(../images/select.jpg) 0 0 no-repeat; width:579px; height:43px; font-size:30px; color:#b9a49c; padding:7px 0 0 10px;}
 					.cusel-scroll-wrap	{border:1px solid #734834; padding:10px; margin:0 0 0 7px; width:745px; position:absolute; background:#fff;}
 					#cusel-scroll-country span	{display:block; font-size:20px; color:#b9a49c; cursor:pointer;}
 					.jScrollPaneContainer	{position:relative; overflow:hidden;}
@@ -122,26 +122,27 @@ a:hover        {text-decoration:none}
 	position:relative;
 	width:539px;
 	float:left;
+	padding-top:30px;
 }
 
 
 #phoneCarousel .arrow{
-	position:absolute;
-	top:25px;
-	left:0;
-	cursor:pointer;
-	width:137px;
-	height:181px;
-	z-index:50;
+	cursor: pointer;
+    height: 105px;
+    left: 60px;
+    position: absolute;
+    top: 97px;
+    width: 104px;
+    z-index: 50;
 }
 
 #phoneCarousel .next{
-	left:auto;
-	top:25px;
-	right:0;
-	width:137px;
-	height:181px;
-	z-index:50;
+	height: 103px;
+    left: auto;
+    right: 64px;
+    top: 97px;
+    width: 104px;
+    z-index: 50;
 }
 
 

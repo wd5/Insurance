@@ -6,19 +6,38 @@
 	<div class="content_home">
 		<div id="phoneCarousel">
 			<div class="previous arrow"></div>
-			<div class="next arrow"></div>
-			
+			<div class="next arrow"></div>	
 			<div id="stage">
-				<a href="#"><img id="iphone" class="default" src="{{ STATIC_URL }}/images/scroll/scroll_img_1.png" width="229" height="302"/></a>
-				<a href="#"><img id="nexus" src="{{ STATIC_URL }}/images/scroll/scroll_img_2.png" width="229" height="302" /></a>
-				<a href="#"><img id="nokia" src="{{ STATIC_URL }}/images/scroll/scroll_img_3.png"  width="229" height="302" /></a>
+				<a href="#tabs_crug_1"><img class="default" src="{{ STATIC_URL }}/images/scroll/scroll_img_2.png" width="229" height="302"/></a>
+                <a href="#tabs_crug_2"><img src="{{ STATIC_URL }}/images/scroll/scroll_img_3.png" width="229" height="302" /></a>
+                <a href="#tabs_crug_3"><img src="{{ STATIC_URL }}/images/scroll/scroll_img_1.png"  width="229" height="302" /></a>
 			</div>
 		</div>
 		<script type="text/javascript" src="{{ STATIC_URL }}/js/carousel.js"></script>
-		<div class="tabs">
-			<img src="{{ STATIC_URL }}/images/tabs.jpg" alt="" />
-		</div>
+		
+		<div class="tabs" id="tabs_crug_1">
+        	<img src="{{ STATIC_URL }}/images/tabs.jpg" alt="" />
+        </div>
+        <div class="tabs" id="tabs_crug_2">
+            <img src="{{ STATIC_URL }}/images/tabs_2.jpg" alt="" />
+        </div>
+        <div class="tabs" id="tabs_crug_3">
+            <img src="{{ STATIC_URL }}/images/tabs.jpg" alt="" />
+        </div>
 	</div>
+	
+	 <script>
+        $(function () {
+            var tabContainers = $('div.content_home > .tabs'); // получаем массив контейнеров
+            tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+           
+            $('div#stage img').click(function () {
+                tabContainers.hide(); 
+                tabContainers.filter(this.hash).show();                 
+                //return false;
+            });
+        });
+    </script>
 	
 	<div class="benefits">
 		<div class="header_benefits">
@@ -44,11 +63,61 @@
 	</div>
 	<div class="tabs_footer">
 		<ul class="tabs_footer_link">
-			<li class="active"><a href="#">Прочее</a></li>
-			<li><a href="#">Новости</a></li>
-			<li><a href="#">Анонсы</a></li>
+			<li><a class="" href="#tab_01">Прочее</a></li>
+            <li><a class=""  href="#tab_02">Новости</a></li>
+            <li><a class="" href="#tab_03">Анонсы</a></li>
 		</ul>
-		<div class="tabs_footer_cont">
+		<div class="tabs_footer_cont" id="tab_01">
+			<div class="tabs_footer_cont_left">
+				<div class="tabs_footer_cont_img">
+					<img src="{{ STATIC_URL }}/images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					<a href="#">Наш сайт,как и все, что делает наша страховая</a> компания 
+создан для вас,наших уважаемых клиентов!
+Здесь вы сможете легко рассчитывать стоимость и заказать 
+полис для всех видов страхования авто,недвижимости...
+					<a href="#" class="pointer"><img src="{{ STATIC_URL }}/images/pointer.png" alt="" /></a>
+				</div>
+			</div>
+			<div class="tabs_footer_cont_right">
+				<div class="tabs_footer_cont_img">
+					<img src="{{ STATIC_URL }}/images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					<a href="#">Страхование</a>: особый вид экономических отношений, 
+призванный обеспечить страховую защиту людей и 
+их дел от различного рода опасностей...
+					<a href="#" class="pointer"><img src="{{ STATIC_URL }}/images/pointer.png" alt="" /></a>
+				</div>
+			</div>
+		</div>
+		<div class="tabs_footer_cont" id="tab_02">
+			<div class="tabs_footer_cont_left">
+				<div class="tabs_footer_cont_img">
+					<img src="{{ STATIC_URL }}/images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					<a href="#">Наш сайт,как и все, что делает наша страховая</a> компания 
+создан для вас,наших уважаемых клиентов!
+Здесь вы сможете легко рассчитывать стоимость и заказать 
+полис для всех видов страхования авто,недвижимости...
+					<a href="#" class="pointer"><img src="{{ STATIC_URL }}/images/pointer.png" alt="" /></a>
+				</div>
+			</div>
+			<div class="tabs_footer_cont_right">
+				<div class="tabs_footer_cont_img">
+					<img src="{{ STATIC_URL }}/images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					<a href="#">Страхование</a>: особый вид экономических отношений, 
+призванный обеспечить страховую защиту людей и 
+их дел от различного рода опасностей...
+					<a href="#" class="pointer"><img src="{{ STATIC_URL }}/images/pointer.png" alt="" /></a>
+				</div>
+			</div>
+		</div>
+		<div class="tabs_footer_cont" id="tab_03">
 			<div class="tabs_footer_cont_left">
 				<div class="tabs_footer_cont_img">
 					<img src="{{ STATIC_URL }}/images/img.jpg" alt="" />
@@ -77,6 +146,22 @@
 				</div>
 			</div>
 		</div>
+		
+		<script>
+			$(function () {
+				var tabContainers = $('div.tabs_footer > .tabs_footer_cont'); // получаем массив контейнеров
+				tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+				// далее обрабатывается клик по вкладке
+				$('div.tabs_footer ul.tabs_footer_link a').click(function () {
+					tabContainers.hide(); // прячем все табы
+					tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+					$('div.tabs_footer ul.tabs_footer_link a').removeClass('selected'); // у всех убираем класс 'selected'
+					$(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
+					return false;
+				}).filter(':first').click();
+			});
+		</script>
+		
 	</div>
 	<!-- Конец контент -->
 
