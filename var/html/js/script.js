@@ -66,12 +66,12 @@ $(document).ready(function(){
 	// Running the animation once at load time (and moving the iPhone into view):
 	rotate(10,360/cnt);
 	
-	$('#phoneCarousel .previous').mouseenter(function(){
+	$('#phoneCarousel .previous').click(function(){
 		// 360/cnt lets us distribute the phones evenly in a circle
 		rotate(-10,360/cnt);
 	});
 	
-	$('#phoneCarousel .next').mouseenter(function(){
+	$('#phoneCarousel .next').click(function(){
 		rotate(10,360/cnt);
 	});
 });

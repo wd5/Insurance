@@ -2,30 +2,173 @@
 
 
 {% block content %}
-<div  id="servlet_test">
-  <h1>Проверка сервлета</h1>
-<form action="/calc/servlet_test/" method="post">{% csrf_token %}
-<table width="960" cellspacing="5" cellpadding="4" border="0">
-{{ servlet_test_form.as_table }}
-<tr>
-  <td></td>
-  <td><input type="submit" value="Результат" /></td>
-</tr>
-</table>
-</form>
-</div>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jScrollPane.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}js/jquery.mousewheel.js"></script>
+<script type="text/javascript">	
+	jQuery(document).ready(function(){
 
-{% if result  %}
-<h2 <style="padding: 20px">
-Получен результат:
-</h2>
-<div style="padding: 20px">
-{% autoescape off %}
-{{ result  }}
-{% endautoescape %}
-</div> 
-{% else %}
-{% endif %}
+	var params = {
+			changedEl: ".select_style select",
+			visRows: 5,
+			scrollArrows: true
+		}
+	
+		cuSel(params);
+		
+		var params = {
+			changedEl: "#city",
+			scrollArrows: false
+		}
+	});
+</script>
+
+
+
+<div class="calk">
+		<div class="baner_left"><a href="#"><img src="{{ STATIC_URL }}images/baner.jpg" alt="" /></a></div>
+		<div class="calk_form">
+			<div class="calk_tabs">
+				<ul class="calk_tabs_link">
+					<li><a class="" href="#tabs_1">ОСАГО</a></li>
+					<li><a class="" href="#tabs_2">КАСКО</a></li>
+					<li><a class="" href="#tabs_3">ДМС</a></li>
+					<li><a class="" href="#tabs_4">ДАГО</a></li>
+					<li><a class="" href="#tabs_5">НС</a></li>
+					<li><a class="" href="#tabs_6">ВЗР</a></li>
+					<li><a class="" href="#tabs_7">ИЛ</a></li>
+				</ul>
+				<div class="calk_content" id="tabs_1">
+					<div class="select_style">
+						<select class="sel80" id="country" name="country" tabindex="2">
+							<option value="1">ауди</option>
+							<option value="2">опел</option>
+							<option value="3">опел</option>
+							<option value="4">опел</option>
+							<option value="5">опел</option>
+							<option value="6">опел</option>
+							<option value="7">опел</option>
+							<option value="8">опел</option>
+							<option value="9">опел</option>
+							<option value="10">опел</option>
+							<option value="11">опел</option>
+							<option value="12">опел</option>
+							<option selected="selected" value="1000">ВЫБЕРЕТЕ АВТОМОБИЛЬ...</option>
+						</select>
+					</div>
+					<div class="box_checkbox">
+						<div class="checkbox checkbox_on"></div> КОЛИЧЕСТВО ВОДИТЕЛЕЙ НЕ ОГРАНИЧЕНО
+					</div>
+					<div class="search_box" style="display:none;">
+						<table cellpadding="0" cellspacing="0" class="link_search_table">
+							<tr>
+								<th>
+									Год выпуска
+								</th>
+								<td>
+									<a href="#">2011</a>
+									<a href="#">2010</a>
+									<a href="#">2009</a>
+									<a href="#">2008</a>
+									<a href="#">2007</a>
+									<a href="#">2006</a>
+									<a href="#">2011</a>
+									<a href="#">2011</a>
+									<a href="#">2011</a>
+									<a href="#">2011</a>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Модель
+								</th>
+								<td>
+									<a href="#">Berlingo</a>
+									<a href="#">C2</a>
+									<a href="#">C3</a>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Руль
+								</th>
+								<td>
+									<a href="#">Слева</a>
+									<a href="#">Справа</a>
+									<a href="#">Поцентру</a>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Руль
+								</th>
+								<td>
+									<a href="#">Слева</a>
+									<a href="#">Справа</a>
+									<a href="#">Поцентру</a>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Руль
+								</th>
+								<td>
+									<a href="#">Слева</a>
+									<a href="#">Справа</a>
+									<a href="#">Поцентру</a>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Руль
+								</th>
+								<td>
+									<a href="#">Слева</a>
+									<a href="#">Справа</a>
+									<a href="#">Поцентру</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+				</div>
+				<div class="calk_content" id="tabs_2"></div>
+				<div class="calk_content" id="tabs_3"></div>
+				<div class="calk_content" id="tabs_4"></div>
+				<div class="calk_content" id="tabs_5"></div>
+				<div class="calk_content" id="tabs_6"></div>
+				<div class="calk_content" id="tabs_7"></div>
+				
+				<script>
+					$(function () {
+						var tabContainers = $('div.calk_tabs > .calk_content'); // получаем массив контейнеров
+						tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+						// далее обрабатывается клик по вкладке
+						$('div.calk_tabs ul.calk_tabs_link a').click(function () {
+							tabContainers.hide(); // прячем все табы
+							tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+							$('div.calk_tabs ul.calk_tabs_link a').removeClass('selected'); // у всех убираем класс 'selected'
+							$(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
+							return false;
+						}).filter(':first').click();
+					});
+				</script>
+			</div>
+			<div class="assume">
+				<a href="#"><img src="{{ STATIC_URL }}images/assume.jpg" alt="" /></a>
+			</div>
+		</div>
+	</div>
+	<!-- Конец контент -->
+
 
 {% endblock %}
 
