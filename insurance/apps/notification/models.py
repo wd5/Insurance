@@ -138,6 +138,7 @@ class Notice(models.Model):
 
     recipient = models.ForeignKey(User, related_name='recieved_notices', verbose_name=_('recipient'))
     sender = models.ForeignKey(User, null=True, related_name='sent_notices', verbose_name=_('sender'))
+    sub = models.CharField(max_length=512,blank=True,null='True')
     message = models.TextField(_('message'))
     notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
     added = models.DateTimeField(_('added'), default=datetime.datetime.now)
