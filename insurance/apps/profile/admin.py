@@ -215,13 +215,13 @@ class ProfileAdmin(admin.ModelAdmin):
         return profile.user.is_active
     u_is_active.short_description = 'Активный'
 
+class PersonaAdmin(admin.ModelAdmin):
+    list_display   = ('id','last_name','first_name','middle_name','birth_date','me')
+
+
 
 admin.site.unregister(User) 
 admin.site.register(User, CustomUserAdmin)
 admin.site.register(UserProfile, ProfileAdmin)
-
-class PersonaAdmin(admin.ModelAdmin):
-    list_display   = ('id','last_name','first_name','middle_name','birth_date','me')
-
 admin.site.register(Persona, PersonaAdmin)
 

@@ -11,7 +11,7 @@ from profile.models import UserProfile,Persona
 class ProfileForm(ModelForm):
     class Meta:
         model = UserProfile
-        fields = ('last_name', 'first_name', 'middle_name', 'address', 'phone')
+        fields = ('last_name', 'first_name', 'middle_name')
 
 class AdminUserBlockForm(ModelForm):
     reason_blocked = forms.CharField(widget=forms.TextInput(attrs={'size':'100', 'required':True}))
@@ -66,15 +66,3 @@ class PersonaForm(ModelForm):
         widgets = {
             'birth_date': SelectDateWidget(years=years_list),
         }
-
-    
-       
-            
-
-
-
-    
-        
-
-
-

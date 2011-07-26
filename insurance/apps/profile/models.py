@@ -51,16 +51,15 @@ class Persona(models.Model):
     user = models.ForeignKey(User)
 
     # == Адрес/контакты ==
-
     # TODO: Список городов брать из БД Вигена!
-    city_id = models.IntegerField(verbose_name='Город', null=False, blank=False)
-    address = models.TextField(verbose_name='Адрес', max_length=200, null=False, blank=False)
+    city_id = models.IntegerField(verbose_name='Город', null=True, blank=True)
+    address = models.TextField(verbose_name='Адрес', max_length=200, null=True, blank=True)
     phone = models.CharField(verbose_name='Телефонный номер', max_length=14, blank=True)   # TODO: phone number validation
 
     # == Фио ==
     last_name = models.CharField(verbose_name='Фамилия', max_length=30)
-    first_name = models.CharField(verbose_name='Имя', max_length=30,blank=True)
-    middle_name = models.CharField(verbose_name='Отчество', max_length=30,blank=True)
+    first_name = models.CharField(verbose_name='Имя', max_length=30)
+    middle_name = models.CharField(verbose_name='Отчество', max_length=30)
 
     # == Другое ==
     birth_date = models.DateField(blank=True, null=True,
@@ -96,6 +95,3 @@ def add_persona_himself(sender, **kwargs):
     user_persona.middle_name = user_profile.middle_name
     user_persona.me = True
     user_persona.save()
-
-        
-        
