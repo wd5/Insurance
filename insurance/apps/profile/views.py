@@ -76,7 +76,9 @@ def policy_list(request, policy_type=None):
     if not policy_type:
         policy_type, _ = InsurancePolicy.TYPE_CHOICES[0]
     user = request.user
-    query = InsurancePolicy.objects.filter(user=user, type=policy_type)
+    personas = user.persona_set.all()
+    # TODO: i wonder if the whole "in" thing works :)
+    query = InsurancePolicy.objects.filter(persona__in=personas, type=policy_type)
     extra_context = {
         "policy_type": policy_type,
         "policy_types": policy_types,
