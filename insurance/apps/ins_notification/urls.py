@@ -6,7 +6,7 @@ from ins_notification.views import inbox,question
 
 urlpatterns = patterns('',
     url(r'^$', inbox, name="ins_notification_inbox"),
-    url(r'^$', question, name="ins_notification_question"),
+    url(r'^question/$', question, name="ins_notification_question"),
     # url(r'^$', notices, name="notification_notices"),
     # url(r'^settings/$', notice_settings, name="notification_notice_settings"),
     # url(r'^(\d+)/$', single, name="notification_notice"),

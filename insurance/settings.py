@@ -54,7 +54,7 @@ ROOT_URLCONF = 'insurance.urls'
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates'),
     os.path.join(PROJECT_PATH, 'apps','calc','templates'),
-    os.path.join(PROJECT_PATH, 'apps','notification','templates'),
+    #os.path.join(PROJECT_PATH, 'apps','notification','templates'),
     os.path.join(PROJECT_PATH, 'apps','ins_notification','templates'),
 )
 

@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth.decorators import login_required
-from notification.models import Notice
+from notification.models import Notice,send
+from ins_notification.forms import QuestionForm
+
 
 @login_required
 def inbox(request):
@@ -14,9 +17,22 @@ def inbox(request):
 
 @login_required
 def question(request):
-    """
-    
-    Arguments:
-    - `request`:
-    """
-    pass
+    quest_form = QuestionForm(request.POST or None)
+    sent = False
+    if quest_form.is_valid():
+        extra_context =  {'sub':quest_form.cleaned_data["sub"],
+                          
+                          'now':True,}
+        send(user,'is_question',
+             extra_context=extra_context,
+             sender=request.user,
+             on_site=True)
+        sent = True
+    extra_content = {'quest_form': quest_form,
+                     'sent':sent}
+    return direct_to_template(request, 
+                              'notification/question.html',
+                              extra_content)
+
+
+
