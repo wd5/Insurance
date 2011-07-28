@@ -134,8 +134,6 @@ class CustomUserAdmin(UserAdmin):
         if request.method == 'POST':
             form = NotificationForm(request.POST)
             if form.is_valid():
-                import sys
-                print >> sys.stderr, "IS VAlid ="
                 body = form.cleaned_data['body']
                 subject = form.cleaned_data['sub']
                 extra_context = {'subject':subject,
