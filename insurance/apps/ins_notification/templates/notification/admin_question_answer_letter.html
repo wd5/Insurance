@@ -1,0 +1,30 @@
+{% extends "admin/change_form.html" %}
+{% load i18n admin_modify adminmedia %}
+{% load url from future %}
+
+{% block content_title %}<h1>Ответ пользователю</h1>{% endblock %}
+
+{% block content %}<div id="content-main">
+
+<div id="admin_qwestion_answer_letter">
+{% if sent %}
+
+<p>Сообщение пользователю: {{ fio }}</p>
+<p>успешно отправлено</p>
+  <ul class="object-tools">
+    <li><a href="/admin/ins_notification/question/">Вернуться</a></li>
+</ul>
+{% else %}
+  Пользователь: {{ fio }} <br />
+  Спрашивал: {{ qwestion.sent_time }}
+
+<form action="" method="post">{% csrf_token %}
+<table width="" cellspacing="" cellpadding="" border="">
+  {{ answ_form.as_table }}
+</table>
+<input type="submit" value="Отослать" />
+</form>
+{% endif %}
+</div>
+
+{% endblock %}
