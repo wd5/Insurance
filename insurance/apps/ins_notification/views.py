@@ -61,7 +61,8 @@ def answer(request,q_id):
     extra_content = {'answ_form':answ_form,
                      'qwestion':qws,
                       'fio':fio,
-                     'sent':sent}
+                     'sent':sent,
+                     'user':user}
     return direct_to_template(request, 
                               'notification/admin_question_answer_letter.html',
                               extra_content)

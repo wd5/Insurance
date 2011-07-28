@@ -16,8 +16,8 @@
 </ul>
 {% else %}
   Пользователь: {{ fio }} <br />
-  Спрашивал: {{ qwestion.sent_time }}
-
+  Спрашивал: {{ qwestion.sent_time }} <br />
+  Адрес пользователя: {{ user.email }}
 <form action="" method="post">{% csrf_token %}
 <table width="" cellspacing="" cellpadding="" border="">
   {{ answ_form.as_table }}
