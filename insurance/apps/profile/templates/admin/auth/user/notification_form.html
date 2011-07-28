@@ -12,6 +12,13 @@
 {% endblock %}
 
 {% block content %}
+
+{% if sent %}
+<p>Уведомления разосланы.</p>
+<ul class="object-tools">
+  <li><a href="/admin/auth/user/">Вернуться</a></li>
+</ul>
+{% else %}
 <p>Уведомление будет послано следующим пользователям:</p>
 <ul>
   {% for u in users %}
@@ -30,5 +37,10 @@
     <input type="submit" value="Послать уведомление" />
   </div>
 </form>
+{% endif %}
+
+
+
+
 {% endblock %}
 

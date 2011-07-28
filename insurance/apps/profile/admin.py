@@ -130,6 +130,7 @@ class CustomUserAdmin(UserAdmin):
     def user_notification(self, request):
         ids = request.GET['ids'].split(',')
         users = User.objects.in_bulk(ids).values()
+        sent = False
         if request.method == 'POST':
             form = NotificationForm(request.POST)
             if form.is_valid():
@@ -140,10 +141,12 @@ class CustomUserAdmin(UserAdmin):
                 extra_context = {'subject':subject,
                                  'body':body,}
                 send(users,"users_sending",extra_context,sender=request.user)
+                sent = True
         else:
             form = NotificationForm()
         context = {'users':users,
-                   'form': form,}
+                   'form': form,
+                   'sent':sent}
         return render_to_response("admin/auth/user/notification_form.html",
                 context,
                 context_instance=RequestContext(request))
