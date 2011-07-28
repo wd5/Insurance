@@ -5,7 +5,7 @@ from profile.models import UserProfile
 import sys
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display   = ('user_fio','subject','sent_time')
+    list_display   = ('user_fio','subject','sent_time','answered')
     list_filter = ('user',)
     search_fields = ['subject',]
     ordering = ('sent_time',)
@@ -13,9 +13,9 @@ class QuestionAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-                'fields': ('subject','body')
+                'fields': ('subject','body','answered')
                 }),)
-    readonly_fields = ('subject','body','sent_time')
+    readonly_fields = ('subject','body','sent_time','answered')
 
     def user_fio(self,o):
         uprofile = UserProfile.objects.get(id=o.user.id)

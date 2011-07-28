@@ -51,6 +51,9 @@ def answer(request,q_id):
                             from_email="admin@directif.ru"
             )
             sent = True
+            print >> sys.stderr, "q_id =", q_id
+            qws.answered = True
+            qws.save()
     else:
         subject = 'Re: ' + qws.subject
         body = u"\n\n\nВы спрашивали:\n-----\n" + qws.body

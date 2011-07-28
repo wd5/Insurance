@@ -22,6 +22,9 @@ class Question(models.Model):
                             null='True',
                             verbose_name='Содержание')
     sent_time = models.DateTimeField(auto_now=True,
-                                     auto_now_add=True,)
+                                     auto_now_add=True,
+                                     verbose_name='Вопрос задан в')
+    answered = models.BooleanField(default=False,
+                                   verbose_name='Отвечен')
 
     
