@@ -12,7 +12,7 @@
     </tr>
     {% for notice in notices %}
 	<tr>
-	  <td>{{ notice.sender }}</td>
+	  <td><a href="/notification/{{ notice.id }}/">{{ notice.sender }}</a></td>
 	  <td>{{ notice.sub }}</td>
 	  <td>{{ notice.added }}</td>
 	  <!-- <td></td> -->

@@ -67,11 +67,12 @@ def answer(request,q_id):
                               'notification/admin_question_answer_letter.html',
                               extra_content)
 
-def contact(request):
-    form = ContactForm(request.POST or None)
-    if form.is_valid():
-        # обрабатываем данные. Например, делаем form.save()
-        # ...
-        return redirect('url_name', param1=value)
-    return direct_to_template(request, 'contact.html', {'form': form})    
+def ins_single(request,n_id):
+    notice = Notice.objects.get(id=n_id)
+    extra_content = {'notice':notice}
+    return direct_to_template(request, 
+                              'notification/ins_single.html',
+                              extra_content)
+    
+    
 
