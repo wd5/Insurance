@@ -50,7 +50,6 @@ def answer(request,q_id):
                             from_email="admin@directif.ru"
             )
             sent = True
-        else:
     else:
         subject = 'Re: ' + qws.subject
         body = u"\n\n\nВы спрашивали:\n-----\n" + qws.body
