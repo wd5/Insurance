@@ -84,6 +84,7 @@ INSTALLED_APPS = (
 
 FIXTURE_DIRS = (
     os.path.join(PROJECT_PATH, 'fixtures'),
+    os.path.join(PROJECT_PATH, 'apps','notification','fixtures'),
 )
 
 # Import deploy-specific settings, if present

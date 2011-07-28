@@ -6,12 +6,13 @@ from notification.models import Notice,send
 from ins_notification.forms import QuestionForm,AnswerForm
 from ins_notification.models import Question
 from profile.models import UserProfile
+from notification.models import Notice
+
 import sys
 
 @login_required
 def inbox(request):
-    notices = Notice.objects.notices_for(request.user, sent=True)
-    
+    notices = Notice.objects.filter(recipient=request.user)
     extra_content = {'notices':notices}
     return direct_to_template(request,
                               'notification/inbox.html',

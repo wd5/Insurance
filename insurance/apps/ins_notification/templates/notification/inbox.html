@@ -8,15 +8,14 @@
       <th>Отправитель</th>
       <th>Тема</th>
       <th>Получено</th>
-      <th>Действие</th>
+      <!-- <th>Действие</th> -->
     </tr>
     {% for notice in notices %}
-
 	<tr>
 	  <td>{{ notice.sender }}</td>
 	  <td>{{ notice.sub }}</td>
-	  <td>{{ notice.sent_at }}</td>
-	  <td></td>
+	  <td>{{ notice.added }}</td>
+	  <!-- <td></td> -->
 	</tr>
 	{% endfor %}
 	

@@ -18,6 +18,9 @@ from profile.forms import AdminUserBlockForm
 from profile.forms import AdminUserMessageConfirmForm
 from profile.models import UserProfile,Persona
 
+from ins_notification.forms import NotificationForm
+from notification.models import send
+
 csrf_protect_m = method_decorator(csrf_protect)
 
 
@@ -26,10 +29,18 @@ def unblock(modeladmin, request, queryset):
     queryset.update(is_active=True)
 unblock.short_description = u"Разблокировать выбранных пользователей"
 
-def message(modeladmin, request, queryset):
+# def message(modeladmin, request, queryset):
+#     selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+#     return HttpResponseRedirect("message/?ids=%s" % ",".join(selected))
+# message.short_description = u"Послать уведомление пользователям"
+
+# Mass sending of the notifications
+
+def notification(modeladmin, request, queryset):
     selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
-    return HttpResponseRedirect("message/?ids=%s" % ",".join(selected))
-message.short_description = u"Послать уведомление пользователям"
+    return HttpResponseRedirect("notification/?ids=%s" % ",".join(selected))
+notification.short_description = u"Разослать уведомления"
+
 
 # Should NOT use mass block feature as one can't normally specify block reason
 # this way.
@@ -39,7 +50,8 @@ message.short_description = u"Послать уведомление пользо
 # выбранных пользователей"
 
 class CustomUserAdmin(UserAdmin):
-    actions= [ unblock, message ]
+    # actions= [ unblock, message ]
+    actions= [ unblock, notification ]
     list_display = ('p_last_name', 'p_first_name', 'p_middle_name',
                     'email', 'p_last_ip', 'p_city', 'p_reason_blocked', 'is_active')
     list_display_links = ('email','p_last_name', 'p_first_name', 'p_middle_name')
@@ -105,12 +117,36 @@ class CustomUserAdmin(UserAdmin):
     def get_urls(self):
         from django.conf.urls.defaults import patterns
         return patterns('',
-            (r'^message/$', self.admin_site.admin_view(self.user_message)),
-            (r'^(\d+)/block/$', self.admin_site.admin_view(self.user_block)),
-            (r'^(\d+)/unblock/$', self.admin_site.admin_view(self.user_unblock))
+                        # (r'^message/$', self.admin_site.admin_view(self.user_message)),
+                        (r'^notification/$', self.admin_site.admin_view(self.user_notification)),
+                        (r'^(\d+)/block/$', self.admin_site.admin_view(self.user_block)),
+                        (r'^(\d+)/unblock/$', self.admin_site.admin_view(self.user_unblock))
         ) + super(UserAdmin, self).get_urls()
 
     # ===== Custom actions =====
+
+    @csrf_protect_m
+    @transaction.commit_on_success
+    def user_notification(self, request):
+        ids = request.GET['ids'].split(',')
+        users = User.objects.in_bulk(ids).values()
+        if request.method == 'POST':
+            form = NotificationForm(request.POST)
+            if form.is_valid():
+                import sys
+                print >> sys.stderr, "IS VAlid ="
+                body = form.cleaned_data['body']
+                subject = form.cleaned_data['sub']
+                extra_context = {'subject':subject,
+                                 'body':body,}
+                send(users,"users_sending",extra_context,sender=request.user)
+        else:
+            form = NotificationForm()
+        context = {'users':users,
+                   'form': form,}
+        return render_to_response("admin/auth/user/notification_form.html",
+                context,
+                context_instance=RequestContext(request))
 
     @csrf_protect_m
     @transaction.commit_on_success

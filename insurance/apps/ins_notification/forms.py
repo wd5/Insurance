@@ -9,6 +9,14 @@ class QuestionForm(forms.Form):
                            label='Содержание вопроса',
                            widget=forms.Textarea(),)
 
+class NotificationForm(forms.Form):
+    
+    sub = forms.CharField(required=True,
+                          label='Тема сообщения',)
+    body = forms.CharField(required=True,
+                           label='Содержание сообщения',
+                           widget=forms.Textarea(),)
+
 class AnswerForm(forms.Form):
     def __init__(self,*args,**kwargs):
         subject = ''
