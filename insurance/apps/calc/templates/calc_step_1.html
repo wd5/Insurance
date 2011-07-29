@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<script type="text/javascript" src="{{ STATIC_URL }}calc/js/lib_dbg.js"></script>
+<script type="text/javascript">
+  marks = {{ marks|safe }}
+  models = {{ models|safe }}
+  years = {{ years|safe }}
+</script>
+<script type="text/javascript" src="{{ STATIC_URL }}calc/js/calc.js"></script>
+
+
+
+<form action="/calc/calc_step_1/" method="post">
+{% csrf_token %}
+
+<table width="460" cellspacing="5" cellpadding="4" border="0">
+<tr>
+  <td>Марка автомобиля: </td>
+  <td>
+    <select name="mark" id="calc_marks">
+      <option value="" selected>-</option>
+    </select>
+  </td>
+  <td>{{ calc_step_one_form.mark.errors }}</td>
+</tr>
+
+<tr>
+  <td>Модель автомобиля: </td>
+  <td>
+    <select name="model" id="calc_models">
+      <option value="" selected>-</option>
+    </select>
+  </td>
+    <td>{{ calc_step_one_form.model.errors }}</td>
+</tr>
+
+<tr>
+  <td>Год выпуска автомобиля: </td>
+  <td>
+    <select name="model_year" id="calc_years">
+      <option value="" selected>-</option>
+    </select>
+  </td>
+    <td>{{ calc_step_one_form.model_year.errors }}</td>
+</tr>
+
+<tr>
+  <td>Руль: </td>
+  <td>{{ calc_step_one_form.weel }}</td>
+</tr>
+
+<tr>
+  <td>Мощность: </td>
+  <td>{{ calc_step_one_form.power }}</td>
+</tr>
+
+<tr>
+  <td>Город: </td>
+  <td>{{ calc_step_one_form.city }}</td>
+</tr>
+
+<tr>
+  <td>Цена: </td>
+  <td>{{ calc_step_one_form.price }}</td>
+</tr>
+
+<tr>
+  <td>Кредит: </td>
+  <td>{{ calc_step_one_form.credit }}</td>
+</tr>
+
+<tr>
+  <td>Возраст: </td>
+  <td>{{ calc_step_one_form.age }}</td>
+</tr>
+
+<tr>
+  <td>Опыт вождения: </td>
+  <td>{{ calc_step_one_form.experience_driving }}</td>
+</tr>
+
+<tr>
+  <td></td>
+  <td><input type="submit" value="Результат" /></td>
+</tr>
+
+{{ calc_step_one_form.errors }}
+
+</form>
+
+
+
+{% if result  %}
+<h2 <style="padding: 20px">
+Получен результат:
+</h2>
+<div style="padding: 20px">
+{% autoescape off %}
+{{ result  }}
+{% endautoescape %}
+</div>
+{% else %}
+{% endif %}
+
+
+{% endblock %} <!-- Конец контент -->
+
+
