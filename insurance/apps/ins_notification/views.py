@@ -2,11 +2,15 @@
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from notification.models import Notice,send
-from ins_notification.forms import QuestionForm,AnswerForm
-from ins_notification.models import Question
-from profile.models import UserProfile
+
 from notification.models import Notice
+from profile.models import UserProfile
+
+from ins_notification.forms import AnswerForm
+from ins_notification.forms import QuestionForm
+from ins_notification.models import Question
+
+
 
 import sys
 

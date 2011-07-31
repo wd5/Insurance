@@ -20,7 +20,6 @@ urlpatterns = patterns('',
     url(r'^notification/', include('ins_notification.urls')),
     url(r'^calc/', include('calc.urls')),
     url(r'^admin/', include(admin.site.urls)),
-                       
 )
 
 if settings.DEBUG:
