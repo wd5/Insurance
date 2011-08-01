@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+
+from captcha.fields import CaptchaField
 
 attrs_dict = { 'class': 'required' }
 
@@ -15,6 +18,8 @@ class RegistrationForm(forms.Form):
                                 label=_("Password"))
     password2 = forms.CharField(widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
                                 label=_("Password (again)"))
+
+    captcha = CaptchaField(label=u"Вы не робот?")
 
     tos = forms.BooleanField(widget=forms.CheckboxInput(attrs=attrs_dict),
                              label=_(u'I have read and agree to the Terms of Service'),

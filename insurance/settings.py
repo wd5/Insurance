@@ -74,6 +74,7 @@ INSTALLED_APPS = (
     'django_ipgeobase',
     'django_messages',
     'notification',
+    'captcha',
 
     # Projects apps 
     'profile', # user profile file and private cabinet

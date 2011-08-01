@@ -19,6 +19,7 @@ urlpatterns = patterns('',
 #    url(r'^notification/', include('notification.urls')),
     url(r'^notification/', include('ins_notification.urls')),
     url(r'^calc/', include('calc.urls')),
+    url(r'^captcha/', include('captcha.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
 
