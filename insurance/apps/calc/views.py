@@ -81,11 +81,6 @@ def calc_step_2(request):
     result_json = response.read()
     result = json.loads(result_json)
 
-    for el in result["info"]:
-        for k,v in el.items():
-            print '\t',k,v
-
-
     extra_content = {}
     extra_content["result"] = result
     extra_content["query_str"] = request.META['QUERY_STRING']
