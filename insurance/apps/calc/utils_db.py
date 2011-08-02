@@ -153,6 +153,8 @@ def get_model_by_id(db,id):
     return out
 
 def get_model_year_by_id(db,id):
+    if not id:
+        return ""
     query = "SELECT model_year_year FROM model_year WHERE model_year_id="+id+";"
     db.query(query)
     r = db.store_result()
