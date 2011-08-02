@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
-from calc.forms import ServletTestForm,CalcStepOneForm
+from calc.forms import ServletTestForm, CalcStepOneForm, CalcStepTwoForm
 import sys,urllib,urllib2
 import json
 from calc.utils_db import get_mark_model_year_json
@@ -81,6 +81,12 @@ def calc_step_2(request):
     result_json = response.read()
     result = json.loads(result_json)
 
+    calc_step_two_form = CalcStepTwoForm(request.POST or None)
+    # if form.is_valid():
+    #     # обрабатываем данные. Например, делаем form.save()
+    #     # ...
+    #     return redirect('url_name', param1=value)
+
     extra_content = {}
     extra_content["result"] = result
     extra_content["query_str"] = request.META['QUERY_STRING']
@@ -88,6 +94,8 @@ def calc_step_2(request):
     # контекст для показа на странице. Часть данных получим из базы
     # insservlet (названия по id)
     db = connect()
+    extra_content["calc_step_two_form"] = calc_step_two_form
+    # Передача параметров из первого шага через GET
     extra_content["mark"] = get_mark_by_id(db,request.GET["mark"])
     extra_content["model"] = get_model_by_id(db,request.GET["model"])
     extra_content["model_year"] = get_model_year_by_id(db,request.GET["model_year"])

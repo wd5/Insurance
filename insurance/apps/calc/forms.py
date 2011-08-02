@@ -109,8 +109,6 @@ class ServletTestForm(forms.Form):
                                         help_text='')
 
 class CalcStepOneForm(forms.Form):
-    """
-    """
 
     def __init__(self,*args,**kwargs):
         super(CalcStepOneForm,self).__init__(*args,**kwargs)
@@ -184,6 +182,40 @@ class CalcStepOneForm(forms.Form):
                                 label='Кредит',
                                 help_text='')
 
+    # factor_price = forms.BooleanField(required=False,
+    #                                     label='Цена',
+    #                                     help_text='')
+
+    # factor_easepay = forms.BooleanField(required=False,
+    #                                     label='Простота выплат',
+    #                                     help_text='')
+
+    # factor_insuranceterms = forms.BooleanField(required=False,
+    #                                            label='Условия страхования',
+    #                                            help_text='')
+
+    # factor_qualitysupport = forms.BooleanField(required=False,
+    #                                            label='Качество информационной поддержки',
+    #                                            help_text='')
+
+    # factor_reputation = forms.BooleanField(required=False,
+    #                                        label='Репутация компании',
+    #                                        help_text='')
+
+    # factor_accessibility = forms.BooleanField(required=False,
+    #                                           label='Доступность компании',
+    #                                           help_text='')
+
+    # factor_service = forms.BooleanField(required=False,
+    #                                     label='Сервис',
+    #                                     help_text='')
+
+class CalcStepTwoForm(forms.Form):
+
+    # def __init__(self,*args,**kwargs):
+    #     super(CalcStepOneForm,self).__init__(*args,**kwargs)
+    #     db = connect()
+
     factor_price = forms.BooleanField(required=False,
                                         label='Цена',
                                         help_text='')
@@ -211,4 +243,3 @@ class CalcStepOneForm(forms.Form):
     factor_service = forms.BooleanField(required=False,
                                         label='Сервис',
                                         help_text='')
-
