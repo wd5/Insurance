@@ -87,23 +87,7 @@
   <td><input type="submit" value="Результат" /></td>
 </tr>
 
-{{ calc_step_one_form.errors }}
-
 </form>
-
-
-
-{% if result  %}
-<h2 <style="padding: 20px">
-Получен результат:
-</h2>
-<div style="padding: 20px">
-{% autoescape off %}
-{{ result  }}
-{% endautoescape %}
-</div>
-{% else %}
-{% endif %}
 
 
 {% endblock %} <!-- Конец контент -->
