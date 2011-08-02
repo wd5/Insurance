@@ -80,6 +80,7 @@ def calc_step_2(request):
     response = urllib2.urlopen(req)
     result_json = response.read()
     result = json.loads(result_json)
+    print >> sys.stderr, "result =", result
 
     calc_step_two_form = CalcStepTwoForm(request.POST or None)
     # if form.is_valid():
@@ -93,9 +94,9 @@ def calc_step_2(request):
     # Обработка параметров GET, получаем нужные данные, вставляем их в
     # контекст для показа на странице. Часть данных получим из базы
     # insservlet (названия по id)
-    db = connect()
     extra_content["calc_step_two_form"] = calc_step_two_form
     # Передача параметров из первого шага через GET
+    db = connect()
     extra_content["mark"] = get_mark_by_id(db,request.GET["mark"])
     extra_content["model"] = get_model_by_id(db,request.GET["model"])
     extra_content["model_year"] = get_model_year_by_id(db,request.GET["model_year"])

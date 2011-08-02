@@ -80,6 +80,34 @@ class ServletTestForm(forms.Form):
                            label='Стаж вождения',
                            help_text='')
 
+    factor_price = forms.BooleanField(required=False,
+                                        label='Цена',
+                                        help_text='')
+
+    factor_easepay = forms.BooleanField(required=False,
+                                        label='Простота выплат',
+                                        help_text='')
+
+    factor_insuranceterms = forms.BooleanField(required=False,
+                                               label='Условия страхования',
+                                               help_text='')
+
+    factor_qualitysupport = forms.BooleanField(required=False,
+                                               label='Качество информационной поддержки',
+                                               help_text='')
+
+    factor_reputation = forms.BooleanField(required=False,
+                                           label='Репутация компании',
+                                           help_text='')
+
+    factor_accessibility = forms.BooleanField(required=False,
+                                              label='Доступность компании',
+                                              help_text='')
+
+    factor_service = forms.BooleanField(required=False,
+                                        label='Сервис',
+                                        help_text='')
+
 class CalcStepOneForm(forms.Form):
 
     def __init__(self,*args,**kwargs):
@@ -154,39 +182,31 @@ class CalcStepOneForm(forms.Form):
                                 label='Кредит',
                                 help_text='')
 
-    # factor_price = forms.BooleanField(required=False,
-    #                                     label='Цена',
-    #                                     help_text='')
-
-    # factor_easepay = forms.BooleanField(required=False,
-    #                                     label='Простота выплат',
-    #                                     help_text='')
-
-    # factor_insuranceterms = forms.BooleanField(required=False,
-    #                                            label='Условия страхования',
-    #                                            help_text='')
-
-    # factor_qualitysupport = forms.BooleanField(required=False,
-    #                                            label='Качество информационной поддержки',
-    #                                            help_text='')
-
-    # factor_reputation = forms.BooleanField(required=False,
-    #                                        label='Репутация компании',
-    #                                        help_text='')
-
-    # factor_accessibility = forms.BooleanField(required=False,
-    #                                           label='Доступность компании',
-    #                                           help_text='')
-
-    # factor_service = forms.BooleanField(required=False,
-    #                                     label='Сервис',
-    #                                     help_text='')
-
 class CalcStepTwoForm(forms.Form):
+    def __init__(self,*args,**kwargs):
+        super(CalcStepTwoForm,self).__init__(*args,**kwargs)
 
-    # def __init__(self,*args,**kwargs):
-    #     super(CalcStepOneForm,self).__init__(*args,**kwargs)
-    #     db = connect()
+        standart_deductible_choices = []
+        for a in range(0,55000,5000):
+            standart_deductible_choices.append((a,a))
+            self.fields['standart_deductible'] = forms.ChoiceField(choices=standart_deductible_choices,
+                                                                   required=False,
+                                                                   label='Стандартная франшиза',)
+
+        second_deductible_choices = []
+        for a in range(0,55000,5000):
+            second_deductible_choices.append((a,a))
+            self.fields['second_deductible'] = forms.ChoiceField(choices=second_deductible_choices,
+                                                                   required=False,
+                                                                   label='Франшиза со второго страхового случая',)
+
+        civil_liability_choices = []
+        for a in range(0,2500000,300000):
+            civil_liability_choices.append((a,a))
+            self.fields['civil_liability'] = forms.ChoiceField(choices=civil_liability_choices,
+                                                                   required=False,
+                                                                   label='Гражданскую ответственность (дополнительно к полису ОСАГО) ',)
+   
 
     factor_price = forms.BooleanField(required=False,
                                         label='Цена',
@@ -215,3 +235,78 @@ class CalcStepTwoForm(forms.Form):
     factor_service = forms.BooleanField(required=False,
                                         label='Сервис',
                                         help_text='')
+
+    damage_full_destruction = forms.BooleanField(required=False,
+                                                 label='Возмещать ущерб только при полной гибели или угоне автомобиля')
+    
+    not_assure_theft = forms.BooleanField(required=False,
+				    label='Не страховать автомобиль от угона',)
+
+    burglar_alarm_choices = ((1,'Alarm system 1'),
+                             (2,'Alarm system 2'))
+    burglar_alarm = forms.ChoiceField(choices=burglar_alarm_choices,
+                                   label='Охранная система автомобиля ',)
+
+    single_payment_of_the_policy = forms.BooleanField(required=False,
+                                                      label='Единовременная оплата полиса',)
+
+    repair_direction_company = forms.BooleanField(required=False,
+                                                  label='Ремонт по направлению страховой компании',)
+
+    repair_official_dealer = forms.BooleanField(required=False,
+                                                  label='Ремонт у официального дилера по направлению страховой компании',)
+
+    repair_engineering_centre = forms.BooleanField(required=False,
+                                                  label='Ремонт в техническом центре по вашему выбору',)
+
+    payment_on_accounting = forms.BooleanField(required=False,
+                                                  label='Выплата деньгами по калькуляции',)
+
+    payment_on_accounting_deterioration = forms.BooleanField(required=False,
+                                                  label='Выплата деньгами по калькуляции с учетом износа запасных частей',)
+
+    payment_on_accounting_deterioration = forms.BooleanField(required=False,
+                                                  label='Выплата деньгами по калькуляции с учетом износа запасных частей',)
+
+    glass_elements_one_year = forms.BooleanField(required=False,
+                                                  label='Стекла и стеклянные элементы. Один раз в год',)
+
+    glass_elements_without_restriction = forms.BooleanField(required=False,
+                                                            label='Стекла и стеклянные элементы. Без ограничения',)
+    
+    repair_3_one_year = forms.BooleanField(required=False,
+                                                  label='Ремонт в пределах 3%. Один раз в год',)
+
+    repair_5_two_year = forms.BooleanField(required=False,
+                                                  label='Ремонт в пределах 5%. Два раза в год',)
+
+    evacuation = forms.BooleanField(required=False,
+                                    label='Эвакуация автомобиля к месту стоянки или ремонта',)
+
+    technical_assistance = forms.BooleanField(required=False,
+                                              label='Техническая попощь',)
+
+    call_taxi = forms.BooleanField(required=False,
+                                   label='Вызов такси',)
+
+    lease_car = forms.BooleanField(required=False,
+                                   label='Аренда автомобиля',)
+
+    departure_two_player_dtp = forms.BooleanField(required=False,
+                                                  label='Выезд только на ДТП с двумя и более участниками. Сбор справок',)
+
+    departure_all_dtp = forms.BooleanField(required=False,
+                                           label='Выезд на любые ДТП. Сбор справок',)
+
+    health_driver_and_passenger = forms.BooleanField(required=False,
+                                                     label='Здоровье водителя и пассажиров',)
+
+    kasko_plus_osago = forms.BooleanField(required=False,
+                                          label='Купить полис КАСКО вместе с ОСАГО',)
+
+
+
+
+
+
+

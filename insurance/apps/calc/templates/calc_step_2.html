@@ -8,7 +8,58 @@
 Мощность: {{ power }} Город: {{ city }}. Цена: {{ price }}. Кредит: {{ credit }}.
 Возраст: {{ age }}. Опыт вождения: {{ experience_driving }}
 <hr />
+<h1>Выберите параметры сортировки:</h1>
 
+<div  id="">
+<form action="" method="post">{% csrf_token %}
+<table width="" cellspacing="" cellpadding="" border="">
+  <tr>
+    <td>{{ calc_step_two_form.factor_price.label }}: </td>
+    <td>{{ calc_step_two_form.factor_price }}</td>
+    <td>{{ form.factor_price.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.factor_easepay.label }}: </td>
+    <td>{{ calc_step_two_form.factor_easepay }}</td>
+    <td>{{ form.factor_easepay.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.factor_insuranceterms.label }}: </td>
+    <td>{{ calc_step_two_form.factor_insuranceterms }}</td>
+    <td>{{ form.factor_insuranceterms.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.factor_qualitysupport.label }}: </td>
+    <td>{{ calc_step_two_form.factor_qualitysupport }}</td>
+    <td>{{ form.factor_qualitysupport.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.factor_reputation.label }}: </td>
+    <td>{{ calc_step_two_form.factor_reputation }}</td>
+    <td>{{ form.factor_reputation.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.factor_accessibility.label }}: </td>
+    <td>{{ calc_step_two_form.factor_accessibility }}</td>
+    <td>{{ form.factor_accessibility.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.factor_service.label }}: </td>
+    <td>{{ calc_step_two_form.factor_service }}</td>
+    <td>{{ form.factor_service.errors }}</td>
+  </tr>
+
+</table>
+
+
+
+<hr />
 <table width="" cellspacing="5" cellpadding="4" border="">
   <tr>
     <td>Название</td>
@@ -28,6 +79,203 @@
   {% endfor %}
 </table>
 
+<hr />
+
+<h1>Способы экономии</h1>
+
+<table width="" cellspacing="" cellpadding="" border="">
+  <tr>
+    <td>{{ calc_step_two_form.standart_deductible.label }}: </td>
+    <td>{{ calc_step_two_form.standart_deductible }}</td>
+    <td>{{ form.factor_standart_deductible.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.second_deductible.label }}: </td>
+    <td>{{ calc_step_two_form.second_deductible }}</td>
+    <td>{{ form.second_deductible.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.damage_full_destruction.label }}: </td>
+    <td>{{ calc_step_two_form.damage_full_destruction }}</td>
+    <td>{{ form.damage_full_destruction.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.not_assure_theft.label }}: </td>
+    <td>{{ calc_step_two_form.not_assure_theft }}</td>
+    <td>{{ form.not_assure_theft.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.burglar_alarm.label }}: </td>
+    <td>{{ calc_step_two_form.burglar_alarm }}</td>
+    <td>{{ form.burglar_alarm.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.single_payment_of_the_policy.label }}: </td>
+    <td>{{ calc_step_two_form.single_payment_of_the_policy }}</td>
+    <td>{{ form.single_payment_of_the_policy.errors }}</td>
+  </tr>
+
+</table>
+
+<h1>Варианты возмещения ущерба</h1>
+
+<table width="" cellspacing="" cellpadding="" border="">
+  
+  <tr>
+    <td>{{ calc_step_two_form.repair_direction_company.label }}: </td>
+    <td>{{ calc_step_two_form.repair_direction_company }}</td>
+    <td>{{ form.repair_direction_company.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.repair_official_dealer.label }}: </td>
+    <td>{{ calc_step_two_form.repair_official_dealer }}</td>
+    <td>{{ form.repair_official_dealer.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.repair_engineering_centre.label }}: </td>
+    <td>{{ calc_step_two_form.repair_engineering_centre }}</td>
+    <td>{{ form.repair_engineering_centre.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.payment_on_accounting.label }}: </td>
+    <td>{{ calc_step_two_form.payment_on_accounting }}</td>
+    <td>{{ form.payment_on_accounting.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.payment_on_accounting_deterioration.label }}: </td>
+    <td>{{ calc_step_two_form.payment_on_accounting_deterioration }}</td>
+    <td>{{ form.payment_on_accounting_deterioration.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.payment_on_accounting_deterioration.label }}: </td>
+    <td>{{ calc_step_two_form.payment_on_accounting_deterioration }}</td>
+    <td>{{ form.payment_on_accounting_deterioration.errors }}</td>
+  </tr>
+
+</table>
+
+<h1>Выплата без справок</h1>
+
+<table width="" cellspacing="" cellpadding="" border="">
+  
+  <tr>
+    <td>{{ calc_step_two_form.glass_elements_one_year.label }}: </td>
+    <td>{{ calc_step_two_form.glass_elements_one_year }}</td>
+    <td>{{ form.glass_elements_one_year.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.glass_elements_without_restriction.label }}: </td>
+    <td>{{ calc_step_two_form.glass_elements_without_restriction }}</td>
+    <td>{{ form.glass_elements_without_restriction.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.repair_3_one_year.label }}: </td>
+    <td>{{ calc_step_two_form.repair_3_one_year }}</td>
+    <td>{{ form.repair_3_one_year.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.repair_5_two_year.label }}: </td>
+    <td>{{ calc_step_two_form.repair_5_two_year }}</td>
+    <td>{{ form.repair_5_two_year.errors }}</td>
+  </tr>
+
+</table>
+
+<h1>Сервис и техническая помощь</h1>
+
+<table width="" cellspacing="" cellpadding="" border="">
+  
+  <tr>
+    <td>{{ calc_step_two_form.evacuation.label }}: </td>
+    <td>{{ calc_step_two_form.evacuation }}</td>
+    <td>{{ form.evacuation.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.technical_assistance.label }}: </td>
+    <td>{{ calc_step_two_form.technical_assistance }}</td>
+    <td>{{ form.technical_assistance.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.call_taxi.label }}: </td>
+    <td>{{ calc_step_two_form.call_taxi }}</td>
+    <td>{{ form.call_taxi.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.lease_car.label }}: </td>
+    <td>{{ calc_step_two_form.lease_car }}</td>
+    <td>{{ form.lease_car.errors }}</td>
+  </tr>
+
+</table>
+
+<h1>Аварийный комиссар</h1>
+
+<table width="" cellspacing="" cellpadding="" border="">
+  
+  <tr>
+    <td>{{ calc_step_two_form.departure_two_player_dtp.label }}: </td>
+    <td>{{ calc_step_two_form.departure_two_player_dtp }}</td>
+    <td>{{ form.departure_two_player_dtp.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.departure_all_dtp.label }}: </td>
+    <td>{{ calc_step_two_form.departure_all_dtp }}</td>
+    <td>{{ form.departure_all_dtp.errors }}</td>
+  </tr>
+
+</table>
+
+<h1>Дополнительно рекомендуем застраховать</h1>
+
+<table width="" cellspacing="" cellpadding="" border="">
+  
+  <tr>
+    <td>{{ calc_step_two_form.civil_liability.label }}: </td>
+    <td>{{ calc_step_two_form.civil_liability }}</td>
+    <td>{{ form.civil_liability.errors }}</td>
+  </tr>
+
+
+  <tr>
+    <td>{{ calc_step_two_form.health_driver_and_passenger.label }}: </td>
+    <td>{{ calc_step_two_form.health_driver_and_passenger }}</td>
+    <td>{{ form.health_driver_and_passenger.errors }}</td>
+  </tr>
+
+  <tr>
+    <td>{{ calc_step_two_form.kasko_plus_osago.label }}: </td>
+    <td>{{ calc_step_two_form.kasko_plus_osago }}</td>
+    <td>{{ form.kasko_plus_osago.errors }}</td>
+  </tr>
+
+
+  <tr>
+    <td><input type="submit" value="Подсчитать" /></td>
+    <td></td><td></td>
+  </tr>
+
+
+</table>
+
+</form>
+</div>
 
 
 <hr />
