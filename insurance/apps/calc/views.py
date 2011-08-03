@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
+from django.shortcuts import redirect
 from calc.forms import ServletTestForm, CalcStepOneForm, CalcStepTwoForm
 import sys,urllib,urllib2
 import json
@@ -65,28 +66,37 @@ def calc_step_2(request):
         return(redirect_to(request,url='/calc/calc_step_1'))
 
     # Получить параметры GET для запроса
-    form_fields = {}
+    servlet_request_data = {}
     for k,v in request.GET.items():
         if v == True:
-            form_fields[k] = 'on'
+            servlet_request_data[k] = 'on'
         elif v == False:
-            form_fields[k] = ''
+            servlet_request_data[k] = ''
         else:
-            form_fields[k] = v
+            servlet_request_data[k] = v
+
+    calc_step_two_form = CalcStepTwoForm(request.POST or None)
+    if calc_step_two_form.is_valid():
+        # Добавить параметры формы в данные для запроса к сервлету
+        for k,v in calc_step_two_form.cleaned_data.items():
+            if v == True:
+                servlet_request_data[k] = 'on'
+            elif v == False:
+                servlet_request_data[k] = ''
+            else:
+                servlet_request_data[k] = v
+        
+        # extra_content = {}
+        # return redirect('/calc/calc_step_3', extra_content)
+       
+
     # Получить результаты расчета от сервлета
     url = 'http://localhost:8080/ServerIF/MatrixIF'
-    form_data = urllib.urlencode(form_fields)
+    form_data = urllib.urlencode(servlet_request_data)
     req = urllib2.Request(url, form_data)
     response = urllib2.urlopen(req)
     result_json = response.read()
     result = json.loads(result_json)
-    print >> sys.stderr, "result =", result
-
-    calc_step_two_form = CalcStepTwoForm(request.POST or None)
-    # if form.is_valid():
-    #     # обрабатываем данные. Например, делаем form.save()
-    #     # ...
-    #     return redirect('url_name', param1=value)
 
     extra_content = {}
     extra_content["result"] = result
@@ -116,3 +126,10 @@ def calc_step_2(request):
 
 
     return direct_to_template(request, 'calc_step_2.html',extra_content)
+
+
+def calc_step_3(request):
+    
+    extra_content = {}
+    return direct_to_template(request,'calc_step_3.html',extra_content)
+
