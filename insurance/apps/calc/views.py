@@ -45,7 +45,15 @@ def calc_step_1(request):
     # Потом передадим их в переменные js
     marks,models,years = get_mark_model_year_json()
     calc_step_one_form = CalcStepOneForm(request.POST or None)
-    #form_fields = {}
+    # Если есть параметр GET в запросе, считать параметры и передать
+    # в темплату для установки начальных значений в форме
+    js_str = ''
+    if request.GET.has_key('mark'):
+        js_str += '{'
+        for k,v in request.GET.items():
+            js_str += '"%s":"%s",' % (k,v)
+        js_str = js_str.rstrip(',')
+        js_str += '}'
     if calc_step_one_form.is_valid():
         # Переходим к шагу 2
         # Создать строку параметров GET
@@ -55,7 +63,10 @@ def calc_step_1(request):
         url = url.rstrip('&')
         return(redirect_to(request,url=url))
     # Data for JS
-    extra_content = {'marks':marks,'models':models,'years':years}
+    extra_content = {'marks':marks,
+                     'models':models,
+                     'years':years,
+                     'js_str':js_str}
     # Form
     extra_content['calc_step_one_form'] = calc_step_one_form
     return direct_to_template(request, 'calc_step_1.html',extra_content)
@@ -100,6 +111,7 @@ def calc_step_2(request):
 
     extra_content = {}
     extra_content["result"] = result
+    # Для ссылки "Назад"
     extra_content["query_str"] = request.META['QUERY_STRING']
     # Обработка параметров GET, получаем нужные данные, вставляем их в
     # контекст для показа на странице. Часть данных получим из базы

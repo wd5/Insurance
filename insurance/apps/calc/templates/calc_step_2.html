@@ -62,19 +62,17 @@
 <hr />
 <table width="" cellspacing="5" cellpadding="4" border="">
   <tr>
-    <td>Название</td>
-    <td>Наши баллы</td>
+    <td>Компания</td>
+    <td>Наша цена</td>
+    <td>Цена агента</td>
     <td>Рейтинг</td>
-    <td>Альяс</td>
-    <td>Баллы</td>
   </tr>
   {% for r in result.info %}
   <tr>
     <td>{{ r.full_name }}</td>
     <td>{{ r.ourscore }}</td>
-    <td>{{ r.rating }}</td>
-    <td>{{ r.alias }}</td>
     <td>{{ r.score }}</td>
+    <td>{{ r.rating }}</td>
   </tr>
   {% endfor %}
 </table>

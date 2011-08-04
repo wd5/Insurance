@@ -8,6 +8,9 @@
   marks = {{ marks|safe }}
   models = {{ models|safe }}
   years = {{ years|safe }}
+  {% if js_str %}
+  get_data = {{ js_str|safe }}
+  {% endif %}
 </script>
 <script type="text/javascript" src="{{ STATIC_URL }}calc/js/calc.js"></script>
 
@@ -18,7 +21,7 @@
 <tr>
   <td>Марка автомобиля: </td>
   <td>
-    <select name="mark" id="calc_marks">
+    <select name="mark" id="id_marks">
       <option value="" selected>-</option>
     </select>
   </td>
@@ -28,7 +31,7 @@
 <tr>
   <td>Модель автомобиля: </td>
   <td>
-    <select name="model" id="calc_models">
+    <select name="model" id="id_models">
       <option value="" selected>-</option>
     </select>
   </td>
@@ -38,7 +41,7 @@
 <tr>
   <td>Год выпуска автомобиля: </td>
   <td>
-    <select name="model_year" id="calc_years">
+    <select name="model_year" id="id_years">
       <option value="" selected>-</option>
     </select>
   </td>
