@@ -6,7 +6,8 @@ from calc.forms import ServletTestForm, CalcStepOneForm, CalcStepTwoForm
 import sys,urllib,urllib2
 import json
 from calc.utils_db import get_mark_model_year_json
-from calc.utils_db import connect,get_mark_by_id,get_model_by_id,get_model_year_by_id,get_city_by_id
+from calc.utils_db import connect,get_mark_by_id,get_model_by_id
+from calc.utils_db import get_power_by_id,get_model_year_by_id,get_city_by_id
 
 def servlet_test(request):
     result = ''
@@ -126,7 +127,7 @@ def calc_step_2(request):
         extra_content["weel"] = u"Левый"
     else:
         extra_content["weel"] = u"Правый"
-    extra_content["power"] = request.GET["power"]
+    extra_content["power"] = get_power_by_id(db,request.GET["power"])
     extra_content["city"] = get_city_by_id(db,request.GET["city"])
     extra_content["price"] = request.GET["price"]
     if request.GET.has_key("credit"):

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """
-Функции для получения данных о моделях и годах выпуска из 
+Функции для получения данных о моделях и годах выпуска из
 базы данных и упаковки их в json
 """
-from insurance import settings 
+from insurance import settings
 import json
 import sys
 
@@ -43,7 +43,7 @@ def get_choices(db, id_field='',name_field='',table=''):
 
 def get_marks(db):
     """
-    Получить словарь словарей марок. 
+    Получить словарь словарей марок.
     {id:{'name':mark_name,models:[model_id,model_id....]}
     }
     массив model_id пустой, будет заполнен позже
@@ -62,7 +62,7 @@ def get_marks(db):
 
 def get_models(db):
     """
-    Получить словарь словарей моделей. 
+    Получить словарь словарей моделей.
     {id:{'name':model_name,years:[year_id,year_id....]}
     }
     массив years пустой, будет заполнен позже
@@ -99,7 +99,7 @@ def get_model_years(db):
 
 def get_mym(db):
     """
-    Получить словарь массивов связей [(id,model,year),...] 
+    Получить словарь массивов связей [(id,model,year),...]
     """
     query = "SELECT mym_id,mym_m,mym_y FROM mym;"
     db.query(query)
@@ -137,7 +137,7 @@ def get_mark_model_year_json():
     models_json = json.dumps(models)
     years_json = json.dumps(years)
     return (marks_json,models_json,years_json)
-    
+
 def get_mark_by_id(db,id):
     query = "SELECT mark_name FROM mark WHERE mark_id="+id+";"
     db.query(query)
@@ -168,6 +168,12 @@ def get_city_by_id(db,id):
     out = r.fetch_row()[0][0]
     return out
 
+def get_power_by_id(db,id):
+    query = "SELECT power_name FROM power WHERE power_id="+id+";"
+    db.query(query)
+    r = db.store_result()
+    out = r.fetch_row()[0][0]
+    return out
     
-    
-    
+
+
