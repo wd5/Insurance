@@ -1,5 +1,10 @@
 // insurance calculator form code
 
+// ===== GLOBAL VARIABLES =====
+var PRICE_MIN = 799000;
+var PRICE_MAX = 883000;
+var PRICE_STEP = 50;
+
 function calc_form_marks_populate() {
     dbgFuncCall('calc_form_marks_populate()');
     var name = '';
@@ -81,7 +86,6 @@ function calc_form_models_selection_handler() {
 function set_form_from_get() {
     dbgFuncCall('set_form_from_get');
     if (window.get_data) {
-	console.log(get_data);
 	if (window.get_data.mark) {
 	    $('#id_marks').val(window.get_data.mark);
 	    calc_form_models_populate(window.get_data.mark);
@@ -104,15 +108,14 @@ function set_form_from_get() {
 	}
 	if (window.get_data.price) {
 	    $('#id_price').val(window.get_data.price);
+	    set_price_slider_value_from_form();
 	}
 	if (window.get_data.credit) {
-	    console.log('credit = ',window.get_data.credit);
 	    if(window.get_data.credit == 'True') {
 		$('#id_credit').attr('checked', true);
 	    } else {
 		$('#id_credit').attr('checked', false);
 	    }
-
 	}
 	if (window.get_data.age) {
 	    $('#id_age').val(window.get_data.age);
@@ -124,13 +127,35 @@ function set_form_from_get() {
     dbgFuncReturn();
 }
 
+function set_price_slider() {
+    dbgFuncCall('set_slider()');
+    $("#calc_price").slider({ min:PRICE_MIN ,max: PRICE_MAX,step: PRICE_STEP });
+    $( "#calc_price" ).slider({
+				  slide: function(event, ui) {
+				      var slider_val = $("#calc_price").slider("option","value");
+				      $('#id_price').val(slider_val);
+				  }
+			      });
+    dbgFuncReturn();
+}
+
+function set_price_slider_value_from_form() {
+    dbgFuncCall('set_price_slider_value_from_form');
+    var value = $('#id_price').val();
+    $("#calc_price").slider("value",value);
+    dbgFuncReturn();
+}
 
 $(document).ready(function() {
-		      dbgConsole(marks);
+		      set_price_slider();
+		      set_price_slider_value_from_form();
 		      calc_form_marks_populate();
 		      $("#id_marks").change(calc_form_marks_selection_handler);
 		      $("#id_models").change(calc_form_models_selection_handler);
 		      set_form_from_get();
-		  });
+});
+
+		     
+
 
 

@@ -6,10 +6,16 @@
     {% block title %}
     <title>Directif - Сравнить и купить дешевый страховой полис быстро и удобно</title>
     {% endblock %} <!-- title -->
-    
+
+    {% block head %}
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css"/> 
+    {% endblock %} <!-- head -->
+
+    {% block extra_head %}
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/cusel.js"></script>
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css"/> 
+    {% endblock %} <!-- extra_head -->
+
   </head>
   <body>
   
