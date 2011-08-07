@@ -8,14 +8,15 @@ var PRICE_STEP = 50;
 function calc_form_marks_populate() {
     dbgFuncCall('calc_form_marks_populate()');
     var name = '';
-    var out_str = '<option value="" selected>-</option>';
+    var out_str = '<option value="1000">Марка автомобиля...</option>';
     for(var mark_id in marks) {
 	mark_name = marks[mark_id].name;
 	out_str +=       '<option value="' + mark_id +
-	    '">' + mark_name + '</option>"\n';
+	    '">' + mark_name + '</option>\n';
     }
     $("#id_marks").empty();
     $("#id_marks").append(out_str);
+
     dbgFuncReturn();
 }
 
@@ -67,11 +68,7 @@ function calc_form_years_populate(model_id) {
 
 function calc_form_marks_selection_handler() {
     dbgFuncCall('calc_form_marks_selection_handler()');
-    $("#id_marks option:selected").
-	each(function() {
-		 calc_form_models_populate($(this).val());
-	     });
-    dbgFuncReturn();
+    calc_form_models_populate($(this).val());
 }
 
 function calc_form_models_selection_handler() {
@@ -147,15 +144,11 @@ function set_price_slider_value_from_form() {
 }
 
 $(document).ready(function() {
-		      set_price_slider();
-		      set_price_slider_value_from_form();
-		      calc_form_marks_populate();
-		      $("#id_marks").change(calc_form_marks_selection_handler);
-		      $("#id_models").change(calc_form_models_selection_handler);
-		      set_form_from_get();
+    set_price_slider();
+    set_price_slider_value_from_form();
+    calc_form_marks_populate();
+    
+    // $("#id_marks").click(calc_form_marks_selection_handler);
+    // $("#id_models").change(calc_form_models_selection_handler);
+    set_form_from_get();
 });
-
-		     
-
-
-

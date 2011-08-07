@@ -1,87 +1,34 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css" />
     {% block title %}
-    <title>Directif - Сравнить и купить дешевый страховой полис быстро и удобно</title>
+    <title>Polisbook - прозрачные расчеты</title>
     {% endblock %} <!-- title -->
-
     {% block head %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" type="text/css"/> 
-    {% endblock %} <!-- head -->
-
-    {% block extra_head %}
     <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.6.1.js"></script>
     <script type="text/javascript" src="{{ STATIC_URL }}js/cusel.js"></script>
-    {% endblock %} <!-- extra_head -->
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jScrollPane.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.mousewheel.js"></script>
+    {% endblock %}
+    {% block extra_head %}
+    {% endblock %}
+  </head>  
 
-  </head>
   <body>
-  
-  
-  
-  
-  
-  
-  
-<div class="body">
-	<!-- Шапка-->
-	<div class="head">
-		<div class="logo">
-			<a href="{% url home %}"><img src="{{ STATIC_URL }}/images/logo.gif" alt="" /></a>
-		</div>
-		
-		{% block navigation %}     
-		  <ul class="navi">
-	          {% if user.is_anonymous %}
-				<li><a href="{% url calc_page %}"><img src="{{ STATIC_URL }}images/ico_3.jpg" alt="Калькулятор" /></a></li>
-				<li><a href="{% url auth_login %}"><img src="{{ STATIC_URL }}images/ico_2.jpg" alt="Войти" /></a></li>
-		      {% else %}
-		        <li><a href="{% url calc_page %}"><img src="{{ STATIC_URL }}images/ico_3.jpg" alt="Калькулятор" /></a></li>
-				<li><a href="{% url userprofile_edit %}"><img src="{{ STATIC_URL }}images/ico_1.jpg" alt="Мой кабинет" /></a></li>
-				<li><a href="{% url auth_logout %}"><img src="{{ STATIC_URL }}images/ico_2.jpg" alt="Выйти" /></a></li>
-				<!-- <li><a href="{% url auth_password_change %}">Сменить пароль</a></li>  -->
-	          {% endif %}
-          </ul>
-        {% endblock %}
-	</div>
-	<!-- Конец шапки -->
-	
-	{% block content %}
-	
+    <div class="body">
+      <!-- Шапка-->
+      {% include "includes/header.html" %}
+      <!-- Конец шапки -->
 
-	{% endblock%}
+      {% block content %}
+      {% endblock%}
 
+      <!-- Подвал  -->
+      {% include "includes/footer.html" %}
+      <!-- Конец подвал  -->
 
-	<!-- Подвал  -->
-	<div class="footer">
-		<div class="copy">
-			<a href="/fp/about/">
-				<img src="{{ STATIC_URL }}/images/copy.jpg" alt="" />
-			</a>
-		</div>
-		<div class="baner_footer">
-			Все жалобы и предложения<br />
-принимаются по адресу:<br />
-<a href="mailto:info@directif.ru">info@derectif.ru</a>
-		</div>
-		
-		<div class="baner_footer">
-		  {% block site_menu %}
-      <ul>
-	<li><a href="/fp/faq/">FAQ</a></li>
-	<li><a href="/fp/about/">О компании</a></li>
-	<li><a href="/fp/license_agreement/">Лицензионнное соглашение</a></li>
-      </ul>
-      {% endblock %}
-		</div>
-		<div class="contacts_button">
-			<a href="/fp/contacts/"><img src="{{ STATIC_URL }}/images/contacts_button.jpg" alt="" /></a>
-		</div>
-	</div>
-	<!-- Конец подвал  --> 
-</div>
-  
+    </div>
   </body>
 </html>

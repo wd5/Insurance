@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-	var deg=90; /* пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ 0 */
+	var deg=90; /* стартовый угол, был 0 */
 
 	/* Storing all the images into a variable */
 
@@ -48,8 +48,8 @@ $(document).ready(function(){
 			
 			images.eq(i).css({
 				top			: centerY-50*eSin,
-				left		     : centerX+180*eCos,  /* пїЅпїЅпїЅпїЅ 100, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ */
-				opacity		: 0.8+eSin*0.2,
+				left		     : centerX+180*eCos,  /* было 100, расстояние между шарами */
+				opacity		: 1.0+eSin*1.0,
 				marginLeft	: -newWidth/2,
 				zIndex		: Math.round(80+eSin*20)
 			}).width(newWidth).height(newHeight);

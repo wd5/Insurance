@@ -1,0 +1,26 @@
+<div class="head">
+  <div class="logo"><a href="{% url home %}"><img src="{{ STATIC_URL }}images/logo.gif" alt="" /></a></div>
+  <div class="head_ico">
+    <div class="head_ico_text_box">
+      <a href="#"><img src="{{ STATIC_URL }}images/head_ico_pointer.gif" alt="" /></a>
+      <div class="head_ico_text">
+	DENIGURU@
+      </div>
+      <div class="setup_user" style="display:none">
+	<a href="#">МОЙ КАБИНЕТ</a>
+	<a href="#">ЛИЧНЫЕ ДАННЫЕ</a>
+	<a href="#">ВЫХОД</a>
+      </div>
+      <script>
+	$(document).ready(function(){
+	$(".head_ico_text_box a").click(function(){
+	$(".setup_user").slideToggle("slow");
+	$(this).toggleClass("active");
+	});
+	});
+      </script>
+    </div>
+    <a href="#"><img src="{{ STATIC_URL }}images/head_ico_2.gif" alt="" /></a>
+    <a href="{% url calc_page %}"><img src="{{ STATIC_URL }}images/head_ico_1.gif" alt="" /></a>
+  </div>
+</div>
