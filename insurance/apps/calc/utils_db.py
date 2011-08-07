@@ -5,7 +5,6 @@
 """
 from insurance import settings
 import json
-import sys
 
 MYSQL_AVAILABLE = False
 try:
@@ -18,14 +17,15 @@ def connect():
     if not MYSQL_AVAILABLE:
         return None
     try:
-        db = MySQLdb.connect(host='127.0.0.1',
-                             user='insdu',
-                             passwd='insdpwd',
+        db = MySQLdb.connect(host=settings.SERVLET_DB_HOST,
+                             user=settings.SERVLET_DB_USER,
+                             passwd=settings.SERVLET_DB_PASS,
                              port=settings.SERVLET_DB_PORT,
-                             db='inservlet'
+                             db=settings.SERVLET_DB
                              )
         return db
-    except MySQLdb.OperationalError:
+    except MySQLdb.OperationalError, e:
+        print "ERROR CONNECTING: ", e
         return None
 
 def get_choices(db, id_field='',name_field='',table=''):

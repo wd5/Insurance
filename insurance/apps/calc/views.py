@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
+import json
+import sys,urllib,urllib2
+
 from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
-from django.shortcuts import redirect
+
 from calc.forms import ServletTestForm, CalcStepOneForm, CalcStepTwoForm
-import sys,urllib,urllib2
-import json
-from calc.utils_db import get_mark_model_year_json
 from calc.utils_db import connect,get_mark_by_id,get_model_by_id
+from calc.utils_db import get_mark_model_year_json
 from calc.utils_db import get_power_by_id,get_model_year_by_id,get_city_by_id
+
+import settings
+
 
 def servlet_test(request):
     result = ''
@@ -103,7 +107,7 @@ def calc_step_2(request):
        
 
     # Получить результаты расчета от сервлета
-    url = 'http://localhost:8080/ServerIF/MatrixIF'
+    url = settings.SERVLET_URL
     form_data = urllib.urlencode(servlet_request_data)
     req = urllib2.Request(url, form_data)
     response = urllib2.urlopen(req)

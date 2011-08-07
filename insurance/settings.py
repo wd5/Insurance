@@ -88,9 +88,6 @@ FIXTURE_DIRS = (
     os.path.join(PROJECT_PATH, 'apps','notification','fixtures'),
 )
 
-# ========= Servlet DB settings =========
-SERVLET_DB_PORT = 3306
-
 # Import deploy-specific settings, if present
 try:
     from local_settings import *
