@@ -113,6 +113,7 @@ def calc_step_2(request):
     response = urllib2.urlopen(req)
     result_json = response.read()
     result = json.loads(result_json)
+    print "JSON:", result
 
     extra_content = {}
     extra_content["result"] = result

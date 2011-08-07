@@ -1,0 +1,64 @@
+<div class="resultat_table">
+  <div class="resultat_table_header">
+    <div class="resultat_table_header_l">
+      <p>Вы страхуете</p>
+      <p><strong>{{ mark }} {{ model }}</strong></p>
+      <p>{{ model_year }} год, {{ price }} руб</p>
+    </div>
+    <div class="resultat_table_header_r">
+      <div class="resultat_table_header_r_header">Сортировать по:</div>
+      <table cellpadding="0" cellspacing="0" class="sort">
+	<tr>
+	  <th>
+	    <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+	    <label>Цена</label>
+	  </th>
+	  <td>
+	    <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+	    <label>Репутация компании</label>
+	  </td>
+	</tr>
+	<tr>
+	  <th>
+	    <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+	    <label>Сервис</label>
+	  </th>
+	  <td>
+	    <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+	    <label>Аварийный комиссар</label>
+	  </td>
+	</tr>
+	<tr>
+	  <th>
+	    <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+	    <label>Эвакуация</label>
+	  </th>
+	  <td>
+	    <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+	    <label>Простота выплаты</label>
+	  </td>
+	</tr>
+	<tr>
+	  <th>
+	    <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+	    <label>Включить ОСАГО</label>
+	  </th>
+	  <td>
+	    <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+	    <label>Стекла без справок</label>
+	  </td>
+	</tr>
+      </table>
+    </div>
+  </div>
+  <div class="resultat_table_cont">
+    <table cellpadding="0" cellspacing="0" id="tabletwo">
+      {% for row in result.info %}
+      {% include "includes/calc_table_row.html" %}
+      {% endfor %}
+    </table>
+    <script>
+      $('#tabletwo').tableHover({colClass: 'hover', cellClass: 'hovercell', clickClass: 'click'}); 
+    </script>
+  </div>
+</div>
