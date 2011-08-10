@@ -154,6 +154,7 @@ class CalcStepOneForm(forms.Form):
                                   id_field='city_id',
                                   name_field='city_name',
                                   table='city')
+
         self.fields['city'] = forms.ChoiceField(choices=city_choices,
                                                  label='Регистрация собственника',
                                                  help_text='',
