@@ -21,7 +21,8 @@ def connect():
                              user=settings.SERVLET_DB_USER,
                              passwd=settings.SERVLET_DB_PASS,
                              port=settings.SERVLET_DB_PORT,
-                             db=settings.SERVLET_DB
+                             db=settings.SERVLET_DB,
+                             charset='utf8',
                              )
         return db
     except MySQLdb.OperationalError, e:
@@ -38,6 +39,10 @@ def get_choices(db, id_field='',name_field='',table=''):
         if not row:
             break
         element = row[0]
+        st = u''
+        st = row[0][1]
+        import sys
+        print >> sys.stderr, "st =", st
         out.append(element)
     return out
 
