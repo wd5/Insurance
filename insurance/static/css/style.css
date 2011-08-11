@@ -399,3 +399,11 @@ a:hover        {text-decoration:none}
 		.pop_up_autorize .pop_up_cont_in	{padding-left:34px;}
 		.pop_up_button_enter	{text-align:center; padding:10px 0 21px 0;}
 			.button_style	{background:url(../images/bg_button.jpg) 0 0 repeat-x; font-size:15px; color:#fff; border:0; -moz-border-radius:4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; border-radius:4px; padding-top:4px; padding-bottom:6px; cursor:pointer;}
+
+
+
+/*-------------------- 
+        Errors 
+--------------------*/
+
+.form_errors {color: #CC0000;}

@@ -42,7 +42,6 @@ def get_choices(db, id_field='',name_field='',table=''):
         st = u''
         st = row[0][1]
         import sys
-        print >> sys.stderr, "st =", st
         out.append(element)
     return out
 

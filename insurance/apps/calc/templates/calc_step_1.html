@@ -15,6 +15,8 @@
   marks = {{ marks|safe }}
   models = {{ models|safe }}
   years = {{ years|safe }}
+  request_type = {{ request_type|safe }}
+  mark = {{ mark|safe }}
   {% if js_str %}
   get_data = {{ js_str|safe }}
   {% endif %}
@@ -22,21 +24,6 @@
 <script type="text/javascript" src="{{ STATIC_URL }}calc/js/calc_step_1.js"></script>
 <!-- END: EK code -->
 
-<script type="text/javascript">
-        jQuery(document).ready(function(){
-            var params = {
-                changedEl: ".select_style select",
-                visRows: 5,
-                scrollArrows: true
-            }
-
-            cuSel(params);
-
-        <!-- VlK: change handler should be installed after custom select init -->
-        $("#id_marks").change(calc_form_marks_selection_handler);
-        $("#id_models").change(calc_form_models_selection_handler);
-        });
-</script>
 <script>
 $(function() {
 	$( "#slider-range-min" ).slider({
@@ -79,11 +66,16 @@ $(function() {
 	  <select class="sel80" name="mark" id="id_marks" tabindex="2">
 	    <option selected="selected" value="1000">Марка автомобиля...</option>
 	  </select>
+	{% if mark_error %}
+	    <div class="form_errors">
+	      {{ mark_error }}
+	    </div>
+	{% endif %}
 	</div>
+
         <div class="setup_box">
           <div class="setup">
             <table width="460" cellspacing="5" cellpadding="4" border="0">
-
               <tr>
                 <td>Модель автомобиля: </td>
                 <td>
@@ -91,7 +83,11 @@ $(function() {
                     <option value="" selected>-</option>
                   </select>
                 </td>
-                <td>{{ calc_step_one_form.model.errors }}</td>
+                <td>
+		  <div class="form_errors">
+		    {{ calc_step_one_form.model.errors }}
+		  </div>
+		</td>
               </tr>
 
               <tr>
@@ -101,7 +97,11 @@ $(function() {
                     <option value="" selected>-</option>
                   </select>
                 </td>
-                <td>{{ calc_step_one_form.model_year.errors }}</td>
+                <td>
+		  <div class="form_errors">
+		  {{ calc_step_one_form.model_year.errors }}
+		  </div>
+		</td>
               </tr>
 
               <tr>
