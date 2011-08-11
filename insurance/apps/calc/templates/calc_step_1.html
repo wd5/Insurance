@@ -79,6 +79,11 @@ $(function() {
 	  <select class="sel80" name="mark" id="id_marks" tabindex="2">
 	    <option selected="selected" value="1000">Марка автомобиля...</option>
 	  </select>
+	    {% if mark_error %}
+	  <div class="form_errors">
+	    {{ mark_error }}
+	  </div>
+	  {% endif %}
 	</div>
         <div class="setup_box">
           <div class="setup">
@@ -91,7 +96,11 @@ $(function() {
                     <option value="" selected>-</option>
                   </select>
                 </td>
-                <td>{{ calc_step_one_form.model.errors }}</td>
+                <td>
+		  <div class="form_errors">
+		    {{ calc_step_one_form.model.errors }}
+		  </div>
+		</td>
               </tr>
 
               <tr>
@@ -101,7 +110,11 @@ $(function() {
                     <option value="" selected>-</option>
                   </select>
                 </td>
-                <td>{{ calc_step_one_form.model_year.errors }}</td>
+                <td>
+		  <div class="form_errors">
+		  {{ calc_step_one_form.model_year.errors }}
+		  </div>
+		</td>
               </tr>
 
               <tr>

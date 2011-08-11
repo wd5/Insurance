@@ -49,7 +49,12 @@ def calc_step_1(request):
     # Получаем данные из базы (упакованные в json)
     # Потом передадим их в переменные js
     marks,models,years = get_mark_model_year_json()
-    calc_step_one_form = CalcStepOneForm(request.POST or None)
+    mark_error = ''
+    if(request.POST):
+        calc_step_one_form = CalcStepOneForm(request.POST)
+        if request.POST.__contains__('mark'):
+            if request.POST['mark'] == '1000':
+                mark_error = 'Вы не выбрали марку автомобиля'
     # Если есть параметр GET в запросе, считать параметры и передать
     # в темплату для установки начальных значений в форме
     js_str = ''
@@ -73,6 +78,7 @@ def calc_step_1(request):
                      'years':years,
                      'js_str':js_str}
     # Form
+    extra_content['mark_error'] = mark_error
     extra_content['calc_step_one_form'] = calc_step_one_form
     return direct_to_template(request, 'calc_step_1.html',extra_content)
 
