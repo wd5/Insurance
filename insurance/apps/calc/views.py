@@ -12,75 +12,60 @@ from calc.utils_db import get_power_by_id,get_model_year_by_id,get_city_by_id
 
 import settings
 
-
-def servlet_test(request):
-    result = ''
-    servlet_test_form = ServletTestForm(request.POST or None)
-    form_fields = {}
-    if servlet_test_form.is_valid():
-        for k,v in servlet_test_form.cleaned_data.items():
-            print >> sys.stderr, k, "=> ", v
-            if v == True:
-                form_fields[k] = 'on'
-            elif v == False:
-                form_fields[k] = ''
-            else:
-                form_fields[k] = v
-
-        print >> sys.stderr, "----------------------------------------"
-        for k,v in form_fields.items():
-            strpr = "%-28s%s" % (k,v)
-            print >> sys.stderr, strpr
-            #print >> sys.stderr, "key =", k, "\tval = ", v
-        print >> sys.stderr, "----------------------------------------"
-
-        url = 'http://localhost:8080/ServerIF/MatrixIF'
-        #form_fields = servlet_test_form.cleaned_data
-        form_data = urllib.urlencode(form_fields)
-        req = urllib2.Request(url, form_data)
-        response = urllib2.urlopen(req)
-        result = response.read()
-        # print >> sys.stderr, "result =", result
-    extra_content = {'servlet_test_form':servlet_test_form,
-                     'result':result}
-    return direct_to_template(request, 'servlet_test.html',extra_content)
-
 def calc_step_1(request):
+    # Структура:
+    # 0) Подготовительные операции
+    # 1) Первый вход (GET) Никаких параметров нет
+    # 2) Вход по кнопке формы (POST)
+    # 3) Вход по нажатию кнопки назад из второго шага калькулятора
+    # ---------- 0) ----------
     # Получаем данные из базы (упакованные в json)
     # Потом передадим их в переменные js
     marks,models,years = get_mark_model_year_json()
-    mark_error = ''
+    extra_content = {'marks':marks,
+                     'models':models,
+                     'years':years,}
     if(request.POST):
-        calc_step_one_form = CalcStepOneForm(request.POST)
-        if request.POST.__contains__('mark'):
-            if request.POST['mark'] == '1000':
-                mark_error = 'Вы не выбрали марку автомобиля'
+        extra_content['request_type'] = "'POST'"
+    else:
+        extra_content['request_type'] = "'GET'"
+    # ---------- 1) ----------
+    if request.META["REQUEST_METHOD"] == "GET" and request.GET == {}:
+        extra_content['calc_step_one_form'] = CalcStepOneForm()
+        return direct_to_template(request, 'calc_step_1.html',extra_content)
+    # ---------- 2) ----------
+    if(request.POST):
+       calc_step_one_form = CalcStepOneForm(request.POST)
+       if calc_step_one_form.is_valid():
+           # Переходим к calc_step_2
+           # Создать строку параметров GET
+           url = "/calc/calc_step_2/?"
+           for k,v in calc_step_one_form.cleaned_data.items():
+               url += "%s=%s&" % (k,v)
+           url = url.rstrip('&')
+           return(redirect_to(request,url=url))
+       else:
+           extra_content['calc_step_one_form'] = calc_step_one_form
+           if request.POST.__contains__('mark'):
+               if request.POST['mark'] == '1000':
+                   extra_content['mark_error'] = 'Вы не выбрали марку автомобиля'
+               else:
+                   extra_content['mark'] = request.POST['mark']
+           return direct_to_template(request, 'calc_step_1.html',extra_content)
+    # ---------- 3) ----------
     # Если есть параметр GET в запросе, считать параметры и передать
     # в темплату для установки начальных значений в форме
     js_str = ''
-    if request.GET.has_key('mark'):
+    # if request.GET.has_key('mark'):
+    if request.META["REQUEST_METHOD"] == "GET" and request.GET != {}:
         js_str += '{'
         for k,v in request.GET.items():
             js_str += '"%s":"%s",' % (k,v)
         js_str = js_str.rstrip(',')
         js_str += '}'
-    if calc_step_one_form.is_valid():
-        # Переходим к шагу 2
-        # Создать строку параметров GET
-        url = "/calc/calc_step_2/?"
-        for k,v in calc_step_one_form.cleaned_data.items():
-            url += "%s=%s&" % (k,v)
-        url = url.rstrip('&')
-        return(redirect_to(request,url=url))
-    # Data for JS
-    extra_content = {'marks':marks,
-                     'models':models,
-                     'years':years,
-                     'js_str':js_str}
-    # Form
-    extra_content['mark_error'] = mark_error
-    extra_content['calc_step_one_form'] = calc_step_one_form
-    return direct_to_template(request, 'calc_step_1.html',extra_content)
+        extra_content['js_str'] = js_str
+        extra_content['calc_step_one_form'] = CalcStepOneForm()
+        return direct_to_template(request, 'calc_step_1.html',extra_content)
 
 def calc_step_2(request):
     # Если нет запроса GET, перенаправляем на первый шаг
@@ -119,7 +104,6 @@ def calc_step_2(request):
     response = urllib2.urlopen(req)
     result_json = response.read()
     result = json.loads(result_json)
-    print "JSON:", result
 
     extra_content = {}
     extra_content["result"] = result

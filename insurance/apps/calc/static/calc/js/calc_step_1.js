@@ -42,6 +42,7 @@ function calc_form_models_populate(mark_id) {
     $("#id_models").empty();
     $("#id_models").append(out_str);
     dbgFuncReturn();
+    return(true);
 }
 
 function calc_form_years_populate(model_id) {
@@ -64,11 +65,14 @@ function calc_form_years_populate(model_id) {
     $("#id_years").empty();
     $("#id_years").append(out_str);
     dbgFuncReturn();
+    return(true);
 }
 
 function calc_form_marks_selection_handler() {
     dbgFuncCall('calc_form_marks_selection_handler()');
     calc_form_models_populate($(this).val());
+    dbgFuncReturn();
+    return(true);
 }
 
 function calc_form_models_selection_handler() {
@@ -77,6 +81,16 @@ function calc_form_models_selection_handler() {
 	each(function() {
 		 calc_form_years_populate($(this).val());
 	     });
+    dbgFuncReturn();
+    return(true);
+}
+
+function set_form_from_post() {
+    dbgFuncCall('set_form_from_post');
+    if (window.mark) {
+	$('#id_marks').val(window.mark);
+	calc_form_models_populate(window.mark);
+    }
     dbgFuncReturn();
 }
 
@@ -108,7 +122,7 @@ function set_form_from_get() {
 	    set_price_slider_value_from_form();
 	}
 	if (window.get_data.credit) {
-	    if(window.get_data.credit == 'True') {
+	    if(window.get_data.credit == 'true') {
 		$('#id_credit').attr('checked', true);
 	    } else {
 		$('#id_credit').attr('checked', false);
@@ -122,6 +136,7 @@ function set_form_from_get() {
 	}
     }
     dbgFuncReturn();
+    return(true);
 }
 
 function set_price_slider() {
@@ -134,6 +149,7 @@ function set_price_slider() {
 				  }
 			      });
     dbgFuncReturn();
+    return(true);
 }
 
 function set_price_slider_value_from_form() {
@@ -141,14 +157,28 @@ function set_price_slider_value_from_form() {
     var value = $('#id_price').val();
     $("#calc_price").slider("value",value);
     dbgFuncReturn();
+    return(true);
 }
 
 $(document).ready(function() {
-    set_price_slider();
-    set_price_slider_value_from_form();
-    calc_form_marks_populate();
-    
-    // $("#id_marks").click(calc_form_marks_selection_handler);
-    // $("#id_models").change(calc_form_models_selection_handler);
-    set_form_from_get();
+		      set_price_slider();
+		      set_price_slider_value_from_form();
+		      calc_form_marks_populate();
+		      if(request_type == "GET") {
+			  set_form_from_get();
+		      } else {
+			  set_form_from_post();
+		      }
+
+		      var params = {
+			  changedEl: ".select_style select",
+			  visRows: 5,
+			  scrollArrows: true
+		      };
+
+		      cuSel(params);
+
+		      // <!-- VlK: change handler should be installed after custom select init -->
+		      $("#id_marks").change(calc_form_marks_selection_handler);
+		      $("#id_models").change(calc_form_models_selection_handler);
 });
