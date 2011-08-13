@@ -16,7 +16,9 @@
   models = {{ models|safe }}
   years = {{ years|safe }}
   request_type = {{ request_type|safe }}
-  mark = {{ mark|safe }}
+  {% if mark %}
+    mark = {{ mark|safe }}
+    {% endif %}
   {% if js_str %}
   get_data = {{ js_str|safe }}
   {% endif %}

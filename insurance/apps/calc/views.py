@@ -36,22 +36,22 @@ def calc_step_1(request):
     # ---------- 2) ----------
     if(request.POST):
        calc_step_one_form = CalcStepOneForm(request.POST)
-        if calc_step_one_form.is_valid():
-            # Переходим к calc_step_2
-            # Создать строку параметров GET
-            url = "/calc/calc_step_2/?"
-            for k,v in calc_step_one_form.cleaned_data.items():
-                url += "%s=%s&" % (k,v)
-            url = url.rstrip('&')
-            return(redirect_to(request,url=url))
-        else:
-            extra_content['calc_step_one_form'] = calc_step_one_form
-            if request.POST.__contains__('mark'):
-                if request.POST['mark'] == '1000':
-                    extra_content['mark_error'] = 'Вы не выбрали марку автомобиля'
-                else:
-                    extra_content['mark'] = request.POST['mark']
-            return direct_to_template(request, 'calc_step_1.html',extra_content)
+       if calc_step_one_form.is_valid():
+           # Переходим к calc_step_2
+           # Создать строку параметров GET
+           url = "/calc/calc_step_2/?"
+           for k,v in calc_step_one_form.cleaned_data.items():
+               url += "%s=%s&" % (k,v)
+           url = url.rstrip('&')
+           return(redirect_to(request,url=url))
+       else:
+           extra_content['calc_step_one_form'] = calc_step_one_form
+           if request.POST.__contains__('mark'):
+               if request.POST['mark'] == '1000':
+                   extra_content['mark_error'] = 'Вы не выбрали марку автомобиля'
+               else:
+                   extra_content['mark'] = request.POST['mark']
+           return direct_to_template(request, 'calc_step_1.html',extra_content)
     # ---------- 3) ----------
     # Если есть параметр GET в запросе, считать параметры и передать
     # в темплату для установки начальных значений в форме

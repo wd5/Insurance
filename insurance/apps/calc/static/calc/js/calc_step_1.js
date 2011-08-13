@@ -181,8 +181,4 @@ $(document).ready(function() {
 		      // <!-- VlK: change handler should be installed after custom select init -->
 		      $("#id_marks").change(calc_form_marks_selection_handler);
 		      $("#id_models").change(calc_form_models_selection_handler);
-
-
-		      // set_form_from_get();
-
 });
