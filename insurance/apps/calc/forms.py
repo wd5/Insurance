@@ -187,19 +187,13 @@ class CalcStepTwoForm(forms.Form):
     def __init__(self,*args,**kwargs):
         super(CalcStepTwoForm,self).__init__(*args,**kwargs)
 
-        standart_deductible_choices = []
-        for a in range(0,55000,5000):
-            standart_deductible_choices.append((a,a))
-            self.fields['standart_deductible'] = forms.ChoiceField(choices=standart_deductible_choices,
-                                                                   required=False,
-                                                                   label='Стандартная франшиза',)
+        self.fields['standart_deductible'] = forms.CharField(required=False,
+                                                             label='',
+                                                             help_text='',)
 
-        second_deductible_choices = []
-        for a in range(0,55000,5000):
-            second_deductible_choices.append((a,a))
-            self.fields['second_deductible'] = forms.ChoiceField(choices=second_deductible_choices,
-                                                                   required=False,
-                                                                   label='Франшиза со второго страхового случая',)
+        self.fields['second_deductible'] = forms.CharField(required=False,
+                                                             label='',
+                                                             help_text='',)
 
         civil_liability_choices = []
         for a in range(0,2500000,300000):
@@ -243,8 +237,8 @@ class CalcStepTwoForm(forms.Form):
     not_assure_theft = forms.BooleanField(required=False,
 				    label='Не страховать автомобиль от угона',)
 
-    burglar_alarm_choices = ((1,'Alarm system 1'),
-                             (2,'Alarm system 2'))
+    burglar_alarm_choices = ((1,'Тип 1'),
+                             (2,'Тип 2'))
     burglar_alarm = forms.ChoiceField(choices=burglar_alarm_choices,
                                    label='Охранная система автомобиля ',)
 

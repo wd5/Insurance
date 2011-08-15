@@ -76,39 +76,39 @@ $(function() {
                       <tr>
                         <td>
                           <div class="box_slider">
-                            <input type="text" id="amount2" class="style_input_slider" />
+                            <input type="text" id="amount2" class="style_input_slider" name="standart_deductible" />
                             <div id="slider-range-min2"></div>
                           </div>
                           <label>Стандартная<br />
                             франшиза</label>
                         </td>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
-                          <label>Охранная система автомобиля</label>
+			  <span><label>Охранная система автомобиля</label>
+			    &nbsp;{{ calc_step_two_form.burglar_alarm }}</span>
                         </td>
                       </tr>
                       <tr>
                         <td>
                           <div class="box_slider">
-                            <input type="text" id="amount3" class="style_input_slider" />
+                            <input type="text" id="amount3" class="style_input_slider" name="second_deductible" />
                             <div id="slider-range-min3"></div>
                           </div>
                           <label>Франшиза <br />
                             со второго случая</label>
                         </td>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="damage_full_destruction" /></span>
                           <label>Возмещать ущерб только
                             при полной гибели / угоне автомобиля</label>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="single_payment_of_the_policy" /></span>
                           <label>Единовременная оплата полиса</label>
                         </td>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="not_assure_theft" /></span>
                           <label>Не страховать автомобиль от угона</label>
                         </td>
                       </tr>
@@ -120,12 +120,32 @@ $(function() {
                     <table cellpadding="0" cellspacing="0" class="table_tabs">
                       <tr>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="repair_direction_company" /></span>
                           <label>Ремонт по направлению страховой компании</label>
                         </td>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="payment_on_accounting_deterioration" /></span>
                           <label>Выплата деньгами по калькуляции с учетом износа запасных частей</label>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <span class="niceCheck"><input type="checkbox" name="repair_official_dealer" /></span>
+                          <label>Ремонт у официального дилера по направлению страховой компании</label>
+                        </td>
+                        <td>
+                          <span class="niceCheck"><input type="checkbox" name="repair_engineering_centre" /></span>
+                          <label>Ремонт в техническом центре по вашему выбору</label>
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>
+                          <span class="niceCheck"><input type="checkbox" name="payment_on_accounting" /></span>
+                          <label>Выплата деньгами по калькуляции</label>
+                        </td>
+                        <td>
                         </td>
                       </tr>
                     </table>
@@ -136,23 +156,23 @@ $(function() {
                     <table cellpadding="0" cellspacing="0" class="table_tabs">
                       <tr>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="glass_elements_one_year" /></span>
                           <label>Стекла и стеклянные элементы.
                             Один раз в год</label>
                         </td>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="repair_3_one_year" /></span>
                           <label>Ремонт в пределах 3%. Один раз в год</label>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="glass_elements_without_restriction" /></span>
                           <label>Стекла и стеклянные элементы.
                             Без ограничения</label>
                         </td>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="repair_5_two_year" /></span>
                           <label>Ремонт в пределах 5%. Два раза в год</label>
                         </td>
                       </tr>
@@ -164,41 +184,39 @@ $(function() {
                     <table cellpadding="0" cellspacing="0" class="table_tabs">
                       <tr>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="evacuation" /></span>
                           <label>Эвакуация автомобиля
                             к месту стоянки или ремонта</label>
                         </td>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="technical_assistance" /></span>
                           <label>Техническая попощь</label>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
-                          <label>Выезд на любые ДТП. Сбор справок</label>
+                          <span class="niceCheck"><input type="checkbox" name="departure_all_dtp" /></span>
+                          <label>Аварийный комиссар. Выезд на любые ДТП. Сбор справок</label>
                         </td>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="call_taxi" /></span>
                           <label>Вызов такси</label>
                         </td>
                       </tr>
                       <tr>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
-                          <label>Выезд только на ДТП
+                          <span class="niceCheck"><input type="checkbox" name="departure_two_player_dtp" /></span>
+                          <label>Аварийный комиссар. Выезд только на ДТП
                             с двумя и более участниками.Сбор справок</label>
                         </td>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+                          <span class="niceCheck"><input type="checkbox" name="lease_car" /></span>
                           <label>Аренда автомобиля</label>
                         </td>
                       </tr>
                       <tr>
                         <td></td>
                         <td>
-                          <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
-                          <label>Аварийный комиссар</label>
                         </td>
                       </tr>
                     </table>
@@ -210,7 +228,7 @@ $(function() {
                       <tr>
                         <td>
                           <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
-                          <label>Гражданская ответсвтенность</label>
+                          <label>Гражданская ответственность</label>
                         </td>
                         <td>
                           <span class="niceCheck"><input type="checkbox" name="ch1" /></span>
