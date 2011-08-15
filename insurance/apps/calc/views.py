@@ -13,11 +13,13 @@ from calc.utils_db import get_power_by_id,get_model_year_by_id,get_city_by_id
 import settings
 
 def calc_step_1(request):
-    # Структура:
-    # 0) Подготовительные операции
-    # 1) Первый вход (GET) Никаких параметров нет
-    # 2) Вход по кнопке формы (POST)
-    # 3) Вход по нажатию кнопки назад из второго шага калькулятора
+    """
+    Структура:
+    0) Подготовительные операции
+    1) Первый вход (GET) Никаких параметров нет
+    2) Вход по кнопке формы (POST)
+    3) Вход по нажатию кнопки назад из второго шага калькулятора
+    """
     # ---------- 0) ----------
     # Получаем данные из базы (упакованные в json)
     # Потом передадим их в переменные js
@@ -67,12 +69,51 @@ def calc_step_1(request):
         extra_content['calc_step_one_form'] = CalcStepOneForm()
         return direct_to_template(request, 'calc_step_1.html',extra_content)
 
+def get_info_from_db_by_id(request):
+    """
+    Получить информацию из базы данных и вернуть еев виде словаря
+    extra_content.  Информация извлекается из базы данных с
+    испольованием идентификаторов, полученных из реквеста
+    """
+    db = connect()
+    extra_content = {}
+    extra_content["type"] = "КАСКО"
+    extra_content["mark"] = get_mark_by_id(db,request.GET["mark"])
+    extra_content["model"] = get_model_by_id(db,request.GET["model"])
+    extra_content["model_year"] = get_model_year_by_id(db,request.GET["model_year"])
+    if request.GET["weel"] == "left":
+        extra_content["weel"] = u"Левый"
+    else:
+        extra_content["weel"] = u"Правый"
+    extra_content["power"] = get_power_by_id(db,request.GET["power"])
+    extra_content["city"] = get_city_by_id(db,request.GET["city"])
+    extra_content["price"] = request.GET["price"]
+    if request.GET.has_key("credit"):
+        extra_content["credit"] = u"Да"
+    else:
+        extra_content["credit"] = u"Нет"
+    extra_content["age"] = request.GET["age"]
+    extra_content["experience_driving"] = request.GET["experience_driving"]
+    return extra_content
+
+
 def calc_step_2(request):
-    # Если нет запроса GET, перенаправляем на первый шаг
+    """
+    1) Нет параметров, перенаправляем на /calc/calc_step_1
+    2) Получить параметры GET для запроса и перевести их в нужный
+       формат для сервлета. Параметры GET получаем, когда пришли из шага 
+       calc_step_1 Запоминаем их в словаре servlet_request_data
+    3) Обработать параметры POST. Параметры POST получаем, когда пришли из шага 
+       calc_step_2 (Этот же вью) по нажатию кнопки "Пересчитать"
+       Добавляем их в словарь servlet_request_data
+    4) Получить результаты расчета от сервлета
+    
+    """
+    # 1) Если нет запроса GET, перенаправляем на первый шаг
     if not request.GET.has_key('mark'):
         return(redirect_to(request,url='/calc/calc_step_1'))
-
-    # Получить параметры GET для запроса
+    # 2) Получить параметры GET для запроса и перевести их в нужный
+    # формат для сервлета
     servlet_request_data = {}
     for k,v in request.GET.items():
         if v == True:
@@ -81,23 +122,31 @@ def calc_step_2(request):
             servlet_request_data[k] = ''
         else:
             servlet_request_data[k] = v
-
+        
+    # 3) Обработать параметры POST.
     calc_step_two_form = CalcStepTwoForm(request.POST or None)
     if calc_step_two_form.is_valid():
+        print "VALID"
         # Добавить параметры формы в данные для запроса к сервлету
         for k,v in calc_step_two_form.cleaned_data.items():
+            print "%-30s %s" % (k,v)
             if v == True:
-                servlet_request_data[k] = 'on'
+                    servlet_request_data[k] = 'on'
             elif v == False:
-                servlet_request_data[k] = ''
+                    servlet_request_data[k] = ''
             else:
-                servlet_request_data[k] = v
-        
+                    servlet_request_data[k] = v
+    else:
+        print "NOT VALID"
+        print calc_step_two_form.errors
         # extra_content = {}
         # return redirect('/calc/calc_step_3', extra_content)
        
+    print "----- servlet_request_data -----"
+    for k,v in servlet_request_data.items():
+        print "%-30s %s" % (k,v)
 
-    # Получить результаты расчета от сервлета
+    # 4) Получить результаты расчета от сервлета
     url = settings.SERVLET_URL
     form_data = urllib.urlencode(servlet_request_data)
     req = urllib2.Request(url, form_data)
@@ -105,8 +154,22 @@ def calc_step_2(request):
     result_json = response.read()
     result = json.loads(result_json)
 
-    extra_content = {}
-    extra_content["result"] = result
+    # 5) Сформировать строки запроса для третьего шага
+    query_str_for_step_3 = request.META['QUERY_STRING']
+    # Здесь нужно добавить в query_str дополнительные поля, например
+    # product_id
+    products_data = []
+    for info in result["info"]:
+        info['query_str'] = query_str_for_step_3
+        products_data.append(info)
+    extra_content = get_info_from_db_by_id(request)
+    extra_content["products_data"] = products_data
+
+    # TODO: После проверки убрать
+    # extra_content = {}
+    # extra_content["result"] = result
+
+
     # Для ссылки "Назад"
     extra_content["query_str"] = request.META['QUERY_STRING']
     # Обработка параметров GET, получаем нужные данные, вставляем их в
