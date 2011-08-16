@@ -161,14 +161,10 @@ def calc_step_2(request):
     products_data = []
     for info in result["info"]:
         info['query_str'] = query_str_for_step_3
+        print "info =", info
         products_data.append(info)
     extra_content = get_info_from_db_by_id(request)
     extra_content["products_data"] = products_data
-
-    # TODO: После проверки убрать
-    # extra_content = {}
-    # extra_content["result"] = result
-
 
     # Для ссылки "Назад"
     extra_content["query_str"] = request.META['QUERY_STRING']

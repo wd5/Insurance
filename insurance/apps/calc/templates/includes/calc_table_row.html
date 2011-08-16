@@ -1,18 +1,74 @@
 <tr>
-  <td class="td_1">
+  <td class="td_1"> 
     {{ row.full_name }}
     <a href="#"><img src="{{ STATIC_URL }}images/baner.jpg" alt="" /></a>
   </td>
-  <td class="td_2">&nbsp;</td>
-  <td class="td_2">&nbsp;</td>
-  <td class="td_2">&nbsp;</td>
-  <td class="td_2"><img src="{{ STATIC_URL }}images/ok.png" alt="" /></td>
-  <td class="td_2">&nbsp;</td>
-  <td class="td_2">&nbsp;</td>
-  <td class="td_2">&nbsp;</td>
-  <td class="td_2">&nbsp;</td>
+  <td class="td_2"> <!-- Эвакуатор -->
+    {% if row.parameters.Evacuator == "on" %}
+    <img src="{{ STATIC_URL }}images/ok.png" alt="" />
+    {% else %}
+    &nbsp;
+    {% endif %}
+  </td>
+  <td class="td_2"> <!-- Авар. ком. -->
+    {% if row.parameters.TheEmergencyCommissioner == "on" %}
+    <img src="{{ STATIC_URL }}images/ok.png" alt="" />
+    {% else %}
+    &nbsp;
+    {% endif %}
+  </td>
+  <td class="td_2"> <!-- Без справок -->
+    {% if row.parameters.PaymentWithoutInquiries == "on" %}
+    <img src="{{ STATIC_URL }}images/ok.png" alt="" />
+    {% else %}
+    &nbsp;
+    {% endif %}
+  </td>
+  <td class="td_2"> <!-- Сбор справок -->
+    {% if row.parameters.GatheringOfInquiries == "on" %}
+    <img src="{{ STATIC_URL }}images/ok.png" alt="" />
+    {% else %}
+    &nbsp;
+    {% endif %}
+  </td>
+  <td class="td_2"> <!-- Агрегатная сумма -->
+    {% if row.parameters.TheModularInsuranceSum == "on" %}
+    <img src="{{ STATIC_URL }}images/ok.png" alt="" />
+    {% else %}
+    &nbsp;
+    {% endif %}
+  </td>
+  <td class="td_2"> <!-- Новое за старое -->
+    {% if row.parameters.NewForTheOld == "on" %}
+    <img src="{{ STATIC_URL }}images/ok.png" alt="" />
+    {% else %}
+    &nbsp;
+    {% endif %}
+  </td>
+  <td class="td_2"> <!-- Франшиза -->
+    {% if row.parameters.TheObligatoryFranchize == "on" %}
+    <img src="{{ STATIC_URL }}images/ok.png" alt="" />
+    {% else %}
+    &nbsp;
+    {% endif %}
+  </td>
+  <td class="td_2"> <!-- Форма выплаты -->
+    {% if row.parameters.AlternativenessOfFormsOfPayment == "on" %}
+    <img src="{{ STATIC_URL }}images/ok.png" alt="" />
+    {% else %}
+    &nbsp;
+    {% endif %}
+  </td>
   <td class="td_10">
-    ЭВАКУАЦИЯ<br /> СТЕКЛА БЕЗ СПРАВОК<br /> ЛКП БЕЗ СПРАВОК
+    {% if row.parameters.Evacuator == "on" %} <!-- Эвакуатор -->
+    ЭВАКУАЦИЯ<br />
+    {% endif %}
+    {% if row.parameters.TheEmergencyCommissioner == "on" %} <!-- Авар. ком. -->
+    АВАРИЙНЫЙ КОМИССАР<br />
+    {% endif %}
+    {% if row.parameters.PaymentWithoutInquiries == "on" %} <!-- Без справок -->
+    СТЕКЛА БЕЗ СПРАВОК<br />
+    {% endif %}
   </td>
   <td class="td_11">
     <div class="strahovka_button"><a href="/calc/calc_step_3/?{{row.query_str }}">
