@@ -173,7 +173,7 @@ $(document).ready(function() {
 		      var params = {
 			  changedEl: ".select_style select",
 			  visRows: 5,
-			  scrollArrows: true
+			  scrollArrows: false
 		      };
 
 		      cuSel(params);
