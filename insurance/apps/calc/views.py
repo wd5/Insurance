@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 import json
 import sys,urllib,urllib2
-
 from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
-
-from calc.forms import ServletTestForm, CalcStepOneForm, CalcStepTwoForm
+from calc.forms import CalcStepOneForm, CalcStepTwoForm
+from calc.forms import CalcStepThreeUserForm, CalcStepThreeAnonymForm
+from profile.models import Persona
 from calc.utils_db import connect,get_mark_by_id,get_model_by_id
 from calc.utils_db import get_mark_model_year_json
 from calc.utils_db import get_power_by_id,get_model_year_by_id,get_city_by_id
@@ -194,9 +194,27 @@ def calc_step_2(request):
 
     return direct_to_template(request, 'calc_step_2.html',extra_content)
 
-
 def calc_step_3(request):
-    
-    extra_content = {}
-    return direct_to_template(request,'calc_step_3.html',extra_content)
+    if request.user.is_authenticated():
+        url = '/calc/calc_step_3_user/?' + request.META['QUERY_STRING']
+        return(redirect_to(request,url=url))
+    else:
+        url = '/calc/calc_step_3_anonym/?' + request.META['QUERY_STRING']
+        return(redirect_to(request,url=url))
 
+def calc_step_3_user(request):
+    form_persona_choices = []
+    persona = Persona.objects.filter(user=request.user)
+    # Подготовить выпадающий список
+    for p in persona:
+        persona_str = "%s %s %s" % (p.last_name,p.first_name,p.middle_name)
+        form_persona_choices.append((p.id,persona_str))
+    extra_content = get_info_from_db_by_id(request)
+    form = CalcStepThreeUserForm(persona_choices=form_persona_choices)
+    extra_content["form"] = form
+    return direct_to_template(request, 'calc_step_3_user.html',extra_content)
+
+def calc_step_3_anonym(request):
+    extra_content = get_info_from_db_by_id(request)
+    extra_content["form"] = CalcStepThreeAnonymForm()
+    return direct_to_template(request, 'calc_step_3_anonym.html',extra_content)
