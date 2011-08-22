@@ -152,7 +152,7 @@ def calc_step_2(request):
     #     print "%-30s %s" % (k,v)
 
     # 4) Получить результаты расчета от сервлета
-    print >> sys.stderr, "4) Получить результаты расчета от сервлета"
+    print >> sys.stderr, "4) Get servlet result"
     url = settings.SERVLET_URL
     print >> sys.stderr, "url = settings.SERVLET_URL"
     form_data = urllib.urlencode(servlet_request_data)
