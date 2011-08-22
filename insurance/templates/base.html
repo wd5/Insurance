@@ -7,14 +7,60 @@
     <title>Polisbook - прозрачные расчеты</title>
     {% endblock %} <!-- title -->
     {% block head %}
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.6.1.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/cusel.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jScrollPane.js"></script>
-    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.tools.min.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.checkbox.js"></script>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/jquery.tablehover.pack.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.ui.core.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.ui.widget.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.ui.mouse.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.ui.slider.js"></script>
+    <script>
+    $(function() {
+    	$( "#slider-range-min2" ).slider({
+    		range: "min",
+    		step: 1000,
+    		value: 1000,
+    		min: 1000,
+    		max: 90000,
+    		slide: function( event, ui ) {
+    			$( "#amount2" ).val( "$" + ui.value );
+    		}
+    	});
+    	$( "#amount2" ).val( "$" + $( "#slider-range-min2" ).slider( "value" ) );
+    });
+    $(function() {
+    	$( "#slider-range-min3" ).slider({
+    		range: "min",
+    		step: 1000,
+    		value: 1000,
+    		min: 1000,
+    		max: 90000,
+    		slide: function( event, ui ) {
+    			$( "#amount3" ).val( "$" + ui.value );
+    		}
+    	});
+    	$( "#amount3" ).val( "$" + $( "#slider-range-min3" ).slider( "value" ) );
+    });
+    </script>
+    <script>
+    	$(document).ready(function() {
+    		$("a[rel]").overlay({
+
+    	// some mask tweaks suitable for modal dialogs
+    	mask: {
+    		color: '#ebecff',
+    		loadSpeed: 200,
+    		opacity: 0.9
+    	},
+
+    	closeOnClick: true
+    });
+    	});
+    </script>
     {% endblock %}
     {% block extra_head %}
     {% endblock %}
-  </head>  
+  </head>
 
   <body>
     <div class="body">
@@ -29,6 +75,12 @@
       {% include "includes/footer.html" %}
       <!-- Конец подвал  -->
 
+      {% include "includes/popup_register.html" %}
+      {% include "includes/popup_authorize.html" %}
+      {% include "includes/popup_pass_recover.html" %}
+      {% include "includes/popup_questions.html" %}
+      
     </div>
+    
   </body>
 </html>

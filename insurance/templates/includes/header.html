@@ -1,23 +1,35 @@
 <div class="head">
-  <div class="logo"><a href="{% url home %}"><img src="{{ STATIC_URL }}images/logo.gif" alt="" /></a></div>
+  <div class="logo"><a href="#"><img src="{{ STATIC_URL }}images/px.gif" alt="" /></a></div>
+  <table cellpadding="0" cellspacing="0" class="menu_main">
+    <tr>
+    <tr>
+      <td><a href="#">КАСКО</a></td>
+      <td><a href="#">ОСАГО</a></td>
+      <td><a href="#">ЗЕЛЕНАЯ КАРТА</a></td>
+      <td><a href="#">СТРАХОВАНИЯ ИМУЩЕСТВА</a></td>
+      <td><a href="#">ИПОТЕЧНОЕ КОМПАНИЕ</a></td>
+      <td><a href="#">СТРАХОВАНИЕ ПУТЕШЕСТВУЮЩИХ</a></td>
+    </tr>
+    </tr>
+  </table>
   <div class="head_ico">
     <div class="head_ico_text_box">
-      <a href="#"><img src="{{ STATIC_URL }}images/head_ico_pointer.gif" alt="" /></a>
+      <a href="#" class="setup_user_open"><img src="{{ STATIC_URL }}images/user_name_button.jpg" alt="" /></a>
       <div class="head_ico_text">
-	DENIGURU@
+        DENIGURU@
       </div>
       <div class="setup_user" style="display:none">
-	<a href="#">МОЙ КАБИНЕТ</a>
-	<a href="#">ЛИЧНЫЕ ДАННЫЕ</a>
-	<a href="#">ВЫХОД</a>
+        <a href="#" rel="#pop_up_1">регистрация</a>
+        <a href="#" rel="#pop_up_2">вход</a>
+        <a href="#" rel="#pop_up_3">пароль</a>
+        <a href="#" rel="#pop_up_4">вапрос</a>
       </div>
       <script>
-	$(document).ready(function(){
-	$(".head_ico_text_box a").click(function(){
-	$(".setup_user").slideToggle("slow");
-	$(this).toggleClass("active");
-	});
-	});
+        $(document).ready(function(){
+            $(".setup_user_open").click(function(){
+                $(".setup_user").slideToggle("slow");
+            });
+        });
       </script>
     </div>
     <a href="#"><img src="{{ STATIC_URL }}images/head_ico_2.gif" alt="" /></a>
