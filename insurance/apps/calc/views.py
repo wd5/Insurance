@@ -12,6 +12,7 @@ from calc.utils_db import get_power_by_id,get_model_year_by_id,get_city_by_id
 
 import settings
 
+
 def calc_step_1(request):
     """
     Структура:
@@ -20,6 +21,7 @@ def calc_step_1(request):
     2) Вход по кнопке формы (POST)
     3) Вход по нажатию кнопки назад из второго шага калькулятора
     """
+    print >> sys.stderr, "calc_step_1(request)"
     # ---------- 0) ----------
     # Получаем данные из базы (упакованные в json)
     # Потом передадим их в переменные js
@@ -75,6 +77,7 @@ def get_info_from_db_by_id(request):
     extra_content.  Информация извлекается из базы данных с
     испольованием идентификаторов, полученных из реквеста
     """
+    print >> sys.stderr, "get_info_from_db_by_id(request)"
     db = connect()
     extra_content = {}
     extra_content["type"] = "КАСКО"
@@ -109,6 +112,7 @@ def calc_step_2(request):
     4) Получить результаты расчета от сервлета
     
     """
+    print >> sys.stderr, "calc_step_2(request)"
     # 1) Если нет запроса GET, перенаправляем на первый шаг
     if not request.GET.has_key('mark'):
         return(redirect_to(request,url='/calc/calc_step_1'))
@@ -126,10 +130,10 @@ def calc_step_2(request):
     # 3) Обработать параметры POST.
     calc_step_two_form = CalcStepTwoForm(request.POST or None)
     if calc_step_two_form.is_valid():
-        print "VALID"
+        # print "VALID"
         # Добавить параметры формы в данные для запроса к сервлету
         for k,v in calc_step_two_form.cleaned_data.items():
-            print "%-30s %s" % (k,v)
+            #print "%-30s %s" % (k,v)
             if v == True:
                     servlet_request_data[k] = 'on'
             elif v == False:
@@ -137,22 +141,31 @@ def calc_step_2(request):
             else:
                     servlet_request_data[k] = v
     else:
-        print "NOT VALID"
-        print calc_step_two_form.errors
+        pass
+        # print "NOT VALID"
+        # print calc_step_two_form.errors
         # extra_content = {}
         # return redirect('/calc/calc_step_3', extra_content)
        
-    print "----- servlet_request_data -----"
-    for k,v in servlet_request_data.items():
-        print "%-30s %s" % (k,v)
+    # print "----- servlet_request_data -----"
+    # for k,v in servlet_request_data.items():
+    #     print "%-30s %s" % (k,v)
 
     # 4) Получить результаты расчета от сервлета
+    print >> sys.stderr, "4) Получить результаты расчета от сервлета"
     url = settings.SERVLET_URL
+    print >> sys.stderr, "url = settings.SERVLET_URL"
     form_data = urllib.urlencode(servlet_request_data)
+    print >> sys.stderr, "form_data = urllib.urlencode(servlet_request_data)"
     req = urllib2.Request(url, form_data)
+    print >> sys.stderr, "req = urllib2.Request(url, form_data)"
     response = urllib2.urlopen(req)
+    print >> sys.stderr, "response = urllib2.urlopen(req)"
     result_json = response.read()
+    print >> sys.stderr, "result_json = response.read()"
+    print >> sys.stderr, "result_json =", result_json
     result = json.loads(result_json)
+    print >> sys.stderr, "result = json.loads(result_json)"
 
     # 5) Сформировать строки запроса для третьего шага
     query_str_for_step_3 = request.META['QUERY_STRING']
@@ -161,7 +174,7 @@ def calc_step_2(request):
     products_data = []
     for info in result["info"]:
         info['query_str'] = query_str_for_step_3
-        print "info =", info
+        # print "info =", info
         products_data.append(info)
     extra_content = get_info_from_db_by_id(request)
     extra_content["products_data"] = products_data
@@ -195,6 +208,7 @@ def calc_step_2(request):
     return direct_to_template(request, 'calc_step_2.html',extra_content)
 
 def calc_step_3(request):
+    print >> sys.stderr, "calc_step_3(request)"
     if request.user.is_authenticated():
         url = '/calc/calc_step_3_user/?' + request.META['QUERY_STRING']
         return(redirect_to(request,url=url))
@@ -203,6 +217,7 @@ def calc_step_3(request):
         return(redirect_to(request,url=url))
 
 def calc_step_3_user(request):
+    print >> sys.stderr, "calc_step_3_user(request)"
     form_persona_choices = []
     persona = Persona.objects.filter(user=request.user)
     # Подготовить выпадающий список
@@ -215,6 +230,7 @@ def calc_step_3_user(request):
     return direct_to_template(request, 'calc_step_3_user.html',extra_content)
 
 def calc_step_3_anonym(request):
+    print >> sys.stderr, "calc_step_3_anonym(request)"
     extra_content = get_info_from_db_by_id(request)
     extra_content["form"] = CalcStepThreeAnonymForm()
     return direct_to_template(request, 'calc_step_3_anonym.html',extra_content)
