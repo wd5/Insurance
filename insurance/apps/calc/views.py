@@ -164,7 +164,10 @@ def calc_step_2(request):
     result_json = response.read()
     print >> sys.stderr, "result_json = response.read()"
     print >> sys.stderr, "result_json =", result_json
-    result = json.loads(result_json)
+    try:
+        result = json.loads(result_json)
+    except ValueError:
+        assert False, "Servlet error. Status NOK: %s" % (result_json)
     print >> sys.stderr, "result = json.loads(result_json)"
 
     # 5) Сформировать строки запроса для третьего шага
