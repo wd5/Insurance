@@ -1,5 +1,5 @@
 <div class="head">
-  <div class="logo"><a href="#"><img src="{{ STATIC_URL }}images/px.gif" alt="" /></a></div>
+  <div class="logo"><a href="/"><img src="{{ STATIC_URL }}images/px.gif" alt="" /></a></div>
   <table cellpadding="0" cellspacing="0" class="menu_main">
     <tr>
     <tr>
@@ -15,15 +15,24 @@
   <div class="head_ico">
     <div class="head_ico_text_box">
       <a href="#" class="setup_user_open"><img src="{{ STATIC_URL }}images/user_name_button.jpg" alt="" /></a>
+      {% if user.is_authenticated %}
+      <div class="head_ico_text">
+        {{ user.email|upper }}
+      </div>
+      <div class="setup_user" style="display:none">
+        <a href="{% url auth_logout %}">Выход</a>
+      </div>
+      {% else %}
       <div class="head_ico_text">
         DENIGURU@
       </div>
       <div class="setup_user" style="display:none">
-        <a href="#" rel="#pop_up_1">регистрация</a>
-        <a href="#" rel="#pop_up_2">вход</a>
-        <a href="#" rel="#pop_up_3">пароль</a>
-        <a href="#" rel="#pop_up_4">вапрос</a>
+        <a href="#" rel="#pop_up_1">Регистрация</a>
+        <a href="#" rel="#pop_up_2">Вход</a>
+        <a href="#" rel="#pop_up_3">Пароль</a>
+        <a href="#" rel="#pop_up_4">Вопрос</a>
       </div>
+      {% endif %}      
       <script>
         $(document).ready(function(){
             $(".setup_user_open").click(function(){
@@ -32,7 +41,9 @@
         });
       </script>
     </div>
-    <a href="#"><img src="{{ STATIC_URL }}images/head_ico_2.gif" alt="" /></a>
+    {% if user.is_authenticated %}
+    <a href="{% url userprofile_edit %}"><img src="{{ STATIC_URL }}images/head_ico_2.gif" alt="" /></a>
+    {% endif %}
     <a href="{% url calc_page %}"><img src="{{ STATIC_URL }}images/head_ico_1.gif" alt="" /></a>
   </div>
 </div>

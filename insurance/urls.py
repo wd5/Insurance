@@ -3,6 +3,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.simple import direct_to_template
 from django.contrib import admin
 
+from email_login.forms import AuthenticationForm
+
 import settings
 
 
@@ -11,7 +13,7 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    url(r'^$', direct_to_template, {'template':'index.html'}, name='home'),
+    url(r'^$', direct_to_template, {'template': 'index.html'}, name='home'),
 
     url(r'^accounts/', include('email_login.urls')),
     url(r'^profile/', include('profile.urls')),
