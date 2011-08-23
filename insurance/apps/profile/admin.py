@@ -253,7 +253,7 @@ class ProfileAdmin(admin.ModelAdmin):
     u_is_active.short_description = 'Активный'
 
 class PersonaAdmin(admin.ModelAdmin):
-    list_display   = ('id','last_name','first_name','middle_name','birth_date','me')
+    list_display   = ('id','last_name','first_name','middle_name','me')
 
 
 

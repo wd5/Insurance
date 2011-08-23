@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
-from django.core.validators import MaxValueValidator
-from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -18,8 +16,6 @@ class UserProfile(models.Model):
     last_name = models.CharField(verbose_name=u'Фамилия', max_length=30)
     first_name = models.CharField(verbose_name=u'Имя', max_length=30)
     middle_name = models.CharField(verbose_name=u'Отчество', max_length=30)
-
-    birth_date = models.DateField(verbose_name=u'Дата рождения', blank=True, null=True)
 
     # == Геолокация ==
     last_ip = models.CharField(verbose_name=u'Последний IP-адрес', max_length=15, null=True)
@@ -64,9 +60,6 @@ class Persona(models.Model):
     middle_name = models.CharField(verbose_name=u'Отчество', max_length=30)
 
     # == Другое ==
-    birth_date = models.DateField(verbose_name=u"", blank=True, null=True)
-    additional_contacts = models.TextField(verbose_name=u"Дополнительные контакты",
-                                           blank=True, null=True)
     comment = models.TextField(verbose_name=u"Комментарии", blank=True, null=True)
 
     # == Бизнес-логика ==
@@ -94,6 +87,5 @@ def add_persona_himself(sender, **kwargs):
     user_persona.first_name = user_profile.first_name
     user_persona.last_name = user_profile.last_name
     user_persona.middle_name = user_profile.middle_name
-    user_persona.birth_date = user_profile.birth_date
     user_persona.me = True
     user_persona.save()

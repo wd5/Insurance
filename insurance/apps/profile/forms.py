@@ -13,12 +13,15 @@ year = datetime.datetime.now().year
 years_list = range(year-100,year)
 
 class ProfileForm(ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args, **kwargs)
+        for fname in ['first_name', 'last_name', 'middle_name']:
+            self.fields[fname].widget.attrs['class'] = 'style_input5'
+
     class Meta:
         model = UserProfile
-        fields = ('last_name', 'first_name', 'middle_name', 'birth_date')
-        widgets = {
-            'birth_date': SelectDateWidget(years=years_list),
-        }
+        fields = ('last_name', 'first_name', 'middle_name')
 
 class AdminUserBlockForm(ModelForm):
     reason_blocked = forms.CharField(widget=forms.TextInput(attrs={'size':'100', 'required':True}))
@@ -45,7 +48,9 @@ class PersonaForm(ModelForm):
 
     class Meta:
         model = Persona
-        fields = ('last_name','first_name','middle_name','birth_date')
-        widgets = {
-            'birth_date': SelectDateWidget(years=years_list),
-        }
+        fields = ('last_name','first_name','middle_name')
+
+    def __init__(self, *args, **kwargs):
+        super(ModelForm, self).__init__(*args, **kwargs)
+        for fname in ['first_name', 'last_name', 'middle_name']:
+            self.fields[fname].widget.attrs['class'] = 'style_input5'

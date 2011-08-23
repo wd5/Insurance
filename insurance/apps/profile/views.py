@@ -20,12 +20,13 @@ from profile.models import UserProfile,Persona
 def profile(request):
     user = request.user
     profile, _ = UserProfile.objects.get_or_create(user=user)
-
     saved=False
     if request.method == 'POST': 
         profile_form = ProfileForm(request.POST, instance=profile)
+        print "Errors:",  profile_form.errors
         if profile_form.is_valid():
             profile = profile_form.save()
+            profile.save()
             saved = True
     else:
         profile_form = ProfileForm(instance=profile)
@@ -43,6 +44,7 @@ def profile(request):
 @login_required
 def edit_persona(request, persona_id=None):
     user = request.user
+    personas = Persona.objects.filter(user=user, me=False)
     if persona_id:
         persona = get_object_or_404(Persona, pk=persona_id)
         if request.method == 'POST': 
@@ -58,11 +60,14 @@ def edit_persona(request, persona_id=None):
                 persona = persona_form.save(commit=False)
                 persona.user = user
                 persona.save()
-                return HttpResponseRedirect(reverse('userprofile_edit'))
+                return HttpResponseRedirect(reverse('userprofile_editpersona',
+                                                     kwargs={"persona_id": persona.id}))
         else:
             persona_form = PersonaForm()
     return render_to_response('profile/userprofile_addpersona.html', {
         'persona_form': persona_form,
+        'personas': personas,
+        'persona_id':  int(persona_id) if persona_id else None
     }, context_instance=RequestContext(request))
 
 @login_required

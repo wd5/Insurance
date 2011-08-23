@@ -1,14 +1,40 @@
 {% extends "profile/userprofile_base.html" %}
 
-{% block inner_content %}
-<form action="" method="post">{% csrf_token %}
-  <p>Добавить Персону</p>
-  {{ persona_form.as_p }}
-  <input type="submit" value="Сохранить" />
-</form>
-{% if saved %}
-<p>Данные сохранены</p>
-{% endif %}
+{% block content %}
+<div class="content">
+  <div class="tabs_box">
+    <ul class="tabs">
+      <li><a class="active" href="{% url userprofile_edit %}">МОИ ДАННЫЕ</a></li>
+      <li><a href="#">МОИ ПОЛИСЫ</a></li>
+      <li><a href="#">УВЕДОМЛЕНИЯ</a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
 
+    <!--- Первая закладка --->
+    <div id="tabs_cont_1" class="bg_tabs_f">
+      <div class="bg_tabs_t">
+        <div class="bg_tabs_b">
+          <div class="tabs2">
+            <ul class="tab5">
+              <li><a href="{% url userprofile_edit %}">ЛЮДИ +</a></li>
+              {% for persona in personas %}
+              <li class="user_name">
+                <a {% if persona.id == persona_id %} class="active" {% endif %}
+                   href="{% url userprofile_editpersona persona.id %}">
+                  {{persona.last_name}} {{ persona.first_name }} {{ persona.id }} {{persona_id}}
+                </a>
+              </li>
+              {% endfor%}
+            </ul>
+            <!---- Первая закладка внутри ----->
+            <div id="tabs_cont3_1" class="bg_tabs3_box">
+              {% include "profile/forms/persona_form.html" with form=persona_form %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
 

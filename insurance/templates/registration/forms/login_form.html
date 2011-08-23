@@ -6,7 +6,7 @@
 	  <th>*Адрес эл.почты:</th>
 	</tr>
 	<tr>
-	  <td><input type="text" class="style_input5 style_input_red" name="email">
+	  <td><input type="text" class="style_input5" name="email">
             {% if form.email.errors %}
 	    <p class="message_error">*Неправильный адрес эл.почты</p>
             {% endif %}
@@ -16,7 +16,7 @@
 	  <th>*Пароль:</th>
 	</tr>
 	<tr>
-	  <td><input type="password" class="style_input5 style_input_red" name="password">
+	  <td><input type="password" class="style_input5" name="password">
             {% if form.password.errors %}
 	    <p class="message_error">*Неправильный пароль</p></td>
           {% endif %}
