@@ -117,7 +117,6 @@
             "middle_name": "",
             "last_ip": "88.119.246.3",
             "user": 1,
-            "birth_date": null,
             "reason_blocked": null
         }
     },
@@ -131,7 +130,6 @@
             "middle_name": "\u0418\u0433\u043e\u0440\u0435\u0432\u0438\u0447",
             "last_ip": "88.119.246.3",
             "user": 2,
-            "birth_date": "1957-02-15",
             "reason_blocked": null
         }
     },
