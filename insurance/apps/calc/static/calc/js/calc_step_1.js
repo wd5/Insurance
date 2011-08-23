@@ -169,16 +169,6 @@ $(document).ready(function() {
 		      } else {
 			  set_form_from_post();
 		      }
-
-		      var params = {
-			  changedEl: ".select_style select",
-			  visRows: 5,
-			  scrollArrows: false
-		      };
-
-		      cuSel(params);
-
-		      // <!-- VlK: change handler should be installed after custom select init -->
 		      $("#id_marks").change(calc_form_marks_selection_handler);
 		      $("#id_models").change(calc_form_models_selection_handler);
 });
