@@ -39,16 +39,16 @@
         "pk": 2, 
         "model": "sites.site", 
         "fields": {
-            "domain": "dev.directif.ru", 
-            "name": "Directif"
+            "domain": "polisbook.com", 
+            "name": "Polisbook"
         }
     }, 
     {
         "pk": 1, 
         "model": "sites.site", 
         "fields": {
-            "domain": "directif.ru", 
-            "name": "Directif"
+            "domain": "dev.polisbook.com", 
+            "name": "Polisbook"
         }
     }, 
     {

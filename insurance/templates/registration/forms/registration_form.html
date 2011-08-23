@@ -1,0 +1,47 @@
+<div class="pop_up_cont"><div class="pop_up_cont_in">
+    <form action="{% url registration_register %}" method="post">{% csrf_token %}
+      <table cellspacing="0" cellpadding="0" class="table_user_form">
+	<tr>
+	  <th>*Адрес эл.почты:</th>
+	</tr>
+	<tr>
+	  <td>
+            <input type="text" class="style_input5" name="email">
+            {% if form.email.errors %}
+            <p class="comment_error">*Ошибка заполнения поля</p>
+            {% endif%}
+          </td>
+	</tr>
+	<tr>
+	  <th>*Пароль:</th>
+	</tr>
+	<tr>
+	  <td><input type="password" class="style_input5" name="password1">
+            {% if form.password1.errors %}
+            <p class="comment_error">*Ошибка заполнения поля</p>
+            {% endif%}
+          </td>
+	</tr>
+	<tr>
+	  <th>*Повторите пароль:</th>
+	</tr>
+	<tr>
+	  <td><input type="password" class="style_input5" name="password2">
+            {% if form.password2.errors %}
+            <p class="comment_error">*Ошибка заполнения поля</p>
+            {% endif%}
+          </td>
+	</tr>
+      </table>
+      <div class="register_checbox">
+	<p>Я согласен с правилами регистрации <input type="checkbox" class="style_checkbox" name="tos" /></p>
+        {% if form.tos.errors %}
+        <p class="comment_error">*Ошибка заполнения поля</p>
+        {% endif%}
+      </div>
+      <div class="pop_up_button">
+	<input name="" type="submit" value="Зарегистрироваться" />
+      </div>
+    </form>
+  </div>
+</div>
