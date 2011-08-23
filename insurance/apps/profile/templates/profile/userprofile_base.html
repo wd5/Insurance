@@ -18,7 +18,7 @@
         <div class="bg_tabs_b">
           <div class="tabs2">
             <ul class="tab5">
-              <li><a href="#tabs_cont3_1" class="active">ЛЮДИ +</a></li>
+              <li><a href="#" class="active">ЛЮДИ +</a></li>
               {% for persona in personas %}
               <li class="user_name"><a href="{% url userprofile_editpersona persona.id %}">{{persona.last_name}} {{ persona.first_name }}</a></li>
               {% endfor%}

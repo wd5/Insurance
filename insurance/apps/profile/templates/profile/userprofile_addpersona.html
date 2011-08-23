@@ -29,6 +29,9 @@
             <!---- Первая закладка внутри ----->
             <div id="tabs_cont3_1" class="bg_tabs3_box">
               {% include "profile/forms/persona_form.html" with form=persona_form %}
+              <div class="box_button_seva">
+                <p><a href="{% url userprofile_deletepersona persona_id %}" class="style_button" >Удалить</a></p>
+              </div>
             </div>
           </div>
         </div>
