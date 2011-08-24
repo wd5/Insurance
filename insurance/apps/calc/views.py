@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-import json
-import sys,urllib,urllib2
+import sys
 from django.views.generic.simple import direct_to_template
 from django.views.generic.simple import redirect_to
 from calc.forms import CalcStepOneForm, CalcStepTwoForm
@@ -9,6 +8,7 @@ from profile.models import Persona
 from calc.utils_db import connect,get_mark_by_id,get_model_by_id
 from calc.utils_db import get_mark_model_year_json
 from calc.utils_db import get_power_by_id,get_model_year_by_id,get_city_by_id
+from calc.utils_servlet import servlet_request
 
 import settings
 
@@ -118,11 +118,12 @@ def calc_step_2(request):
         return(redirect_to(request,url='/calc/calc_step_1'))
     # 2) Получить параметры GET для запроса и перевести их в нужный
     # формат для сервлета
-    servlet_request_data = {}
+    servlet_request_data = {'insurance_type':'',}
     for k,v in request.GET.items():
-        if v == True:
+        print >> sys.stderr,   "%-30s %s     %-30s" % (k,v,type(v))
+        if v == 'True':
             servlet_request_data[k] = 'on'
-        elif v == False:
+        elif v == 'False':
             servlet_request_data[k] = ''
         else:
             servlet_request_data[k] = v
@@ -130,45 +131,22 @@ def calc_step_2(request):
     # 3) Обработать параметры POST.
     calc_step_two_form = CalcStepTwoForm(request.POST or None)
     if calc_step_two_form.is_valid():
-        # print "VALID"
         # Добавить параметры формы в данные для запроса к сервлету
         for k,v in calc_step_two_form.cleaned_data.items():
-            #print "%-30s %s" % (k,v)
-            if v == True:
+            print >> sys.stderr,   "%-30s %s" % (k,v)
+            if v == 'True':
                     servlet_request_data[k] = 'on'
-            elif v == False:
+            elif v == 'False':
                     servlet_request_data[k] = ''
             else:
                     servlet_request_data[k] = v
-    else:
-        pass
-        # print "NOT VALID"
-        # print calc_step_two_form.errors
-        # extra_content = {}
-        # return redirect('/calc/calc_step_3', extra_content)
        
-    # print "----- servlet_request_data -----"
-    # for k,v in servlet_request_data.items():
-    #     print "%-30s %s" % (k,v)
+    print >> sys.stderr,  "----- servlet_request_data -----"
+    for k,v in servlet_request_data.items():
+        print  >> sys.stderr, "%-30s %s" % (k,v)
 
     # 4) Получить результаты расчета от сервлета
-    print >> sys.stderr, "4) Get servlet result"
-    url = settings.SERVLET_URL
-    print >> sys.stderr, "url = settings.SERVLET_URL"
-    form_data = urllib.urlencode(servlet_request_data)
-    print >> sys.stderr, "form_data = urllib.urlencode(servlet_request_data)"
-    req = urllib2.Request(url, form_data)
-    print >> sys.stderr, "req = urllib2.Request(url, form_data)"
-    response = urllib2.urlopen(req)
-    print >> sys.stderr, "response = urllib2.urlopen(req)"
-    result_json = response.read()
-    print >> sys.stderr, "result_json = response.read()"
-    print >> sys.stderr, "result_json =", result_json
-    try:
-        result = json.loads(result_json)
-    except ValueError:
-        assert False, "Servlet error. Status NOK: %s" % (result_json)
-    print >> sys.stderr, "result = json.loads(result_json)"
+    result = servlet_request(settings.SERVLET_URL,servlet_request_data)
 
     # 5) Сформировать строки запроса для третьего шага
     query_str_for_step_3 = request.META['QUERY_STRING']
@@ -177,7 +155,6 @@ def calc_step_2(request):
     products_data = []
     for info in result["info"]:
         info['query_str'] = query_str_for_step_3
-        # print "info =", info
         products_data.append(info)
     extra_content = get_info_from_db_by_id(request)
     extra_content["products_data"] = products_data
