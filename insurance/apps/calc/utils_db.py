@@ -118,6 +118,7 @@ def get_mym(db):
     return out
 
 def get_mark_model_year_data(db):
+    import sys
     marks = get_marks(db)
     models = get_models(db)
     years = get_model_years(db)
@@ -125,10 +126,17 @@ def get_mark_model_year_data(db):
     # Fill 'models' field of the marks dict
     for model_id,model_d in models.items():
         marks[model_d['mark']]['models'].append(model_id)
-    # Fill 'years' field of the models dict
-    for _,model_id,year_id in mym:
-        models[model_id]['years'].append(year_id)
-    return (marks,models,years)
+    # Fill 'years' field of the models dict В качестве индекса для
+    # года выпуска испольуем индекс связи модель-год из таблицы mym
+    years_d = {}
+    for mym_id,model_id,year_id in mym:
+        years_d[mym_id] = years[year_id]
+        models[model_id]['years'].append(mym_id)
+    # Отсортировать года в словарях моделей, иначе в формах будут
+    # выпадать вперемешку
+    for model_id,model_d in models.items():
+        model_d['years'].sort()
+    return (marks,models,years_d)
 
 def get_mark_model_year_json():
     """
@@ -159,7 +167,7 @@ def get_model_by_id(db,id):
 def get_model_year_by_id(db,id):
     if not id:
         return ""
-    query = "SELECT model_year_year FROM model_year WHERE model_year_id="+id+";"
+    query = 'SELECT model_year.model_year_year FROM model_year,mym WHERE mym.mym_id='+id+' AND model_year.model_year_id=mym.mym_y;'
     db.query(query)
     r = db.store_result()
     out = r.fetch_row()[0][0]

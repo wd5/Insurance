@@ -47,6 +47,8 @@ def calc_step_1(request):
            for k,v in calc_step_one_form.cleaned_data.items():
                url += "%s=%s&" % (k,v)
            url = url.rstrip('&')
+           # Добавим тип страховки
+           url += '&insurance_type=1'
            return(redirect_to(request,url=url))
        else:
            extra_content['calc_step_one_form'] = calc_step_one_form
@@ -73,14 +75,14 @@ def calc_step_1(request):
 
 def get_info_from_db_by_id(request):
     """
-    Получить информацию из базы данных и вернуть еев виде словаря
+    Получить информацию из базы данных и вернуть ее в виде словаря
     extra_content.  Информация извлекается из базы данных с
     испольованием идентификаторов, полученных из реквеста
+    Функция испольуется во вью  calc_step_2(request) # 5)
     """
-    print >> sys.stderr, "get_info_from_db_by_id(request)"
     db = connect()
     extra_content = {}
-    extra_content["type"] = "КАСКО"
+    extra_content["insurance_type"] = "1"
     extra_content["mark"] = get_mark_by_id(db,request.GET["mark"])
     extra_content["model"] = get_model_by_id(db,request.GET["model"])
     extra_content["model_year"] = get_model_year_by_id(db,request.GET["model_year"])
@@ -118,7 +120,7 @@ def calc_step_2(request):
         return(redirect_to(request,url='/calc/calc_step_1'))
     # 2) Получить параметры GET для запроса и перевести их в нужный
     # формат для сервлета
-    servlet_request_data = {'insurance_type':'',}
+    servlet_request_data = {'insurance_type':'1',}
     for k,v in request.GET.items():
         print >> sys.stderr,   "%-30s %s     %-30s" % (k,v,type(v))
         if v == 'True':
