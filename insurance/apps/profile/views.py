@@ -1,5 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.flatpages.models import FlatPage    
+#from django.contrib import messages #TODO: use message framework???
+from django.contrib.auth.forms import PasswordChangeForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -120,3 +122,17 @@ def faq(request):
     return render_to_response('profile/userprofile_faq.html',
                               context,
                               context_instance=RequestContext(request))
+
+@login_required
+def password_change(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('userprofile_edit'))
+    else:
+        form = PasswordChangeForm(user=request.user)
+    return render_to_response('registration/password_change.html', {
+            'form': form,
+        }, context_instance=RequestContext(request))
+
