@@ -5,7 +5,7 @@ from django.views.generic.simple import direct_to_template
 
 from registration.views import activate, register
 
-from email_login.forms import AuthenticationForm
+from email_login.forms import EmailAuthenticationForm
 
 
 
@@ -26,7 +26,7 @@ urlpatterns = patterns('',
                            name='registration_register'),
                        url(r'^login/$', login,
                            { 'template_name': 'registration/login.html',
-                             'authentication_form': AuthenticationForm },
+                             'authentication_form': EmailAuthenticationForm },
                            name='auth_login'),
                        (r'', include('registration.backends.default.urls')),
                        )

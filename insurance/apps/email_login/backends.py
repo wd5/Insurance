@@ -36,19 +36,20 @@ class RegistrationBackend(DefaultBackend):
         """
         return RegistrationForm
 
-email_re = re.compile(
-    r"(^[-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*"  # dot-atom
-    r'|^"([\001-\010\013\014\016-\037!#-\[\]-\177]|\\[\001-\011\013\014\016-\177])*"' # quoted-string
-    r')@(?:[A-Z0-9-]+\.)+[A-Z]{2,6}$', re.IGNORECASE)  # domain
+
+# WE have EmailField in EmailAuthenticationForm. It`s realy need?
+#email_re = re.compile(
+#    r"(^[-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*"  # dot-atom
+#    r'|^"([\001-\010\013\014\016-\037!#-\[\]-\177]|\\[\001-\011\013\014\016-\177])*"' # quoted-string
+#    r')@(?:[A-Z0-9-]+\.)+[A-Z]{2,6}$', re.IGNORECASE)  # domain
             
 class AuthBackend(ModelBackend):
-    """Authenticate using email only"""
-    def authenticate(self, email=None, password=None):
-        #If username is an email address, then try to pull it up
-        if email_re.search(email):
-            user = User.objects.filter(email__iexact=email)
-            if user.count() > 0:
-                user = user[0]
-                if user.check_password(password):
-                    return user
-        return None
+   def authenticate(self, username=None, password=None, **kwargs):
+        try:
+            user = User.objects.get(email=username) #email field is unique => RegistrationForm...
+
+            if user.check_password(password):
+                return user
+            return None
+        except User.DoesNotExist:
+            return None

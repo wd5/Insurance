@@ -3,9 +3,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.views.generic.simple import direct_to_template
 from django.contrib import admin
 
-from email_login.forms import AuthenticationForm
-
-import settings
+from django.conf import settings
 
 
 

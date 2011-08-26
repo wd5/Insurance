@@ -104,7 +104,7 @@ except ImportError, e:
 ACCOUNT_ACTIVATION_DAYS = 7
 
 # Login redirect url (should be user cabinet, but for now site root url will do)
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/profile/'
 
 # Email login backend
 AUTHENTICATION_BACKENDS = (
