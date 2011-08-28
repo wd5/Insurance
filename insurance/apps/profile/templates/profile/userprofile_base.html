@@ -31,7 +31,7 @@
                   <p><a href="{% url userprofile_addpersona %}" class="style_button" >ДОБАВИТЬ</a></p></p>
                 </div>
               </div>
-              {% include "profile/forms/persona_form.html" with form=profile_form persona=persona_me %}
+              {% include "profile/forms/persona_form.html" with profile_form=profile_form persona=persona_me password_form=password_form %}
             </div>
           </div>
         </div>

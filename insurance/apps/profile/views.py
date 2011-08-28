@@ -19,25 +19,39 @@ from profile.models import UserProfile,Persona
 
 
 @login_required
-def profile(request):
+def profile(request, action=None):
     user = request.user
     profile, _ = UserProfile.objects.get_or_create(user=user)
     saved=False
-    if request.method == 'POST': 
-        profile_form = ProfileForm(request.POST, instance=profile)
-        print "Errors:",  profile_form.errors
-        if profile_form.is_valid():
-            profile = profile_form.save()
-            profile.save()
-            saved = True
+    if request.method == 'POST':
+        if action == 'profile':
+            profile_form = ProfileForm(request.POST, instance=profile)
+            print "Errors:",  profile_form.errors
+            if profile_form.is_valid():
+                profile = profile_form.save()
+                profile.save()
+                saved = True
+                return HttpResponseRedirect(reverse('userprofile_edit'))
+            password_form = PasswordChangeForm(user)
+
+        elif action == 'password':
+            password_form = PasswordChangeForm(user=request.user, data=request.POST)
+            if password_form.is_valid():
+                password_form.save()
+                saved = True
+                return HttpResponseRedirect(reverse('userprofile_edit'))
+            profile_form = ProfileForm(instance=profile)
+
     else:
         profile_form = ProfileForm(instance=profile)
+        password_form = PasswordChangeForm(user)
 
     persona_me = Persona.objects.get(user=user, me=True)
     personas = Persona.objects.filter(user=user, me=False)
 
     return render_to_response('profile/userprofile_edit.html', {
         'profile_form': profile_form,
+        'password_form': password_form,
         'saved': saved,
         'personas': personas,
         'persona_me': persona_me,
@@ -122,17 +136,4 @@ def faq(request):
     return render_to_response('profile/userprofile_faq.html',
                               context,
                               context_instance=RequestContext(request))
-
-@login_required
-def password_change(request):
-    if request.method == 'POST':
-        form = PasswordChangeForm(user=request.user, data=request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('userprofile_edit'))
-    else:
-        form = PasswordChangeForm(user=request.user)
-    return render_to_response('registration/password_change.html', {
-            'form': form,
-        }, context_instance=RequestContext(request))
 

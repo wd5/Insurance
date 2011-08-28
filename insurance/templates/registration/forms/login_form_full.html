@@ -1,12 +1,13 @@
 <div class="pop_up_cont">
   <div class="pop_up_cont_in">
     <form action="{% url auth_login %}" method="post">{% csrf_token %}
+    <div class="messages">{{ form.non_field_errors }}</div>
       <table cellspacing="0" cellpadding="0" class="table_user_form">
 	<tr>
 	  <th>*Адрес эл.почты:</th>
 	</tr>
 	<tr>
-	  <td class="style_input5"><input type="text" id="id_username" name="username">
+	  <td class="style_input5">{{ form.username }}
             {% if form.username.errors %}
 	    <p class="message_error">*Неправильный адрес эл.почты</p>
             {% endif %}
@@ -16,7 +17,7 @@
 	  <th>*Пароль:</th>
 	</tr>
 	<tr>
-	  <td class="style_input5"><input type="password" id="id_password" name="password">
+	  <td class="style_input5">{{ form.password }}
             {% if form.password.errors %}
 	    <p class="message_error">*Неправильный пароль</p></td>
           {% endif %}

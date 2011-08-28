@@ -1,4 +1,4 @@
-<form action="" method="post">{% csrf_token %}
+<form action="{% url userprofile_edit 'profile' %}" method="post">{% csrf_token %}
   <div class="bg_tabs2_f">
     {% if persona %}
     <div class="user_data">
@@ -11,25 +11,69 @@
         <th>Фамилия:</th>
       </tr>
       <tr>
-        <td>{{ form.last_name }}</td>
+        <td>{{ profile_form.last_name }}</td>
       </tr>
       <tr>
         <th>Имя:</th>
       </tr>
       <tr>
-        <td>{{ form.first_name }}</td>
+        <td>{{ profile_form.first_name }}</td>
       </tr>
       <tr>
         <th>Отчество:</th>
       </tr>
       <tr>
-        <td>{{ form.middle_name }}</td>
+        <td>{{ profile_form.middle_name }}</td>
       </tr>
     </table>
-    <div class="clear"></div>
-  </div>
+      <div class="clear"></div> 
   <div class="box_button_seva">
     <p><input name="" type="submit" value="СОХРАНИТЬ" class="style_button" /></p>
   </div>
+
+  </div>
 </form>
 
+ <form action="{% url userprofile_edit 'password' %}" method="post">{% csrf_token %}
+    <div class="bg_tabs2_f">
+                        <div class="user_data">
+                            Сменить пароль:
+                        </div>
+                        {{ password_form.non_field_errors }}
+                        <table cellpadding="0" cellspacing="0" class="table_user_form">
+                            <tr>
+                                <th>Старый пароль:</th>
+                                <th></th>
+                            </tr>
+                            <tr>
+                                 <td class="style_input5">{{ password_form.old_password }}
+                                    {% if password_form.old_password.errors %}
+                                        <p class="message_error">*Неправильный пароль</p>
+                                    {% endif %}
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th>Новый пароль:</th>
+                                <th>Подтвердите пароль:</th>
+                            </tr>
+                            <tr>
+                                 <td class="style_input5">{{ password_form.new_password1 }}
+                                {% if password_form.new_password1.errors %}
+                                    <p class="message_error">*Неправильный пароль</p>
+                                {% endif %}
+                                </td>
+                                <td class="style_input5">{{ password_form.new_password2 }}
+                                {% if password_form.new_password2.errors %}
+                                    <p class="message_error">*Неправильный пароль</p>
+                                {% endif %}
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="clear"></div>
+                    
+                     <div class="box_button_seva">
+                        <p><input name="" type="submit" value="СОХРАНИТЬ" class="style_button" /></p>
+                    </div>
+                    </div>
+                </div>  
