@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 import json
 import sys,urllib,urllib2
-import settings
+
+from django.conf import settings
+
+
 
 def servlet_request_real(url,data,dbg=False):
     if dbg:
