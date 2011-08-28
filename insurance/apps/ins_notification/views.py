@@ -50,9 +50,10 @@ def answer(request,q_id):
         answ_form = AnswerForm({'subject':request.POST['subject'],
                                 'body':request.POST['body']})
         if answ_form.is_valid():
+            # TODO: from_email should not be hardcoded!
             user.email_user(answ_form.cleaned_data['subject'],
                             answ_form.cleaned_data['body'],
-                            from_email="admin@directif.ru"
+                            from_email=" admin@polisbook.ru"
             )
             sent = True
             print >> sys.stderr, "q_id =", q_id
