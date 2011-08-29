@@ -32,6 +32,7 @@ class RegistrationBackend(DefaultBackend):
             new_persona.last_name = kwargs['last_name']
             new_persona.first_name = kwargs['first_name']
             new_persona.middle_name = kwargs['middle_name']
+            new_persona.me = True
             if kwargs.get('phone'):
                 new_persona.phone = kwargs['phone']
             new_persona.save()
