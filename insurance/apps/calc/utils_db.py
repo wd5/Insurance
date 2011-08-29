@@ -181,11 +181,43 @@ def get_city_by_id(db,id):
     return out
 
 def get_power_by_id(db,id):
+    import sys
+    print "id =", id
     query = "SELECT power_name FROM power WHERE power_id="+id+";"
     db.query(query)
     r = db.store_result()
     out = r.fetch_row()[0][0]
     return out
+
+def get_power_by_model_and_year(mym_id):
+    db = connect()
+    # query = 'SELECT power_id,power_name,power_mym FROM power WHERE power_mym='+str(mym_id)+' ORDER BY power_id'
+    query = 'SELECT power_id,power_name,power_mym FROM power WHERE power_mym=1 ORDER BY power_id'
+    db.query(query)
+    r = db.store_result()
+    out = []
+    while True:
+        row = r.fetch_row()
+        if not row:
+            break
+        out.append((row[0][0],row[0][1]))
+    return out
+
+def get_price_by_model_and_power(price_mym,price_power):
+    import sys
+    print >> sys.stderr, "get_price_by_model_and_power(price_mym,price_power)"
+    db = connect()
+    # Заглушка, пока не заполнена база данных, принимаем price_mym=1
+    price_mym = 1
+    query = 'SELECT price_min,price_max FROM price WHERE price_mym='+str(price_mym)+' AND price_power='+str(price_power)+';'
+    print >> sys.stderr, "query =", query
+    db.query(query)
+    r = db.store_result()
+    out = []
+    row = r.fetch_row()
+    print >> sys.stderr, "row =", row
+    # [price_min,price_max]
+    out.append((row[0][0],row[0][1]))
+    return out
     
-
-
+    

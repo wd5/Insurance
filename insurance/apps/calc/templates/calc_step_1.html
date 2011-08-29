@@ -26,21 +26,21 @@
 <script type="text/javascript" src="{{ STATIC_URL }}calc/js/calc_step_1.js"></script>
 <!-- END: EK code -->
 
-<script>
-$(function() {
-	$( "#slider-range-min" ).slider({
-		range: "min",
-		step: 100,
-		value: 1000,
-		min: 100,
-		max: 90000,
-		slide: function( event, ui ) {
-			$( "#amount" ).val( "$" + ui.value );
-		}
-	});
-	$( "#amount" ).val( "$" + $( "#slider-range-min" ).slider( "value" ) );
-});
-</script>
+<!-- <script> -->
+<!-- $(function() { -->
+<!-- 	$( "#slider-range-min" ).slider({ -->
+<!-- 		range: "min", -->
+<!-- 		step: 100, -->
+<!-- 		value: 1000, -->
+<!-- 		min: 100, -->
+<!-- 		max: 90000, -->
+<!-- 		slide: function( event, ui ) { -->
+<!-- 			$( "#amount" ).val( "$" + ui.value ); -->
+<!-- 		} -->
+<!-- 	}); -->
+<!-- 	$( "#amount" ).val( "$" + $( "#slider-range-min" ).slider( "value" ) ); -->
+<!-- }); -->
+<!-- </script> -->
 
 
 {% endblock %} <!-- extra_head -->
@@ -113,7 +113,10 @@ $(function() {
 
               <tr>
                 <td>Объем двигателя: </td>
-                <td>{{ calc_step_one_form.power }}</td>
+		<td>
+		  <select id="id_power" name="power" >
+		  </select>
+		</td>
               </tr>
 
               <tr>

@@ -36,14 +36,10 @@ class CalcStepOneForm(forms.Form):
                                                       label='Руль',
                                                       help_text='',
                                                       required=False)
-        power_choices = get_choices(db,
-                                  id_field='power_id',
-                                  name_field='power_name',
-                                  table='power')
-        self.fields['power'] = forms.ChoiceField(choices=power_choices,
-                                                 label='Мощность',
-                                                 help_text='',
-                                                 required=False)
+
+        self.fields['power'] = forms.IntegerField(label='Мощность',
+                                                  help_text='',
+                                                  required=False)
 
         city_choices = get_choices(db,
                                   id_field='city_id',

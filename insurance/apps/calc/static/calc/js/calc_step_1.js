@@ -1,9 +1,11 @@
 // insurance calculator form code
 
 // ===== GLOBAL VARIABLES =====
-var PRICE_MIN = 799000;
-var PRICE_MAX = 883000;
-var PRICE_STEP = 50;
+var PRICE_STEP = 1000;
+
+// ------
+// MARK
+// ------
 
 function calc_form_marks_populate() {
     dbgFuncCall('calc_form_marks_populate()');
@@ -19,6 +21,11 @@ function calc_form_marks_populate() {
 
     dbgFuncReturn();
 }
+
+
+// ------
+// MODEL
+// ------
 
 function calc_form_models_populate(mark_id) {
     dbgFuncCall('calc_form_models_populate()');
@@ -45,6 +52,17 @@ function calc_form_models_populate(mark_id) {
     return(true);
 }
 
+function calc_form_marks_selection_handler() {
+    dbgFuncCall('calc_form_marks_selection_handler()');
+    calc_form_models_populate($(this).val());
+    dbgFuncReturn();
+    return(true);
+}
+
+// ------
+// YEARS
+// ------
+
 function calc_form_years_populate(model_id) {
     dbgFuncCall('calc_form_years_populate()');
     if(model_id == '') {
@@ -68,13 +86,6 @@ function calc_form_years_populate(model_id) {
     return(true);
 }
 
-function calc_form_marks_selection_handler() {
-    dbgFuncCall('calc_form_marks_selection_handler()');
-    calc_form_models_populate($(this).val());
-    dbgFuncReturn();
-    return(true);
-}
-
 function calc_form_models_selection_handler() {
     dbgFuncCall('calc_form_models_selection_handler()');
     $("#id_models option:selected").
@@ -84,6 +95,78 @@ function calc_form_models_selection_handler() {
     dbgFuncReturn();
     return(true);
 }
+
+// ------
+// POWER
+// ------
+
+function calc_form_power_populate(mym_id) {
+    dbgFuncCall('calc_form_power_populate(mym_id)');
+    $.getJSON('/calc/ajax/power/' + mym_id + '/','',
+	      function(json,textStatus) {
+		  var power_id;
+		  var power_name;
+		  var out_str = '<option value="" selected>-</option>';
+		  for(var i = 0; i < json.length; i++) {
+		      power_id = json[i][0];
+		      power_name = json[i][1];
+		      out_str +=       '<option value="' + power_id +
+			  '">' + power_name + '</option>"\n';
+		      $('#id_power').empty();
+		      $("#id_power").append(out_str);
+		  }
+	      });
+    dbgFuncReturn();
+}
+
+function calc_form_years_selection_handler() {
+    dbgFuncCall('calc_form_years_selection_handler()');
+    $("#id_years option:selected").
+	each(function() {
+		 calc_form_power_populate($(this).val());
+	     });
+    dbgFuncReturn();
+}
+
+// ------
+// PRICE
+// ------
+
+function calc_form_price_populate_max_min(price_mym,price_power) {
+    dbgFuncCall('calc_form_price_populate_max_min(price_mym,price_power)');
+    $.getJSON(
+	'/calc/ajax/price/' + price_mym + '/' + price_power + '/','',
+	function(json,textStatus) {
+    	    $('#id_price').val('');
+	    var price_min = json[0][0];
+	    var price_max = json[0][1];
+	    $("#calc_price").slider();
+	    $("#calc_price").slider({step:PRICE_STEP});
+	    $("#calc_price").slider("option","range","min");
+	    $("#calc_price").slider("option","min",price_min);
+	    $("#calc_price").slider("option","max",price_max);
+	    $("#calc_price").slider("value",price_min);
+	    $("#calc_price").bind("slidestop",
+				  function(event, ui) {
+    				      var slider_val = $("#calc_price").slider("option","value");
+    				      $('#id_price').val(slider_val);
+    				  });
+	      });
+    dbgFuncReturn();
+}
+
+function calc_form_power_selection_handler() {
+    dbgFuncCall('calc_form_power_selection_handler()');
+    $("#id_power option:selected").
+	each(function() {
+		 calc_form_price_populate_max_min($('#id_years option:selected').val(),
+					 $('#id_power option:selected').val());
+	     });
+    dbgFuncReturn();
+}
+
+// ====================
+// ====================
 
 function set_form_from_post() {
     dbgFuncCall('set_form_from_post');
@@ -161,8 +244,8 @@ function set_price_slider_value_from_form() {
 }
 
 $(document).ready(function() {
-		      set_price_slider();
-		      set_price_slider_value_from_form();
+		      // set_price_slider();
+		      // set_price_slider_value_from_form();
 		      calc_form_marks_populate();
 		      if(request_type == "GET") {
 			  set_form_from_get();
@@ -171,4 +254,6 @@ $(document).ready(function() {
 		      }
 		      $("#id_marks").change(calc_form_marks_selection_handler);
 		      $("#id_models").change(calc_form_models_selection_handler);
+		      $("#id_years").change(calc_form_years_selection_handler);
+		      $("#id_power").change(calc_form_power_selection_handler);
 });

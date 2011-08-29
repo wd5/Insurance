@@ -2,7 +2,7 @@
 
 var DBG_CALLS_CNT = 0;
 var DBG_ON = true;
-DBG_ON = false;
+// DBG_ON = false;
 
 // Добавить количество пробелов равное глобальной переменной CALLS_CNT
 function dbgSpaces() {
