@@ -413,6 +413,7 @@ a:hover        {text-decoration:none}
 			.register_checbox	{float:left;}
 				.style_checkbox	{border:1px solid #9a7c71; background:#b8a39b; position:relative; top:0; height:7px; float:l}
 				.comment_error	{color:#81323e; font-size:9px; padding:5px 0 0 15px;}
+				.errorlist	{color:#81323e; font-size:9px; padding:5px 0 0 15px;}
 			.pop_up_button	{float:right;}
 				.pop_up_button input	{background:url(/static/images/bg_button.jpg) 0 0 repeat-x; font-size:15px; color:#fff; border:0; -moz-border-radius:4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; border-radius:4px; padding-top:4px; padding-bottom:6px; cursor:pointer;}
 	.pop_up_autorize	{width:290px;}

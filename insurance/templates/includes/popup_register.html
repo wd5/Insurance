@@ -1,7 +1,9 @@
 <div class="pop_up pop_up_register" id="pop_up_1">
-  <div class="pop_up_header">
-    <div class="close"></div>
-    Регистрация нового пользователя
-  </div>
-  {% include "registration/forms/registration_form.html" %}
+    <div class="pop_up_header">
+        <div class="close"></div>
+        Регистрация нового пользователя
+    </div>
+    {% with reg_form as form %}
+        {% include "registration/forms/registration_form.html" %}
+    {% endwith %}
 </div>

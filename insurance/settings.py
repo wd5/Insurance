@@ -1,5 +1,6 @@
 import os
 import sys
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 # A little hack to put apps into the app dir
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
@@ -56,6 +57,10 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'apps','calc','templates'),
     #os.path.join(PROJECT_PATH, 'apps','notification','templates'),
     os.path.join(PROJECT_PATH, 'apps','ins_notification','templates'),
+)
+
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'email_login.context_processors.context_regform',
 )
 
 INSTALLED_APPS = (

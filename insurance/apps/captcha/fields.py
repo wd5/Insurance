@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.forms.fields import CharField, MultiValueField
 from django.forms import ValidationError
 from django.forms.widgets import TextInput, MultiWidget, HiddenInput
@@ -66,10 +67,12 @@ class CaptchaField(MultiValueField):
             CharField(show_hidden_initial=True), 
             CharField(),
         )
-        if 'error_messages' not in kwargs or 'invalid' not in kwargs.get('error_messages'):
+#        if 'error_messages' not in kwargs or 'invalid' not in kwargs.get('error_messages'):
+        if 'error_messages' not in kwargs or 'картинки' not in kwargs.get('error_messages'):
             if 'error_messages' not in kwargs:
                 kwargs['error_messages'] = dict()
-            kwargs['error_messages'].update(dict(invalid=_('Invalid CAPTCHA')))
+#            kwargs['error_messages'].update(dict(invalid=_('Invalid CAPTCHA')))
+            kwargs['error_messages'].update(dict(invalid="Неправильно введен текст с картинки."))
 
         widget_kwargs = dict(
             output_format = kwargs.get('output_format',None) or settings.CAPTCHA_OUTPUT_FORMAT
@@ -94,5 +97,6 @@ class CaptchaField(MultiValueField):
             store = CaptchaStore.objects.get(response=response, hashkey=value[0], expiration__gt=datetime.datetime.now())
             store.delete()
         except Exception:
-            raise ValidationError(getattr(self,'error_messages',dict()).get('invalid', _('Invalid CAPTCHA')))
+#            raise ValidationError(getattr(self,'error_messages',dict()).get('invalid', _('Invalid CAPTCHA')))
+            raise ValidationError(getattr(self,'error_messages',dict()).get('invalid', "Неправильно введен текст с картинки."))
         return value

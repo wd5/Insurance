@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 
 from registration.backends.default import *
 from registration.models import RegistrationProfile
+from profile.models import Persona
 
 from forms import RegistrationForm
 
@@ -22,8 +23,19 @@ class RegistrationBackend(DefaultBackend):
             site = Site.objects.get_current()
         else:
             site = RequestSite(request)
+
         new_user = RegistrationProfile.objects.create_inactive_user(uuid4().get_hex()[:10], 
                                                                     email, password, site)
+        if kwargs.get('first_name') and kwargs.get('last_name') and kwargs.get('middle_name'):
+            new_persona = Persona()
+            new_persona.user = new_user
+            new_persona.last_name = kwargs['last_name']
+            new_persona.first_name = kwargs['first_name']
+            new_persona.middle_name = kwargs['middle_name']
+            if kwargs.get('phone'):
+                new_persona.phone = kwargs['phone']
+            new_persona.save()
+
         signals.user_registered.send(sender=self.__class__,
                                      user=new_user,
                                      request=request)
