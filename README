@@ -40,8 +40,18 @@ Github, внести свой публичный ключ как главный 
 
    pip install PIL # установка Python Image Library
 
-   ВНИМАНИЕ! PIL должен быть собран с поддержкой библиотеки freetype, это
-   требуется для отрисовки капчи.
+   ВНИМАНИЕ! PIL должен быть собран с поддержкой библиотек freetype и libjpeg, это
+   требуется для отрисовки капчи. Так ли это, можно понять по выводу pip в консоли
+   при сборке PIL (см. вывод ниже "PIL 1.1.7 SETUP SUMMARY", строки
+   "JPEG support (not) available" и "FREETYPE2 support (not) available"). Если
+   поддержака этих библиотек отключена, то включить ее несложно - для этого надо:
+   a) в ubuntu версий до 11.04 установить пакеты libjpeg62-dev и libfreetype6-dev;
+     после этого выполнить "pip install --upgrade PIL".
+   b) в ubuntu 11.04 после установки вышеназванных пакетов, надо сделать(для 64-битной сборки дистрибутива):
+    sudo su - ln -s /usr/lib/x86_64-linux-gnu/libjpeg.so /usr/lib/
+    sudo su - ln -s /usr/lib/x86_64-linux-gnu/libz.so /usr/lib/
+    sudo su - ln -s /usr/lib/x86_64-linux-gnu/libfreetype.so /usr/lib/
+    и потом тоже "pip install --upgrade PIL".
 
 7. Исключение из поиска git файлов, не относящихся непосредственно к проекту
 
