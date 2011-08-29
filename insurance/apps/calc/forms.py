@@ -31,8 +31,8 @@ class CalcStepOneForm(forms.Form):
                                                       label='Год выпуска',
                                                       help_text='',
                                                       required=False)
-        weel_choices = [('left','Левый'),('right','Правый')]
-        self.fields['weel'] = forms.ChoiceField(choices=weel_choices,
+        wheel_choices = [('left','Левый'),('right','Правый')]
+        self.fields['wheel'] = forms.ChoiceField(choices=wheel_choices,
                                                       label='Руль',
                                                       help_text='',
                                                       required=False)

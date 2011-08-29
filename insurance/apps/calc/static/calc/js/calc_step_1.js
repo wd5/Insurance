@@ -108,8 +108,8 @@ function set_form_from_get() {
 	if (window.get_data.model_year) {
 	    $('#id_years').val(window.get_data.model_year);
 	}
-	if (window.get_data.weel) {
-	    $('#id_weel').val(window.get_data.weel);
+	if (window.get_data.wheel) {
+	    $('#id_wheel').val(window.get_data.wheel);
 	}
 	if (window.get_data.power) {
 	    $('#id_power').val(window.get_data.power);

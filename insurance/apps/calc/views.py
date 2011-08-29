@@ -86,10 +86,10 @@ def get_info_from_db_by_id(request):
     extra_content["mark"] = get_mark_by_id(db,request.GET["mark"])
     extra_content["model"] = get_model_by_id(db,request.GET["model"])
     extra_content["model_year"] = get_model_year_by_id(db,request.GET["model_year"])
-    if request.GET["weel"] == "left":
-        extra_content["weel"] = u"Левый"
+    if request.GET["wheel"] == "left":
+        extra_content["wheel"] = u"Левый"
     else:
-        extra_content["weel"] = u"Правый"
+        extra_content["wheel"] = u"Правый"
     extra_content["power"] = get_power_by_id(db,request.GET["power"])
     extra_content["city"] = get_city_by_id(db,request.GET["city"])
     extra_content["price"] = request.GET["price"]
@@ -172,10 +172,10 @@ def calc_step_2(request):
     extra_content["mark"] = get_mark_by_id(db,request.GET["mark"])
     extra_content["model"] = get_model_by_id(db,request.GET["model"])
     extra_content["model_year"] = get_model_year_by_id(db,request.GET["model_year"])
-    if request.GET["weel"] == "left":
-        extra_content["weel"] = u"Левый"
+    if request.GET["wheel"] == "left":
+        extra_content["wheel"] = u"Левый"
     else:
-        extra_content["weel"] = u"Правый"
+        extra_content["wheel"] = u"Правый"
     extra_content["power"] = get_power_by_id(db,request.GET["power"])
     extra_content["city"] = get_city_by_id(db,request.GET["city"])
     extra_content["price"] = request.GET["price"]
