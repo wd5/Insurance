@@ -6,6 +6,8 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.template import RequestContext
+from django.conf import settings
+from django.core.mail import send_mail
 
 from notification.models import Notice
 from profile.models import UserProfile
@@ -54,16 +56,18 @@ def question(request):
 def answer(request,q_id):
     qws = Question.objects.get(id=q_id)
     user = qws.user
-    uprofile = UserProfile.objects.get(id=qws.user.id)
-    fio = "%s %s %s" % (uprofile.last_name,uprofile.first_name,uprofile.middle_name)
+    fio = ''
+    if user:
+        uprofile = UserProfile.objects.get(id=qws.user.id)
+        fio = "%s %s %s" % (uprofile.last_name,uprofile.first_name,uprofile.middle_name)
     sent = False
     if(request.POST):
         answ_form = AnswerForm({'body':request.POST['body']})
         if answ_form.is_valid():
-            # TODO: from_email should not be hardcoded!
-            user.email_user('Re: directif.ru',
+            send_mail('Re: directif.ru',
                             answ_form.cleaned_data['body'],
-                            from_email=" admin@polisbook.ru"
+                            settings.DEFAULT_FROM_EMAIL,
+                            [qws.email]
             )
             sent = True
             print >> sys.stderr, "q_id =", q_id

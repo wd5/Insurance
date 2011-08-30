@@ -27,10 +27,11 @@ class QuestionAdmin(admin.ModelAdmin):
         return fio
 
     def change_view(self, request, object_id, extra_context=None):
+        fio = ''
         qws = Question.objects.get(id=object_id)
-        
-        uprofile = UserProfile.objects.get(id=qws.user.id)
-        fio = "%s %s %s" % (uprofile.last_name,uprofile.first_name,uprofile.middle_name)
+        if qws.user:
+            uprofile = UserProfile.objects.get(id=qws.user.id)
+            fio = "%s %s %s" % (uprofile.last_name,uprofile.first_name,uprofile.middle_name)
         extra_context = {
             'object_id': object_id,
             'fio':fio,
