@@ -2,5 +2,6 @@
 
 def context_regform(request):
     from forms import RegistrationForm
-    additions = {'reg_form': RegistrationForm(),}
+    from django.contrib.auth.forms import PasswordResetForm
+    additions = {'reg_form': RegistrationForm(), 'reset_pass_form': PasswordResetForm()}
     return additions

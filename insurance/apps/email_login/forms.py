@@ -4,7 +4,6 @@ from django.contrib.auth import authenticate
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.forms import AuthenticationForm
-#from django.contrib.localflavor.us.forms import USPhoneNumberField
 
 from captcha.fields import CaptchaField
 
@@ -90,9 +89,6 @@ class RegistrationForm(forms.Form):
         if self.cleaned_data['phone'] == "":
             raise forms.ValidationError("Недопустимые символы в номере телефона.")
         return self.cleaned_data['phone']
-
-#    def __init__(self, *args, **kwargs):
-#
 
 
 class EmailAuthenticationForm(AuthenticationForm):
