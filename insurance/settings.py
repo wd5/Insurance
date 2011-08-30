@@ -14,6 +14,8 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+DEFAULT_FROM_EMAIL = 'admin@directif.ru'
+
 TIME_ZONE = "Europe/Moscow"
 LANGUAGE_CODE = 'RU-ru'
 USE_I18N = True
