@@ -59,7 +59,15 @@ TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'apps','ins_notification','templates'),
 )
 
-TEMPLATE_CONTEXT_PROCESSORS += (
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.auth',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.request',
+    'django.contrib.messages.context_processors.messages',
+    'ins_notification.context_processors.questions',
     'email_login.context_processors.context_regform',
 )
 

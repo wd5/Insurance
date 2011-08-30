@@ -1,30 +1,33 @@
-<div class="pop_up pop_up_questions" id="pop_up_4">
-  <div class="pop_up_header">
-    <div class="close"></div>
-    Вопросы
-  </div>
+<div class="pop_up_cont">
   <div class="pop_up_cont"><div class="pop_up_cont_in">
       <div class="pop_up_questions_l">
     <form action="{% url ins_notification_question %}" method="POST">{% csrf_token %}
       <div class="pop_up_header2">
+      {{ form.non_field_errors }}
         У вас есть вопрос?
       </div>
       <div class="questions_form">
         {% if not user.is_authenticated %}
             <div class="questions_form_header">Ваш email(на него придет ответ):</div>
-            <p class="style_input8">
-            <input type="text" name="email" id="id_email" />
-            </p>
+            <p class="style_input8">{{ form.email }}</p>
+            {% if form.email.errors %}
+                <p class="color_red">*Введите правильный e-mail</p>
+            {% endif %}
         {% endif %}
         <div class="questions_form_header">Ваш вопрос:</div>
-        <p class="questions_textarea">
-        <textarea name="body" id="id_body"></textarea>
-        </p>
+        <p class="questions_textarea">{{ form.body }}</p>
+        {% if form.body.errors %}
+            <p class="color_red">*Введите ваш вопрос</p>
+        {% endif %}
       </div>
        {% if not user.is_authenticated %}
       <div class="fonsize_11">
         <p>Введите код указанный на картинке.</p>
         {{ form.captcha }}
+        {% if form.captcha.errors %}
+            <p class="color_red">*Вы ввели неправильный код.</p>
+        {% endif %}
+
       </div>
       {% endif %}
       <div class="pop_up_button_send">

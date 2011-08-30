@@ -2,12 +2,16 @@
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import render_to_response
+from django.http import HttpResponseRedirect
+from django.core.urlresolvers import reverse
+from django.template import RequestContext
 
 from notification.models import Notice
 from profile.models import UserProfile
 
 from ins_notification.forms import AnswerForm
-from ins_notification.forms import QuestionForm
+from ins_notification.forms import QuestionForm, QuestionFormNotAuth
 from ins_notification.models import Question
 
 
@@ -22,22 +26,29 @@ def inbox(request):
                               'notification/inbox.html',
                               extra_content)
 
-@login_required
 def question(request):
-    quest_form = QuestionForm(request.POST or None)
+    if request.user.is_authenticated():
+        quest_form = QuestionForm(request.POST or None)
+    else:
+        quest_form = QuestionFormNotAuth(request.POST or None)
     sent = False
     if quest_form.is_valid():
         o = Question()
-        o.user = request.user
-        o.subject = quest_form.cleaned_data['sub']
+        if request.user.is_authenticated():
+            o.user = request.user
+            o.email = request.user.email
+        else:
+            o.user = None
+            o.email = quest_form.cleaned_data['email']
         o.body = quest_form.cleaned_data['body']
         o.save()
         sent = True
-    extra_content = {'quest_form': quest_form,
+        return HttpResponseRedirect(reverse('question_success'))
+    extra_content = {'form': quest_form,
                      'sent':sent}
-    return direct_to_template(request, 
-                              'notification/question.html',
-                              extra_content)
+    return render_to_response('notification/question.html',
+                              extra_content,
+                              context_instance=RequestContext(request))
 
 @staff_member_required
 def answer(request,q_id):
@@ -47,11 +58,10 @@ def answer(request,q_id):
     fio = "%s %s %s" % (uprofile.last_name,uprofile.first_name,uprofile.middle_name)
     sent = False
     if(request.POST):
-        answ_form = AnswerForm({'subject':request.POST['subject'],
-                                'body':request.POST['body']})
+        answ_form = AnswerForm({'body':request.POST['body']})
         if answ_form.is_valid():
             # TODO: from_email should not be hardcoded!
-            user.email_user(answ_form.cleaned_data['subject'],
+            user.email_user('Re: directif.ru',
                             answ_form.cleaned_data['body'],
                             from_email=" admin@polisbook.ru"
             )
@@ -60,9 +70,8 @@ def answer(request,q_id):
             qws.answered = True
             qws.save()
     else:
-        subject = 'Re: ' + qws.subject
         body = u"\n\n\nВы спрашивали:\n-----\n" + qws.body
-        answ_form = AnswerForm(subject=subject,body=body)
+        answ_form = AnswerForm(body=body)
     extra_content = {'answ_form':answ_form,
                      'qwestion':qws,
                       'fio':fio,

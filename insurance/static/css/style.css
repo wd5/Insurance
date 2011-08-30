@@ -143,11 +143,12 @@ a:hover        {text-decoration:none}
                         input.style_input5 	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:197px;}
 						.style_input6	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:65px; margin-right:10px;}
 						.style_input7	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:120px;}
+                        .style_input8 input	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:339px;}
 						.style_select	{border:1px solid #501c06; background:#fff; width:153px;}
 						.style_input_red	{border:1px solid #C81800 !important; }
 						.phone_code	{display:block; width:22px; margin:0 0 0 -22px; float:left;}
 						.adres_text	{float:left; width:50px; font-size:9px;}
-						.style_input8	{width:42px; margin:0 8px 0 0; border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial;} 
+						.style_input9 input	{width:42px; margin:0 8px 0 0; border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial;} 
 					.box_textarea	{float:right;}
 						.box_textarea textarea	{width:355px; border:1px solid #501c06; height:203px; background:#fff; color:#000; font-size:13px; font-family:Arial; resize:none;}
 						.box_textarea_header	{font-size:10px; padding:0 0 3px 4px;} 
@@ -435,10 +436,10 @@ a:hover        {text-decoration:none}
 			.pop_up_questions_l	{float:left; width:335px;}
 				.questions_form	{padding:27px 0 0 0;}
 					.questions_form_header	{padding:0 0 3px 10px;}
-					.questions_textarea	{border:1px solid #501c06; width:333px; height:71px; resize:none; margin:0 0 5px 0; font-size:15px; font-family:Arial;}
+					.questions_textarea	textarea{border:1px solid #501c06; width:333px; height:71px; resize:none; margin:0 0 5px 0; font-size:15px; font-family:Arial;}
 			.box_form_code	{overflow:hidden; padding:0 0 12px 0;}
 				.code	{float:left; width:150px;}
-				.code_input	{float:right; width:112px; font-size:15px; border:1px solid #501c06; padding-top:5px; padding-bottom:6px;}
+				.code_input, #id_captcha_1	{float:right; width:112px; font-size:15px; border:1px solid #501c06; padding-top:5px; padding-bottom:6px;}
 				.link_reset	{float:left; padding:3px 0 0 0;}
 				.fonsize_11	{font-size:11px;}
 				.style_input_button	{background:url(/static/images/bg_button.jpg) 0 0 repeat-x; font-size:15px; color:#fff; border:0; -moz-border-radius:4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; border-radius:4px; padding-top:4px; padding-bottom:6px; cursor:pointer; text-align:center;}

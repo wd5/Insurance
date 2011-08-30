@@ -33,7 +33,7 @@
 
   </div>
 </form>
-
+{% if password_form  %}
  <form action="{% url userprofile_edit 'password' %}" method="post">{% csrf_token %}
     <div class="bg_tabs2_f">
                         <div class="user_data">
@@ -76,4 +76,6 @@
                         <p><input name="" type="submit" value="СОХРАНИТЬ" class="style_button" /></p>
                     </div>
                     </div>
-                </div>  
+                </div>
+    </form>
+    {% endif %}
