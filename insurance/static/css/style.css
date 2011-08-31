@@ -427,7 +427,7 @@ a:hover        {text-decoration:none}
 		.pop_up_header2	{font-size:18px; font-weight:bold; padding:0 0 16px 0;}
 		.form_email	{padding:26px 0 33px 13px; font-size:11px;}
 			.form_email_input	{overflow:hidden; padding-top:6px; padding-bottom:6px;}
-				.form_email_input_text, #id_email	{float:left; width:200px; margin:0 22px 0 0; font-size:15px; border:1px solid #501c06; padding-top:5px; padding-bottom:6px;}
+				.form_email_input_text, .form_email_input #id_email	{float:left; width:200px; margin:0 22px 0 0; font-size:15px; border:1px solid #501c06; padding-top:5px; padding-bottom:6px;}
 				.form_email_input_button	{background:url(/static/images/bg_button.jpg) 0 0 repeat-x; font-size:15px; color:#fff; border:0; -moz-border-radius:4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; border-radius:4px; padding-top:4px; padding-bottom:6px; cursor:pointer; text-align:center;}
 			.color_red	{color:#c03b31;}
 			.pop_up_contacs	{font-size:15px;}
