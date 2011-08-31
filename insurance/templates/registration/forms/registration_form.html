@@ -50,7 +50,7 @@
                     <th>*Введите текст с картинки:</th>
                 </tr>
                 <tr>
-                    <td>
+                    <td><span class="phone_code">+7</span>
                         {{ form.phone }}
                         {{ form.phone.errors }}
                     </td>
@@ -58,15 +58,17 @@
                         {{ form.captcha }}
                         {{ form.captcha.errors }}
                     </td>
-                </tr>
-            </table>
+                </tr><tr><td>
             <div class="register_checbox">
                 <p>Я согласен с правилами регистрации {{ form.tos }}</p>
                 {{ form.tos.errors }}
             </div>
+            </td><td>
             <div class="pop_up_button">
                 <input name="" type="submit" value="Зарегистрироваться"/>
             </div>
+            </td>
+            </table>
             {% if form.non_field_errors %}
                 <br/><br/><br/>
                 <div>

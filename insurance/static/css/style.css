@@ -141,8 +141,8 @@ a:hover        {text-decoration:none}
 						.table_user_form td	{ width:208px; padding:0 45px 10px 0; vertical-align:top; font-size:11px;}
 						.style_input5 input	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:197px;}
                         input.style_input5 	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:197px;}
-						.style_input6	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:65px; margin-right:10px;}
-						.style_input7	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:120px;}
+						.style_input6, #id_phone_0	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:65px; margin-right:10px;}
+						.style_input7, #id_phone_1	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:120px;}
                         .style_input8 input	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:339px;}
 						.style_select	{border:1px solid #501c06; background:#fff; width:153px;}
 						.style_input_red	{border:1px solid #C81800 !important; }
@@ -411,8 +411,8 @@ a:hover        {text-decoration:none}
 			.close	{width:25px; height:25px; cursor:pointer; background:url(/static/images/close.gif) 0 0 no-repeat; top:10px; right:16px; position:absolute;}
 		.pop_up_cont	{background:#ae948e url(/static/images/pop_up_cont.jpg) 0 0 repeat-x; padding:10px;}
 			.pop_up_cont_in	{background:#cebfbb url(/static/images/pop_up_cont_in.jpg) 0 0 repeat-x; padding:28px 20px 30px 50px; -moz-border-radius:4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; border-radius:4px; border:2px solid #9f606b; overflow:hidden;}
-			.register_checbox	{float:left;}
-				.style_checkbox	{border:1px solid #9a7c71; background:#b8a39b; position:relative; top:0; height:7px; float:l}
+			.register_checbox	{float:left;font-size:10px;}
+				.style_checkbox {border:1px solid #9a7c71; background:#b8a39b; position:relative; top:0; height:7px; float:left;}
 				.comment_error	{color:#81323e; font-size:9px; padding:5px 0 0 15px;}
 				.errorlist	{color:#81323e; font-size:9px; padding:5px 0 0 15px;}
 			.pop_up_button	{float:right;}
@@ -427,7 +427,7 @@ a:hover        {text-decoration:none}
 		.pop_up_header2	{font-size:18px; font-weight:bold; padding:0 0 16px 0;}
 		.form_email	{padding:26px 0 33px 13px; font-size:11px;}
 			.form_email_input	{overflow:hidden; padding-top:6px; padding-bottom:6px;}
-				.form_email_input_text	{float:left; width:200px; margin:0 22px 0 0; font-size:15px; border:1px solid #501c06; padding-top:5px; padding-bottom:6px;}
+				.form_email_input_text, #id_email	{float:left; width:200px; margin:0 22px 0 0; font-size:15px; border:1px solid #501c06; padding-top:5px; padding-bottom:6px;}
 				.form_email_input_button	{background:url(/static/images/bg_button.jpg) 0 0 repeat-x; font-size:15px; color:#fff; border:0; -moz-border-radius:4px; -webkit-border-radius: 4px; -khtml-border-radius: 4px; border-radius:4px; padding-top:4px; padding-bottom:6px; cursor:pointer; text-align:center;}
 			.color_red	{color:#c03b31;}
 			.pop_up_contacs	{font-size:15px;}
