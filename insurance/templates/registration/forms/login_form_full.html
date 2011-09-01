@@ -1,5 +1,6 @@
 <div class="pop_up_cont">
   <div class="pop_up_cont_in">
+	  <div class="center_login">
     <form action="{% url auth_login %}" method="post">{% csrf_token %}
     <div class="messages">{{ form.non_field_errors }}</div>
       <table cellspacing="0" cellpadding="0" class="table_user_form">
@@ -30,5 +31,6 @@
 	</tr>
       </table>
     </form>
+  </div>
   </div>
 </div>
