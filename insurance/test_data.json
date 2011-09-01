@@ -39,7 +39,7 @@
         "pk": 2,
         "model": "sites.site",
         "fields": {
-            "domain": "polisbook.com",
+            "domain": "polisbook.ru",
             "name": "Polisbook"
         }
     },
@@ -47,7 +47,7 @@
         "pk": 1,
         "model": "sites.site",
         "fields": {
-            "domain": "dev.polisbook.com",
+            "domain": "dev.polisbook.ru",
             "name": "Polisbook"
         }
     },
