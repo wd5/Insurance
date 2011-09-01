@@ -1,0 +1,225 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<title>Главная</title>
+<script type="text/javascript" src="js/jquery-1.6.1.js"></script>
+<script type="text/javascript" src="js/cusel.js"></script>
+<script type="text/javascript" src="js/jScrollPane.js"></script>
+<script type="text/javascript" src="js/jquery.mousewheel.js"></script>
+</head>
+<body>
+<div class="body">
+	<!-- Шапка-->
+	<div class="head">
+		<div class="logo"><a href="#"><img src="images/px.gif" alt="" /></a></div>
+		<table cellpadding="0" cellspacing="0" class="menu_main">
+			<tr>
+				<tr>
+					<td><a href="#">КАСКО</a></td>
+					<td><a href="#">ОСАГО</a></td>
+					<td><a href="#">ЗЕЛЕНАЯ КАРТА</a></td>
+					<td><a href="#">СТРАХОВАНИЯ ИМУЩЕСТВА</a></td>
+					<td><a href="#">ИПОТЕЧНОЕ КОМПАНИЕ</a></td>
+					<td><a href="#">СТРАХОВАНИЕ ПУТЕШЕСТВУЮЩИХ</a></td>
+				</tr>
+			</tr>
+		</table>
+		<div class="head_ico">
+			<div class="head_ico_text_box">
+				<a href="#" class="setup_user_open"><img src="images/user_name_button.jpg" alt="" /></a>
+				<div class="head_ico_text">
+					DENIGURU@
+				</div>
+				<div class="setup_user" style="display:none">
+					<a href="#" rel="#pop_up_1">регистрация</a>
+					<a href="#" rel="#pop_up_2">вход</a>
+					<a href="#" rel="#pop_up_3">пароль</a>
+					<a href="#" rel="#pop_up_4">вапрос</a>
+				</div>
+				<script>
+					$(document).ready(function(){
+						$(".setup_user_open").click(function(){
+							$(".setup_user").slideToggle("slow");
+						});
+					});
+				</script>
+			</div>
+			<a href="#"><img src="images/head_ico_2.gif" alt="" /></a>
+			<a href="#"><img src="images/head_ico_1.gif" alt="" /></a>
+		</div>
+	</div>
+	<!-- Конец шапки -->
+	<!-- Контент -->
+	<div class="content_home">
+		<div id="phoneCarousel">
+			<div class="previous arrow"><img src="images/px.gif" alt="" /></div>
+			<div class="next arrow"><img src="images/px.gif" alt="" /></div>
+			
+			<div id="stage">
+				<a href="#tabs_crug_1"><img class="default" src="images/scroll/scroll_img_1.jpg" width="229" height="302"/></a>
+				<a href="#tabs_crug_2"><img src="images/scroll/scroll_img_2.jpg" width="229" height="302" /></a>
+				<a href="#tabs_crug_3"><img src="images/scroll/scroll_img_3.jpg"  width="229" height="302" /></a>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/script.js"></script>
+		<div class="tabs" id="tabs_crug_1">
+			<img src="images/tabs.jpg" alt="" />
+		</div>
+		<div class="tabs" id="tabs_crug_2">
+			<img src="images/tabs_2.jpg" alt="" />
+		</div>
+		<div class="tabs" id="tabs_crug_3">
+			<img src="images/tabs_3.jpg" alt="" />
+		</div>
+	</div>
+	<script>
+		$(function () {
+			var tabContainers = $('div.content_home > .tabs'); // получаем массив контейнеров
+			tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+			// далее обрабатывается клик по вкладке
+			$('div#stage a').click(function () {
+				tabContainers.hide(); // прячем все табы
+				tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+				$('div#stage a').removeClass('selected'); // у всех убираем класс 'selected'
+				$(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
+				return false;
+			}).filter(':first').click();
+		});
+	</script>
+	
+	<div class="benefits">
+		<div class="header_benefits">
+			<span>Н</span>АШИ ПРЕИМУЩЕСТВА >>
+		</div>
+		<div class="benefits_link">
+			<a href="#">Большая</a>
+			<a href="#">Надежная</a>
+			<a href="#">Инновационная</a>
+			<a href="#">Сервисная</a>
+			<a href="#">Ответственная</a>
+			<a href="#">Больше чем просто страховая компания</a>
+		</div>
+	</div>
+	<div class="button_box">
+		<div class="button_link"><a href="#"><img src="images/button_1.jpg" alt="" /></a></div>
+		<div class="button_link"><a href="#"><img src="images/button_2.jpg" alt="" /></a></div>
+		<div class="button_link"><a href="#"><img src="images/button_3.jpg" alt="" /></a></div>
+		<div class="button_link"><a href="#"><img src="images/button_4.jpg" alt="" /></a></div>
+		<div class="button_link"><a href="#"><img src="images/button_5.jpg" alt="" /></a></div>
+		<div class="button_link"><a href="#"><img src="images/button_6.jpg" alt="" /></a></div>
+		
+	</div>
+	<div class="tabs_footer">
+		<ul class="tabs_footer_link">
+			<li><a class="" href="#tab_01">Прочее</a></li>
+			<li><a class=""  href="#tab_02">Новости</a></li>
+			<li><a class="" href="#tab_03">Анонсы</a></li>
+		</ul>
+		<div class="tabs_footer_cont" id="tab_01">
+			<div class="tabs_footer_cont_left">
+				<div class="tabs_footer_cont_img">
+					<img src="images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					<a href="#">Наш сайт,как и все, что делает наша страховая</a> компания 
+создан для вас,наших уважаемых клиентов!
+Здесь вы сможете легко рассчитывать стоимость и заказать 
+полис для всех видов страхования авто,недвижимости...
+					<a href="#" class="pointer"><img src="images/pointer.png" alt="" /></a>				</div>
+			</div>
+			<div class="tabs_footer_cont_right">
+				<div class="tabs_footer_cont_img">
+					<img src="images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					<a href="#">Страхование</a>: особый вид экономических отношений, 
+призванный обеспечить страховую защиту людей и 
+их дел от различного рода опасностей...
+					<a href="#" class="pointer"><img src="images/pointer.png" alt="" /></a>				</div>
+			</div>
+		</div>
+		<div class="tabs_footer_cont" id="tab_02">
+			<div class="tabs_footer_cont_left">
+				<div class="tabs_footer_cont_img">
+					<img src="images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					<a href="#">Наш сайт,как и все, что делает наша страховая</a> компания 
+создан для вас,наших уважаемых клиентов!
+Здесь вы сможете легко рассчитывать стоимость и заказать 
+полис для всех видов страхования авто,недвижимости...
+					<a href="#" class="pointer"><img src="images/pointer.png" alt="" /></a>				</div>
+			</div>
+			<div class="tabs_footer_cont_right">
+				<div class="tabs_footer_cont_img">
+					<img src="images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					<a href="#">Страхование</a>: особый вид экономических отношений, 
+призванный обеспечить страховую защиту людей и 
+их дел от различного рода опасностей...
+					<a href="#" class="pointer"><img src="images/pointer.png" alt="" /></a>				</div>
+			</div>
+		</div>
+		<div class="tabs_footer_cont" id="tab_03">
+			<div class="tabs_footer_cont_left">
+				<div class="tabs_footer_cont_img">
+					<img src="images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					<a href="#">Наш сайт,как и все, что делает наша страховая</a> компания 
+создан для вас,наших уважаемых клиентов!
+Здесь вы сможете легко рассчитывать стоимость и заказать 
+полис для всех видов страхования авто,недвижимости...
+					<a href="#" class="pointer"><img src="images/pointer.png" alt="" /></a>				</div>
+			</div>
+			<div class="tabs_footer_cont_right">
+				<div class="tabs_footer_cont_img">
+					<img src="images/img.jpg" alt="" />
+				</div>
+				<div class="tabs_footer_cont_text">
+					<a href="#">Страхование</a>: особый вид экономических отношений, 
+призванный обеспечить страховую защиту людей и 
+их дел от различного рода опасностей...
+					<a href="#" class="pointer"><img src="images/pointer.png" alt="" /></a>				</div>
+			</div>
+		</div>
+		<script>
+			$(function () {
+				var tabContainers = $('div.tabs_footer > .tabs_footer_cont'); // получаем массив контейнеров
+				tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+				// далее обрабатывается клик по вкладке
+				$('div.tabs_footer ul.tabs_footer_link a').click(function () {
+					tabContainers.hide(); // прячем все табы
+					tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+					$('div.tabs_footer ul.tabs_footer_link a').removeClass('selected'); // у всех убираем класс 'selected'
+					$(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
+					return false;
+				}).filter(':first').click();
+			});
+		</script>
+	</div>
+	<!-- Конец контент -->
+	<!-- Подвал  -->
+	<div class="footer">
+		<div class="copyright">
+			СТРАХОВАЯ КОМПАНИЯ <span>POLISBOOK</span>
+		</div>
+		<div class="email_1">
+			Все жалобы и предложения<br />
+			принимаются по адресу:
+			<a href="mailto:info@polisbook.ru">info@polisbook.ru</a>
+		</div>
+		<div class="email_2">
+			Вы можете связаться<br />
+			с нами через отдел:<br />
+			<a href="#">Online-консультации</a>.
+		</div>
+		<div class="phone_ico"></div>
+	</div>
+	<!-- Конец подвал  --> 
+</div>
+</body>
+</html>

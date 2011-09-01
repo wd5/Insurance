@@ -1,0 +1,714 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" href="css/base/jquery.ui.all.css">
+<title>Главная</title>
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery.checkbox.js"></script>
+<script type="text/javascript" src="js/jquery.tablehover.pack.js"></script>
+<script src="js/jquery.ui.core.js"></script>
+<script src="js/jquery.ui.widget.js"></script>
+<script src="js/jquery.ui.mouse.js"></script>
+<script src="js/jquery.ui.slider.js"></script>
+<script>
+$(function() {
+	$( "#slider-range-min2" ).slider({
+		range: "min",
+		step: 1000,
+		value: 1000,
+		min: 1000,
+		max: 90000,
+		slide: function( event, ui ) {
+			$( "#amount2" ).val( "$" + ui.value );
+		}
+	});
+	$( "#amount2" ).val( "$" + $( "#slider-range-min2" ).slider( "value" ) );
+});
+$(function() {
+	$( "#slider-range-min3" ).slider({
+		range: "min",
+		step: 1000,
+		value: 1000,
+		min: 1000,
+		max: 90000,
+		slide: function( event, ui ) {
+			$( "#amount3" ).val( "$" + ui.value );
+		}
+	});
+	$( "#amount3" ).val( "$" + $( "#slider-range-min3" ).slider( "value" ) );
+});
+</script>
+<script>
+	$(document).ready(function() {
+		$("a[rel]").overlay({
+
+	// some mask tweaks suitable for modal dialogs
+	mask: {
+		color: '#ebecff',
+		loadSpeed: 200,
+		opacity: 0.9
+	},
+
+	closeOnClick: true
+});
+	}); 
+</script>
+</head>
+<body>
+<!-- Шапка-->
+<div class="head">
+	<div class="logo"><a href="#"><img src="images/px.gif" alt="" /></a></div>
+	<table cellpadding="0" cellspacing="0" class="menu_main">
+		<tr>
+			<tr>
+				<td><a href="#">КАСКО</a></td>
+				<td><a href="#">ОСАГО</a></td>
+				<td><a href="#">ЗЕЛЕНАЯ КАРТА</a></td>
+				<td><a href="#">СТРАХОВАНИЯ ИМУЩЕСТВА</a></td>
+				<td><a href="#">ИПОТЕЧНОЕ КОМПАНИЕ</a></td>
+				<td><a href="#">СТРАХОВАНИЕ ПУТЕШЕСТВУЮЩИХ</a></td>
+			</tr>
+		</tr>
+	</table>
+	<div class="head_ico">
+		<div class="head_ico_text_box">
+			<a href="#" class="setup_user_open"><img src="images/user_name_button.jpg" alt="" /></a>
+			<div class="head_ico_text">
+				DENIGURU@
+			</div>
+			<div class="setup_user" style="display:none">
+				<a href="#" rel="#pop_up_1">регистрация</a>
+				<a href="#" rel="#pop_up_2">вход</a>
+				<a href="#" rel="#pop_up_3">пароль</a>
+				<a href="#" rel="#pop_up_4">вапрос</a>
+			</div>
+			<script>
+				$(document).ready(function(){
+					$(".setup_user_open").click(function(){
+						$(".setup_user").slideToggle("slow");
+					});
+				});
+			</script>
+		</div>
+		<a href="#"><img src="images/head_ico_2.gif" alt="" /></a>
+		<a href="#"><img src="images/head_ico_1.gif" alt="" /></a>
+	</div>
+</div>
+<!-- Конец шапки -->
+<!-- Контент -->
+<div class="content">
+  	<div class="tabs_box">
+		<ul class="calk_tabs_link">
+			<li><a href="#tabs_cont_1" class="active">ОСАГО</a></li>
+			<li><a href="#tabs_cont_2">КАСКО</a></li>
+			<li><a href="#tabs_cont_3">ДМС</a></li>
+			<li><a href="#tabs_cont_4">ДАГО</a></li>
+			<li><a href="#tabs_cont_5">НС</a></li>
+			<li><a href="#tabs_cont_6">ВЗР</a></li>
+			<li><a href="#tabs_cont_7">ИФЛ</a></li>
+		</ul>
+		<div id="tabs_cont_1" class="bg_tabs_f"><div class="bg_tabs_t"><div class="bg_tabs_b">
+			<div class="tabs2">
+				<ul class="tab2">
+					<li class="link_padding"><a href="#tabs_cont2_1">Экономия</a></li>
+					<li><a href="#tabs_cont2_2" class="active">Варианты <br />
+					возмещения ущерба</a></li>
+					<li><a href="#tabs_cont2_3">Выплата<br />
+					 без справок</a></li>
+					<li><a href="#tabs_cont2_4">Сервис и<br />
+					техническая помощь</a></li>
+					<li><a href="#tabs_cont2_5">Рекомендуем<br />
+					застроховать</a></li>
+				</ul>
+				<div id="tabs_cont2_1" class="bg_tabs2_f"><div class="bg_tabs2_t"><div class="bg_tabs2_b">
+					<table cellpadding="0" cellspacing="0" class="table_tabs">
+						<tr>
+							<td>
+								<div class="box_slider">
+									<input type="text" id="amount2" class="style_input_slider" />
+									<div id="slider-range-min2"></div>
+								</div>
+								<label>Стандартная<br />
+								франшиза</label>
+							</td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Охранная система автомобиля</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="box_slider">
+									<input type="text" id="amount3" class="style_input_slider" />
+									<div id="slider-range-min3"></div>
+								</div>
+								<label>Франшиза <br />
+								со второго случая</label>
+							</td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Возмещать ущерб только
+при полной гибели / угоне автомобиля</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Единовременная оплата полиса</label>
+							</td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Не страховать автомобиль от угона</label>
+							</td>
+						</tr>
+					</table>
+				</div></div></div>
+				<div id="tabs_cont2_2" class="bg_tabs2_f"><div class="bg_tabs2_t"><div class="bg_tabs2_b">
+					<table cellpadding="0" cellspacing="0" class="table_tabs">
+						<tr>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Ремонт по направлению страховой компании</label>
+							</td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Выплата деньгами по калькуляции с учетом износа запасных частей</label>
+							</td>
+						</tr>
+					</table>
+				</div></div></div>
+				<div id="tabs_cont2_3" class="bg_tabs2_f"><div class="bg_tabs2_t"><div class="bg_tabs2_b">
+					<table cellpadding="0" cellspacing="0" class="table_tabs">
+						<tr>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Стекла и стеклянные элементы.
+Один раз в год</label>
+							</td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Ремонт в пределах 3%. Один раз в год</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Стекла и стеклянные элементы.
+Без ограничения</label>
+							</td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Ремонт в пределах 5%. Два раза в год</label>
+							</td>
+						</tr>
+					</table>
+				</div></div></div>
+				<div id="tabs_cont2_4" class="bg_tabs2_f"><div class="bg_tabs2_t"><div class="bg_tabs2_b">
+					<table cellpadding="0" cellspacing="0" class="table_tabs">
+						<tr>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Эвакуация автомобиля
+к месту стоянки или ремонта</label>
+							</td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Техническая попощь</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Выезд на любые ДТП. Сбор справок</label>
+							</td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Вызов такси</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Выезд только на ДТП
+с двумя и более участниками.Сбор справок</label>
+							</td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Аренда автомобиля</label>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Аварийный комиссар</label>
+							</td>
+						</tr>
+					</table>
+				</div></div></div>
+				<div id="tabs_cont2_5" class="bg_tabs2_f"><div class="bg_tabs2_t"><div class="bg_tabs2_b">
+					<table cellpadding="0" cellspacing="0" class="table_tabs">
+						<tr>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Гражданская ответсвтенность</label>
+							</td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Здоровье водителя и пассажиров</label>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Дополнительное оборудование автомобиля</label>
+							</td>
+							<td>
+								<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+								<label>Купить полис КАСКО вместе с ОСАГО</label>
+							</td>
+						</tr>
+					</table>
+				</div></div></div>
+			</div>
+			<script>
+				$(function () {
+					var tabContainers = $('div.tabs2 > .bg_tabs2_f'); // получаем массив контейнеров
+					tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+					// далее обрабатывается клик по вкладке
+					$('div.tabs2 ul.tab2 a').click(function () {
+						tabContainers.hide(); // прячем все табы
+						tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+						$('div.tabs2 ul.tab2 a').removeClass('active'); // у всех убираем класс 'selected'
+						$(this).addClass('active'); // текушей вкладке добавляем класс 'selected'
+						return false;
+					}).filter(':first').click();
+				});
+			</script>
+			<div class="resultat_table">
+				<div class="resultat_table_header">
+					<div class="resultat_table_header_l">
+						<p>Вы страхуете</p>
+						<p><strong>BMW 1-series</strong></p>
+						<p>2011 года, 813 000 руб</p>
+					</div>
+					<div class="resultat_table_header_r">
+						<div class="resultat_table_header_r_header">Сортировать по:</div>
+						<table cellpadding="0" cellspacing="0" class="sort">
+							<tr>
+								<th>
+									<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+									<label>Цена</label>
+								</th>
+								<td>
+									<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+									<label>Репутация компании</label>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+									<label>Сервис</label>
+								</th>
+								<td>
+									<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+									<label>Аварийный комиссар</label>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+									<label>Эвакуация</label>
+								</th>
+								<td>
+									<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+									<label>Простота выплаты</label>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+									<label>Включить ОСАГО</label>
+								</th>
+								<td>
+									<span class="niceCheck"><input type="checkbox" name="ch1" /></span>
+									<label>Стекла без справок</label>
+								</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<div class="resultat_table_cont">
+					<table cellpadding="0" cellspacing="0" id="tabletwo">
+						<tr>
+							<td class="td_1">
+								<a href="#"><img src="images/baner.jpg" alt="" /></a>
+							</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2"><img src="images/ok.png" alt="" /></td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_10">
+								ЭВАКУАЦИЯ<br /> СТЕКЛА БЕЗ СПРАВОК<br /> ЛКП БЕЗ СПРАВОК
+							</td>
+							<td class="td_11">
+								<div class="strahovka_button"><a href="#"><img src="images/zakaz.jpg" alt="" /></a></div>
+								<div class="price">47 509 <span>руб.</span></div>
+								<div class="price_none">47 509 руб.</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_1">
+								<a href="#"><img src="images/baner.jpg" alt="" /></a>
+							</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2"><img src="images/ok.png" alt="" /></td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_10">
+								ЭВАКУАЦИЯ<br /> <span>СТЕКЛА БЕЗ СПРАВОК</span><br /> ЛКП БЕЗ СПРАВОК
+							</td>
+							<td class="td_11">
+								<div class="strahovka_button"><a href="#"><img src="images/zakaz.jpg" alt="" /></a></div>
+								<div class="price">47 509 <span>руб.</span></div>
+								<div class="price_none">47 509 руб.</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_1">
+								<a href="#"><img src="images/baner.jpg" alt="" /></a>
+							</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2"><img src="images/ok.png" alt="" /></td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_10">
+								ЭВАКУАЦИЯ<br /> СТЕКЛА БЕЗ СПРАВОК<br /> ЛКП БЕЗ СПРАВОК
+							</td>
+							<td class="td_11">
+								<div class="strahovka_button"><a href="#"><img src="images/zakaz.jpg" alt="" /></a></div>
+								<div class="price">47 509 <span>руб.</span></div>
+								<div class="price_none">47 509 руб.</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_1">
+								<a href="#"><img src="images/baner.jpg" alt="" /></a>
+							</td>
+							<td class="td_2"><img src="images/ok.png" alt="" /></td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_10">
+								ЭВАКУАЦИЯ<br /> СТЕКЛА БЕЗ СПРАВОК<br /> ЛКП БЕЗ СПРАВОК
+							</td>
+							<td class="td_11">
+								<div class="strahovka_button"><a href="#"><img src="images/zakaz.jpg" alt="" /></a></div>
+								<div class="price">47 509 <span>руб.</span></div>
+								<div class="price_none">47 509 руб.</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_1">
+								<a href="#"><img src="images/baner.jpg" alt="" /></a>
+							</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2"><img src="images/ok.png" alt="" /></td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_10">
+								ЭВАКУАЦИЯ<br /> СТЕКЛА БЕЗ СПРАВОК<br /> ЛКП БЕЗ СПРАВОК
+							</td>
+							<td class="td_11">
+								<div class="strahovka_button"><a href="#"><img src="images/zakaz.jpg" alt="" /></a></div>
+								<div class="price">47 509 <span>руб.</span></div>
+								<div class="price_none">47 509 руб.</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_1">
+								<a href="#"><img src="images/baner.jpg" alt="" /></a>
+							</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2"><img src="images/ok.png" alt="" /></td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_10">
+								ЭВАКУАЦИЯ<br /> СТЕКЛА БЕЗ СПРАВОК<br /> ЛКП БЕЗ СПРАВОК
+							</td>
+							<td class="td_11">
+								<div class="strahovka_button"><a href="#"><img src="images/zakaz.jpg" alt="" /></a></div>
+								<div class="price">47 509 <span>руб.</span></div>
+								<div class="price_none">47 509 руб.</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_1">
+								<a href="#"><img src="images/baner.jpg" alt="" /></a>
+							</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2"><img src="images/ok.png" alt="" /></td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_10">
+								ЭВАКУАЦИЯ<br /> СТЕКЛА БЕЗ СПРАВОК<br /> ЛКП БЕЗ СПРАВОК
+							</td>
+							<td class="td_11">
+								<div class="strahovka_button"><a href="#"><img src="images/zakaz.jpg" alt="" /></a></div>
+								<div class="price">47 509 <span>руб.</span></div>
+								<div class="price_none">47 509 руб.</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td_1">
+								<a href="#"><img src="images/baner.jpg" alt="" /></a>
+							</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2"><img src="images/ok.png" alt="" /></td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_2">&nbsp;</td>
+							<td class="td_10">
+								ЭВАКУАЦИЯ<br /> СТЕКЛА БЕЗ СПРАВОК<br /> ЛКП БЕЗ СПРАВОК
+							</td>
+							<td class="td_11">
+								<div class="strahovka_button"><a href="#"><img src="images/zakaz.jpg" alt="" /></a></div>
+								<div class="price">47 509 <span>руб.</span></div>
+								<div class="price_none">47 509 руб.</div>
+							</td>
+						</tr>
+					</table>
+					<script>
+						$('#tabletwo').tableHover({colClass: 'hover', cellClass: 'hovercell', clickClass: 'click'}); 
+					</script>
+				</div>
+			</div>
+		</div></div></div>
+		<div id="tabs_cont_2" class="bg_tabs_f"><div class="bg_tabs_t">2</div></div>
+		<div id="tabs_cont_3" class="bg_tabs_f"><div class="bg_tabs_t">3</div></div>
+		<div id="tabs_cont_4" class="bg_tabs_f"><div class="bg_tabs_t">4</div></div>
+		<div id="tabs_cont_5" class="bg_tabs_f"><div class="bg_tabs_t">5</div></div>
+		<div id="tabs_cont_6" class="bg_tabs_f"><div class="bg_tabs_t">6</div></div>
+		<div id="tabs_cont_7" class="bg_tabs_f"><div class="bg_tabs_t">7</div></div>
+	</div>
+	<script>
+		$(function () {
+			var tabContainers = $('div.tabs_box > .bg_tabs_f'); // получаем массив контейнеров
+			tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+			// далее обрабатывается клик по вкладке
+			$('div.tabs_box ul.tabs a').click(function () {
+				tabContainers.hide(); // прячем все табы
+				tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+				$('div.tabs_box ul.tabs a').removeClass('active'); // у всех убираем класс 'selected'
+				$(this).addClass('active'); // текушей вкладке добавляем класс 'selected'
+				return false;
+			}).filter(':first').click();
+		});
+	</script>
+</div>
+<!-- Конец контент -->
+<!-- Подвал  -->
+<div class="footer">
+	<div class="copyright">
+		СТРАХОВАЯ КОМПАНИЯ <span>POLISBOOK</span>
+	</div>
+	<div class="email_1">
+		Все жалобы и предложения<br />
+		принимаются по адресу:
+		<a href="mailto:info@polisbook.ru">info@polisbook.ru</a>
+	</div>
+	<div class="email_2">
+		Вы можете связаться<br />
+		с нами через отдел:<br />
+		<a href="#">Online-консультации</a>.
+	</div>
+	<div class="phone_ico"></div>
+</div>
+<!-- Конец подвал  --> 
+<div class="pop_up pop_up_register" id="pop_up_1">
+	<div class="pop_up_header">
+		<div class="close"></div>
+		Регистрация нового пользователя
+	</div>
+	<div class="pop_up_cont"><div class="pop_up_cont_in">
+		<table cellspacing="0" cellpadding="0" class="table_user_form">
+			<tr>
+				<th>Фамилия:</th>
+				<th>*Адрес эл.почты:</th>
+			</tr>
+			<tr>
+				<td><input type="text" class="style_input5 style_input_red" name=""></td>
+				<td><input type="text" class="style_input5" name=""></td>
+			</tr>
+			<tr>
+				<th>Имя:</th>
+				<th>*Повторите адрес эл.почты:</th>
+			</tr>
+			<tr>
+				<td><input type="text" class="style_input5" name=""></td>
+				<td><input type="text" class="style_input5" name=""></td>
+			</tr>
+			<tr>
+				<th>Отчество:</th>
+				<th>*Пароль:</th>
+			</tr>
+			<tr>
+				<td><input type="text" class="style_input5" name=""></td>
+				<td><input type="text" class="style_input5" name=""></td>
+			</tr>
+			<tr>
+				<th>Телефон:</th>
+				<th>*Повторите пароль:</th>
+			</tr>
+			<tr>
+				<td><span class="phone_code">+7</span><input type="text" class="style_input6" name=""><input type="text" class="style_input7" name=""></td>
+				<td><input type="text" class="style_input5" name=""></td>
+			</tr>
+		</table>
+		<div class="register_checbox">
+			<p>я согласен с правилами регистрации <input type="checkbox" class="style_checkbox" /></p>
+			<p class="comment_error">*Обязательные поля для заполнения</p>
+		</div>
+		<div class="pop_up_button">
+			<input name="" type="button" value="Зарегестрироваться" />
+		</div>
+	</div></div>
+</div>
+
+
+<div class="pop_up pop_up_autorize" id="pop_up_2">
+	<div class="pop_up_header">
+		<div class="close"></div>
+		Личный кабинет
+	</div>
+	<div class="pop_up_cont"><div class="pop_up_cont_in">
+		<table cellspacing="0" cellpadding="0" class="table_user_form">
+			<tr>
+				<th>*Адрес эл.почты:</th>
+			</tr>
+			<tr>
+				<td><input type="text" class="style_input5 style_input_red" name="">
+				<p class="message_error">*Не верный адрес эл.почты</p></td>
+			</tr>
+			<tr>
+				<th>*Пароль:</th>
+			</tr>
+			<tr>
+				<td><input type="text" class="style_input5 style_input_red" name="">
+				<p class="message_error">*Не верный пароль</p></td></td>
+			</tr>
+			<tr>
+				<td><div class="pop_up_button_enter"><input name="" type="button" value="Войти" class="button_style" /></div></td>
+			</tr>
+			<tr>
+				<td>Что делать если вы <a href="#">забыли пароль?</a></td>
+			</tr>
+		</table>
+	</div></div>
+</div>
+
+
+<div class="pop_up pop_up_password_recovery" id="pop_up_3">
+	<div class="pop_up_header">
+		<div class="close"></div>
+		Восстановление пароля
+	</div>
+	<div class="pop_up_cont"><div class="pop_up_cont_in">
+		<div class="pop_up_header2">
+			Что же  делать, если вы забыли пароль?
+		</div>
+		<p>В форму ниже введите свой электронный адрес, указанный при регестрации.
+Через несколько минут на ваш Адрес эл,почты придет письмо с паролем,</p>
+		<div class="form_email">
+			<p>*Адрес эл.почты:</p>
+			<div class="form_email_input">
+				<input name="" type="text" class="form_email_input_text" />
+				<input name="" type="text" class="form_email_input_button" value="Отправить" />
+			</div>
+			<p class="color_red">*Пользователь не найден</p>
+			<p class="color_red">*Не верный адрес эл.почты</p>
+		</div>
+		<div class="pop_up_contacs">
+			Если при восстонавлении пароля у вас возникли сложности, свяжитесь с нами:<br />
++7 (495) 345 43 N\A , skype: polisbook.support.
+		</div>
+	</div></div>
+</div>
+
+
+<div class="pop_up pop_up_questions" id="pop_up_4">
+	<div class="pop_up_header">
+		<div class="close"></div>
+		Вопросы
+	</div>
+	<div class="pop_up_cont"><div class="pop_up_cont_in">
+		<div class="pop_up_questions_l">
+			<div class="pop_up_header2">
+				У вас есть вопрос?
+			</div>
+			<div class="questions_form">
+				<div class="questions_form_header">Задать вопрос:</div>
+				<textarea name="" cols="" rows="" class="questions_textarea"></textarea>
+			</div>
+			<div class="box_form_code">
+				<input name="" type="text" class="code_input" />
+				<div class="code">
+					<img src="images/code.jpg" alt="" />
+				</div>
+				<div class="link_reset"><a href="#"><img src="images/reset.gif" alt="" /></a></div>
+			</div>
+			<div class="fonsize_11">
+				<p>Введите код указанный на картинке.</p>
+				<p class="color_red">*Вы ввели не правильно код с картинки</p>
+			</div>
+			<div class="pop_up_button_send">
+				<input name="" type="button" value="Отправить" class="style_input_button" />
+			</div>
+		</div>
+		<div class="pop_up_questions_r">
+			<div class="pop_up_header2">
+				FAQ
+			</div>
+			<ul class="faq">
+				<li><a href="#">Частозадаваемые вопросы</a></li>
+				<li><a href="#">Как оформить полис</a></li>
+				<li><a href="#">Что делать при утере полиса</a></li>
+			</ul>
+		</div>
+	</div></div>
+</div>
+</body>
+</html>

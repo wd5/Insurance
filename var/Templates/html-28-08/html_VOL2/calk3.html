@@ -1,0 +1,642 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" href="css/base/jquery.ui.all.css">
+<link rel="stylesheet" type="text/css" media="all" href="css/niceforms-default.css" />
+<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+<script type="text/javascript" src="js/jquery.checkbox.js"></script>
+<script type="text/javascript" src="js/jquery.tablehover.pack.js"></script>
+<script type="text/javascript" src="js/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="js/jquery.ui.accordion.js"></script>
+<script src="js/jquery.ui.core.js"></script>
+<script src="js/jquery.ui.widget.js"></script>
+<script src="js/jquery.ui.mouse.js"></script>
+<script src="js/jquery.ui.slider.js"></script>
+<script language="javascript" type="text/javascript" src="js/niceforms.js"></script>
+
+<script>
+$(function() {
+	$( "#slider-range-min2" ).slider({
+		range: "min",
+		step: 1000,
+		value: 1000,
+		min: 1000,
+		max: 90000,
+		slide: function( event, ui ) {
+			$( "#amount2" ).val( "$" + ui.value );
+		}
+	});
+	$( "#amount2" ).val( "$" + $( "#slider-range-min2" ).slider( "value" ) );
+});
+$(function() {
+	$( "#slider-range-min3" ).slider({
+		range: "min",
+		step: 1000,
+		value: 1000,
+		min: 1000,
+		max: 90000,
+		slide: function( event, ui ) {
+			$( "#amount3" ).val( "$" + ui.value );
+		}
+	});
+	$( "#amount3" ).val( "$" + $( "#slider-range-min3" ).slider( "value" ) );
+});
+</script>
+<script>
+	$(document).ready(function() {
+		$("a[rel]").overlay({
+
+	// some mask tweaks suitable for modal dialogs
+	mask: {
+		color: '#ebecff',
+		loadSpeed: 200,
+		opacity: 0.9
+	},
+
+	closeOnClick: true
+});
+	}); 
+</script>
+<title>Главная</title>
+</head>
+<body>
+<div class="body">
+	<!-- Шапка-->
+	<div class="head">
+		<div class="logo"><a href="#"><img src="images/px.gif" alt="" /></a></div>
+		<table cellpadding="0" cellspacing="0" class="menu_main">
+			<tr>
+				<tr>
+					<td><a href="#">КАСКО</a></td>
+					<td><a href="#">ОСАГО</a></td>
+					<td><a href="#">ЗЕЛЕНАЯ КАРТА</a></td>
+					<td><a href="#">СТРАХОВАНИЯ ИМУЩЕСТВА</a></td>
+					<td><a href="#">ИПОТЕЧНОЕ КОМПАНИЕ</a></td>
+					<td><a href="#">СТРАХОВАНИЕ ПУТЕШЕСТВУЮЩИХ</a></td>
+				</tr>
+			</tr>
+		</table>
+		<div class="head_ico">
+			<div class="head_ico_text_box">
+				<a href="#" class="setup_user_open"><img src="images/user_name_button.jpg" alt="" /></a>
+				<div class="head_ico_text">
+					DENIGURU@
+				</div>
+				<div class="setup_user" style="display:none">
+					<a href="#" rel="#pop_up_1">регистрация</a>
+					<a href="#" rel="#pop_up_2">вход</a>
+					<a href="#" rel="#pop_up_3">пароль</a>
+					<a href="#" rel="#pop_up_4">вапрос</a>
+				</div>
+				<script>
+					$(document).ready(function(){
+						$(".setup_user_open").click(function(){
+							$(".setup_user").slideToggle("slow");
+						});
+					});
+				</script>
+			</div>
+			<a href="#"><img src="images/head_ico_2.gif" alt="" /></a>
+			<a href="#"><img src="images/head_ico_1.gif" alt="" /></a>
+		</div>
+	</div>
+	<!-- Конец шапки -->
+	<!-- Контент -->
+	<div class="calk">
+		<div class="">
+			<div class="calk_tabs">
+				<ul class="calk_tabs_link">
+					<li><a class="" href="#tabs_1">ОСАГО</a></li>
+					<li><a class="" href="#tabs_2">КАСКО</a></li>
+					<li><a class="" href="#tabs_3">ДМС</a></li>
+					<li><a class="" href="#tabs_4">ДАГО</a></li>
+					<li><a class="" href="#tabs_5">НС</a></li>
+					<li><a class="" href="#tabs_6">ВЗР</a></li>
+					<li><a class="" href="#tabs_7">ИЛ</a></li>
+				</ul>
+				<div class="calk_content2" id="tabs_1">
+					<div class="select_style">
+						<form action="vars.php" method="post" class="niceform">
+							<select tabindex="2" size="1" name="gender" id="gender">
+								<option value="1">ауди</option>
+								<option value="2">опел</option>
+								<option value="3">опел</option>
+								<option value="4">опел</option>
+								<option value="5">опел</option>
+								<option value="6">опел</option>
+								<option value="7">опел</option>
+								<option value="8">опел</option>
+								<option value="9">опел</option>
+								<option value="10">опел</option>
+								<option value="11">опел</option>
+								<option value="12">опел</option>
+								<option selected="selected" value="1000">ВЫБЕРЕТЕ АВТОМОБИЛЬ...</option>
+							</select>
+						</form>
+					</div>
+					<div class="setup_box" style="display:none;">
+						<div class="setup">
+							<table cellpadding="0" cellspacing="0" class="setup_table">
+								<tr>
+									<th>Год выпуска</th>
+									<td>
+										<a href="#" class="active">2011</a>
+										<a href="#">2010</a>
+										<a href="#">2009</a>
+										<a href="#">2008</a>
+										<a href="#">2007</a>
+										<a href="#">2006</a>
+										<a href="#">2005</a>
+										<a href="#">2004</a>
+										<a href="#">2003</a>
+									</td>
+								</tr>
+								<tr>
+									<th>&nbsp;</th>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Год выпуска</th>
+									<td>
+										<a href="#">2011</a>
+										<a href="#">2010</a>
+										<a href="#">2009</a>
+										<a href="#">2008</a>
+										<a href="#">2007</a>
+										<a href="#">2006</a>
+										<a href="#">2005</a>
+										<a href="#">2004</a>
+										<a href="#">2003</a>
+										<a href="#">2011</a>
+										<a href="#">2010</a>
+										<a href="#">2009</a>
+										<a href="#">2008</a>
+										<a href="#">2007</a>
+										<a href="#">2006</a>
+										<a href="#">2005</a>
+										<a href="#">2004</a>
+										<a href="#">2003</a>
+									</td>
+								</tr>
+								<tr>
+									<th>&nbsp;</th>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th>Стоимость</th>
+									<td class="slider">
+										<div class="slider_box">
+											<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+											<div id="slider-range-min"></div>
+										</div>
+									</td>
+								</tr>
+							</table>
+							<div class="pointer_top"><img src="images/pointer_top.png" alt="" /></div>
+						</div>
+					</div>
+					<script>
+						$(document).ready(function(){
+							$(".pointer_top").click(function(){
+								$(".setup_box").slideToggle("slow");
+								$(this).toggleClass("active");
+							});
+						});
+					</script>
+					<div class="box_checkbox">
+						<span class="niceCheck"><input type="checkbox" name="ch1" /></span> <label>КОЛИЧЕСТВО ВОДИТЕЛЕЙ НЕ ОГРАНИЧЕНО</label>
+					</div>
+					<script type="text/javascript">
+					$(function() {
+						$("#accordion").accordion();
+					});
+					</script>
+					<div id="accordion">
+						<h3><a href="#" class="delet_voditel">Удалить вадителя</a><a href="#">Первый водитель</a></h3>
+						<div>
+							<div class="vozrost">
+								<div class="vozrost_left">
+									<p>Возраст</p>
+									(полных лет)
+								</div>
+								<div class="vozrost_input_namber vozrost_input_namber_1" style="display:none;">
+									<table cellpadding="0" cellspacing="0">
+										<tr>
+											<td><a href="#">1</a></td>
+											<td><a href="#">2</a></td>
+											<td><a href="#">3</a></td>
+											<td><a href="#">4</a></td>
+											<td><a href="#">5</a></td>
+										</tr>
+										<tr>
+											<td><a href="#">6</a></td>
+											<td><a href="#">7</a></td>
+											<td><a href="#">8</a></td>
+											<td><a href="#">9</a></td>
+											<td><a href="#">0</a></td>
+										</tr>
+									</table>
+								</div>
+								<div class="vozrost_input vozrost_input_1">
+									<input name="" type="text" />
+								</div>
+							</div>
+							<script>
+								$(document).ready(function(){
+									$(".vozrost_input_1 input").click(function(){
+										$(".vozrost_input_namber_1").slideToggle("slow");
+									});
+								});
+								$(document).ready(function(){
+									$(".vozrost_input_2 input").click(function(){
+										$(".vozrost_input_namber_2").slideToggle("slow");
+									});
+								});
+								 $('.vozrost_input_namber_1 a').click(function(){
+								 var input = $('.vozrost_input_1 input');
+								 input.val(input.val() + $(this).text());
+								 return false;
+								});
+								$('.vozrost_input_namber_2 a').click(function(){
+								 var input = $('.vozrost_input_2 input');
+								 input.val(input.val() + $(this).text());
+								 return false;
+								});
+							</script>
+							<div class="vozrost_right">
+								<div class="vozrost_left">
+									<p>Стаж вождения</p>
+									(полных лет)
+								</div>
+								<div class="vozrost_input_namber vozrost_input_namber_2" style="display:none;">
+									<table cellpadding="0" cellspacing="0">
+										<tr>
+											<td><a href="#">1</a></td>
+											<td><a href="#">2</a></td>
+											<td><a href="#">3</a></td>
+											<td><a href="#">4</a></td>
+											<td><a href="#">5</a></td>
+										</tr>
+										<tr>
+											<td><a href="#">6</a></td>
+											<td><a href="#">7</a></td>
+											<td><a href="#">8</a></td>
+											<td><a href="#">9</a></td>
+											<td><a href="#">0</a></td>
+										</tr>
+									</table>
+								</div>
+								<div class="vozrost_input vozrost_input_2">
+									<input name="" type="text" />
+								</div>
+							</div>
+							<script>
+								 $('.vozrost_input_namber_2 a').click(function(){
+								 var input = $('.vozrost_input_2 input');
+								 input.val(input.val() + $(this).text());
+								 return false;
+								});
+							</script>
+							<div class="box_link_setupe">
+								Количество обращений по Каско в прошлом году:
+								<div class="box_link_setupe_click">
+									не было <a href="#" class="active">1</a>  <a href="#">2</a>  <a href="#">3</a>  <a href="#">4</a>  <a href="#">5</a>  <a href="#">6</a>  <a href="#">7+</a>
+								</div>
+							</div>
+							<div class="box_link_setupe box_link_setupe_right">
+								Текущий год использования ОСАГО:
+								<div class="box_link_setupe_click">
+									<a href="#" class="active">первый</a>  <a href="#">второй</a>  <a href="#">третий</a>
+								</div>
+								Количество аварий:
+								<div class="box_link_setupe_click">
+									за первый год: <a href="#" class="active">ни одной</a>  <a href="#">1</a>  <a href="#">2</a>  <a href="#">3</a>  <a href="#">4+</a>
+								</div>
+							</div>
+						</div>
+						<h3><a href="#" class="delet_voditel">Удалить вадителя</a><a href="#">Второй водитель</a></h3>
+						<div>
+							<p>
+							Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum sit amet
+							purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris turpis porttitor
+							velit, faucibus interdum tellus libero ac justo. Vivamus non quam. In
+							suscipit faucibus urna.
+							</p>
+						</div>
+						<h3 class="clone_box" style="display:none;"><a href="#">Трейтий водитель</a></h3>
+						<div class="clone_box" style="display:none;">
+							<p>
+							Cras dictum. Pellentesque habitant morbi tristique senectus et netus
+							et malesuada fames ac turpis egestas. Vestibulum ante ipsum primis in
+							faucibus orci luctus et ultrices posuere cubilia Curae; Aenean lacinia
+							mauris vel est.
+							</p>
+							<p>
+							Suspendisse eu nisl. Nullam ut libero. Integer dignissim consequat lectus.
+							Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
+							inceptos himenaeos.
+							</p>
+						</div>
+					</div>
+					<a href="#" class="clone_link">Добавить водителя</a>	
+					<script>
+						 $('.clone_link').click(function(){
+							$('.clone_box').clone().appendTo('#accordion').show();
+							return false;
+						  });
+					</script>
+					<div class="search_box" style="display:none;">
+						<table cellpadding="0" cellspacing="0" class="link_search_table">
+							<tr>
+								<th>
+									Год выпуска
+								</th>
+								<td>
+									<a href="#">2011</a>
+									<a href="#">2010</a>
+									<a href="#">2009</a>
+									<a href="#">2008</a>
+									<a href="#">2007</a>
+									<a href="#">2006</a>
+									<a href="#">2011</a>
+									<a href="#">2011</a>
+									<a href="#">2011</a>
+									<a href="#">2011</a>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Модель
+								</th>
+								<td>
+									<a href="#">Berlingo</a>
+									<a href="#">C2</a>
+									<a href="#">C3</a>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Руль
+								</th>
+								<td>
+									<a href="#">Слева</a>
+									<a href="#">Справа</a>
+									<a href="#">Поцентру</a>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Руль
+								</th>
+								<td>
+									<a href="#">Слева</a>
+									<a href="#">Справа</a>
+									<a href="#">Поцентру</a>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Руль
+								</th>
+								<td>
+									<a href="#">Слева</a>
+									<a href="#">Справа</a>
+									<a href="#">Поцентру</a>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									Руль
+								</th>
+								<td>
+									<a href="#">Слева</a>
+									<a href="#">Справа</a>
+									<a href="#">Поцентру</a>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="assume">
+						<a href="#"><img src="images/assume.jpg" alt="" /></a>
+					</div>
+				</div>
+				<div class="calk_content2" id="tabs_2">
+					f
+				</div>
+				<div class="calk_content2" id="tabs_3">
+					f
+				</div>
+				<div class="calk_content2" id="tabs_4">
+					f
+				</div>
+				<div class="calk_content2" id="tabs_5">
+					f
+				</div>
+				<div class="calk_content2" id="tabs_6">
+					f
+				</div>
+				<div class="calk_content2" id="tabs_7">
+					f
+				</div>
+				
+				<script>
+					$(function () {
+						var tabContainers = $('div.calk_tabs > .calk_content2'); // получаем массив контейнеров
+						tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+						// далее обрабатывается клик по вкладке
+						$('div.calk_tabs ul.calk_tabs_link a').click(function () {
+							tabContainers.hide(); // прячем все табы
+							tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+							$('div.calk_tabs ul.calk_tabs_link a').removeClass('selected'); // у всех убираем класс 'selected'
+							$(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
+							return false;
+						}).filter(':first').click();
+					});
+				</script>
+			</div>
+		</div>
+	</div>
+	<!-- Конец контент -->
+	<!-- Подвал  -->
+	<div class="footer">
+		<div class="copyright">
+			СТРАХОВАЯ КОМПАНИЯ <span>POLISBOOK</span>
+		</div>
+		<div class="email_1">
+			Все жалобы и предложения<br />
+			принимаются по адресу:
+			<a href="mailto:info@polisbook.ru">info@polisbook.ru</a>
+		</div>
+		<div class="email_2">
+			Вы можете связаться<br />
+			с нами через отдел:<br />
+			<a href="#">Online-консультации</a>.
+		</div>
+		<div class="phone_ico"></div>
+	</div>
+	<!-- Конец подвал  --> 
+</div>
+<div class="pop_up pop_up_register" id="pop_up_1">
+	<div class="pop_up_header">
+		<div class="close"></div>
+		Регистрация нового пользователя
+	</div>
+	<div class="pop_up_cont"><div class="pop_up_cont_in">
+		<form action="" method="get">
+			<table cellspacing="0" cellpadding="0" class="table_user_form">
+				<tr>
+					<th>Фамилия:</th>
+					<th>*Адрес эл.почты:</th>
+				</tr>
+				<tr>
+					<td><input type="text" class="style_input5 style_input_red" name=""></td>
+					<td><input type="text" class="style_input5" name=""></td>
+				</tr>
+				<tr>
+					<th>Имя:</th>
+					<th>*Повторите адрес эл.почты:</th>
+				</tr>
+				<tr>
+					<td><input type="text" class="style_input5" name=""></td>
+					<td><input type="text" class="style_input5" name=""></td>
+				</tr>
+				<tr>
+					<th>Отчество:</th>
+					<th>*Пароль:</th>
+				</tr>
+				<tr>
+					<td><input type="text" class="style_input5" name=""></td>
+					<td><input type="text" class="style_input5" name=""></td>
+				</tr>
+				<tr>
+					<th>Телефон:</th>
+					<th>*Повторите пароль:</th>
+				</tr>
+				<tr>
+					<td><span class="phone_code">+7</span><input type="text" class="style_input6" name=""><input type="text" class="style_input7" name=""></td>
+					<td><input type="text" class="style_input5" name=""></td>
+				</tr>
+			</table>
+			<div class="register_checbox">
+				<p>я согласен с правилами регистрации <input type="checkbox" class="style_checkbox" /></p>
+				<p class="comment_error">*Обязательные поля для заполнения</p>
+			</div>
+			<div class="pop_up_button">
+				<input name="" type="button" value="Зарегестрироваться" />
+			</div>
+		</form>
+	</div></div>
+</div>
+
+
+<div class="pop_up pop_up_autorize" id="pop_up_2">
+	<div class="pop_up_header">
+		<div class="close"></div>
+		Личный кабинет
+	</div>
+	<div class="pop_up_cont"><div class="pop_up_cont_in">
+		<form action="" method="get">
+			<table cellspacing="0" cellpadding="0" class="table_user_form">
+				<tr>
+					<th>*Адрес эл.почты:</th>
+				</tr>
+				<tr>
+					<td><input type="text" class="style_input5 style_input_red" name="">
+					<p class="message_error">*Не верный адрес эл.почты</p></td>
+				</tr>
+				<tr>
+					<th>*Пароль:</th>
+				</tr>
+				<tr>
+					<td><input type="text" class="style_input5 style_input_red" name="">
+					<p class="message_error">*Не верный пароль</p></td>
+				</tr>
+				<tr>
+					<td><div class="pop_up_button_enter"><input name="" type="button" value="Войти" class="button_style" /></div></td>
+				</tr>
+				<tr>
+					<td>Что делать если вы <a href="#">забыли пароль?</a></td>
+				</tr>
+			</table>
+		</form>
+	</div></div>
+</div>
+
+
+<div class="pop_up pop_up_password_recovery" id="pop_up_3">
+	<div class="pop_up_header">
+		<div class="close"></div>
+		Восстановление пароля
+	</div>
+	<div class="pop_up_cont"><div class="pop_up_cont_in">
+		<div class="pop_up_header2">
+			Что же  делать, если вы забыли пароль?
+		</div>
+		<p>В форму ниже введите свой электронный адрес, указанный при регестрации.
+Через несколько минут на ваш Адрес эл,почты придет письмо с паролем,</p>
+		<div class="form_email">
+			<p>*Адрес эл.почты:</p>
+			<div class="form_email_input">
+				<form action="" method="get">
+					<input name="" type="text" class="form_email_input_text" />
+					<input name="" type="text" class="form_email_input_button" value="Отправить" />
+				</form>
+			</div>
+			<p class="color_red">*Пользователь не найден</p>
+			<p class="color_red">*Не верный адрес эл.почты</p>
+		</div>
+		<div class="pop_up_contacs">
+			Если при восстонавлении пароля у вас возникли сложности, свяжитесь с нами:<br />
++7 (495) 345 43 N\A , skype: polisbook.support.
+		</div>
+	</div></div>
+</div>
+
+
+<div class="pop_up pop_up_questions" id="pop_up_4">
+	<div class="pop_up_header">
+		<div class="close"></div>
+		Вопросы
+	</div>
+	<div class="pop_up_cont"><div class="pop_up_cont_in">
+		<div class="pop_up_questions_l">
+			<form action="" method="get">
+				<div class="pop_up_header2">
+					У вас есть вопрос?
+				</div>
+				<div class="questions_form">
+					<div class="questions_form_header">Задать вопрос:</div>
+					<textarea name="" cols="" rows="" class="questions_textarea"></textarea>
+				</div>
+				<div class="box_form_code">
+					<input name="" type="text" class="code_input" />
+					<div class="code">
+						<img src="images/code.jpg" alt="" />
+					</div>
+					<div class="link_reset"><a href="#"><img src="images/reset.gif" alt="" /></a></div>
+				</div>
+				<div class="fonsize_11">
+					<p>Введите код указанный на картинке.</p>
+					<p class="color_red">*Вы ввели не правильно код с картинки</p>
+				</div>
+				<div class="pop_up_button_send">
+					<input name="" type="button" value="Отправить" class="style_input_button" />
+				</div>
+			</form>
+		</div>
+		<div class="pop_up_questions_r">
+			<div class="pop_up_header2">
+				FAQ
+			</div>
+			<ul class="faq">
+				<li><a href="#">Частозадаваемые вопросы</a></li>
+				<li><a href="#">Как оформить полис</a></li>
+				<li><a href="#">Что делать при утере полиса</a></li>
+			</ul>
+		</div>
+	</div></div>
+</div>
+</body>
+</html>
