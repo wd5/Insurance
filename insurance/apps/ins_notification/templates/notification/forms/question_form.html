@@ -1,7 +1,9 @@
-<div class="pop_up_cont">
-  <div class="pop_up_cont"><div class="pop_up_cont_in">
-	  <div class="center_quest">
-		  <div class="pop_up_questions_l">
+<div class="pop_up_main pop_up_questions">
+		<div class="pop_up_header">
+			Вопросы
+		</div>
+		<div class="pop_up_cont"><div class="pop_up_cont_in">
+			<div class="pop_up_questions_l">
     <form action="{% url ins_notification_question %}" method="POST">{% csrf_token %}
       <div class="pop_up_header2">
       {{ form.non_field_errors }}
