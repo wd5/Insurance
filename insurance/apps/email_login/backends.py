@@ -26,9 +26,15 @@ class RegistrationBackend(DefaultBackend):
 
         new_user = RegistrationProfile.objects.create_inactive_user(uuid4().get_hex()[:10], 
                                                                     email, password, site)
+        if kwargs.get('first_name'):
+            new_user.first_name = kwargs.get('first_name')
+        if kwargs.get('last_name'):
+            new_user.last_name = kwargs.get('last_name')
+        new_user.save()
         if kwargs.get('first_name') and kwargs.get('last_name') and kwargs.get('middle_name'):
             new_persona = Persona()
             new_persona.user = new_user
+            new_persona.email = kwargs['email']
             new_persona.last_name = kwargs['last_name']
             new_persona.first_name = kwargs['first_name']
             new_persona.middle_name = kwargs['middle_name']

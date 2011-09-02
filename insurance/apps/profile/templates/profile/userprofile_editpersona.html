@@ -22,13 +22,10 @@
                                     <b>{% if main_persona %}{{ main_persona.last_name }} {{ main_persona.first_name }}{% else %}
                                         Вы{% endif %}</b></a></li>
                                 {% for pers in personas %}
-                                    <li class="user_name"><a
+                                    <li class="{% ifequal pers.id persona.id %}active{% else %}user_name{% endifequal %}"><a
                                             href="{% url userprofile_editpersona pers.id %}">{{ pers.last_name }} {{ pers.first_name }}</a>
                                     </li>
                                 {% endfor %}
-                                <li class="active"><a
-                                            href="#">Новая персона</a>
-                                    </li>
                             </ul>
                             <!---- Первая закладка внутри ----->
                             <div id="tabs_cont3_1" class="bg_tabs3_box">

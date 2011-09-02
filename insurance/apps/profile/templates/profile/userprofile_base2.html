@@ -18,7 +18,7 @@
                     <div class="bg_tabs_b">
                         <div class="tabs2">
                             <ul class="tab5">
-                                <li><a href="{% url userprofile_edit %}" class="user_name">
+                                <li><a href="{% url userprofile_edit %}" class="active">
                                     <b>{% if main_persona %}{{ main_persona.last_name }} {{ main_persona.first_name }}{% else %}
                                         Вы{% endif %}</b></a></li>
                                 {% for pers in personas %}
@@ -26,23 +26,34 @@
                                             href="{% url userprofile_editpersona pers.id %}">{{ pers.last_name }} {{ pers.first_name }}</a>
                                     </li>
                                 {% endfor %}
-                                <li class="active"><a
-                                            href="#">Новая персона</a>
-                                    </li>
                             </ul>
                             <!---- Первая закладка внутри ----->
                             <div id="tabs_cont3_1" class="bg_tabs3_box">
-{#                                <div class="bg_tabs2_f">#}
-{#                                    <div class="cont_text">#}
-{#                                        <p>Вы можете добавить персональные данные других лиц. Эти данные помогут вам#}
-{#                                            эффективно и быстро оформить для них страховые полисы.</p>#}
-{##}
-{#                                        <p><a href="{% url userprofile_addpersona %}" class="style_button">ДОБАВИТЬ</a>#}
-{#                                        </p></p>#}
-{#                                    </div>#}
-{#                                </div>#}
-                                {% url userprofile_editpersona as action_url %}
-                                {% include "profile/forms/persona_form2.html" with persona=persona %}
+                                {% if main_persona %}
+                                    <div class="bg_tabs2_f">
+                                        <div class="cont_text">
+                                            <p>Вы можете добавить персональные данные других лиц. Эти данные помогут вам
+                                                эффективно и быстро оформить для них страховые полисы.</p>
+
+                                            <p><a href="{% url userprofile_addpersona %}"
+                                                  class="style_button">ДОБАВИТЬ</a>
+                                            </p></p>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                {% url userprofile_edit as action_url %}
+                                {% include "profile/forms/persona_form2.html" with persona=main_persona %}
+                            </div>
+                            <div class="bg_tabs2_f">
+                                <form action="{% url auth_password_change %}" method="post">
+                                    {% csrf_token %}
+                                    <table>
+                                        {{ password_form.as_table }}
+                                    </table>
+                                    <div class="box_button_seva">
+                                        <p><input name="" type="submit" value="ИЗМЕНИТЬ" class="style_button"/></p>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

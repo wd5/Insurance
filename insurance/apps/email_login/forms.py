@@ -33,7 +33,7 @@ class PhoneNumberField(forms.MultiValueField):
             try:
                 return "%03d%07d" % (int(data_list[0]), int(data_list[1]))
             except ValueError:
-                return ""
+                raise forms.ValidationError(u"Неправильный формат номера")
         else:
             return None
 

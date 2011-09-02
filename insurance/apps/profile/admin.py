@@ -52,9 +52,9 @@ notification.short_description = u"Разослать уведомления"
 class CustomUserAdmin(UserAdmin):
     # actions= [ unblock, message ]
     actions= [ unblock, notification ]
-    list_display = ('p_last_name', 'p_first_name', 'p_middle_name',
+    list_display = ('last_name', 'first_name',
                     'email', 'p_last_ip', 'p_city', 'p_reason_blocked', 'is_active')
-    list_display_links = ('email','p_last_name', 'p_first_name', 'p_middle_name')
+    list_display_links = ('email','last_name', 'first_name')
 
     fieldsets = (
         (None, {'fields': ('password',)}),
@@ -78,21 +78,6 @@ class CustomUserAdmin(UserAdmin):
         profile = user.get_profile()
         return profile.city
     p_city.short_description = 'Город'
-
-    def p_last_name(self, user):
-        profile = user.get_profile()
-        return profile.last_name
-    p_last_name.short_description = 'Фамилия'
-
-    def p_first_name(self, user):
-        profile = user.get_profile()
-        return profile.last_name
-    p_first_name.short_description = 'Имя'
-
-    def p_middle_name(self, user):
-        profile = user.get_profile()
-        return profile.last_name
-    p_middle_name.short_description = 'Отчество'
 
     def p_reason_blocked(self, user):
         profile = user.get_profile()
@@ -237,12 +222,19 @@ class CustomUserAdmin(UserAdmin):
         return HttpResponseRedirect('..')
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('last_name', 'first_name', 'middle_name',
+    list_display = ('u_last_name', 'u_first_name',
                     'u_email', 'last_ip', 'city', 'reason_blocked', 'u_is_active')
-    list_display_links = ('u_email','last_name', 'first_name', 'middle_name')
+    list_display_links = ('u_email','u_last_name', 'u_first_name')
     readonly_fields = ('last_ip', 'city', 'reason_blocked')
     
     # ===== User field getters =====
+    def u_last_name(self, profile):
+        return profile.user.last_name
+    u_last_name.short_description = 'Фамилия'
+
+    def u_first_name(self, profile):
+        return profile.user.first_name
+    u_first_name.short_description = 'Имя'
 
     def u_email(self, profile):
         return profile.user.email

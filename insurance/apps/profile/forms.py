@@ -5,6 +5,7 @@ from django import forms
 from django.forms.extras.widgets import SelectDateWidget
 
 from profile.models import UserProfile,Persona
+from email_login.forms import PhoneNumberField
 
 
 
@@ -12,16 +13,6 @@ from profile.models import UserProfile,Persona
 year = datetime.datetime.now().year
 years_list = range(year-100,year)
 
-class ProfileForm(ModelForm):
-
-    def __init__(self, *args, **kwargs):
-        super(ModelForm, self).__init__(*args, **kwargs)
-        for fname in ['first_name', 'last_name', 'middle_name']:
-            self.fields[fname].widget.attrs['class'] = 'style_input5'
-
-    class Meta:
-        model = UserProfile
-        fields = ('last_name', 'first_name', 'middle_name')
 
 class AdminUserBlockForm(ModelForm):
     reason_blocked = forms.CharField(widget=forms.TextInput(attrs={'size':'100', 'required':True}))
@@ -44,13 +35,18 @@ class AdminUserMessageConfirmForm(forms.Form):
     subject = forms.CharField(label=u"Тема", min_length=10, max_length=100)
     message = forms.CharField(label=u"Уведомление", min_length=10, max_length=400, widget=forms.Textarea())
 
-class PersonaForm(ModelForm):
 
+class PersonaForm(ModelForm):
+    phone = PhoneNumberField(label=u'Телефонный номер', required=False)
     class Meta:
         model = Persona
-        fields = ('last_name','first_name','middle_name')
+        exclude = ('user', 'comment', 'me')
+
 
     def __init__(self, *args, **kwargs):
         super(ModelForm, self).__init__(*args, **kwargs)
-        for fname in ['first_name', 'last_name', 'middle_name']:
-            self.fields[fname].widget.attrs['class'] = 'style_input5'
+        for f_name in self.fields:
+            if f_name == 'phone':
+                pass
+            else:
+                self.fields[f_name].widget.attrs['class'] = 'style_input5'

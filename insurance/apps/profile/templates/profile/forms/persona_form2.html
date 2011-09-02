@@ -1,0 +1,26 @@
+<form action="{{ action_url }}" method="post">
+    {% csrf_token %}
+    <div class="bg_tabs2_f">
+        {% if persona %}
+            <div class="user_data">
+                Персональные данные ID {{ persona.id }} (нафига ID нужно выводить?)
+            </div>
+        {% endif %}
+
+        <table cellpadding="0" cellspacing="0" class="table_user_form">
+            {{ persona_form.as_table }}
+        </table>
+        <div class="clear"></div>
+        <div class="box_button_seva">
+            <p><input name="" type="submit" value="СОХРАНИТЬ" class="style_button"/></p>
+        </div>
+        {% if persona %}
+            {% ifnotequal main_persona.id persona.id %}
+            <div class="box_button_seva">
+                <p><a class="style_button" href="{% url userprofile_deletepersona persona.id %}">УДАЛИТЬ</a></p>
+            </div>
+            {% endifnotequal %}
+        {% endif %}
+    </div>
+</form>
+

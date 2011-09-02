@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
 from django.contrib.flatpages.models import FlatPage    
 #from django.contrib import messages #TODO: use message framework???
@@ -8,88 +9,95 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.generic.list_detail import object_list
+from django.core.exceptions import ObjectDoesNotExist
+from django.views.generic.simple import direct_to_template
 
 from calc.models import InsurancePolicy
 from ins_notification.forms import QuestionForm
 from ins_notification.models import Question
 
-from profile.forms import ProfileForm, PersonaForm
-from profile.models import UserProfile,Persona
-
-
+from forms import PersonaForm
+from models import Persona
 
 @login_required
-def profile(request, action=None):
+def profile(request):
+    """
+    Страница /profile/ - редактирование осн. персоны пользователя,
+    а также смена его пароля и кнопка добавления доп. персон.
+    """
     user = request.user
-    profile, _ = UserProfile.objects.get_or_create(user=user)
-    saved=False
+    try:
+        main_persona = Persona.objects.get(user=user, me=True)
+    except ObjectDoesNotExist:
+        main_persona = None
+    personas = Persona.objects.filter(user=user, me=False)
+    password_form = PasswordChangeForm(user)
+
     if request.method == 'POST':
-        if action == 'profile':
-            profile_form = ProfileForm(request.POST, instance=profile)
-            print "Errors:",  profile_form.errors
-            if profile_form.is_valid():
-                profile = profile_form.save()
-                profile.save()
-                saved = True
-                return HttpResponseRedirect(reverse('userprofile_edit'))
-            password_form = PasswordChangeForm(user)
-
-        elif action == 'password':
-            password_form = PasswordChangeForm(user=request.user, data=request.POST)
-            if password_form.is_valid():
-                password_form.save()
-                saved = True
-                return HttpResponseRedirect(reverse('userprofile_edit'))
-            profile_form = ProfileForm(instance=profile)
-
+        form = PersonaForm(request.POST, instance=main_persona)
+        if form.is_valid():
+            persona = form.save(commit=False)
+            persona.user = user
+            persona.me = True
+            if form.cleaned_data.get("phone") is None:  # hack.
+                persona.phone = ""
+            persona.save()
+            return HttpResponseRedirect(reverse('userprofile_edit'))
     else:
-        profile_form = ProfileForm(instance=profile)
-        password_form = PasswordChangeForm(user)
-
-    persona_me = Persona.objects.get(user=user, me=True)
-    personas = Persona.objects.filter(user=user, me=False)
-
-    return render_to_response('profile/userprofile_edit.html', {
-        'profile_form': profile_form,
-        'password_form': password_form,
-        'saved': saved,
-        'personas': personas,
-        'persona_me': persona_me,
-    }, context_instance=RequestContext(request))
+        form = PersonaForm(instance=main_persona)
+    return direct_to_template(request, 'profile/userprofile_base2.html', {'persona_form': form, 'personas': personas,
+                                                                          'main_persona': main_persona,
+                                                                          'password_form': password_form})
 
 @login_required
-def edit_persona(request, persona_id=None):
+def edit_persona(request, persona_id):
     user = request.user
     personas = Persona.objects.filter(user=user, me=False)
-    if persona_id:
-        persona = get_object_or_404(Persona, pk=persona_id)
-        if request.method == 'POST': 
-            persona_form = PersonaForm(request.POST, instance=persona)
-            if persona_form.is_valid():
-                persona_form.save()
-        else:
-            persona_form = PersonaForm(instance=persona)
+    persona = get_object_or_404(Persona, pk=persona_id)
+    main_persona = Persona.objects.get(user=user, me=True)
+    if persona == main_persona:
+        return HttpResponseRedirect(reverse('userprofile_edit'))
+    if request.method == 'POST':
+        form = PersonaForm(request.POST, instance=persona)
+        if form.is_valid():
+            cd = form.cleaned_data
+            pers = form.save(commit=False)
+            if cd.get("phone") is None:  # hack.
+                pers.phone = ""
+            pers.save()
+            return HttpResponseRedirect(reverse('userprofile_editpersona', kwargs={"persona_id": pers.id}))
     else:
-        if request.method == 'POST': 
-            persona_form = PersonaForm(request.POST)
-            if persona_form.is_valid():
-                persona = persona_form.save(commit=False)
-                persona.user = user
-                persona.save()
-                return HttpResponseRedirect(reverse('userprofile_editpersona',
-                                                     kwargs={"persona_id": persona.id}))
-        else:
-            persona_form = PersonaForm()
-    return render_to_response('profile/userprofile_addpersona.html', {
-        'persona_form': persona_form,
-        'personas': personas,
-        'persona_id':  int(persona_id) if persona_id else None
-    }, context_instance=RequestContext(request))
+        form = PersonaForm(instance=persona)
+    return direct_to_template(request, 'profile/userprofile_editpersona.html', {'persona_form': form, 'personas': personas,
+                                                                               'persona': persona,
+                                                                               'main_persona': main_persona})
+
+
+@login_required
+def add_persona(request):
+    user = request.user
+    personas = Persona.objects.filter(user=user, me=False)
+    main_persona = Persona.objects.get(user=user, me=True)
+    if request.method == 'POST':
+        form = PersonaForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            pers = form.save(commit=False)
+            pers.user = user
+            if cd.get("phone") is None:  # hack.
+                pers.phone = ""
+            pers.save()
+            return HttpResponseRedirect(reverse('userprofile_editpersona', kwargs={"persona_id": pers.id}))
+    else:
+        form = PersonaForm()
+    return direct_to_template(request, 'profile/userprofile_addpersona.html', {'persona_form': form, 'personas': personas,
+                                                                               'main_persona': main_persona})
+
 
 @login_required
 def delete_persona(request, persona_id):
     # TODO: Removal confirmation 
-    persona = get_object_or_404(Persona, pk=persona_id)
+    persona = get_object_or_404(Persona, pk=persona_id, me=False)
     persona.delete()
     return HttpResponseRedirect(reverse('userprofile_edit'))
 

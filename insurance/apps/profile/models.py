@@ -7,15 +7,15 @@ from django.dispatch import receiver
 
 from django_ipgeobase.models import IPGeoBase
 
-
+CITY_CHOICES = ((0, "Москва"), (1, "Московская обл."))
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User, verbose_name=u'Пользователь', unique=True)
 
     # == Личные данные ==
-    last_name = models.CharField(verbose_name=u'Фамилия', max_length=30)
-    first_name = models.CharField(verbose_name=u'Имя', max_length=30)
-    middle_name = models.CharField(verbose_name=u'Отчество', max_length=30)
+#    last_name = models.CharField(verbose_name=u'Фамилия', max_length=30)
+#    first_name = models.CharField(verbose_name=u'Имя', max_length=30)
+#    middle_name = models.CharField(verbose_name=u'Отчество', max_length=30)
 
     # == Геолокация ==
     last_ip = models.CharField(verbose_name=u'Последний IP-адрес', max_length=15, null=True)
@@ -47,23 +47,21 @@ def save_ip(user, **kwargs):
 
 class Persona(models.Model):
     user = models.ForeignKey(User)
-
-    # == Адрес/контакты ==
+    last_name = models.CharField(verbose_name=u'*Фамилия', max_length=30)
+    first_name = models.CharField(verbose_name=u'*Имя', max_length=30)
+    middle_name = models.CharField(verbose_name=u'*Отчество', max_length=30)
+    email = models.EmailField(verbose_name=u'E-mail', blank=True)
+    phone = models.CharField(verbose_name=u'Телефонный номер', max_length=14, blank=True)
     # TODO: Список городов брать из БД Вигена!
-    city_id = models.IntegerField(verbose_name=u'Город', null=True, blank=True)
-    address = models.TextField(verbose_name=u'Адрес', max_length=200, null=True, blank=True)
-    phone = models.CharField(verbose_name=u'Телефонный номер', max_length=14, blank=True)   # TODO: phone number validation
-
-    # == Фио ==
-    last_name = models.CharField(verbose_name=u'Фамилия', max_length=30)
-    first_name = models.CharField(verbose_name=u'Имя', max_length=30)
-    middle_name = models.CharField(verbose_name=u'Отчество', max_length=30)
-
-    # == Другое ==
-    comment = models.TextField(verbose_name=u"Комментарии", blank=True, null=True)
-
-    # == Бизнес-логика ==
-    me = models.BooleanField(default=False)
+    city_id = models.IntegerField(verbose_name=u'Город', null=True, blank=True, choices=CITY_CHOICES)
+    zip_code = models.CharField(verbose_name=u'Индекс', blank=True, max_length=6)
+    street = models.CharField(verbose_name=u'Улица', blank=True, max_length=100)
+    house = models.CharField(verbose_name=u'Дом', blank=True, max_length=3)
+    block = models.CharField(verbose_name=u'Корпус', blank=True, max_length=2)
+    building = models.CharField(verbose_name=u'Строение', blank=True, max_length=2)
+    apartment = models.CharField(verbose_name=u'Квартира', blank=True, max_length=3)
+    comment = models.TextField(verbose_name=u"Дополнительная информация", blank=True, null=True)
+    me = models.BooleanField(verbose_name=u"Основная персона пользователя", default=False)
 
     def __unicode__(self):
         return u'%s %s' % (self.id,self.first_name)
@@ -71,21 +69,16 @@ class Persona(models.Model):
     class Meta:
         verbose_name = "Персона"
         verbose_name_plural = "Персоны"
+        ordering = ('user',)
 
- 
-@receiver(post_save,sender=UserProfile)
-def add_persona_himself(sender, **kwargs):
+
+@receiver(post_save, sender=Persona)
+def update_user_info(sender, **kwargs):
     """
-    Добавить при регистрации персону - самого себя
+    При изменении данных осн. персоны - обновлять ФИО у User.
     """
-    user_profile = kwargs["instance"]
-    user = user_profile.user
-    try:
-        user_persona = Persona.objects.get(user=user,me=True)
-    except Persona.DoesNotExist:
-        user_persona = Persona(user=user) # Создать новую запись
-    user_persona.first_name = user_profile.first_name
-    user_persona.last_name = user_profile.last_name
-    user_persona.middle_name = user_profile.middle_name
-    user_persona.me = True
-    user_persona.save()
+    persona = kwargs["instance"]
+    if persona.me:
+        persona.user.last_name = persona.last_name
+        persona.user.first_name = persona.first_name
+        persona.user.save()
