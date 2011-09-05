@@ -144,6 +144,7 @@ a:hover        {text-decoration:none}
 						.style_input6, #id_phone_0	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:65px; margin-right:10px;}
 						.style_input7, #id_phone_1	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:120px;}
                         .style_input8 input	{border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial; width:339px;}
+                        .style_input8a   {width:42px; margin:0 8px 0 0; border:1px solid #501c06; background:#fff; color:#000; font-size:13px; font-family:Arial;}
 						.style_select	{border:1px solid #501c06; background:#fff; width:153px;}
 						.style_input_red	{border:1px solid #C81800 !important; }
 						.phone_code	{display:block; width:22px; margin:0 0 0 -22px; float:left;}

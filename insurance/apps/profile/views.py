@@ -2,7 +2,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.flatpages.models import FlatPage    
 #from django.contrib import messages #TODO: use message framework???
-from django.contrib.auth.forms import PasswordChangeForm
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -16,7 +15,7 @@ from calc.models import InsurancePolicy
 from ins_notification.forms import QuestionForm
 from ins_notification.models import Question
 
-from forms import PersonaForm
+from forms import PersonaForm, PassChangeForm
 from models import Persona
 
 @login_required
@@ -31,7 +30,8 @@ def profile(request):
     except ObjectDoesNotExist:
         main_persona = None
     personas = Persona.objects.filter(user=user, me=False)
-    password_form = PasswordChangeForm(user)
+#    password_form = PasswordChangeForm(user)
+    password_form = PassChangeForm(user)
 
     if request.method == 'POST':
         form = PersonaForm(request.POST, instance=main_persona)

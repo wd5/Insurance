@@ -3,12 +3,99 @@
     <div class="bg_tabs2_f">
         {% if persona %}
             <div class="user_data">
-                Персональные данные ID {{ persona.id }} (нафига ID нужно выводить?)
+                Персональные данные ID {{ persona.id }}
             </div>
         {% endif %}
-
+        <div class="box_textarea">
+            <div class="box_textarea_header">Дополнительная информация:</div>
+            {{ persona_form.comment }}
+            {{ persona_form.comment.errors }}
+        </div>
         <table cellpadding="0" cellspacing="0" class="table_user_form">
-            {{ persona_form.as_table }}
+            <tr>
+                <th>Фамилия:</th>
+                <th>Страна:</th>
+            </tr>
+            <tr>
+                <td>
+                    {{ persona_form.last_name }}
+                    {{ persona_form.last_name.errors }}
+                </td>
+                <td>
+                    <select class="style_select">
+                        <option>Этот контрол пока не задействован</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Имя:</th>
+                <th>Город:</th>
+            </tr>
+            <tr>
+                <td>
+                    {{ persona_form.first_name }}
+                    {{ persona_form.firts_name.errors }}
+                </td>
+                <td>
+                    {{ persona_form.city_id }}
+                    {{ persona_form.city_id.errors }}
+                </td>
+            </tr>
+            <tr>
+                <th>Отчество:</th>
+                <th>Индекс:</th>
+            </tr>
+            <tr>
+                <td>
+                    {{ persona_form.middle_name }}
+                    {{ persona_form.middle_name.errors }}
+                </td>
+                <td>
+                    {{ persona_form.zip_code }}
+                    {{ persona_form.zip_code.errors }}
+                </td>
+            </tr>
+            <tr>
+                <th>Телефон:</th>
+                <th>Улица:</th>
+            </tr>
+            <tr>
+                <td>
+                    {#                                    <span class="phone_code">+7</span><input name="" type="text" class="style_input6" /><input name="" type="text" class="style_input7" />#}
+                    <span class="phone_code">+7</span>{{ persona_form.phone }}
+                    {{ persona_form.phone.errors }}
+                </td>
+                <td>
+                    {{ persona_form.street }}
+                    {{ persona_form.street.errors }}
+                </td>
+            </tr>
+            <tr>
+                <th>E-mail:</th>
+                <th>
+                    <div class="adres_text">
+                        Дом
+                    </div>
+                    <div class="adres_text">
+                        Корпус
+                    </div>
+                    <div class="adres_text">
+                        Строение
+                    </div>
+                    <div class="adres_text">
+                        Квартира
+                    </div>
+                </th>
+            </tr>
+            <tr>
+                <td>
+                    {{ persona_form.email }}
+                    {{ persona_form.email.errors }}
+                </td>
+                <td>
+                    {{ persona_form.house }}{{ persona_form.block }}{{ persona_form.building }}{{ persona_form.apartment }}
+                </td>
+            </tr>
         </table>
         <div class="clear"></div>
         <div class="box_button_seva">
@@ -16,9 +103,9 @@
         </div>
         {% if persona %}
             {% ifnotequal main_persona.id persona.id %}
-            <div class="box_button_seva">
-                <p><a class="style_button" href="{% url userprofile_deletepersona persona.id %}">УДАЛИТЬ</a></p>
-            </div>
+                <div class="box_button_seva">
+                    <p><a class="style_button" href="{% url userprofile_deletepersona persona.id %}">УДАЛИТЬ</a></p>
+                </div>
             {% endifnotequal %}
         {% endif %}
     </div>

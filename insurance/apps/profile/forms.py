@@ -3,6 +3,7 @@ import datetime
 from django.forms import ModelForm
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
+from django.contrib.auth.forms import PasswordChangeForm
 
 from profile.models import UserProfile,Persona
 from email_login.forms import PhoneNumberField
@@ -40,7 +41,7 @@ class PersonaForm(ModelForm):
     phone = PhoneNumberField(label=u'Телефонный номер', required=False)
     class Meta:
         model = Persona
-        exclude = ('user', 'comment', 'me')
+        exclude = ('user', 'me')
 
 
     def __init__(self, *args, **kwargs):
@@ -48,5 +49,19 @@ class PersonaForm(ModelForm):
         for f_name in self.fields:
             if f_name == 'phone':
                 pass
+            elif f_name == 'city_id':
+                self.fields[f_name].widget.attrs['class'] = 'style_select'
+            elif f_name in ('house', 'block', 'building', 'apartment'):
+                self.fields[f_name].widget.attrs['class'] = 'style_input8a'
             else:
                 self.fields[f_name].widget.attrs['class'] = 'style_input5'
+
+                
+class PassChangeForm(PasswordChangeForm):
+    """
+    Переопределены стили контролов в стандартной джанговской форме смены пароля.
+    """
+    def __init__(self, user, *args, **kwargs):
+        super(PassChangeForm, self).__init__(user, *args, **kwargs)
+        for f_name in self.fields:
+            self.fields[f_name].widget.attrs['class'] = 'style_input5'
