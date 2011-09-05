@@ -36,14 +36,6 @@
         }
     },
     {
-        "pk": 2,
-        "model": "sites.site",
-        "fields": {
-            "domain": "polisbook.ru",
-            "name": "Polisbook"
-        }
-    },
-    {
         "pk": 1,
         "model": "sites.site",
         "fields": {
@@ -112,9 +104,6 @@
         "model": "profile.userprofile",
         "fields": {
             "city": null,
-            "first_name": "",
-            "last_name": "",
-            "middle_name": "",
             "last_ip": "88.119.246.3",
             "user": 1,
             "reason_blocked": null
@@ -125,9 +114,6 @@
         "model": "profile.userprofile",
         "fields": {
             "city": null,
-            "first_name": "\u0415\u0432\u0433\u0435\u043d\u0438\u0439",
-            "last_name": "\u041a\u0430\u0437\u0430\u043d\u043e\u0432",
-            "middle_name": "\u0418\u0433\u043e\u0440\u0435\u0432\u0438\u0447",
             "last_ip": "88.119.246.3",
             "user": 2,
             "reason_blocked": null
@@ -144,8 +130,7 @@
             "middle_name": "",
             "city_id": null,
             "phone": "",
-            "user": 1,
-            "address": null
+            "user": 1
         }
     },
     {
@@ -159,8 +144,7 @@
             "middle_name": "\u0418\u0433\u043e\u0440\u0435\u0432\u0438\u0447",
             "city_id": null,
             "phone": "",
-            "user": 2,
-            "address": null
+            "user": 2
         }
     },
     {
@@ -174,8 +158,7 @@
             "middle_name": "\u0415\u0432\u0433\u0435\u043d\u044c\u0435\u0432\u0438\u0447",
             "city_id": null,
             "phone": "",
-            "user": 2,
-            "address": null
+            "user": 2
         }
     }
 ]
