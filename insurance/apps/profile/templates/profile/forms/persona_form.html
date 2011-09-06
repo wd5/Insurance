@@ -1,10 +1,5 @@
 <form action="{% url userprofile_edit 'profile' %}" method="post">{% csrf_token %}
   <div class="bg_tabs2_f">
-    {% if persona %}
-    <div class="user_data">
-      Персональные данные ID {{ persona.id }}
-    </div>
-    {% endif %}
 
     <table cellpadding="0" cellspacing="0" class="table_user_form">
       <tr>

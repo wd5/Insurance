@@ -1,11 +1,6 @@
 <form action="{{ action_url }}" method="post">
     {% csrf_token %}
     <div class="bg_tabs2_f">
-        {% if persona %}
-            <div class="user_data">
-                Персональные данные ID {{ persona.id }}
-            </div>
-        {% endif %}
         <div class="box_textarea">
             <div class="box_textarea_header">Дополнительная информация:</div>
             {{ persona_form.comment }}
