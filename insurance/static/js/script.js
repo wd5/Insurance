@@ -68,10 +68,31 @@ $(document).ready(function(){
 	
 	$('#phoneCarousel .previous').click(function(){
 		// 360/cnt lets us distribute the phones evenly in a circle
-		rotate(-10,360/cnt);
+	    rotate(-10,360/cnt);
+            var tabContainers = $('div.content_home > .tabs')
+            var currentTab = tabContainers.filter(":visible");
+            var prevTab;
+            if ($(currentTab).prev('.tabs').length == 1) {
+                prevTab = $(currentTab).prev('.tabs');
+            } else {
+                prevTab = $('div.content_home > .tabs').filter(':last');
+            };
+            tabContainers.hide();
+            prevTab.show();
 	});
 	
 	$('#phoneCarousel .next').click(function(){
-		rotate(10,360/cnt);
-	});
+	    rotate(10,360/cnt);
+            var tabContainers = $('div.content_home > .tabs')
+            var currentTab = tabContainers.filter(":visible");
+            var nextTab;
+            if ($(currentTab).next('.tabs').length == 1) {
+                nextTab = $(currentTab).next('.tabs');
+            } else {
+                nextTab = $('div.content_home > .tabs').filter(':first');
+            };
+            tabContainers.hide();
+            nextTab.show();
+        });
+
 });
