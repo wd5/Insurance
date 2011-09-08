@@ -97,7 +97,7 @@ INSTALLED_APPS = (
     'calc',     # insurance policy related fields
     'ins_flatpages',                 # Reconfiguration of 'django.contrib.flatpages'
     'ins_notification',               # Notifications system for this site
-    'news'
+    'news',
     )
 
 FIXTURE_DIRS = (

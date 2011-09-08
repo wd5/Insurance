@@ -7,7 +7,7 @@ class NewsItem(models.Model):
 
     TYPE_CHOICES = (
         ("news", "Новости"),
-        ("anounce", "Анонс"),
+        ("announce", "Анонс"),
         ("other", "Прочее"),
     )
 

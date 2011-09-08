@@ -1,17 +1,16 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.views.generic.simple import direct_to_template
 from django.contrib import admin
 
 from django.conf import settings
 
+from index import home
 
 
 admin.autodiscover()
 
-
 urlpatterns = patterns('',
-    url(r'^$', direct_to_template, {'template': 'index.html'}, name='home'),
+    url(r'^$', home, name='home'),
 
     url(r'^accounts/', include('email_login.urls')),
     url(r'^profile/', include('profile.urls')),
@@ -19,6 +18,7 @@ urlpatterns = patterns('',
     url(r'^messages/', include('notification.urls')),
     url(r'^notification/', include('ins_notification.urls')),
     url(r'^calc/', include('calc.urls')),
+    url(r'^news/', include('news.urls')),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
