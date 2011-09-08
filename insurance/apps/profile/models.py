@@ -8,6 +8,10 @@ from django.dispatch import receiver
 from django_ipgeobase.models import IPGeoBase
 
 CITY_CHOICES = ((0, "Москва"), (1, "Московская обл."))
+#Легкий манки-патчинг для вывода везде мыла в качестве юзернейма =)
+User.__unicode__ = lambda x: x.email
+
+
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User, verbose_name=u'Пользователь', unique=True)

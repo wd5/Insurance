@@ -57,7 +57,7 @@ ROOT_URLCONF = 'insurance.urls'
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates'),
     os.path.join(PROJECT_PATH, 'apps','calc','templates'),
-    #os.path.join(PROJECT_PATH, 'apps','notification','templates'),
+    os.path.join(PROJECT_PATH, 'apps','notification','templates'),
     os.path.join(PROJECT_PATH, 'apps','ins_notification','templates'),
 )
 
@@ -70,6 +70,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
     'ins_notification.context_processors.questions',
+    'notification.context_processors.notification',
     'email_login.context_processors.context_regform',
 )
 

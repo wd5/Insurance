@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.views.generic.simple import direct_to_template
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
@@ -16,17 +17,20 @@ from ins_notification.forms import AnswerForm
 from ins_notification.forms import QuestionForm, QuestionFormNotAuth
 from ins_notification.models import Question
 
-
+if "notification" in settings.INSTALLED_APPS:
+    from notification import models as notification
+else:
+    notification = None
 
 import sys
-
-@login_required
-def inbox(request):
-    notices = Notice.objects.filter(recipient=request.user)
-    extra_content = {'notices':notices}
-    return direct_to_template(request,
-                              'notification/inbox.html',
-                              extra_content)
+#
+#@login_required
+#def inbox(request):
+#    notices = Notice.objects.filter(recipient=request.user)
+#    extra_content = {'notices':notices}
+#    return direct_to_template(request,
+#                              'notification/inbox.html',
+#                              extra_content)
 
 def question(request):
     if request.user.is_authenticated():
