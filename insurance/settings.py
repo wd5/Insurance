@@ -1,6 +1,6 @@
 import os
 import sys
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+# from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 # A little hack to put apps into the app dir
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
@@ -92,11 +92,12 @@ INSTALLED_APPS = (
     'notification',
     'captcha',
 
-    # Projects apps 
+    # Projects apps
     'profile', # user profile file and private cabinet
     'calc',     # insurance policy related fields
     'ins_flatpages',                 # Reconfiguration of 'django.contrib.flatpages'
-    'ins_notification'               # Notifications system for this site
+    'ins_notification',               # Notifications system for this site
+    'news'
     )
 
 FIXTURE_DIRS = (
