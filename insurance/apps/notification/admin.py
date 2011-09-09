@@ -16,13 +16,14 @@ class NoticeAdminForm(forms.ModelForm):
     Custom AdminForm to enable messages to groups and all users.
     """
     sender = forms.ModelChoiceField(label=_('Sender'), queryset=User.objects.all(), required=False)
-
+    sub = forms.CharField(label=_('Subject'), required=True)
     group = forms.ChoiceField(label=_('group'), required=False,
         help_text=_('Creates the message optionally for all users or a group of users.'))
 
     def __init__(self, *args, **kwargs):
         super(NoticeAdminForm, self).__init__(*args, **kwargs)
         self.fields['group'].choices = self._get_group_choices()
+        self.fields['on_site'].initial = True
 
     def _get_group_choices(self):
         return [('', u'---------'), ('all', _('All users'))] + \
@@ -30,6 +31,7 @@ class NoticeAdminForm(forms.ModelForm):
     
     class Meta:
         model = Notice
+        exclude = ('archived', 'unseen')
 
 class NoticeAdmin(admin.ModelAdmin):
     form = NoticeAdminForm

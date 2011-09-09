@@ -20,31 +20,25 @@
                 <div class="cont_text">
 <div id="ins_notification_inbox">
   <h3>Мои уведомления</h3>
-  <table width="" cellspacing="" cellpadding="" border="">
+  <table width="100%" cellspacing="0" class="notices">
     <tr>
-      <th>Отправитель</th>
       <th>Тема</th>
-      <th>Получено</th>
-      <!-- <th>Действие</th> -->
+      <th>Содержание</th>
+      <th>Дата</th>
     </tr>
     {% for notice in notices %}
-	<tr>
-	  <td><a href="{% url notification_notice notice.id %}">{{ notice.sender }}</a></td>
-	  <td>{{ notice.sub }}</td>
+	<tr class="{% cycle 'odd' 'nodd' %}{% if notice.unseen %} unread{% endif %}">
+	  <td>{{ notice.sub }}</a></td>
+	  <td><a href="{% url notification_notice notice.id %}">{{ notice.message|truncatewords_html:"4" }}</a></td>
 	  <td>{{ notice.added }}</td>
-	  <!-- <td></td> -->
 	</tr>
 	{% endfor %}
 	
   </table>
 
   <div id="buttons">
-  <ul>
-    <li><a href="{% url ins_notification_question %}">Задать вопрос</a></li>
-    <li class="separator"> | </li>
-    <li><a href="{% url userprofile_edit %}">Назад</a></li>
-
-  </ul>
+    <a href="{% url ins_notification_question %}">Задать вопрос</a> | 
+    <a href="{% url userprofile_edit %}">Назад</a>
 </div>
     
   </div>

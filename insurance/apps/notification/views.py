@@ -34,7 +34,7 @@ def notices(request):
             A list of :model:`notification.Notice` objects that are not archived
             and to be displayed on the site.
     """
-    notices = Notice.objects.notices_for(request.user, on_site=True)
+    notices = Notice.objects.notices_for(request.user, on_site=True).order_by('-unseen', '-added')
     
     return render_to_response("notification/notices.html", {
         "notices": notices,

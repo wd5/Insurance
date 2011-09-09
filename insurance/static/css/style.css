@@ -465,3 +465,15 @@ div.messages li {
     font-size:12px;
     color:#c81800;
     }
+#buttons  {margin-top:10px;}
+
+.notices th {
+        background-color:#969696;
+    }
+.notices td, .notices th {
+        padding:0 5px;
+        border:1px solid gray;
+    }
+.nodd { 
+        background-color:#969696;
+    }
