@@ -88,7 +88,6 @@ INSTALLED_APPS = (
     # Third-party apps
     'registration',
     'django_ipgeobase',
-    'django_messages',
     'notification',
     'captcha',
 

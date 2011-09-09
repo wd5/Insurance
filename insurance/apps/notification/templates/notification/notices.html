@@ -4,9 +4,9 @@
 <div class="content">
   <div class="tabs_box">
     <ul class="tabs">
-      <li><a  href="{% url userprofile_edit %}">МОИ ДАННЫЕ</a></li>
+      <li><a href="{% url userprofile_edit %}">МОИ ДАННЫЕ</a></li>
       <li><a href="#">МОИ ПОЛИСЫ</a></li>
-      <li><a class="active" href="{% url notification_notices %}">УВЕДОМЛЕНИЯ ({{ notice_unseen_count }}) </a></li>
+      <li><a class="active" href="{% url notification_notices %}">УВЕДОМЛЕНИЯ {% if notice_unseen_count %}({{ notice_unseen_count }}){% endif %}</a></li>
       <li><a href="#">FAQ</a></li>
     </ul>
  <!--- Первая закладка --->
