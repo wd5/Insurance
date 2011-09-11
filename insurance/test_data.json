@@ -1,6 +1,14 @@
 [
     {
         "pk": 1,
+        "model": "auth.group",
+        "fields": {
+            "name": "\u041c\u0435\u043d\u0435\u0434\u0436\u0435\u0440",
+            "permissions": []
+        }
+    },
+    {
+        "pk": 1,
         "model": "auth.user",
         "fields": {
             "username": "admin",
@@ -13,7 +21,7 @@
             "groups": [],
             "user_permissions": [],
             "password": "sha1$a2177$abb1be5e8fad3c8d833a3ea1500eb98bcf3d48e0",
-            "email": "evgeny.kazanov@gmail.com",
+            "email": "admin@admin.com",
             "date_joined": "2011-07-27 18:14:10"
         }
     },
@@ -31,8 +39,28 @@
             "groups": [],
             "user_permissions": [],
             "password": "sha1$26acd$b8a6888fe9401c7b03a906227865089d807cbbde",
-            "email": "f_evgeny@mail.ru",
+            "email": "second@mail.ru",
             "date_joined": "2011-07-27 18:23:29"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "auth.user",
+        "fields": {
+            "username": "manager",
+            "first_name": "",
+            "last_name": "",
+            "is_active": true,
+            "is_superuser": false,
+            "is_staff": true,
+            "last_login": "2011-09-12 01:26:50",
+            "groups": [
+                1
+            ],
+            "user_permissions": [],
+            "password": "sha1$ff06e$6607276eef072e9f70e4a4db75ead1f91bad1439",
+            "email": "manager@polisbook.ru",
+            "date_joined": "2011-09-12 00:40:01"
         }
     },
     {
