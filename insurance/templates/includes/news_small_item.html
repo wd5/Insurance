@@ -4,6 +4,6 @@
 <div class="tabs_footer_cont_text">
   <a href="{% url news_item item.id %}">{{ item.title|safe }}</a>
   {{ item.intro|safe }}
-  <a href="#" class="pointer">
+  <a href="{% url news_item item.id %}" class="pointer">
     <img src="{{ STATIC_URL }}images/pointer.png" alt="" /></a>
 </div>
