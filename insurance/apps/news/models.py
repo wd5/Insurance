@@ -22,6 +22,9 @@ class NewsItem(models.Model):
     published = models.BooleanField(verbose_name=u"Публиковать", default=False)
 
     class Meta:
-        verbose_name = u"Статья"
-        verbose_name_plural = u"Статьи"
+        verbose_name = u"Новостная статья"
+        verbose_name_plural = u"Новостные статьи"
+
+    def __unicode__(self):
+        return "%s (%s)" % (self.title, self.pub_date)
     
