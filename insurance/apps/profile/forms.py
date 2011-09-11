@@ -4,6 +4,7 @@ from django.forms import ModelForm
 from django import forms
 from django.forms.extras.widgets import SelectDateWidget
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.models import User
 
 from profile.models import UserProfile,Persona
 from email_login.forms import PhoneNumberField
@@ -35,6 +36,15 @@ class AdminUserBlockForm(ModelForm):
 class AdminUserMessageConfirmForm(forms.Form):
     subject = forms.CharField(label=u"Тема", min_length=10, max_length=100)
     message = forms.CharField(label=u"Уведомление", min_length=10, max_length=400, widget=forms.Textarea())
+
+
+class AdminUserForm(ModelForm):
+    email = forms.EmailField(widget=forms.TextInput(attrs={'class':'required', 'maxlength': 75}),
+                             label=u"Адрес электронной почты")
+
+    class Meta:
+        model = User
+
 
 
 class PersonaForm(ModelForm):
