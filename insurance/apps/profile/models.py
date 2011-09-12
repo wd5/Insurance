@@ -9,13 +9,10 @@ from django_ipgeobase.models import IPGeoBase
 
 CITY_CHOICES = ((0, "Москва"), (1, "Московская обл."))
 
+
+
 class UserProfile(models.Model):
     user = models.ForeignKey(User, verbose_name=u'Пользователь', unique=True)
-
-    # == Личные данные ==
-#    last_name = models.CharField(verbose_name=u'Фамилия', max_length=30)
-#    first_name = models.CharField(verbose_name=u'Имя', max_length=30)
-#    middle_name = models.CharField(verbose_name=u'Отчество', max_length=30)
 
     # == Геолокация ==
     last_ip = models.CharField(verbose_name=u'Последний IP-адрес', max_length=15, null=True)
@@ -82,3 +79,20 @@ def update_user_info(sender, **kwargs):
         persona.user.last_name = persona.last_name
         persona.user.first_name = persona.first_name
         persona.user.save()
+
+def show_user_ident(user):
+    using_persona = False
+    try:
+        persona = Persona.objects.get(user=user, me=True)
+    except Persona.DoesNotExist:
+        using_persona = False
+    if using_persona and persona.last_name:
+        ident = "%s %s %s" % (persona.last_name,persona.first_name,persona.middle_name)
+        using_persona = True
+
+    if not using_persona:
+        ident = user.email
+    return ident
+    
+#Легкий манки-патчинг для вывода везде мыла в качестве юзернейма =)
+User.__unicode__ = show_user_ident

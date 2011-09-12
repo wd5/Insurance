@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import datetime
 
 try:
@@ -170,8 +171,8 @@ class Notice(models.Model):
 
     class Meta:
         ordering = ["-added"]
-        verbose_name = _("notice")
-        verbose_name_plural = _("notices")
+        verbose_name = u"Уведомление"
+        verbose_name_plural = u"Уведомления"
 
     def get_absolute_url(self):
         return ("notification_notice", [str(self.pk)])

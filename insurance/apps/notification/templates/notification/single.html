@@ -1,0 +1,55 @@
+{% extends "profile/userprofile_base.html" %}
+
+{% block content %}
+<div class="content">
+  <div class="tabs_box">
+    <ul class="tabs">
+      <li><a  href="{% url userprofile_edit %}">МОИ ДАННЫЕ</a></li>
+      <li><a href="#">МОИ ПОЛИСЫ</a></li>
+      <li><a class="active" href="{% url notification_notices %}">УВЕДОМЛЕНИЯ ({{ notice_unseen_count }}) </a></li>
+      <li><a href="#">FAQ</a></li>
+    </ul>
+ <!--- Первая закладка --->
+    <div id="tabs_cont_1" class="bg_tabs_f">
+      <div class="bg_tabs_t">
+        <div class="bg_tabs_b">
+			<br/><br/><br/>
+          <div class="tabs2">
+			   <div id="tabs_cont3_1" class="bg_tabs3_box">
+              <div class="bg_tabs2_f">
+                <div class="cont_text">
+<div id="ins_notification_inbox">
+  
+  <h3>Мои уведомления</h3>
+  <table width="100%" cellspacing="0" class="notices">
+    <tr>
+      <th>Тема</th>
+      <th>Содержание</th>
+      <th>Дата</th>
+    </tr>
+	<tr class="{% cycle 'odd' 'nodd' %}{% if notice.unseen %} unread{% endif %}">
+	  <td>{{ notice.sub }}</a></td>
+	  <td><a href="{% url notification_notice notice.id %}">{{ notice.message|truncatewords_html:"4" }}</a></td>
+	  <td>{{ notice.added }}</td>
+	</tr>
+  </table>
+  
+<div id="buttons">
+    <a href="{% url ins_notification_question %}">Задать вопрос</a> | 
+    <a href="{% url notification_notices %}">Назад</a>
+</div>
+    
+  </div>
+
+</div>  </div>
+
+</div>  </div>
+
+</div>  </div>
+
+</div></div>  </div>
+
+</div>
+{% block persona_form %}{% endblock %}
+{% endblock %}
+

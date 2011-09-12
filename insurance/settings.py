@@ -1,6 +1,6 @@
 import os
 import sys
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+# from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 
 # A little hack to put apps into the app dir
 PROJECT_PATH = os.path.realpath(os.path.dirname(__file__))
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'insurance.urls'
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates'),
     os.path.join(PROJECT_PATH, 'apps','calc','templates'),
-    #os.path.join(PROJECT_PATH, 'apps','notification','templates'),
+    os.path.join(PROJECT_PATH, 'apps','notification','templates'),
     os.path.join(PROJECT_PATH, 'apps','ins_notification','templates'),
 )
 
@@ -70,6 +70,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.request',
     'django.contrib.messages.context_processors.messages',
     'ins_notification.context_processors.questions',
+    'notification.context_processors.notification',
     'email_login.context_processors.context_regform',
 )
 
@@ -87,16 +88,16 @@ INSTALLED_APPS = (
     # Third-party apps
     'registration',
     'django_ipgeobase',
-    'django_messages',
     'notification',
     'captcha',
 
-    # Projects apps 
+    # Projects apps
     'profile', # user profile file and private cabinet
     'calc',     # insurance policy related fields
     'newcalc',
     'ins_flatpages',                 # Reconfiguration of 'django.contrib.flatpages'
-    'ins_notification'               # Notifications system for this site
+    'ins_notification',               # Notifications system for this site
+    'news',
     )
 
 FIXTURE_DIRS = (

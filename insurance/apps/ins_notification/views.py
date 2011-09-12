@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from django.views.generic.simple import direct_to_template
-from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
@@ -9,24 +8,28 @@ from django.template import RequestContext
 from django.conf import settings
 from django.core.mail import send_mail
 
+from profile.models import show_user_ident
+
 from notification.models import Notice
-from profile.models import UserProfile
 
 from ins_notification.forms import AnswerForm
 from ins_notification.forms import QuestionForm, QuestionFormNotAuth
 from ins_notification.models import Question
 
-
+if "notification" in settings.INSTALLED_APPS:
+    from notification import models as notification
+else:
+    notification = None
 
 import sys
-
-@login_required
-def inbox(request):
-    notices = Notice.objects.filter(recipient=request.user)
-    extra_content = {'notices':notices}
-    return direct_to_template(request,
-                              'notification/inbox.html',
-                              extra_content)
+#
+#@login_required
+#def inbox(request):
+#    notices = Notice.objects.filter(recipient=request.user)
+#    extra_content = {'notices':notices}
+#    return direct_to_template(request,
+#                              'notification/inbox.html',
+#                              extra_content)
 
 def question(request):
     if request.user.is_authenticated():
@@ -58,8 +61,7 @@ def answer(request,q_id):
     user = qws.user
     fio = ''
     if user:
-        uprofile = UserProfile.objects.get(id=qws.user.id)
-        fio = "%s %s %s" % (uprofile.last_name,uprofile.first_name,uprofile.middle_name)
+        fio = show_user_ident(user)
     sent = False
     if(request.POST):
         answ_form = AnswerForm({'body':request.POST['body']})

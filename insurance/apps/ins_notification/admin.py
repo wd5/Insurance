@@ -1,14 +1,12 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 from ins_notification.models import Question
-from profile.models import UserProfile
-import sys
-
+from profile.models import show_user_ident
 
 
 
 class QuestionAdmin(admin.ModelAdmin):
-    list_display   = ('user_fio','description','sent_time','answered')
+    list_display   = ('user_ident','description','sent_time','answered')
     list_filter = ('user',)
     search_fields = ['body',]
     ordering = ('sent_time',)
@@ -21,20 +19,17 @@ class QuestionAdmin(admin.ModelAdmin):
                 }),)
     readonly_fields = ('user','body','sent_time','answered')
 
-    def user_fio(self,o):
-        uprofile = UserProfile.objects.get(id=o.user.id)
-        fio = "%s %s %s" % (uprofile.last_name,uprofile.first_name,uprofile.middle_name)
-        return fio
+    def user_ident(self, question):
+        return show_user_ident(question.user)
 
     def change_view(self, request, object_id, extra_context=None):
-        fio = ''
+        ident = ''
         qws = Question.objects.get(id=object_id)
         if qws.user:
-            uprofile = UserProfile.objects.get(id=qws.user.id)
-            fio = "%s %s %s" % (uprofile.last_name,uprofile.first_name,uprofile.middle_name)
+            ident = self.user_ident(qws)
         extra_context = {
             'object_id': object_id,
-            'fio':fio,
+            'ident':ident,
             'qws':qws,
         }
         return super(QuestionAdmin, self).change_view(request, object_id,
@@ -45,7 +40,3 @@ class QuestionAdmin(admin.ModelAdmin):
     mark_as_answered.short_description = "Mark selected questions as answered"
 
 admin.site.register(Question,QuestionAdmin)
-
-
-
-    

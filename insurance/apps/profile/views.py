@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.decorators import login_required
 from django.contrib.flatpages.models import FlatPage    
-#from django.contrib import messages #TODO: use message framework???
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.views.generic.list_detail import object_list
-from django.core.exceptions import ObjectDoesNotExist
 from django.views.generic.simple import direct_to_template
 
 from calc.models import InsurancePolicy

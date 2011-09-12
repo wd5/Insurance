@@ -16,7 +16,7 @@
     {{ adminform.form.non_field_errors }}
 {% endif %}
 
-Пользователь: {{ fio }} <br />
+Пользователь: {{ ident }} <br />
 Отправлено: {{ qws.sent_time }}
 {% for fieldset in adminform %}
   {% include "admin/includes/fieldset.html" %}
