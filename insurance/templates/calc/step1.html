@@ -1,0 +1,169 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Step1</title>
+    <script type="text/javascript" src="/static/js/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+                    if ($("#id_mark").val() == "") {
+                        $("#id_model").html('');
+                        $("#id_model").attr("disabled", true);
+                        $("#id_model_year").html('');
+                        $("#id_model_year").attr("disabled", true);
+                        $("#id_power").html('');
+                        $("#id_power").attr("disabled", true);
+                        $("#id_price").val('');
+                        $("#id_price").attr("disabled", true);
+                    }
+                    else {
+                        if ($("#id_model").val() == "") {
+                            $("#id_model_year").html('');
+                            $("#id_model_year").attr("disabled", true);
+                            $("#id_power").html('');
+                            $("#id_power").attr("disabled", true);
+                            $("#id_price").val('');
+                            $("#id_price").attr("disabled", true);
+                        }
+                        else {
+                            if ($("#id_model_year").val() == "") {
+                                $("#id_power").html('');
+                                $("#id_power").attr("disabled", true);
+                                $("#id_price").val('');
+                                $("#id_price").attr("disabled", true);
+                            }
+                            else {
+                                if ($("#id_power").val() == "") {
+                                    $("#id_price").val('');
+                                    $("#id_price").attr("disabled", true);
+                                }
+                            }
+                        }
+                    }
+                    // Mark.
+                    $("#id_mark").change(function() {
+                        $("#id_model").html('');
+                        $("#id_model_year").html('');
+                        $("#id_model_year").attr("disabled", true);
+                        $("#id_power").html('');
+                        $("#id_power").attr("disabled", true);
+                        $("#id_price").val('');
+                        $("#id_price").attr("disabled", true);
+                        if ($("#id_mark").val() == "")
+                            $("#id_model").attr("disabled", true);
+                        else {
+                            $.ajax(
+                                    {
+                                        url:"{% url get_models %}",
+                                        data:{mark:$("#id_mark").val() },
+                                        dataType:"json",
+                                        success:function(data) {
+                                            var options = '';
+                                            options += '<option value="">' + '--------' + '</option>';
+                                            $.each(data, function(index, value) {
+                                                options += '<option value="' + index + '">' + value + '</option>';
+                                            });
+                                            $("#id_model").html(options);
+                                            $("#id_model").removeAttr("disabled");
+
+                                        }
+                                    }
+                            );
+                        }
+                    });
+                    // Model.
+                    $("#id_model").change(function() {
+                        $("#id_model_year").html('');
+                        $("#id_power").html('');
+                        $("#id_power").attr("disabled", true);
+                        $("#id_price").val('');
+                        $("#id_price").attr("disabled", true);
+                        if ($("#id_model").val() == "") {
+                            $("#id_model_year").attr("disabled", true);
+                        }
+                        else {
+                            $.ajax(
+                                    {
+                                        url:"{% url get_years %}",
+                                        data:{model:$("#id_model").val() },
+                                        dataType:"json",
+                                        success:function(data) {
+                                            var options = '';
+                                            options += '<option value="">' + '--------' + '</option>';
+                                            $.each(data, function(index, value) {
+                                                options += '<option value="' + index + '">' + value + '</option>';
+                                            });
+                                            $("#id_model_year").html(options);
+                                            $("#id_model_year").removeAttr("disabled");
+
+                                        }
+                                    }
+                            );
+                        }
+                    });
+                    // Model year.
+                    $("#id_model_year").change(function() {
+                        $("#id_power").html('');
+                        $("#id_price").val('');
+                        $("#id_price").attr("disabled", true);
+                        if ($("#id_model_year").val() == "") {
+                            $("#id_power").attr("disabled", true);
+                        }
+                        else {
+                            $.ajax(
+                                    {
+                                        url:"{% url get_powers %}",
+                                        data:{model:$("#id_model").val(), year:$("#id_model_year").val()},
+                                        dataType:"json",
+                                        success:function(data) {
+                                            var options = '';
+                                            options += '<option value="">' + '--------' + '</option>';
+                                            $.each(data, function(index, value) {
+                                                options += '<option value="' + index + '">' + value + '</option>';
+                                            });
+                                            $("#id_power").html(options);
+                                            $("#id_power").removeAttr("disabled");
+
+                                        }
+                                    }
+                            );
+                        }
+
+
+                    });
+                    // Power.
+                    $("#id_power").change(function() {
+                        $("#id_price").val('');
+                        if ($("#id_power").val() == "") {
+                            $("#id_price").attr("disabled", true);
+                        }
+                        else
+                            $("#id_price").removeAttr("disabled");
+                    });
+                    // Unlimited users.
+                    $("#id_unlimited_users").change(function() {
+                        if ($("#id_unlimited_users").is(':checked')) {
+                            $("#id_age").val('');
+                            $("#id_age").attr("disabled", true);
+                            $("#id_experience_driving").val('');
+                            $("#id_experience_driving").attr("disabled", true);
+                        }
+                        else {
+                            $("#id_age").removeAttr("disabled");
+                            $("#id_experience_driving").removeAttr("disabled");
+                        }
+                    });
+                }
+        );
+    </script>
+</head>
+<body>
+<form action="" method="post">
+    {% csrf_token %}
+    <table>
+        {{ s1_form.as_table }}
+    </table>
+    <input type="submit" value="Рассчитать"/>
+</form>
+</body>
+</html>
