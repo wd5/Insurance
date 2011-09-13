@@ -6,4 +6,5 @@ urlpatterns = patterns('newcalc.views',
     url(r'^get_models/$', 'get_models', name="get_models"),
     url(r'^get_years/$', 'get_years', name="get_years"),
     url(r'^get_powers/$', 'get_powers', name="get_powers"),
+    url(r'^get_price/$', 'get_price', name="get_price"),
 )

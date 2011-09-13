@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.decorators import login_required
 
-from models import Mark, Model, Mym, ModelYear, Power, City
+from models import Mark, Model, Mym, ModelYear, Power, City, Price
 from forms import Step1Form
 
 
@@ -50,68 +50,85 @@ def step1(request):
             try:
                 mark = Mark.objects.get(pk=s1_data.get("mark"))
             except ObjectDoesNotExist:
-                pass
+                ok = False
             else:
                 initial_data["mark"] = mark
                 form_extra_data["mark"] = mark
+                ok = True
+            if ok:
                 try:
                     model = Model.objects.get(pk=s1_data.get("model"))
                 except ObjectDoesNotExist:
-                    pass
+                    ok = False
                 else:
                     initial_data["model"] = model
                     form_extra_data["model"] = model
-                    try:
-                        model_year = ModelYear.objects.get(pk=s1_data.get("model_year"))
-                    except ObjectDoesNotExist:
-                        pass
-                    else:
-                        initial_data["model_year"] = model_year
-                        form_extra_data["model_year"] = model_year
-                        try:
-                            power = Power.objects.get(pk=s1_data.get("power"))
-                        except ObjectDoesNotExist:
-                            pass
-                        else:
-                            initial_data["power"] = power
-                            try:
-                                price = s1_data["price"]
-                            except KeyError:
-                                pass
-                            else:
-                                initial_data["price"] = price
-                                try:
-                                    city = City.objects.get(pk=s1_data.get("city"))
-                                except ObjectDoesNotExist:
-                                    pass
-                                else:
-                                    initial_data["city"] = city
-                                    try:
-                                        credit = s1_data["credit"]
-                                    except KeyError:
-                                        pass
-                                    else:
-                                        initial_data["credit"] = credit
-                                        try:
-                                            unlimited_users = s1_data["unlimited_users"]
-                                        except KeyError:
-                                            pass
-                                        else:
-                                            initial_data["unlimited_users"] = unlimited_users
-                                            try:
-                                                age = s1_data["age"]
-                                            except KeyError:
-                                                pass
-                                            else:
-                                                if age:
-                                                    initial_data["age"] = age
-                                                try:
-                                                    experience_driving = s1_data["experience_driving"]
-                                                except KeyError:
-                                                    pass
-                                                else:
-                                                    if experience_driving is not None:
-                                                        initial_data["experience_driving"] = experience_driving
+            if ok:
+                try:
+                    model_year = ModelYear.objects.get(pk=s1_data.get("model_year"))
+                except ObjectDoesNotExist:
+                    ok = False
+                else:
+                    initial_data["model_year"] = model_year
+                    form_extra_data["model_year"] = model_year
+            if ok:
+                try:
+                    power = Power.objects.get(pk=s1_data.get("power"))
+                except ObjectDoesNotExist:
+                    ok = False
+                else:
+                    initial_data["power"] = power
+            if ok:
+                try:
+                    price = s1_data["price"]
+                except KeyError:
+                    ok = False
+                else:
+                    initial_data["price"] = price
+            if ok:
+                try:
+                    wheel = s1_data["wheel"]
+                except KeyError:
+                    ok = False
+                else:
+                    initial_data["wheel"] = wheel
+            if ok:
+                try:
+                    city = City.objects.get(pk=s1_data.get("city"))
+                except ObjectDoesNotExist:
+                    ok = False
+                else:
+                    initial_data["city"] = city
+            if ok:
+                try:
+                    credit = s1_data["credit"]
+                except KeyError:
+                    ok = False
+                else:
+                    initial_data["credit"] = credit
+            if ok:
+                try:
+                    unlimited_users = s1_data["unlimited_users"]
+                except KeyError:
+                    ok = False
+                else:
+                    initial_data["unlimited_users"] = unlimited_users
+            if ok:
+                try:
+                    age = s1_data["age"]
+                except KeyError:
+                    ok = False
+                else:
+                    if age:
+                        initial_data["age"] = age
+            if ok:
+                try:
+                    experience_driving = s1_data["experience_driving"]
+                except KeyError:
+                    pass
+                else:
+                    if experience_driving is not None:
+                        initial_data["experience_driving"] = experience_driving
         form = Step1Form(form_extra_data=form_extra_data, initial=initial_data)
     return direct_to_template(request, 'calc/step1.html', {"s1_form": form,})
 
@@ -155,9 +172,11 @@ def get_years(request):
 @require_GET
 def get_powers(request):
     response_dict = {}
-    if request.is_ajax() and request.GET.has_key("model") and request.GET.has_key("year"):
+    if request.is_ajax() and request.GET.has_key("model") and \
+       request.GET.has_key("year"):
         try:
-            mym = Mym.objects.get(mym_y=request.GET["year"], mym_m=request.GET["model"])
+            mym = Mym.objects.get(mym_y=request.GET["year"],
+                                  mym_m=request.GET["model"])
         except ObjectDoesNotExist:
             pass
         else:
@@ -166,3 +185,22 @@ def get_powers(request):
                 response_dict[power.power_id] = power.power_name
     response = simplejson.dumps(response_dict)
     return HttpResponse(response, mimetype='application/javascript')
+
+
+@login_required
+@require_GET
+def get_price(request):
+    response = ""
+    if request.is_ajax() and request.GET.has_key("power"):
+        try:
+            power = Power.objects.get(pk=request.GET["power"])
+        except ObjectDoesNotExist:
+            pass
+        else:
+            try:
+                price = Price.objects.get(price_power=power)
+            except ObjectDoesNotExist:
+                pass
+            else:
+                response = "от %d до %d" % (price.price_min, price.price_max)
+    return HttpResponse(response, mimetype='text/plain')
