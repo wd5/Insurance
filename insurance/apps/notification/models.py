@@ -31,7 +31,7 @@ QUEUE_ALL = getattr(settings, "NOTIFICATION_QUEUE_ALL", False)
 
 class LanguageStoreNotAvailable(Exception):
     pass
-
+'''
 class NoticeType(models.Model):
 
     label = models.CharField(_('label'), max_length=40)
@@ -47,7 +47,7 @@ class NoticeType(models.Model):
     class Meta:
         verbose_name = _("notice type")
         verbose_name_plural = _("notice types")
-
+'''
 
 # if this gets updated, the create() method below needs to be as well...
 NOTICE_MEDIA = (
@@ -66,26 +66,26 @@ class NoticeSetting(models.Model):
     """
 
     user = models.ForeignKey(User, verbose_name=_('user'))
-    notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
+    #notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
     medium = models.CharField(_('medium'), max_length=1, choices=NOTICE_MEDIA)
     send = models.BooleanField(_('send'))
 
     class Meta:
         verbose_name = _("notice setting")
         verbose_name_plural = _("notice settings")
-        unique_together = ("user", "notice_type", "medium")
+        unique_together = ("user", "medium")
 
-def get_notification_setting(user, notice_type, medium):
+def get_notification_setting(user, medium):
     try:
-        return NoticeSetting.objects.get(user=user, notice_type=notice_type, medium=medium)
+        return NoticeSetting.objects.get(user=user, medium=medium)
     except NoticeSetting.DoesNotExist:
-        default = (NOTICE_MEDIA_DEFAULTS[medium] <= notice_type.default)
-        setting = NoticeSetting(user=user, notice_type=notice_type, medium=medium, send=default)
+        default = (NOTICE_MEDIA_DEFAULTS[medium])
+        setting = NoticeSetting(user=user, medium=medium, send=default)
         setting.save()
         return setting
 
-def should_send(user, notice_type, medium):
-    return get_notification_setting(user, notice_type, medium).send
+def should_send(user, medium):
+    return get_notification_setting(user, medium).send
 
 
 class NoticeManager(models.Manager):
@@ -141,7 +141,7 @@ class Notice(models.Model):
     sender = models.ForeignKey(User, null=True, related_name='sent_notices', verbose_name=_('sender'))
     sub = models.CharField(max_length=512,blank=True,null='True')
     message = models.TextField(_('message'))
-    notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
+    #notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
     added = models.DateTimeField(_('added'), default=datetime.datetime.now)
     unseen = models.BooleanField(_('unseen'), default=True)
     archived = models.BooleanField(_('archived'), default=False)
@@ -184,7 +184,7 @@ class NoticeQueueBatch(models.Model):
     Denormalized data for a notice.
     """
     pickled_data = models.TextField()
-
+'''
 def create_notice_type(label, display, description, default=2, verbosity=1):
     """
     Creates a new NoticeType.
@@ -211,7 +211,7 @@ def create_notice_type(label, display, description, default=2, verbosity=1):
         NoticeType(label=label, display=display, description=description, default=default).save()
         if verbosity > 1:
             print "Created %s NoticeType" % label
-
+'''
 def get_notification_language(user):
     """
     Returns site-specific notification language for this user. Raises
@@ -263,7 +263,7 @@ def send_now(users, label, extra_context=None, on_site=True, sender=None):
     if extra_context is None:
         extra_context = {}
 
-    notice_type = NoticeType.objects.get(label=label)
+    #notice_type = NoticeType.objects.get(label=label)
 
     protocol = getattr(settings, "DEFAULT_HTTP_PROTOCOL", "http")
     current_site = Site.objects.get_current()
@@ -300,7 +300,7 @@ def send_now(users, label, extra_context=None, on_site=True, sender=None):
         context = Context({
             "recipient": user,
             "sender": sender,
-            "notice": ugettext(notice_type.display),
+            #"notice": ugettext(notice_type.display),
             "notices_url": notices_url,
             "current_site": current_site,
         })
@@ -328,10 +328,10 @@ def send_now(users, label, extra_context=None, on_site=True, sender=None):
             n_subject = None
 
         notice = Notice.objects.create(recipient=user, message=messages['notice.html'],
-            notice_type=notice_type, on_site=on_site, sender=sender, sub=n_subject)
+           on_site=on_site, sender=sender, sub=n_subject)
         # ---------- EIK end
 
-        if should_send(user, notice_type, "1") and user.email and user.is_active: # Email
+        if should_send(user, "1") and user.email and user.is_active: # Email
             recipients.append(user.email)
         send_mail(subject, body, settings.DEFAULT_FROM_EMAIL, recipients)
 
@@ -400,7 +400,7 @@ class ObservedItem(models.Model):
     object_id = models.PositiveIntegerField()
     observed_object = generic.GenericForeignKey('content_type', 'object_id')
 
-    notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
+    #notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
 
     added = models.DateTimeField(_('added'), default=datetime.datetime.now)
 
@@ -418,7 +418,7 @@ class ObservedItem(models.Model):
         if extra_context is None:
             extra_context = {}
         extra_context.update({'observed': self.observed_object})
-        send([self.user], self.notice_type.label, extra_context)
+        send([self.user], extra_context)
 
 def observe(observed, observer, notice_type_label, signal='post_save'):
     """
@@ -426,9 +426,9 @@ def observe(observed, observer, notice_type_label, signal='post_save'):
 
     To be used by applications to register a user as an observer for some object.
     """
-    notice_type = NoticeType.objects.get(label=notice_type_label)
+    #notice_type = NoticeType.objects.get(label=notice_type_label)
     observed_item = ObservedItem(user=observer, observed_object=observed,
-                                 notice_type=notice_type, signal=signal)
+                                signal=signal)
     observed_item.save()
     return observed_item
 

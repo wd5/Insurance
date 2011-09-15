@@ -3,13 +3,13 @@ from django.contrib.auth.models import User, Group
 from django.utils.translation import gettext_lazy as _
 from django import forms
 
-from notification.models import NoticeType, NoticeSetting, Notice, ObservedItem, NoticeQueueBatch
+from notification.models import NoticeSetting, Notice, ObservedItem, NoticeQueueBatch
 
 class NoticeTypeAdmin(admin.ModelAdmin):
     list_display = ('label', 'display', 'description', 'default')
 
 class NoticeSettingAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'notice_type', 'medium', 'send')
+    list_display = ('id', 'user', 'medium', 'send')
 
 class NoticeAdminForm(forms.ModelForm):
     """
@@ -35,7 +35,7 @@ class NoticeAdminForm(forms.ModelForm):
 
 class NoticeAdmin(admin.ModelAdmin):
     form = NoticeAdminForm
-    list_display = ('sub','message', 'recipient_email', 'sender_email', 'notice_type', 'added', 'unseen', 'archived')
+    list_display = ('sub','message', 'recipient_email', 'sender_email', 'added', 'unseen', 'archived')
 
     def recipient_email(self,o):
         uprofile = User.objects.get(id=o.recipient.id)
@@ -76,7 +76,6 @@ class NoticeAdmin(admin.ModelAdmin):
             obj.save()
 
 admin.site.register(NoticeQueueBatch)
-admin.site.register(NoticeType, NoticeTypeAdmin)
 admin.site.register(NoticeSetting, NoticeSettingAdmin)
 admin.site.register(Notice, NoticeAdmin)
 admin.site.register(ObservedItem)

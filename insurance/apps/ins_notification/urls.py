@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import *
 from django.views.generic.simple import direct_to_template
-from notification.views import notices, mark_all_seen, feed_for_user, single, notice_settings
+#from notification.views import notices, mark_all_seen, feed_for_user, single, notice_settings
 from ins_notification.views import question,answer,ins_single
 
 urlpatterns = patterns('',
