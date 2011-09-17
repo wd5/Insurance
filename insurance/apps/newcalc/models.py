@@ -25,8 +25,10 @@ class Model(models.Model):
     model_id = models.IntegerField(primary_key=True)
     model_name = models.CharField(max_length=50)
     model_mark = models.ForeignKey(Mark, db_column="model_mark")
+
     def __unicode__(self):
-            return self.model_name
+        return self.model_name
+
     class Meta:
         db_table = u'model'
         managed = False
@@ -52,10 +54,11 @@ class Mym(models.Model):
     mym_y = models.ForeignKey(ModelYear, db_column="mym_y")
     mym_m = models.ForeignKey(Model, db_column="mym_m")
     mym_id = models.IntegerField(primary_key=True)
+
     class Meta:
         db_table = u'mym'
 
-        
+
 class Power(models.Model):
     """
     Мощность двигателя.
@@ -101,6 +104,24 @@ class City(models.Model):
         db_table = u'city'
         managed = False
 
+
+class BurglarAlarm(models.Model):
+    """
+    Производители и модели сигнализаций.
+    """
+    burglar_alarm_id = models.IntegerField(primary_key=True)
+    burglar_alarm_name = models.CharField(max_length=50)
+    burglar_alarm_parent = models.ForeignKey('self',
+                                             db_column="burglar_alarm_parent",
+                                             related_name="models")
+
+    def __unicode__(self):
+        return self.burglar_alarm_name
+
+    class Meta:
+        db_table = u'burglar_alarm'
+        managed = False
+
 #class KackoIt(models.Model):
 #    kacko_it_it = models.IntegerField(db_column='KACKO_it_it') # Field name made lowercase.
 #    kacko_it_kp = models.IntegerField(db_column='KACKO_it_Kp') # Field name made lowercase.
@@ -116,12 +137,6 @@ class City(models.Model):
 #    class Meta:
 #        db_table = u'KACKO_parameters'
 #
-#class BurglarAlarm(models.Model):
-#    burglar_alarm_id = models.IntegerField(primary_key=True)
-#    burglar_alarm_name = models.CharField(max_length=150)
-#    burglar_alarm_parent = models.IntegerField()
-#    class Meta:
-#        db_table = u'burglar_alarm'
 #
 #class Cf(models.Model):
 #    cf_c = models.IntegerField()
