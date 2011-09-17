@@ -5,9 +5,6 @@ from django import forms
 
 from notification.models import NoticeSetting, Notice, ObservedItem, NoticeQueueBatch
 
-class NoticeTypeAdmin(admin.ModelAdmin):
-    list_display = ('label', 'display', 'description', 'default')
-
 class NoticeSettingAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'medium', 'send')
 
@@ -16,19 +13,28 @@ class NoticeAdminForm(forms.ModelForm):
     Custom AdminForm to enable messages to groups and all users.
     """
     sender = forms.ModelChoiceField(label=_('Sender'), queryset=User.objects.all(), required=False)
+    recipient = forms.ModelChoiceField(label=_('Recipients'), queryset=User.objects.all(), required=False)
     sub = forms.CharField(label=_('Subject'), required=True)
-    group = forms.ChoiceField(label=_('group'), required=False,
-        help_text=_('Creates the message optionally for all users or a group of users.'))
 
     def __init__(self, *args, **kwargs):
         super(NoticeAdminForm, self).__init__(*args, **kwargs)
-        self.fields['group'].choices = self._get_group_choices()
         self.fields['on_site'].initial = True
+        
+#        if 'initial' in kwargs:
+#            ids = kwargs['initial']['ids']
+#            self.ids = ids.split(',')
+#            self.users = User.objects.filter(pk__in=self.ids)
+#            self.fields['recipient'].choices = self._get_recipient_choices()
+#    
+#    def _get_recipient_choices(self):
+#        user_list = ''
+#        for user in self.users:
+#            user_list = '%s,%s' % (user, user_list)
+#        return [('ids', '%s' % user_list),] + \
+#               [(user.pk, user.email) for user in User.objects.all()]
+#    
 
-    def _get_group_choices(self):
-        return [('', u'---------'), ('all', _('All users'))] + \
-            [(group.pk, group.name) for group in Group.objects.all()]
-    
+
     class Meta:
         model = Notice
         exclude = ('archived', 'unseen')
@@ -56,24 +62,15 @@ class NoticeAdmin(admin.ModelAdmin):
         When changing an existing message and choosing optional recipients,
         the message is effectively resent to those users.
         """
-        obj.save()
-        
-        if form.cleaned_data['group'] == 'all':
-            # send to all users
-            recipients = User.objects.exclude(pk=obj.recipient.pk)
-        else:
-            # send to a group of users
-            recipients = []
-            group = form.cleaned_data['group']
-            if group:
-                group = Group.objects.get(pk=group)
-                recipients.extend(
-                    list(group.user_set.exclude(pk=obj.recipient.pk)))
-        # create messages for all found recipients
-        for user in recipients:
-            obj.pk = None
-            obj.recipient = user
-            obj.save()
+        ids = request.GET.get('ids')
+        if ids:
+            ids = ids.split(',')
+            recipients = User.objects.filter(pk__in = ids)
+            for recipient in recipients:
+                obj.pk = None
+                obj.sender = None
+                obj.recipient = recipient
+                obj.save()
 
 admin.site.register(NoticeQueueBatch)
 admin.site.register(NoticeSetting, NoticeSettingAdmin)

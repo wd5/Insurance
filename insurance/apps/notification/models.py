@@ -31,24 +31,6 @@ QUEUE_ALL = getattr(settings, "NOTIFICATION_QUEUE_ALL", False)
 
 class LanguageStoreNotAvailable(Exception):
     pass
-'''
-class NoticeType(models.Model):
-
-    label = models.CharField(_('label'), max_length=40)
-    display = models.CharField(_('display'), max_length=50)
-    description = models.CharField(_('description'), max_length=100)
-
-    # by default only on for media with sensitivity less than or equal to this number
-    default = models.IntegerField(_('default'))
-
-    def __unicode__(self):
-        return self.label
-
-    class Meta:
-        verbose_name = _("notice type")
-        verbose_name_plural = _("notice types")
-'''
-
 # if this gets updated, the create() method below needs to be as well...
 NOTICE_MEDIA = (
     ("1", _("Email")),
@@ -137,11 +119,10 @@ class NoticeManager(models.Manager):
 
 class Notice(models.Model):
 
-    recipient = models.ForeignKey(User, related_name='recieved_notices', verbose_name=_('recipient'))
+    recipient = models.ForeignKey(User, null=True, related_name='recieved_notices', verbose_name=_('recipient'))
     sender = models.ForeignKey(User, null=True, related_name='sent_notices', verbose_name=_('sender'))
     sub = models.CharField(max_length=512,blank=True,null='True')
     message = models.TextField(_('message'))
-    #notice_type = models.ForeignKey(NoticeType, verbose_name=_('notice type'))
     added = models.DateTimeField(_('added'), default=datetime.datetime.now)
     unseen = models.BooleanField(_('unseen'), default=True)
     archived = models.BooleanField(_('archived'), default=False)
@@ -184,34 +165,7 @@ class NoticeQueueBatch(models.Model):
     Denormalized data for a notice.
     """
     pickled_data = models.TextField()
-'''
-def create_notice_type(label, display, description, default=2, verbosity=1):
-    """
-    Creates a new NoticeType.
 
-    This is intended to be used by other apps as a post_syncdb manangement step.
-    """
-    try:
-        notice_type = NoticeType.objects.get(label=label)
-        updated = False
-        if display != notice_type.display:
-            notice_type.display = display
-            updated = True
-        if description != notice_type.description:
-            notice_type.description = description
-            updated = True
-        if default != notice_type.default:
-            notice_type.default = default
-            updated = True
-        if updated:
-            notice_type.save()
-            if verbosity > 1:
-                print "Updated %s NoticeType" % label
-    except NoticeType.DoesNotExist:
-        NoticeType(label=label, display=display, description=description, default=default).save()
-        if verbosity > 1:
-            print "Created %s NoticeType" % label
-'''
 def get_notification_language(user):
     """
     Returns site-specific notification language for this user. Raises
