@@ -23,10 +23,10 @@ def unblock(modeladmin, request, queryset):
     queryset.update(is_active=True)
 unblock.short_description = u"Разблокировать выбранных пользователей"
 
-# def notification(modeladmin, request, queryset):
-#     selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
-#     return HttpResponseRedirect("notification/?ids=%s" % ",".join(selected))
-# notification.short_description = u"Разослать уведомления"
+def notification(modeladmin, request, queryset):
+    selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+    return HttpResponseRedirect("/admin/notification/notice/add/?ids=%s" % ",".join(selected))
+notification.short_description = u"Разослать уведомления"
 
 
 # Should NOT use mass block feature as one can't normally specify block reason
@@ -39,7 +39,7 @@ unblock.short_description = u"Разблокировать выбранных п
 
 class CustomUserAdmin(UserAdmin):
     # actions= [ unblock, message ]
-    actions= [ unblock ]
+    actions= [ unblock, notification ]
     list_display = ('last_name', 'first_name',
                     'email', 'p_last_ip', 'p_city', 'p_reason_blocked', 'is_active')
     list_display_links = ('email','last_name', 'first_name')
