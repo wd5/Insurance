@@ -23,7 +23,6 @@ S1_REQUIRED_KEYS = (
     "age", "experience_driving")
 
 
-@login_required
 def step1(request):
     if request.method == "POST":
         form = Step1Form(request.POST, form_extra_data={})
@@ -40,7 +39,6 @@ def step1(request):
     return direct_to_template(request, 'calc/step1.html', {"s1_form": form, })
 
 
-@login_required
 def step2(request):
     """
     TODO:
@@ -274,7 +272,6 @@ def servlet_request(data):
 
 
 # AJAX.
-@login_required
 @require_GET
 def get_models(request):
     response_dict = {}
@@ -291,24 +288,22 @@ def get_models(request):
     return HttpResponse(response, mimetype='application/javascript')
 
 
-@login_required
 @require_GET
 def get_years(request):
     response_dict = {}
     if request.is_ajax() and request.GET.has_key("model"):
         try:
-            model = Model.objects.get(pk=request.GET["model"])
-        except ObjectDoesNotExist:
-            pass
+            mym = Mym.objects.filter(mym_m=request.GET["model"])
+        except ObjectDoesNotExist, e:
+            print e
         else:
-            years = model.modelyear_set.all()
+            years = [m.mym_y for m in mym]
             for year in years:
                 response_dict[year.year_id] = year.model_year_year
     response = simplejson.dumps(response_dict)
     return HttpResponse(response, mimetype='application/javascript')
 
 
-@login_required
 @require_GET
 def get_powers(request):
     response_dict = {}
@@ -327,7 +322,6 @@ def get_powers(request):
     return HttpResponse(response, mimetype='application/javascript')
 
 
-@login_required
 @require_GET
 def get_price(request):
     response = ""
@@ -346,7 +340,6 @@ def get_price(request):
     return HttpResponse(response, mimetype='text/plain')
 
 
-@login_required
 @require_GET
 def get_ba_models(request):
     response_dict = {}
