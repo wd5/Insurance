@@ -36,15 +36,19 @@ class Step1Form(forms.Form):
         form_extra_data = kwargs.pop("form_extra_data")
         super(Step1Form, self).__init__(*args, **kwargs)
         if form_extra_data.has_key("mark"):
-            self.fields['model'].queryset = form_extra_data[
-                                            "mark"].model_set.all()
+            self.fields['model'].queryset = form_extra_data["mark"].model_set.all()
             if form_extra_data.has_key("model"):
-                self.fields['model_year'].queryset =\
-                form_extra_data["model"].modelyear_set.all()
+                # COMMENT: временное упрощение
+                # self.fields['model_year'].queryset =\
+                # form_extra_data["model"].modelyear_set.all()
+                self.fields['model_year'].queryset = ModelYear.objects.all()
                 if form_extra_data.has_key("model_year"):
-                    mym = Mym.objects.get(mym_y=form_extra_data["model_year"],
-                                          mym_m=form_extra_data["model"])
-                    self.fields['power'].queryset = mym.power_set.all()
+                    # COMMENT: временное упрощение
+                    # mym = Mym.objects.get(mym_y=form_extra_data["model_year"],
+                    #                       mym_m=form_extra_data["model"])
+                    # self.fields['power'].queryset = mym.power_set.all()
+                    self.fields['power'].queryset = Power.objects.all()
+                    
 
     def clean_mark(self):
         mark = self.cleaned_data['mark']
@@ -53,25 +57,27 @@ class Step1Form(forms.Form):
 
     def clean_model(self):
         model = self.cleaned_data['model']
-        self.fields['model_year'].queryset = model.modelyear_set.all()
+        self.fields['model_year'].queryset = ModelYear.objects.all()
         return model
 
     def clean_model_year(self):
         model_year = self.cleaned_data['model_year']
-        model = self.cleaned_data['model']
-        mym = Mym.objects.get(mym_y=model_year, mym_m=model)
-        self.fields['power'].queryset = mym.power_set.all()
+        # model = self.cleaned_data['model']
+        # mym = Mym.objects.get(mym_y=model_year, mym_m=model)
+        # self.fields['power'].queryset = mym.power_set.all()
+        self.fields['power'].queryset = Power.objects.all()
         return model_year
 
-    def clean_price(self):
-        price = self.cleaned_data['price']
-        power = self.cleaned_data['power']
-        price_obj = Price.objects.get(price_power=power)
-        if not price_obj.price_min < price < price_obj.price_max:
-            raise forms.ValidationError(
-                "Стоимость должна быть от %d до %d." % (price_obj.price_min,
-                                                        price_obj.price_max))
-        return price
+    # COMMENT: временное упрощение
+    # def clean_price(self):
+    #     price = self.cleaned_data['price']
+    #     power = self.cleaned_data['power']
+    #     price_obj = Price.objects.get(price_power=power)
+    #     if not price_obj.price_min < price < price_obj.price_max:
+    #         raise forms.ValidationError(
+    #             "Стоимость должна быть от %d до %d." % (price_obj.price_min,
+    #                                                     price_obj.price_max))
+    #     return price
 
 
 class Step2Form(forms.Form):

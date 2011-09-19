@@ -309,15 +309,19 @@ def get_powers(request):
     response_dict = {}
     if request.is_ajax() and request.GET.has_key("model") and\
        request.GET.has_key("year"):
-        try:
-            mym = Mym.objects.get(mym_y=request.GET["year"],
-                                  mym_m=request.GET["model"])
-        except ObjectDoesNotExist:
-            pass
-        else:
-            powers = mym.power_set.all()
-            for power in powers:
-                response_dict[power.power_id] = power.power_name
+        # COMMENT: временное упрощение
+        # try:
+        #     mym = Mym.objects.get(mym_y=request.GET["year"],
+        #                           mym_m=request.GET["model"])
+        # except ObjectDoesNotExist:
+        #     pass
+        # else:
+        #     powers = mym.power_set.all()
+        #     for power in powers:
+        #         response_dict[power.power_id] = power.power_name
+        powers = Power.objects.all()
+        for power in powers:
+            response_dict[power.power_id] = power.power_name
     response = simplejson.dumps(response_dict)
     return HttpResponse(response, mimetype='application/javascript')
 
@@ -326,17 +330,19 @@ def get_powers(request):
 def get_price(request):
     response = ""
     if request.is_ajax() and request.GET.has_key("power"):
-        try:
-            power = Power.objects.get(pk=request.GET["power"])
-        except ObjectDoesNotExist:
-            pass
-        else:
-            try:
-                price = Price.objects.get(price_power=power)
-            except ObjectDoesNotExist:
-                pass
-            else:
-                response = "от %d до %d" % (price.price_min, price.price_max)
+        # COMMENT: временное упрощение
+        # try:
+        #     power = Power.objects.get(pk=request.GET["power"])
+        # except ObjectDoesNotExist:
+        #     pass
+        # else:
+        #     try:
+        #         price = Price.objects.get(price_power=power)
+        #     except ObjectDoesNotExist:
+        #         pass
+        #     else:
+        #         response = "от %d до %d" % (price.price_min, price.price_max)
+        response = "от %d до %d" % (0, 1000000)
     return HttpResponse(response, mimetype='text/plain')
 
 
