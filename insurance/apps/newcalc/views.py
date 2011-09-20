@@ -133,7 +133,8 @@ def _read_s1_data(cd):
     s1_data = {}
     s1_data["mark"] = cd["mark"].pk
     s1_data["model"] = cd["model"].pk
-    s1_data["model_year"] = cd["model_year"].pk
+    # s1_data["model_year"] = cd["model_year"]
+    s1_data["model_year"] = Mym.objects.get(mym_y=cd["model_year"], mym_m=cd["model"]).mym_id
     s1_data["power"] = cd["power"].pk
     s1_data["price"] = cd["price"]
     s1_data["wheel"] = cd["wheel"]  # String.
@@ -167,7 +168,8 @@ def _read_form_data(s1_data):
 
     if ok:
         try:
-            model_year = ModelYear.objects.get(pk=s1_data.get("model_year"))
+            # model_year = ModelYear.objects.get(pk=s1_data.get("model_year"))
+            model_year = Mym.objects.get(pk=s1_data.get("model_year")).mym_y
             initial_data["model_year"] = model_year
             form_extra_data["model_year"] = model_year
         except (ObjectDoesNotExist, KeyError):
@@ -263,9 +265,12 @@ def servlet_request(data):
         result = simplejson.dumps(result_dict)
     else:
         encoded_data = urllib.urlencode(data)
+        # print "REQUEST:", encoded_data
         req = urllib2.Request(settings.SERVLET_URL, encoded_data)
+        # print "REQUEST:", req
         try:
             result = urllib2.urlopen(req).read()
+            # print "RESULT: ", result
         except socket.timeout:
             pass
     return result
