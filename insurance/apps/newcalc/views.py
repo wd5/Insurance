@@ -264,13 +264,18 @@ def servlet_request(data):
                      }
         result = simplejson.dumps(result_dict)
     else:
+        # TODO: убрать потом, это была ошибка в сервлете
+        data.update({
+                'factor_price': 'on',
+                'factor_service': 'on',
+                })
         encoded_data = urllib.urlencode(data)
-        # print "REQUEST:", encoded_data
+        print "REQUEST:", encoded_data
         req = urllib2.Request(settings.SERVLET_URL, encoded_data)
-        # print "REQUEST:", req
+        print "REQUEST:", req
         try:
             result = urllib2.urlopen(req).read()
-            # print "RESULT: ", result
+            print "RESULT: ", result
         except socket.timeout:
             pass
     return result
