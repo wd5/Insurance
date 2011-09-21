@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from models import Mark, City, ModelYear, Power, Model, Mym, Price, BurglarAlarm
+from models import Mark, City, ModelYear, Power, Model, BurglarAlarm
 
 AGE_CHOISES = [(i, i) for i in xrange(18, 81)]
 AGE_CHOISES.insert(0, ("", "--------"))
@@ -67,6 +67,15 @@ class Step1Form(forms.Form):
         # self.fields['power'].queryset = mym.power_set.all()
         self.fields['power'].queryset = Power.objects.all()
         return model_year
+
+    def clean(self):
+        cd = self.cleaned_data
+        age = cd['age']
+        exp_driving = cd['experience_driving']
+        print age, exp_driving
+        if int(age) - int(exp_driving) < 18:
+            raise forms.ValidationError("Опыт вождения не может отсчитываться от возраста, меньшего 18")
+        return cd
 
     # COMMENT: временное упрощение
     # def clean_price(self):
