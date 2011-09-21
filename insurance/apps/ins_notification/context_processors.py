@@ -7,4 +7,4 @@ def questions(request):
     else:
         quest_form = QuestionFormNotAuth()
 
-    return {'form':quest_form}
+    return {'question_form':quest_form}

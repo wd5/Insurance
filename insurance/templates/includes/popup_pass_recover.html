@@ -14,7 +14,7 @@
 				<div class="form_email_input">
                 <form action="{% url auth_password_reset %}" method="post">
                     {% csrf_token %}
-                    {{ form.email }}
+                    {{ question_form.email }}
                     <input name="" type="submit" class="form_email_input_button" value="Отправить"/>
                 </form>
                 {{ form.email.errors }}
