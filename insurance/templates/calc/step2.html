@@ -55,6 +55,12 @@
     <br/>
     <br/>
     <table border="1">
+            <tr>
+                <th>Компания</th>
+                <th>Параметры</th>
+                <th>Стоимость</th>
+                <th>Наша стоимость</th>
+            </tr>
         {% for comp in result.info %}
             <tr>
                 <td><b>{{ comp.full_name }}</b></td>
@@ -74,6 +80,8 @@
                         {% endfor %}
                     </table>
                 </td>
+                <td><b>{{ comp.score }}</b></td>
+                <td><b>{{ comp.ourscore }}</b></td>
             </tr>
         {% endfor %}
     </table>
