@@ -7,6 +7,8 @@ AGE_CHOISES.insert(0, ("", "--------"))
 EXPERIENCE_CHOISES = [(i, i) for i in xrange(0, 51)]
 EXPERIENCE_CHOISES.insert(0, ("", "--------"))
 FRANCHISE_STEP = 5000
+MAX_FRANCHISE = 20000
+MIN_FRANCHISE = 0
 
 class Step1Form(forms.Form):
     mark = forms.ModelChoiceField(label="Марка автомобиля",
@@ -129,6 +131,8 @@ class Step2Form(forms.Form):
         if isinstance(franchise, int) and franchise % FRANCHISE_STEP:
             raise forms.ValidationError("Значение должно быть "\
                                         "кратно %d" % FRANCHISE_STEP)
+        if isinstance(franchise, int) and not (MIN_FRANCHISE <= franchise <= MAX_FRANCHISE):
+            raise forms.ValidationError(u"Значение должно быть между 0 и 20000")
         return franchise
 
     def clean_burglar_alarm_group(self):
