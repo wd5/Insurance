@@ -328,10 +328,10 @@ a:hover        {text-decoration:none}
 .tabs_footer	{padding:0 0 0 25px;}
 	.tabs_footer_link	{overflow:hidden; padding:0 30px 0 10px; float:left;}
 		.tabs_footer_link li	{float:left; list-style:none;}
-			.tabs_footer_link a	{display:block; width:137px; height:30px; text-align:center; text-decoration:none; color:#fff; font-size:18px; padding:8px 0 0 0; background:url(/static/images/tabs_link3.png) 0 0 no-repeat; margin-right:-15px; position:relative;}
+			.tabs_footer_link a	{display:block; width:137px; height:30px; text-align:center; text-decoration:none; color:#fff; font-size:12px; line-height: 30px; padding:8px 0 0 0; background:url(/static/images/tabs_link3.png) 0 0 no-repeat; margin-right:-15px; position:relative;}
 			.tabs_footer_link a:hover	{background:url(/static/images/tabs_link3_active.png) 0 0 no-repeat; z-index:10;}
 			.tabs_footer_link a.selected	{background:url(/static/images/tabs_link3_active.png) 0 0 no-repeat; z-index:10;}
-	.tabs_footer_cont	{background:url(/static/images/tabs_footer_bg.jpg) 0 -5px no-repeat; width:966px; margin:0 -11px 0 -10px; height:143px; clear:both;}
+	.tabs_footer_cont	{background:url(/static/images/tabs_footer_bg.jpg) 0 -7px no-repeat; width:966px; margin:0 -11px 0 -10px; height:143px; clear:both;}
 		.tabs_footer_cont_left	{float:left; padding:10px 0 0 39px;}
 			.tabs_footer_cont_img	{background:url(/static/images/ramka.jpg) 0 0 no-repeat; width:109px; height:112px; float:left; text-align:center; padding:4px 0 0 0;}
 				.tabs_footer_cont_img img	{max-width:109px; max-height:112px;}

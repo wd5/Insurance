@@ -1,9 +1,10 @@
 <div class="tabs_footer">
   <ul class="tabs_footer_link">
-    <li><a class="" href="#tab_01">Прочее</a></li>
-    <li><a class=""  href="#tab_02">Новости</a></li>
-    <li><a class="" href="#tab_03">Анонсы</a></li>
+    <li><a class="" href="#tab_01">Новости</a></li>
+    <li><a class=""  href="#tab_02">Анонсы</a></li>
+    <li><a class="" href="#tab_03">Прочее</a></li>
   </ul>
+
   <div class="tabs_footer_cont" id="tab_01">
     {% for item in other %}
     <div class='tabs_footer_cont_left'>
@@ -12,6 +13,7 @@
     </div>
     {% endfor %}
   </div>
+
   <div class="tabs_footer_cont" id="tab_02">
     {% for item in news %}
     <div class='tabs_footer_cont_left'>
@@ -20,6 +22,7 @@
     </div>
     {% endfor %}
   </div>
+
   <div class="tabs_footer_cont" id="tab_03">
     {% for item in announce %}
     <div class='tabs_footer_cont_left'>
@@ -28,6 +31,8 @@
     </div>
     {% endfor %}
   </div>
+
+
   <script>
     $(function () {
     var tabContainers = $('div.tabs_footer > .tabs_footer_cont'); // получаем массив контейнеров
