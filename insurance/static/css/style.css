@@ -156,6 +156,14 @@ a:hover        {text-decoration:none}
 ----------------------*/
 
 .content     {zoom:1; padding-bottom:70px; width:100%; position:relative; z-index:5}
+
+    #tabsCarosel{
+        padding-top: 55px;
+    }
+        #tabsCarosel .tabs{
+            display: none;
+        }
+
 	.tabs_box	{}
 		.tabs	{padding:0 0 0 45px; height:39px;}
 			.tabs li	{float:left; margin:0 0 0 -10px; list-style:none;}
@@ -271,16 +279,43 @@ a:hover        {text-decoration:none}
 				
 				
 				
-.content_home	{height:420px; top:58px; position:relative; overflow: hidden; margin-bottom: 50px;}
+.content_home	{height: 516px; top: 20px; position:relative; overflow: hidden; margin-bottom: 50px;}
 	.flash	{float:left; width:535px; padding:0 0 0 18px;}
 	
-.benefits	{overflow:hidden; width: 377px; height: 208px; position: absolute; top: 263px; left: 100px;}
-	.header_benefits	{font-size:18px; color:#472313; font-weight:bold; width:394px; float:left; text-align:center;}
-		.header_benefits span	{color:#e65a02;}
-	.benefits_link	{float:left; width:590px;}
-		.benefits_link a	{padding:2px 0 4px 25px; background:url(/static/images/plus.jpg) 0 0 no-repeat; margin:0 16px 0 0; color:#472313; font-size:14px; text-decoration:none; line-height:30px;}
-		/* .benefits_link a:hover	{text-decoration:underline;} */
-		
+.benefits	{overflow:hidden; width: 400px; height: 228px; position: absolute; top: 300px; left: 60px; margin-right: -37px; text-align: center;}
+
+    .benefits #big-logo{
+        margin-bottom: 20px;
+    }
+
+    .benefits .benefits-words{
+        width: 440px;
+    }
+
+    .benefits .big-word{
+        margin-bottom: 10px;
+        color: #4e1b07;
+        font-size: 24px;
+        display: block;
+        text-align: center;
+    }
+
+    .benefits .main-word{
+        margin-bottom: 20px;
+        color: #4e1b07;
+        font-size: 18px;
+        padding-right: 37px;
+    }
+
+    .benefits #slogan{
+        display: block;
+        margin-top: 10px;
+        font-size: 14px;
+        color: #4e1b07;
+        text-align: center;
+        font-weight: bold;
+    }
+
 .tabs_footer	{padding:0 0 0 25px;}
 	.tabs_footer_link	{overflow:hidden; padding:0 30px 0 10px; float:left;}
 		.tabs_footer_link li	{float:left; list-style:none;}
