@@ -3,72 +3,63 @@
 
 {% block content %}
 
-<div class="content_home">
-  <div id="phoneCarousel">
-    <div class="previous arrow"><img src="{{ STATIC_URL }}images/px.gif" alt="" /></div>
-    <div class="next arrow"><img src="{{ STATIC_URL }}images/px.gif" alt="" /></div>
+    <div class="content_home">
+        <div id="phoneCarousel">
+            <div class="previous arrow"><img src="{{ STATIC_URL }}images/px.gif" alt=""/></div>
+            <div class="next arrow"><img src="{{ STATIC_URL }}images/px.gif" alt=""/></div>
 
-    <div id="stage">
-      <a href="#tabs_crug_1"><img class="default" src="{{ STATIC_URL }}images/scroll/scroll_img_1.png" width="226" height="262"/></a>
-      <a href="#tabs_crug_2"><img src="{{ STATIC_URL }}images/scroll/scroll_img_2.png" width="226" height="262" /></a>
-      <a href="#tabs_crug_3"><img src="{{ STATIC_URL }}images/scroll/scroll_img_3.png"  width="226" height="262" /></a>
+            <div id="stage">
+                <a href="#tabs_crug_1"><img class="default" src="{{ STATIC_URL }}images/scroll/scroll_img_1.png" width="226" height="262"/></a>
+                <a href="#tabs_crug_2"><img src="{{ STATIC_URL }}images/scroll/scroll_img_2.png" width="226" height="262"/></a>
+                <a href="#tabs_crug_3"><img src="{{ STATIC_URL }}images/scroll/scroll_img_3.png" width="226" height="262"/></a>
+            </div>
+        </div>
+
+     
+            <div class="tabs" id="tabs_crug_1">
+                <img src="{{ STATIC_URL }}images/tabs.jpg" alt=""/>
+            </div>
+            <div class="tabs" id="tabs_crug_2">
+                <img src="{{ STATIC_URL }}images/tabs_2.jpg" alt=""/>
+            </div>
+            <div class="tabs" id="tabs_crug_3">
+                <img src="{{ STATIC_URL }}images/tabs_3.jpg" alt=""/>
+            </div>
+
+
+        <div class="benefits">
+            <img id="big-logo" src="{{ STATIC_URL }}images/big_logo.png" alt="logo"/>
+        </div>
     </div>
-  </div>
 
-  <script type="text/javascript" src="{{ STATIC_URL }}js/script.js"></script>
-  <div class="tabs" id="tabs_crug_1">
-    <img src="{{ STATIC_URL }}images/tabs.jpg" alt="" />
-  </div>
-  <div class="tabs" id="tabs_crug_2">
-    <img src="{{ STATIC_URL }}images/tabs_2.jpg" alt="" />
-  </div>
-  <div class="tabs" id="tabs_crug_3">
-    <img src="{{ STATIC_URL }}images/tabs_3.jpg" alt="" />
-  </div>
-</div>
+    <script type="text/javascript" src="{{ STATIC_URL }}js/script.js"></script>
 
+    <script>
+        $(function () {
+            var tabContainers = $('div.content_home > .tabs'); // получаем массив контейнеров
+            tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
+            // далее обрабатывается клик по вкладке
+            $('div#stage a').click(
+                    function () {
+                        tabContainers.hide(); // прячем все табы
+                        tabContainers.filter(this.hash).show(); // показываем содержимое текущего
+                        $('div#stage a').removeClass('selected'); // у всех убираем класс 'selected'
+                        $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
+                        return false;
+                    }).filter(':first').click();
+        });
+    </script>
 
-<script>
-  $(function () {
-  var tabContainers = $('div.content_home > .tabs'); // получаем массив контейнеров
-  tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
-  // далее обрабатывается клик по вкладке
-  $('div#stage a').click(function () {
-  tabContainers.hide(); // прячем все табы
-  tabContainers.filter(this.hash).show(); // показываем содержимое текущего
-  $('div#stage a').removeClass('selected'); // у всех убираем класс 'selected'
-  $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
-  return false;
-  }).filter(':first').click();
-  });
-</script>
+    <!-- <div class="button_box"> -->
+    <!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_1.jpg" alt="" /></a></div> -->
+    <!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_2.jpg" alt="" /></a></div> -->
+    <!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_3.jpg" alt="" /></a></div> -->
+    <!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_4.jpg" alt="" /></a></div> -->
+    <!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_5.jpg" alt="" /></a></div> -->
+    <!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_6.jpg" alt="" /></a></div> -->
 
-<div class="benefits">
-  <div class="header_benefits">
-    <span>Н</span>АШИ ПРЕИМУЩЕСТВА
-  </div>
-  <div style="clear:both;"></div>
-  <div class="benefits_link">
-    <a style=":hover {text-decoration: none}" href="#">Все Ваши полисы всегда под рукой</a><br/>
-    <p style="color:#472313; font-size: 11px;">Получите книжку-помощник, где будут находится все ваши полисы, полезная информация для общения со страховой компанией. </p>
-    <a style=":hover {text-decoration: none}" href="#">Все Ваши страховые полисы в вашем личном кабинете
-    онлайн</a><br/>
-    <p style="color:#472313; font-size: 11px;">Подробная информация о купленных вами полисах в личном кабинете. Сравнительный анализ ваших полисов</p>
-    <a style=":hover {text-decoration: none}" href="#">Рассчитай ONLINE минимальную цену полиса 50 страховых.
-    компаний</a><br/>
-    <p style="color:#472313; font-size: 11px;">Посмотри таблицу сравнения цены и условий полисов. Цена всегда дешевле - <span style="font-weight:bold;">мы не берем комиссии</span>!. </p>
-  </div>
-</div>
-<!-- <div class="button_box"> -->
-<!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_1.jpg" alt="" /></a></div> -->
-<!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_2.jpg" alt="" /></a></div> -->
-<!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_3.jpg" alt="" /></a></div> -->
-<!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_4.jpg" alt="" /></a></div> -->
-<!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_5.jpg" alt="" /></a></div> -->
-<!--   <div class="button_link"><a href="#"><img src="{{ STATIC_URL }}images/button_6.jpg" alt="" /></a></div> -->
+    <!-- </div> -->
 
-<!-- </div> -->
-
-{% include "includes/news_panel.html" %}
+    {% include "includes/news_panel.html" %}
 
 {% endblock %}

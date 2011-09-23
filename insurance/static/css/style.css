@@ -271,10 +271,10 @@ a:hover        {text-decoration:none}
 				
 				
 				
-.content_home	{height:420px; top:70px; position:relative;}
+.content_home	{height:420px; top:70px; position:relative; overflow: hidden; margin-bottom: 50px;}
 	.flash	{float:left; width:535px; padding:0 0 0 18px;}
 	
-.benefits	{padding:0 0 22px 0; overflow:hidden;}
+.benefits	{overflow:hidden; width: 377px; height: 208px; position: absolute; top: 263px; left: 100px;}
 	.header_benefits	{font-size:18px; color:#472313; font-weight:bold; width:394px; float:left; text-align:center;}
 		.header_benefits span	{color:#e65a02;}
 	.benefits_link	{float:left; width:590px;}
