@@ -1,49 +1,46 @@
-<div class="head">
-  <div class="logo"><a href="/"><img src="{{ STATIC_URL }}images/px.gif" alt="" /></a></div>
-  <table cellpadding="0" cellspacing="0" class="menu_main">
-    <tr>
-    <tr>
-      <td><a href="#">КАСКО</a></td>
-      <td><a href="#">ОСАГО</a></td>
-      <td><a href="#">ЗЕЛЕНАЯ КАРТА</a></td>
-      <td><a href="#">СТРАХОВАНИЯ ИМУЩЕСТВА</a></td>
-      <td><a href="#">ИПОТЕЧНОЕ КОМПАНИЕ</a></td>
-      <td><a href="#">СТРАХОВАНИЕ ПУТЕШЕСТВУЮЩИХ</a></td>
-    </tr>
-    </tr>
-  </table>
-  <div class="head_ico">
-    <div class="head_ico_text_box">
-      <a href="#" class="setup_user_open"><img src="{{ STATIC_URL }}images/user_name_button.jpg" alt="" /></a>
-      {% if user.is_authenticated %}
-      <div class="head_ico_text">
-        {{ user.email|upper }}
-      </div>
-      <div class="setup_user" style="display:none">
-        <a href="{% url auth_logout %}">Выход</a>
-        <a href="#" rel="#pop_up_4">Вопрос</a>
-      </div>
-      {% else %}
-      <div class="head_ico_text">
-      </div>
-      <div class="setup_user" style="display:none">
-        <a href="#" rel="#pop_up_1">Регистрация</a>
-        <a href="#" rel="#pop_up_2">Вход</a>
-        <a href="#" rel="#pop_up_3">Пароль</a>
-        <a href="#" rel="#pop_up_4">Вопрос</a>
-      </div>
-      {% endif %}
-      <script>
+ <script>
         $(document).ready(function(){
-            $(".setup_user_open").click(function(){
-                $(".setup_user").slideToggle("slow");
-            });
+            $("#account-link").click(function(){
+                $(this).find(".setup_user").slideToggle("slow");
+            })
         });
-      </script>
+  </script>
+
+<div class="head">
+    <a id="head-logo" href="/"><img src="{{ STATIC_URL }}images/head-logo.gif" alt="" /></a>
+
+    <div id="top-menu">
+        <ul>
+            <li class="one-line" id="item-1"><a href="#">КАСКО</a></li>
+            <li class="one-line" id="item-2"><a href="#">ОСАГО</a></li>
+            <li class="two-line" id="item-3"><a href="#">ЗЕЛЕНАЯ КАРТА</a></li>
+            <li class="two-line" id="item-4"><a href="#">СТРАХОВАНИЯ ИМУЩЕСТВА</a></li>
+            <li class="two-line" id="item-5"><a href="#">ИПОТЕЧНОЕ КОМПАНИЕ</a></li>
+            <li class="two-line" id="item-6"><a href="#">СТРАХОВАНИЕ ПУТЕШЕСТВУЮЩИХ</a></li>
+        </ul>
+        <span></span>
     </div>
-    {% if user.is_authenticated %}
-    <a href="{% url userprofile_edit %}"><img src="{{ STATIC_URL }}images/head_ico_2.gif" alt="" /></a>
-    {% endif %}
-    <a href="{% url calc_page %}"><img src="{{ STATIC_URL }}images/head_ico_1.gif" alt="" /></a>
-  </div>
+
+    <div id="head-buttons">
+        <a href="{% url calc_page %}" id="calc-link"><img src="{{ STATIC_URL }}images/calc_icon.png" alt="" /></a>
+        <a href="#" id="wallet-link"><img src="{{ STATIC_URL }}images/wallet_icon.png" alt="" /></a>
+
+        <div id="account-link">
+           {% if user.is_authenticated %}
+              <span>{{ user.email|upper }}</span>
+                 <div class="setup_user" style="display:none">
+                    <a href="{% url auth_logout %}">Выход</a>
+                    <a href="#" rel="#pop_up_4">Вопрос</a>
+                 </div>
+             {% else %}
+               <span>Вход</span>
+                 <div class="setup_user" style="display:none">
+                    <a href="#" rel="#pop_up_1">Регистрация</a>
+                    <a href="#" rel="#pop_up_2">Вход</a>
+                    <a href="#" rel="#pop_up_3">Пароль</a>
+                    <a href="#" rel="#pop_up_4">Вопрос</a>
+                  </div>
+           {% endif %}
+        </div>
+    </div>
 </div>

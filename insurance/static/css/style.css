@@ -29,7 +29,7 @@ a:hover        {text-decoration:none}
 /*---------------------
 	header
 ---------------------*/
-.head	{height:83px; margin:20px 4px 0 4px; position:relative; z-index:10; background:url(/static/images/head_bg.gif) 0 0 repeat-x;}
+.head	{height:83px; margin:20px 4px 0 4px; position:relative; z-index:10;}
 	.logo	{float:left;}
 		.logo img	{width:121px; height:48px; background:url(/static/images/logo2.jpg) 0 0 no-repeat;}
 	.head_ico	{float:right;}
@@ -39,10 +39,116 @@ a:hover        {text-decoration:none}
 			.head_ico_text_box a	{margin:0;}
 		.setup_user	{background:url(/static/images/setup_user.png) 0 0 no-repeat; position:absolute; top:50px; right:0; width:143px; height:102px; z-index:30; padding:6px 23px 0 23px;}
 			.setup_user a	{display:block; text-align:center; border-bottom:1px solid #825947; font-size:10px; text-decoration:none; padding-bottom:3px; margin-bottom:8px; text-transform:uppercase; color:#fff; float:none;}
-		.menu_main	{float:left; width:628px; height:48px;}
-			.menu_main td	{border-left:2px solid #7a3700; vertical-align:middle; text-align:center; padding-left:5px; padding-right:5px;}
-				.menu_main a	{text-decoration:none; color:#fff; font-size:14px;}
-	
+
+    #head-logo{
+        position: absolute;
+        top: 0;
+        left: -4px;
+    }
+
+    #top-menu{
+        background: url(/static/images/menu_back.png) 100% 0 no-repeat;
+        height: 46px;
+        width: 614px;
+        overflow: hidden;
+        padding: 0 4px 0 0;
+        position: absolute;
+        top: 0;
+        left: 134px;
+    }
+        #top-menu span{
+            display: block;
+            height: 46px;
+            width: 10px;
+            background: url(/static/images/menu_back.png) 0 0 no-repeat;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #top-menu ul{
+            background: #fc7300;
+            height: 44px;
+            width: 600px;
+            overflow: hidden;
+            border-top: 1px solid #7a5344;
+            border-bottom: 1px solid #7a5344;
+            list-style:none;
+            padding: 0px 0px 0 10px;
+        }
+
+        #top-menu a{
+            color: #fff;
+            text-decoration: none;
+            font-size: 12px;
+        }
+             #top-menu ul li{
+                 float: left;
+                 height: 44px;
+                 text-align: center;
+                 padding: 5px 10px 0 10px;
+                 background: url(/static/images/menu_splitter.png) 0 0 no-repeat;
+             }
+
+             #top-menu ul li.one-line{
+                 padding-top: 15px;
+             }
+
+              #top-menu ul li.two-line{
+                 padding-top: 5px;
+                 width: 100px;
+             }
+
+               #top-menu ul li.two-line#item-3{
+                 padding-top: 5px;
+                 width: 80px;
+             }
+
+                #top-menu ul li.two-line#item-6{
+                 padding-top: 5px;
+                 width: 130px;
+             }
+
+
+             #top-menu ul li:first-child{
+                 background: none;
+                 padding-left: 0;
+             }
+
+        #head-buttons{
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 229px;
+        }
+
+            #head-buttons #calc-link{
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+
+            #head-buttons #wallet-link{
+                position: absolute;
+                left: 58px;
+            }
+
+             #head-buttons #account-link{
+                position: absolute;
+                right: 0px;
+                background: url(/static/images/account_button.png) top left no-repeat;
+                width: 115px;
+                height: 47px;
+                color: #4f1b06;
+                cursor: pointer;
+            }
+
+            #head-buttons #account-link span{
+                position: absolute;
+                top: 10px;
+                right: 8px;
+            }
+
 
 
 /*---------------------
