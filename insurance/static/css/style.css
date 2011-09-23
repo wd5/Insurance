@@ -415,24 +415,24 @@ a:hover        {text-decoration:none}
 
 #phoneCarousel .arrow{
 	cursor: pointer;
-    height: 105px;
+    height: 190px;
     left: 60px;
     position: absolute;
     top: 41px;
-    width: 104px;
+    width: 222px;
     z-index: 500;
 }
 #phoneCarousel .arrow img	{ height: 105px; width: 104px;}
 
-#stage a	{z-index:10; position:relative;}
-	#stage a img	{z-index:10;}
+/*#stage a	{z-index:10; position:relative;}*/
+	/*#stage a img	{z-index:10;}*/
 
 #phoneCarousel .next{
-	height: 103px;
+	height: 190px;
     left: auto;
     right: 64px;
     top: 41px;
-    width: 104px;
+    width: 222px;
     z-index: 500;
 }
 

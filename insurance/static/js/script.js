@@ -36,7 +36,7 @@ $(document).ready(function(){
 			/	will give us the horizontal movement.
 			*/
 			
-			q = (0.6+eSin*0.3);
+			q = (0.9+eSin*0.1);
 			newWidth	= q*dim.width;
 			newHeight	= q*dim.height;
 			
@@ -47,9 +47,9 @@ $(document).ready(function(){
 			*/
 			
 			images.eq(i).css({
-				top			: centerY-50*eSin,
-				left		     : centerX+180*eCos,  /* ���� 100, ���������� ����� ������ */
-				opacity		: 1.0+eSin*1.0,
+				top			: centerY-10*eSin,
+				left		: centerX+170*eCos,  /* ���� 100, ���������� ����� ������ */
+				//opacity		: 1.0+eSin*1.0,
 				marginLeft	: -newWidth/2,
 				zIndex		: Math.round(80+eSin*20)
 			}).width(newWidth).height(newHeight);
@@ -79,6 +79,7 @@ $(document).ready(function(){
             };
             tabContainers.hide();
             prevTab.show();
+            console.log("prev");
 	});
 	
 	$('#phoneCarousel .next').click(function(){
@@ -93,6 +94,7 @@ $(document).ready(function(){
             };
             tabContainers.hide();
             nextTab.show();
+             console.log("next");
         });
 
 });
