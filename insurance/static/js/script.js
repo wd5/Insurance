@@ -21,7 +21,9 @@ $(document).ready(function(){
 		deg+=step;
 		
 		var eSin,eCos,newWidth,newHeight,q;
-		
+		var currentBubble = 0;
+        var maxZ = 0;
+
 		/* Loop through all the images: */
 		for(var i=0;i<cnt;i++){
 			
@@ -45,19 +47,31 @@ $(document).ready(function(){
 			/	to calculate the opacity and z-index. The front image has a sine value
 			/	of 1, while the backmost one has a sine value of -1.
 			*/
-			
-			images.eq(i).css({
+
+            var zIndex = Math.round(80+eSin*20);
+            images.eq(i).css({
 				top			: centerY-10*eSin,
 				left		: centerX+170*eCos,  /* ���� 100, ���������� ����� ������ */
 				//opacity		: 1.0+eSin*1.0,
 				marginLeft	: -newWidth/2,
-				zIndex		: Math.round(80+eSin*20)
+				zIndex		: zIndex
 			}).width(newWidth).height(newHeight);
+
+            if (maxZ < zIndex) {
+                maxZ = zIndex;
+                currentBubble = i;
+            }
 		}
 
+        var href = images.eq(currentBubble).parent().attr('href');
+        $("#tabsCarosel > .tabs").not(href).hide();
+        $(href).show();
+
+        
 		total-=Math.abs(step);
 		if(total<=0) return false;
-		
+
+
 		// Setting the function to be run again in 40 seconds (equals to 25 frames per second):
 		setTimeout(function(){rotate(step,total)},40);
 	
@@ -69,32 +83,10 @@ $(document).ready(function(){
 	$('#phoneCarousel .previous').click(function(){
 		// 360/cnt lets us distribute the phones evenly in a circle
 	    rotate(-10,360/cnt);
-            var tabContainers = $('div.content_home > .tabs')
-            var currentTab = tabContainers.filter(":visible");
-            var prevTab;
-            if ($(currentTab).prev('.tabs').length == 1) {
-                prevTab = $(currentTab).prev('.tabs');
-            } else {
-                prevTab = $('div.content_home > .tabs').filter(':last');
-            };
-            tabContainers.hide();
-            prevTab.show();
-            console.log("prev");
 	});
 	
 	$('#phoneCarousel .next').click(function(){
 	    rotate(10,360/cnt);
-            var tabContainers = $('div.content_home > .tabs')
-            var currentTab = tabContainers.filter(":visible");
-            var nextTab;
-            if ($(currentTab).next('.tabs').length == 1) {
-                nextTab = $(currentTab).next('.tabs');
-            } else {
-                nextTab = $('div.content_home > .tabs').filter(':first');
-            };
-            tabContainers.hide();
-            nextTab.show();
-             console.log("next");
-        });
+    });
 
 });

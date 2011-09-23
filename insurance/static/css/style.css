@@ -29,7 +29,7 @@ a:hover        {text-decoration:none}
 /*---------------------
 	header
 ---------------------*/
-.head	{height:83px; margin:20px 4px 0 4px; position:relative; z-index:10;}
+.head	{height:50px; margin:20px 4px 0 4px; position:relative; z-index:10;}
 	.logo	{float:left;}
 		.logo img	{width:121px; height:48px; background:url(/static/images/logo2.jpg) 0 0 no-repeat;}
 	.head_ico	{float:right;}
@@ -271,7 +271,7 @@ a:hover        {text-decoration:none}
 				
 				
 				
-.content_home	{height:420px; top:70px; position:relative; overflow: hidden; margin-bottom: 50px;}
+.content_home	{height:420px; top:58px; position:relative; overflow: hidden; margin-bottom: 50px;}
 	.flash	{float:left; width:535px; padding:0 0 0 18px;}
 	
 .benefits	{overflow:hidden; width: 377px; height: 208px; position: absolute; top: 263px; left: 100px;}
