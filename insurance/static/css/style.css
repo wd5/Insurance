@@ -332,10 +332,10 @@ a:hover        {text-decoration:none}
 			.tabs_footer_link a:hover	{background:url(/static/images/tabs_link3_active.png) 0 0 no-repeat; z-index:10;}
 			.tabs_footer_link a.selected	{background:url(/static/images/tabs_link3_active.png) 0 0 no-repeat; z-index:10;}
 	.tabs_footer_cont	{background:url(/static/images/tabs_footer_bg.jpg) 0 -7px no-repeat; width:966px; margin:0 -11px 0 -10px; height:143px; clear:both;}
-		.tabs_footer_cont_left	{float:left; padding:10px 0 0 39px;}
+		.tabs_footer_cont_left	{float:left; padding:10px 0 0 29px;}
 			.tabs_footer_cont_img	{background:url(/static/images/ramka.jpg) 0 0 no-repeat; width:109px; height:112px; float:left; text-align:center; padding:4px 0 0 0;}
 				.tabs_footer_cont_img img	{max-width:109px; max-height:112px;}
-			.tabs_footer_cont_text	{float:left; padding:0 0 0 12px; line-height:26px; font-size:11px; color:#472313; width:313px; position:relative;}
+			.tabs_footer_cont_text	{float:left; padding:0 0 0 12px; line-height:26px; font-size:12px; color:#472313; width:313px; position:relative;}
 				.tabs_footer_cont_text a	{color:#472313;}
 				.pointer	{position:absolute; right:0; margin-top:5px;}
 		.tabs_footer_cont_right	{float:right; padding:10px 43px 0 0;}
