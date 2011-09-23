@@ -106,7 +106,7 @@ a:hover        {text-decoration:none}
 
                 #top-menu ul li.two-line#item-6{
                  padding-top: 5px;
-                 width: 130px;
+                 width: 128px;
              }
 
 
@@ -158,7 +158,8 @@ a:hover        {text-decoration:none}
 .content     {zoom:1; padding-bottom:70px; width:100%; position:relative; z-index:5}
 
     #tabsCarosel{
-        padding-top: 55px;
+        padding: 55px 0 0 0;
+        margin-left: 540px;
     }
         #tabsCarosel .tabs{
             display: none;
@@ -282,7 +283,7 @@ a:hover        {text-decoration:none}
 .content_home	{height: 516px; top: 20px; position:relative; overflow: hidden; margin-bottom: 50px; padding-bottom: 50px;}
 	.flash	{float:left; width:535px; padding:0 0 0 18px;}
 	
-.benefits	{overflow:hidden; width: 400px; height: 228px; position: absolute; top: 320px; left: 60px; margin-right: -37px; text-align: center;}
+.benefits	{overflow:hidden; width: 420px; height: 228px; position: absolute; top: 320px; left: 60px; margin-right: -37px; text-align: center;}
 
     .benefits #big-logo{
         margin-bottom: 20px;
@@ -304,7 +305,7 @@ a:hover        {text-decoration:none}
         margin-bottom: 20px;
         color: #4e1b07;
         font-size: 18px;
-        padding-right: 37px;
+        padding: 0 15px;
     }
 
     .benefits #slogan{
@@ -319,10 +320,10 @@ a:hover        {text-decoration:none}
 #login-url{
     position: absolute;
     top: 433px;
-    right: 60px;
+    right: 45px;
     color: #4e1b07;
     text-transform: uppercase;
-    font-weight: bold;
+    font-size: 18px;
 }
 
 .tabs_footer	{padding:0 0 0 25px;}
@@ -457,30 +458,32 @@ a:hover        {text-decoration:none}
 }
 
 
-#phoneCarousel .arrow{
+#phoneCarousel .previous{
 	cursor: pointer;
     height: 190px;
-    left: 60px;
+    left: 40px;
     position: absolute;
     top: 41px;
     width: 222px;
     z-index: 500;
 }
-#phoneCarousel .arrow img	{ height: 105px; width: 104px;}
+
+#phoneCarousel .arrow img	{ height: 190px; width: 222px;}
 
 /*#stage a	{z-index:10; position:relative;}*/
 	/*#stage a img	{z-index:10;}*/
 
 #phoneCarousel .next{
 	height: 190px;
-    left: auto;
-    right: 64px;
+    left: 295px;
     top: 41px;
     width: 222px;
     z-index: 500;
+    position: absolute;
+    display: block;
 }
 
-#phoneCarousel .next img	{height: 105px; width: 104px;}
+/*#phoneCarousel .next img	{height: 105px; width: 104px;}*/
 
 
 #logo{
