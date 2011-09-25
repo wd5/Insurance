@@ -93,8 +93,9 @@ INSTALLED_APPS = (
 
     # Projects apps
     'profile', # user profile file and private cabinet
-    'calc',     # insurance policy related fields
+#    'calc',     # insurance policy related fields
     'newcalc',
+    'polices',
     'ins_flatpages',                 # Reconfiguration of 'django.contrib.flatpages'
     'ins_notification',               # Notifications system for this site
     'news',

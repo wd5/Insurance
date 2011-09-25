@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from models import Mark, City, ModelYear, Power, Model, BurglarAlarm
+from profile.models import Persona
 
 AGE_CHOISES = [(i, i) for i in xrange(18, 81)]
 AGE_CHOISES.insert(0, ("", "--------"))
@@ -220,3 +221,14 @@ class Step2Form(forms.Form):
             self.fields['burglar_alarm_model'].required = True
         return burglar_alarm_group
 
+
+class Step3FormReg(forms.Form):
+    persona = forms.ModelChoiceField(label="Персона", queryset=Persona.objects.none(),
+                                     empty_label="--------")
+    reg_address = forms.CharField(label="Адрес прописки", max_length=200)
+    liv_address = forms.CharField(label="Адрес проживания", max_length=200)
+    pol_address = forms.CharField(label="Адрес доставки полиса", max_length=200)
+    def __init__(self, *args, **kwargs):
+        form_extra_data = kwargs.pop("form_extra_data")
+        super(Step3FormReg, self).__init__(*args, **kwargs)
+        self.fields['persona'].queryset = Persona.objects.filter(user=form_extra_data["user"])

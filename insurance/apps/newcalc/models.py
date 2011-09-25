@@ -122,7 +122,9 @@ class BurglarAlarm(models.Model):
         db_table = u'burglar_alarm'
         managed = False
 
-#class KackoIt(models.Model):
+
+        #class KackoIt(models.Model):
+
 #    kacko_it_it = models.IntegerField(db_column='KACKO_it_it') # Field name made lowercase.
 #    kacko_it_kp = models.IntegerField(db_column='KACKO_it_Kp') # Field name made lowercase.
 #    kacko_it_company = models.IntegerField(db_column='KACKO_it_company') # Field name made lowercase.

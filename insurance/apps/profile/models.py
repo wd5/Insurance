@@ -61,7 +61,7 @@ class Persona(models.Model):
     me = models.BooleanField(verbose_name=u"Основная персона пользователя", default=False)
 
     def __unicode__(self):
-        return u'%s %s' % (self.id,self.first_name)
+        return u'%s %s' % (self.first_name, self.last_name)
     
     class Meta:
         verbose_name = "Персона"

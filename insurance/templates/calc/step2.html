@@ -60,6 +60,7 @@
                 <th>Параметры</th>
                 <th>Стоимость</th>
                 <th>Наша стоимость</th>
+                <th>Выбор</th>
             </tr>
         {% for comp in result.info %}
             <tr>
@@ -82,6 +83,7 @@
                 </td>
                 <td><b>{{ comp.score }}</b></td>
                 <td><b>{{ comp.ourscore }}</b></td>
+                <td><a href="{% url ncalc_step3 comp.alias %}">купить</a></td>
             </tr>
         {% endfor %}
     </table>

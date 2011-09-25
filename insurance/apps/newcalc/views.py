@@ -11,7 +11,8 @@ from django.conf import settings
 import socket
 
 from newcalc.models import Mark, Model, Mym, Power, City, BurglarAlarm
-from newcalc.forms import Step1Form, Step2Form
+from newcalc.forms import Step1Form, Step2Form, Step3FormReg
+from polices.models import InsurancePolicy
 from servlet import servlet_request
 
 
@@ -71,6 +72,40 @@ def step2(request):
     return direct_to_template(request, 'calc/step2.html', {"msg": msg,
                                                            "s1_form": form,
                                                            "result": result})
+
+
+def step3(request, alias):
+    s1_data = request.session.get("s1_data")
+    data = {}
+    data["insurance_type"] = "КАСКО"
+    data["mark"] = Mark.objects.get(pk=s1_data["mark"]).mark_name
+    data["model"] = Model.objects.get(pk=s1_data["model"]).model_name
+    data["model_year"] = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
+    if s1_data["wheel"] == "left":
+        data["wheel"] = "левый"
+    else:
+        data["wheel"] = "правый"
+    data["power"] = Power.objects.get(pk=s1_data["power"]).power_name
+    data["price"] = s1_data["price"]
+    if s1_data["credit"]:
+        data["credit"] = "да"
+    else:
+        data["credit"] = "нет"
+    data["city"] = City.objects.get(pk=s1_data["city"]).city_name
+    data["age"] = s1_data["age"]
+    data["experience_driving"] = s1_data["experience_driving"]
+    if request.method == "POST":
+        form = Step3FormReg(request.POST, form_extra_data={"user": request.user,})
+        if form.is_valid():
+            cd = form.cleaned_data
+#            ip = InsurancePolicy()
+#            ip.persona = cd["persona"]
+
+            return HttpResponse("Полис создан")
+    else:
+        form = Step3FormReg(form_extra_data={"user": request.user,})
+
+    return direct_to_template(request, 'calc/step3.html', {"data": data, "form": form})
 
 
 def cleansession(request):
