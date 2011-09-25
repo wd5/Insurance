@@ -13,8 +13,10 @@ DATABASES = {
     'remote': {
         'NAME': 'inservlet',
         'ENGINE': 'django.db.backends.mysql',
-        'USER': 'root',
-        'PASSWORD': ''
+        'USER': 'insdu',
+        'PASSWORD': 'insdpwd',
+        'HOST': '188.127.249.249',
+        'PORT': 3306
     }
 }
 
@@ -25,8 +27,8 @@ SECRET_KEY = 'y8!nb5y#di-gm&6glczhn1x6!anpk#i$$(qtq7p@^0k)x*(qb$'
 
 # Django mailer settings
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'username'
-EMAIL_HOST_PASSWORD = 'username pass'
+EMAIL_HOST_USER = 'email@email.ru'
+EMAIL_HOST_PASSWORD = 'password'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
@@ -43,4 +45,6 @@ SERVLET_DB_PASS = 'insdpwd'
 
 SERVLET_URL = 'http://www.polisbook.ru:8080/ServerIF/MatrixIF'
 
-SERVLET_FAKE = True
+SERVLET_FAKE = False
+
+SERVLET_TIMEOUT = 360
