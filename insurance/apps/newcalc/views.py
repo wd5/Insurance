@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.contrib.auth.decorators import login_required
 from django.views.generic.simple import direct_to_template
 from django.utils import simplejson
 from django.views.decorators.http import require_GET
@@ -12,7 +13,6 @@ import socket
 
 from newcalc.models import Mark, Model, Mym, Power, City, BurglarAlarm
 from newcalc.forms import Step1Form, Step2Form, Step3FormReg
-from polices.models import InsurancePolicy
 from servlet import servlet_request
 
 
@@ -74,6 +74,7 @@ def step2(request):
                                                            "result": result})
 
 
+@login_required
 def step3(request, alias):
     s1_data = request.session.get("s1_data")
     data = {}
