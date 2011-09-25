@@ -6,9 +6,14 @@ AGE_CHOISES = [(i, i) for i in xrange(18, 81)]
 AGE_CHOISES.insert(0, ("", "--------"))
 EXPERIENCE_CHOISES = [(i, i) for i in xrange(0, 51)]
 EXPERIENCE_CHOISES.insert(0, ("", "--------"))
-FRANCHISE_STEP = 5000
-MAX_FRANCHISE = 20000
-MIN_FRANCHISE = 0
+FRANCHISE_CHOICE = (
+    (0, 0),
+    (3000, 3000),
+    (6000, 6000),
+    (9000, 9000),
+    (15000, 15000),
+    (30000, 30000)
+)
 
 class Step1Form(forms.Form):
     mark = forms.ModelChoiceField(label="Марка автомобиля",
@@ -185,9 +190,9 @@ class Step2Form(forms.Form):
                                               required=False)
     factor_service = forms.BooleanField(label="Сортировка по быстроте покупки",
                                         required=False)
-    franchise = forms.IntegerField(label="Франшиза", min_value=0,
-                                   max_value=20000,
-                                   required=False)
+    franchise = forms.ChoiceField(label="Франшиза",
+                                  choices=FRANCHISE_CHOICE,
+                                  required=False)
     burglar_alarm_group = forms.ModelChoiceField(label="Сигнализация",
              queryset=BurglarAlarm.objects.filter(pk__gt=0, burglar_alarm_parent=0),
              empty_label="--------", required=False)
@@ -201,16 +206,6 @@ class Step2Form(forms.Form):
         if form_extra_data.has_key("burglar_alarm_group"):
             self.fields['burglar_alarm_model'].queryset = form_extra_data[
                                             "burglar_alarm_group"].models.all()
-
-    def clean_franchise(self):
-        franchise = self.cleaned_data["franchise"]
-        if isinstance(franchise, int) and franchise % FRANCHISE_STEP:
-            raise forms.ValidationError("Значение должно быть "\
-                                        "кратно %d" % FRANCHISE_STEP)
-        if (isinstance(franchise, int) and
-            not (MIN_FRANCHISE <= franchise <= MAX_FRANCHISE)):
-            raise forms.ValidationError(u"Значение должно быть между 0 и 20000")
-        return franchise
 
     def clean_burglar_alarm_group(self):
         burglar_alarm_group = self.cleaned_data['burglar_alarm_group']

@@ -92,7 +92,7 @@ class CalcStepTwoForm(forms.Form):
             self.fields['civil_liability'] = forms.ChoiceField(choices=civil_liability_choices,
                                                                    required=False,
                                                                    label='Гражданскую ответственность (дополнительно к полису ОСАГО) ',)
-   
+
 
     factor_price = forms.BooleanField(required=False,
                                         label='Цена',
@@ -124,7 +124,7 @@ class CalcStepTwoForm(forms.Form):
 
     damage_full_destruction = forms.BooleanField(required=False,
                                                  label='Возмещать ущерб только при полной гибели или угоне автомобиля')
-    
+
     not_assure_theft = forms.BooleanField(required=False,
 				    label='Не страховать автомобиль от угона',)
 
@@ -159,7 +159,7 @@ class CalcStepTwoForm(forms.Form):
 
     glass_elements_without_restriction = forms.BooleanField(required=False,
                                                             label='Стекла и стеклянные элементы. Без ограничения',)
-    
+
     repair_3_one_year = forms.BooleanField(required=False,
                                                   label='Ремонт в пределах 3%. Один раз в год',)
 
@@ -193,7 +193,7 @@ class CalcStepTwoForm(forms.Form):
 
 
 class CalcStepThreeUserForm(forms.Form):
-    
+
     def __init__(self,*args,**kwargs):
         par_name = 'persona_choices'
         if kwargs.has_key(par_name):
@@ -219,7 +219,7 @@ class CalcStepThreeUserForm(forms.Form):
                                        max_length=200)
 
 class CalcStepThreeAnonymForm(forms.Form):
-    
+
     last_name = forms.CharField(required=True,
                                 label='Фамилия',
                                 help_text='',
