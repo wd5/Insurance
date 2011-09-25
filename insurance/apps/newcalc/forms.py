@@ -33,6 +33,25 @@ class Step1Form(forms.Form):
     age = forms.ChoiceField(label="Возраст", choices=AGE_CHOISES)
     experience_driving = forms.ChoiceField(label="Стаж вождения",
                                            choices=EXPERIENCE_CHOISES)
+    unlimited_drivers = forms.BooleanField(label="Неограниченное число водителей",
+                                           required=False)
+    age1 = forms.ChoiceField(label="Возраст второго водителя", choices=AGE_CHOISES,
+                             required=False)
+    experience_driving1 = forms.ChoiceField(label="Стаж вождения второго водителя",
+                                           choices=EXPERIENCE_CHOISES,
+                                           required=False)
+    age2 = forms.ChoiceField(label="Возраст третьего водителя",
+                             choices=AGE_CHOISES, required=False)
+    experience_driving2 = forms.ChoiceField(label="Стаж вождения третьего "\
+                                                  "водителя",
+                                           choices=EXPERIENCE_CHOISES,
+                                           required=False)
+    age3 = forms.ChoiceField(label="Возраст четвертого водителя",
+                             choices=AGE_CHOISES, required=False)
+    experience_driving3 = forms.ChoiceField(label="Стаж вождения четвертого "\
+                                                  "водителя",
+                                           choices=EXPERIENCE_CHOISES,
+                                           required=False)
 
     def __init__(self, *args, **kwargs):
         form_extra_data = kwargs.pop("form_extra_data")
@@ -50,7 +69,6 @@ class Step1Form(forms.Form):
                     #                       mym_m=form_extra_data["model"])
                     # self.fields['power'].queryset = mym.power_set.all()
                     self.fields['power'].queryset = Power.objects.all()
-                    
 
     def clean_mark(self):
         mark = self.cleaned_data['mark']
@@ -72,11 +90,33 @@ class Step1Form(forms.Form):
 
     def clean(self):
         cd = self.cleaned_data
-        age = cd['age']
-        exp_driving = cd['experience_driving']
-        print age, exp_driving
-        if int(age) - int(exp_driving) < 18:
-            raise forms.ValidationError("Опыт вождения не может отсчитываться от возраста, меньшего 18")
+        unlimited_drivers = cd["unlimited_drivers"]
+        age1 = cd.get("age1")
+        age2 = cd.get("age2")
+        age3 = cd.get("age3")
+        experience_driving1 = cd.get("experience_driving1")
+        experience_driving2 = cd.get("experience_driving2")
+        experience_driving3 = cd.get("experience_driving3")
+        if not unlimited_drivers:
+            if (age1 and not experience_driving1) or (experience_driving1 and
+                                                      not age1):
+                raise forms.ValidationError("Не полностью заполнены данные "\
+                                            "по второму водителю.")
+            if (age2 and not experience_driving2) or (experience_driving2 and
+                                                      not age2):
+                raise forms.ValidationError("Не полностью заполнены данные по "\
+                                            "третьему водителю.")
+            if (age3 and not experience_driving3) or (experience_driving3 and
+                                                      not age3):
+                raise forms.ValidationError("Не полностью заполнены данные по "\
+                                            "четвертому водителю.")
+            # На случай отключенного js.
+            if age2 and not age1:
+                raise forms.ValidationError("Нужно заполнить данные по "\
+                        "второму водителю, прежде, чем заполнять по третьему.")
+            if age3 and not age2:
+                raise forms.ValidationError("Нужно заполнить данные по "\
+                    "третьему водителю, прежде, чем заполнять по четвертому.")
         return cd
 
     # COMMENT: временное упрощение
@@ -90,6 +130,42 @@ class Step1Form(forms.Form):
     #                                                     price_obj.price_max))
     #     return price
 
+    def clean_experience_driving(self):
+        age = int(self.cleaned_data["age"])
+        experience_driving = int(self.cleaned_data["experience_driving"])
+        if age - experience_driving < 18:
+            raise forms.ValidationError("Опыт вождения не может отсчитываться "\
+                                        "от возраста, меньшего 18.")
+        return self.cleaned_data["experience_driving"]
+
+    def clean_experience_driving1(self):
+        age1 = self.cleaned_data.get("age1")
+        experience_driving1 = self.cleaned_data.get("experience_driving1")
+        if age1 and experience_driving1:
+            if int(age1) - int(experience_driving1) < 18:
+                raise forms.ValidationError("Опыт вождения не может "\
+                                    "отсчитываться от возраста, меньшего 18.")
+        return experience_driving1
+
+    def clean_experience_driving2(self):
+        age2 = self.cleaned_data.get("age2")
+        experience_driving2 = self.cleaned_data.get("experience_driving2")
+        if age2 and experience_driving2:
+            if int(age2) - int(experience_driving2) < 18:
+                raise forms.ValidationError("Опыт вождения не может "\
+                                    "отсчитываться от возраста, меньшего 18.")
+        return experience_driving2
+
+    def clean_experience_driving3(self):
+        age3 = self.cleaned_data.get("age3")
+        experience_driving3 = self.cleaned_data.get("experience_driving3")
+        if age3 and experience_driving3:
+            if int(age3) - int(experience_driving3) < 18:
+                raise forms.ValidationError("Опыт вождения не может "\
+                                    "отсчитываться от возраста, меньшего 18.")
+        return experience_driving3
+
+    
 
 class Step2Form(forms.Form):
     factor_price = forms.BooleanField(label="Сортировка по цене",
@@ -131,13 +207,15 @@ class Step2Form(forms.Form):
         if isinstance(franchise, int) and franchise % FRANCHISE_STEP:
             raise forms.ValidationError("Значение должно быть "\
                                         "кратно %d" % FRANCHISE_STEP)
-        if isinstance(franchise, int) and not (MIN_FRANCHISE <= franchise <= MAX_FRANCHISE):
+        if (isinstance(franchise, int) and
+            not (MIN_FRANCHISE <= franchise <= MAX_FRANCHISE)):
             raise forms.ValidationError(u"Значение должно быть между 0 и 20000")
         return franchise
 
     def clean_burglar_alarm_group(self):
         burglar_alarm_group = self.cleaned_data['burglar_alarm_group']
-        if burglar_alarm_group is not None and burglar_alarm_group.models.all().count():
+        if (burglar_alarm_group is not None and
+            burglar_alarm_group.models.all().count()):
             self.fields['burglar_alarm_model'].queryset = burglar_alarm_group.models.all()
             self.fields['burglar_alarm_model'].required = True
         return burglar_alarm_group

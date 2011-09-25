@@ -68,8 +68,18 @@ def step2(request):
         form_extra_data, initial_data = _s2_read_form_data(s2_data)
         form = Step2Form(form_extra_data=form_extra_data, initial=initial_data)
 
-    return direct_to_template(request, 'calc/step2.html', {"msg": msg, "s1_form": form,
+    return direct_to_template(request, 'calc/step2.html', {"msg": msg,
+                                                           "s1_form": form,
                                                            "result": result})
+
+
+def cleansession(request):
+    """
+    Вьюха, созданная для использования во время тестирования
+    для очистки данных сессии.
+    """
+    request.session.clear()
+    return redirect(reverse('ncalc_step1'))
 
 # ========== AJAX ==========
 
@@ -172,7 +182,8 @@ def _s1_read_data(cd):
     s1_data["mark"] = cd["mark"].pk
     s1_data["model"] = cd["model"].pk
     # s1_data["model_year"] = cd["model_year"]
-    s1_data["model_year"] = Mym.objects.get(mym_y=cd["model_year"], mym_m=cd["model"]).mym_id
+    s1_data["model_year"] = Mym.objects.get(mym_y=cd["model_year"],
+                                            mym_m=cd["model"]).mym_id
     s1_data["power"] = cd["power"].pk
     s1_data["price"] = cd["price"]
     s1_data["wheel"] = cd["wheel"]  # String.
@@ -180,6 +191,20 @@ def _s1_read_data(cd):
     s1_data["credit"] = cd["credit"]  # Bool.
     s1_data["age"] = int(cd["age"])
     s1_data["experience_driving"] = int(cd["experience_driving"])
+    unlimited_drivers = cd["unlimited_drivers"]
+    if unlimited_drivers:
+        s1_data["unlimited_drivers"] = 1
+    else:
+        s1_data["unlimited_drivers"] = 0
+        if cd["age1"]:
+            s1_data["age1"] = int(cd["age1"])
+            s1_data["experience_driving1"] = int(cd["experience_driving1"])
+        if cd["age2"]:
+            s1_data["age2"] = int(cd["age2"])
+            s1_data["experience_driving2"] = int(cd["experience_driving2"])
+        if cd["age3"]:
+            s1_data["age3"] = int(cd["age3"])
+            s1_data["experience_driving3"] = int(cd["experience_driving3"])
     return s1_data
 
 
@@ -261,7 +286,36 @@ def _s1_read_form_data(s1_data):
             initial_data["experience_driving"] = experience_driving
         except (ObjectDoesNotExist, KeyError):
             ok = False
-
+    if ok:
+        try:
+            unlimited_drivers = s1_data["unlimited_drivers"]
+            initial_data["unlimited_drivers"] = bool(unlimited_drivers)
+        except KeyError:
+            ok = False
+    if ok:
+        try:
+            age1 = s1_data["age1"]
+            experience_driving1 = s1_data["experience_driving1"]
+            initial_data["age1"] = age1
+            initial_data["experience_driving1"] = experience_driving1
+        except KeyError:
+            ok = False
+    if ok:
+        try:
+            age2 = s1_data["age2"]
+            experience_driving2 = s1_data["experience_driving2"]
+            initial_data["age2"] = age2
+            initial_data["experience_driving2"] = experience_driving2
+        except KeyError:
+            ok = False
+    if ok:
+        try:
+            age3 = s1_data["age3"]
+            experience_driving3 = s1_data["experience_driving3"]
+            initial_data["age3"] = age3
+            initial_data["experience_driving3"] = experience_driving3
+        except KeyError:
+            ok = False
     return form_extra_data, initial_data
 
 
@@ -270,6 +324,11 @@ def _build_servlet_request_data(s1_data, s2_data):
         credit_str = "on"
     else:
         credit_str = ""
+    unlimited_drivers = s1_data.get("unlimited_drivers")
+    if unlimited_drivers is None:
+        unlimited_drivers = 0
+
+
 
     servlet_request_data = {"insurance_type": 1,
                             "mark": s1_data["mark"],
@@ -283,7 +342,20 @@ def _build_servlet_request_data(s1_data, s2_data):
                             "age_0": s1_data["age"],
                             "experience_driving_0": s1_data[
                                                     "experience_driving"],
+                            "unlimited_drivers": unlimited_drivers,
                             }
+    if s1_data.has_key("age1"):
+        servlet_request_data["age_1"] = s1_data["age1"]
+        servlet_request_data["experience_driving_1"] =\
+            s1_data["experience_driving1"]
+    if s1_data.has_key("age2"):
+        servlet_request_data["age_2"] = s1_data["age2"]
+        servlet_request_data["experience_driving_2"] =\
+            s1_data["experience_driving2"]
+    if s1_data.has_key("age3"):
+        servlet_request_data["age_3"] = s1_data["age3"]
+        servlet_request_data["experience_driving_3"] =\
+            s1_data["experience_driving3"]
     if s2_data:
         for key in s2_data:
             if s2_data[key] == True:
@@ -338,8 +410,10 @@ def _s2_read_form_data(s2_data):
             if burglar_alarm.models.all().count():
                 initial_data["burglar_alarm_group"] = burglar_alarm
             else:
-                initial_data["burglar_alarm_group"] = burglar_alarm.burglar_alarm_parent
+                initial_data["burglar_alarm_group"] =\
+                    burglar_alarm.burglar_alarm_parent
                 initial_data["burglar_alarm_model"] = burglar_alarm
-                form_extra_data["burglar_alarm_group"] = burglar_alarm.burglar_alarm_parent
+                form_extra_data["burglar_alarm_group"] =\
+                    burglar_alarm.burglar_alarm_parent
     return form_extra_data, initial_data
 
