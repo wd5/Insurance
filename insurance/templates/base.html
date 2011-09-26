@@ -14,49 +14,8 @@
     <script src="{{ STATIC_URL }}js/jquery.ui.widget.js"></script>
     <script src="{{ STATIC_URL }}js/jquery.ui.mouse.js"></script>
     <script src="{{ STATIC_URL }}js/jquery.ui.slider.js"></script>
-    <script>
-    $(function() {
-    	$( "#slider-range-min2" ).slider({
-    		range: "min",
-    		step: 1000,
-    		value: 1000,
-    		min: 1000,
-    		max: 90000,
-    		slide: function( event, ui ) {
-    			$( "#amount2" ).val( "$" + ui.value );
-    		}
-    	});
-    	$( "#amount2" ).val( "$" + $( "#slider-range-min2" ).slider( "value" ) );
-    });
-    $(function() {
-    	$( "#slider-range-min3" ).slider({
-    		range: "min",
-    		step: 1000,
-    		value: 1000,
-    		min: 1000,
-    		max: 90000,
-    		slide: function( event, ui ) {
-    			$( "#amount3" ).val( "$" + ui.value );
-    		}
-    	});
-    	$( "#amount3" ).val( "$" + $( "#slider-range-min3" ).slider( "value" ) );
-    });
-    </script>
-    <script>
-    	$(document).ready(function() {
-    		$("a[rel]").overlay({
 
-    	// some mask tweaks suitable for modal dialogs
-    	mask: {
-    		color: '#ebecff',
-    		loadSpeed: 200,
-    		opacity: 0.9
-    	},
 
-    	closeOnClick: true
-    });
-    	});
-    </script>
     {% endblock %}
     {% block extra_head %}
     {% endblock %}
