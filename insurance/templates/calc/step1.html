@@ -85,8 +85,21 @@ $(function(){
        }
     })
 
+
+
+   $("#optional-auto-data tr:eq(1)").siblings().hide();
+
+   $("#optional-auto-data select").change(function(){
+        if($(this).val() != ""){
+            $(this).parents("tr").next().show();
+        }else{
+           $(this).parents("tr").nextAll().hide();
+           $(this).parents("tr").nextAll().find("select").val("");
+        }
+   });
+
    $("#id_unlimited_drivers").click(function(){
-       if($(this).attr("checked")){
+       if($(this).attr("checked")){                         
           $("#optional-auto-data").hide();
           $("#optional-auto-data select").val("");
        }else{
