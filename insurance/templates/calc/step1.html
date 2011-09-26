@@ -1,15 +1,10 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<title>Step1</title>
-<script type="text/javascript"
-        src="/static/js/jquery-1.6.3.min.js"></script>
+{% extends "base.html" %}
+{% block content %}
+
+<script type="text/javascript" src="/static/js/jquery-1.6.3.min.js"></script>
 <script type="text/javascript">
 
-
-
-$(function(){
+ $(function(){
     if($("#id_mark").val() == ""){
         $("#require-auto-data-first select").not(":first").attr("disabled", true);
         $("#require-auto-data-first input").attr("disabled", true);
@@ -106,12 +101,10 @@ $(function(){
            $("#optional-auto-data").show();
        }
    })
-
-    
 })
-
 </script>
 </head>
+
 <body>
 <b id="stoim"></b><br/>
 
@@ -267,5 +260,4 @@ $(function(){
 
 <br/>
 <a href="{% url cleansession %}">очистить сессию (для тестов)</a>
-</body>
-</html>
+{% endblock %}
