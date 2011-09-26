@@ -63,6 +63,24 @@ class Persona(models.Model):
     def __unicode__(self):
         return u'%s %s' % (self.first_name, self.last_name)
     
+    def get_full_address(self):
+        street_str = u""
+        if self.zip_code:
+            street_str = u"%s, " % self.zip_code
+        if self.street:
+            street_str = u"%s%s, " % (street_str, self.street)
+        if self.house:
+            street_str = u"%sд.%s, " % (street_str, self.house)
+        if self.block:
+            street_str = u"%sкорп.%s, " % (street_str, self.block)
+        if self.building:
+            street_str = u"%sстр.%s, " % (street_str, self.building)
+        if self.apartment:
+            street_str = u"%sкв.%s, " % (street_str, self.apartment)
+        street_str = u"%s%s %s %s" % (street_str, self.last_name, self.first_name,
+                                     self.middle_name)
+        return street_str
+    
     class Meta:
         verbose_name = "Персона"
         verbose_name_plural = "Персоны"

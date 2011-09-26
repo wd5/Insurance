@@ -27,7 +27,7 @@ class InsurancePolicy(models.Model):
         (5, u'Другие'),
     )
     
-    persona = models.ForeignKey(Persona, verbose_name=u"Персона", null=False, blank=False)
+#    persona = models.ForeignKey(Persona, verbose_name=u"Персона", null=False, blank=False)
     type = models.SmallIntegerField(verbose_name=u"Тип полиса", null=False, blank=False,
                                choices=TYPE_CHOICES, default=1)
     payment = models.CharField(verbose_name=u"Оплата", max_length=10, null=False, blank=False, default="unpayed",
@@ -42,7 +42,9 @@ class InsurancePolicy(models.Model):
         (3, '3'),
         (4, '4+'),
     )
+    # Пока не заполнять.
     buy_date = models.DateField(verbose_name=u"Начала периода страхования", null=False, blank=False)
+    # Пока не заполнять.
     end_date = models.DateField(verbose_name=u"Конец периода страхования", null=False, blank=False)
     experience_driving = models.PositiveSmallIntegerField(verbose_name=u"Стаж вождения",
                                                           null=False, blank=False,

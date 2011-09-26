@@ -123,6 +123,20 @@ class BurglarAlarm(models.Model):
         managed = False
 
 
+class Company(models.Model):
+    """
+    Страховые компании.
+    """
+    company_id = models.IntegerField(primary_key=True)
+    company_name = models.CharField(max_length=50)
+    company_full_name = models.CharField(max_length=100)
+    company_block = models.SmallIntegerField()
+    company_alias = models.CharField(max_length=50)
+    class Meta:
+        db_table = u'company'
+        managed = False
+
+
         #class KackoIt(models.Model):
 
 #    kacko_it_it = models.IntegerField(db_column='KACKO_it_it') # Field name made lowercase.
@@ -172,14 +186,7 @@ class BurglarAlarm(models.Model):
 #    class Meta:
 #        db_table = u'commision'
 #
-#class Company(models.Model):
-#    company_id = models.IntegerField(primary_key=True)
-#    company_name = models.CharField(max_length=150)
-#    company_full_name = models.CharField(max_length=300)
-#    company_block = models.IntegerField()
-#    company_alias = models.CharField(max_length=150)
-#    class Meta:
-#        db_table = u'company'
+
 #
 #class Factors(models.Model):
 #    factor_id = models.IntegerField(primary_key=True)

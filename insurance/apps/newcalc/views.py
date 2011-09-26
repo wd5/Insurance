@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from django.contrib.auth.decorators import login_required
 from django.views.generic.simple import direct_to_template
 from django.utils import simplejson
 from django.views.decorators.http import require_GET
@@ -11,8 +10,10 @@ from django.conf import settings
 
 import socket
 
-from newcalc.models import Mark, Model, Mym, Power, City, BurglarAlarm
-from newcalc.forms import Step1Form, Step2Form, Step3FormReg
+from newcalc.models import Mark, Model, Mym, Power, City, BurglarAlarm, Company
+from newcalc.forms import Step1Form, Step2Form, Step3FormReg, Step3FormNoReg
+from profile.models import Persona
+from email_login.backends import RegistrationBackend
 from servlet import servlet_request
 
 
@@ -74,7 +75,6 @@ def step2(request):
                                                            "result": result})
 
 
-@login_required
 def step3(request, alias):
     s1_data = request.session.get("s1_data")
     data = {}
@@ -95,18 +95,40 @@ def step3(request, alias):
     data["city"] = City.objects.get(pk=s1_data["city"]).city_name
     data["age"] = s1_data["age"]
     data["experience_driving"] = s1_data["experience_driving"]
-    if request.method == "POST":
-        form = Step3FormReg(request.POST, form_extra_data={"user": request.user,})
-        if form.is_valid():
-            cd = form.cleaned_data
-#            ip = InsurancePolicy()
-#            ip.persona = cd["persona"]
-
-            return HttpResponse("Полис создан")
+    data["company"] = Company.objects.get(company_alias=alias).company_name
+    if s1_data["unlimited_drivers"]:
+        data["dr_nr"] = "не ограничено"
     else:
-        form = Step3FormReg(form_extra_data={"user": request.user,})
-
-    return direct_to_template(request, 'calc/step3.html', {"data": data, "form": form})
+        if s1_data.has_key("age3"):
+            data["dr_nr"] = "4"
+        elif s1_data.has_key("age2"):
+            data["dr_nr"] = "3"
+        elif s1_data.has_key("age1"):
+            data["dr_nr"] = "2"
+        else:
+            data["dr_nr"] = "1"
+    if request.method == "POST":
+        if request.user.is_authenticated():
+            form = Step3FormReg(request.POST, form_extra_data={"user": request.user,})
+            if form.is_valid():
+                cd = form.cleaned_data
+                # Здесь создаем полис.
+                return HttpResponse("Полис создан")
+        else:
+            form = Step3FormNoReg(request.POST)
+            if form.is_valid():
+                RegistrationBackend().register(request, **form.cleaned_data)
+                # Здесь создаем полис.
+                return HttpResponse("Полис создан")
+    else:
+        if request.user.is_authenticated():
+            form = Step3FormReg(form_extra_data={"user": request.user,})
+        else:
+            form = Step3FormNoReg()
+    if request.user.is_authenticated():
+        return direct_to_template(request, 'calc/step3reg.html', {"data": data, "form": form})
+    else:
+        return direct_to_template(request, 'calc/step3noreg.html', {"data": data, "form": form})
 
 
 def cleansession(request):
@@ -209,6 +231,18 @@ def get_ba_models(request):
     response = simplejson.dumps(response_dict)
     return HttpResponse(response, mimetype='application/javascript')
 
+
+@require_GET
+def get_person_address(request):
+    response = ""
+    if request.is_ajax() and request.GET.has_key("pers"):
+        try:
+             persona = Persona.objects.get(pk=request.GET["pers"])
+        except ObjectDoesNotExist:
+             pass
+        else:
+             response = persona.get_full_address()
+    return HttpResponse(response, mimetype='text/plain')
 
 # ========== Auxilary ==========
 

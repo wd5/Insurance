@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.contrib.auth.models import User
 from models import Mark, City, ModelYear, Power, Model, BurglarAlarm
 from profile.models import Persona
+from email_login.forms import PhoneNumberField
+from captcha.fields import CaptchaField
 
 AGE_CHOISES = [(i, i) for i in xrange(18, 81)]
 AGE_CHOISES.insert(0, ("", "--------"))
@@ -14,7 +17,9 @@ FRANCHISE_CHOICE = (
     (9000, 9000),
     (15000, 15000),
     (30000, 30000)
-)
+    )
+
+attrs_dict = {'class': 'required'}
 
 class Step1Form(forms.Form):
     mark = forms.ModelChoiceField(label="Марка автомобиля",
@@ -39,31 +44,35 @@ class Step1Form(forms.Form):
     age = forms.ChoiceField(label="Возраст", choices=AGE_CHOISES)
     experience_driving = forms.ChoiceField(label="Стаж вождения",
                                            choices=EXPERIENCE_CHOISES)
-    unlimited_drivers = forms.BooleanField(label="Неограниченное число водителей",
-                                           required=False)
-    age1 = forms.ChoiceField(label="Возраст второго водителя", choices=AGE_CHOISES,
+    unlimited_drivers = forms.BooleanField(
+        label="Неограниченное число водителей",
+        required=False)
+    age1 = forms.ChoiceField(label="Возраст второго водителя",
+                             choices=AGE_CHOISES,
                              required=False)
-    experience_driving1 = forms.ChoiceField(label="Стаж вождения второго водителя",
-                                           choices=EXPERIENCE_CHOISES,
-                                           required=False)
+    experience_driving1 = forms.ChoiceField(
+        label="Стаж вождения второго водителя",
+        choices=EXPERIENCE_CHOISES,
+        required=False)
     age2 = forms.ChoiceField(label="Возраст третьего водителя",
                              choices=AGE_CHOISES, required=False)
     experience_driving2 = forms.ChoiceField(label="Стаж вождения третьего "\
                                                   "водителя",
-                                           choices=EXPERIENCE_CHOISES,
-                                           required=False)
+                                            choices=EXPERIENCE_CHOISES,
+                                            required=False)
     age3 = forms.ChoiceField(label="Возраст четвертого водителя",
                              choices=AGE_CHOISES, required=False)
     experience_driving3 = forms.ChoiceField(label="Стаж вождения четвертого "\
                                                   "водителя",
-                                           choices=EXPERIENCE_CHOISES,
-                                           required=False)
+                                            choices=EXPERIENCE_CHOISES,
+                                            required=False)
 
     def __init__(self, *args, **kwargs):
         form_extra_data = kwargs.pop("form_extra_data")
         super(Step1Form, self).__init__(*args, **kwargs)
         if form_extra_data.has_key("mark"):
-            self.fields['model'].queryset = form_extra_data["mark"].model_set.all()
+            self.fields['model'].queryset = form_extra_data[
+                                            "mark"].model_set.all()
             if form_extra_data.has_key("model"):
                 # COMMENT: временное упрощение
                 # self.fields['model_year'].queryset =\
@@ -116,13 +125,13 @@ class Step1Form(forms.Form):
                                                       not age3):
                 raise forms.ValidationError("Не полностью заполнены данные по "\
                                             "четвертому водителю.")
-            # На случай отключенного js.
+                # На случай отключенного js.
             if age2 and not age1:
                 raise forms.ValidationError("Нужно заполнить данные по "\
-                        "второму водителю, прежде, чем заполнять по третьему.")
+                                            "второму водителю, прежде, чем заполнять по третьему.")
             if age3 and not age2:
                 raise forms.ValidationError("Нужно заполнить данные по "\
-                    "третьему водителю, прежде, чем заполнять по четвертому.")
+                                            "третьему водителю, прежде, чем заполнять по четвертому.")
         return cd
 
     # COMMENT: временное упрощение
@@ -150,7 +159,7 @@ class Step1Form(forms.Form):
         if age1 and experience_driving1:
             if int(age1) - int(experience_driving1) < 18:
                 raise forms.ValidationError("Опыт вождения не может "\
-                                    "отсчитываться от возраста, меньшего 18.")
+                                            "отсчитываться от возраста, меньшего 18.")
         return experience_driving1
 
     def clean_experience_driving2(self):
@@ -159,7 +168,7 @@ class Step1Form(forms.Form):
         if age2 and experience_driving2:
             if int(age2) - int(experience_driving2) < 18:
                 raise forms.ValidationError("Опыт вождения не может "\
-                                    "отсчитываться от возраста, меньшего 18.")
+                                            "отсчитываться от возраста, меньшего 18.")
         return experience_driving2
 
     def clean_experience_driving3(self):
@@ -168,10 +177,9 @@ class Step1Form(forms.Form):
         if age3 and experience_driving3:
             if int(age3) - int(experience_driving3) < 18:
                 raise forms.ValidationError("Опыт вождения не может "\
-                                    "отсчитываться от возраста, меньшего 18.")
+                                            "отсчитываться от возраста, меньшего 18.")
         return experience_driving3
 
-    
 
 class Step2Form(forms.Form):
     factor_price = forms.BooleanField(label="Сортировка по цене",
@@ -195,35 +203,88 @@ class Step2Form(forms.Form):
                                   choices=FRANCHISE_CHOICE,
                                   required=False)
     burglar_alarm_group = forms.ModelChoiceField(label="Сигнализация",
-             queryset=BurglarAlarm.objects.filter(pk__gt=0, burglar_alarm_parent=0),
-             empty_label="--------", required=False)
+                                                 queryset=BurglarAlarm.objects.filter(
+                                                     pk__gt=0,
+                                                     burglar_alarm_parent=0),
+                                                 empty_label="--------",
+                                                 required=False)
     burglar_alarm_model = forms.ModelChoiceField(label="Модель сигнализации",
-             queryset=BurglarAlarm.objects.none(), empty_label="--------",
-             required=False)
+                                                 queryset=BurglarAlarm.objects.none()
+                                                 , empty_label="--------",
+                                                 required=False)
 
     def __init__(self, *args, **kwargs):
         form_extra_data = kwargs.pop("form_extra_data")
         super(Step2Form, self).__init__(*args, **kwargs)
         if form_extra_data.has_key("burglar_alarm_group"):
             self.fields['burglar_alarm_model'].queryset = form_extra_data[
-                                            "burglar_alarm_group"].models.all()
+                                                          "burglar_alarm_group"].models.all()
 
     def clean_burglar_alarm_group(self):
         burglar_alarm_group = self.cleaned_data['burglar_alarm_group']
         if (burglar_alarm_group is not None and
             burglar_alarm_group.models.all().count()):
-            self.fields['burglar_alarm_model'].queryset = burglar_alarm_group.models.all()
+            self.fields[
+            'burglar_alarm_model'].queryset = burglar_alarm_group.models.all()
             self.fields['burglar_alarm_model'].required = True
         return burglar_alarm_group
 
 
 class Step3FormReg(forms.Form):
-    persona = forms.ModelChoiceField(label="Персона", queryset=Persona.objects.none(),
-                                     empty_label="--------")
+    persona = forms.ModelChoiceField(label="Персона",
+                                     queryset=Persona.objects.none(),
+                                     empty_label="--------", required=False)
     reg_address = forms.CharField(label="Адрес прописки", max_length=200)
     liv_address = forms.CharField(label="Адрес проживания", max_length=200)
     pol_address = forms.CharField(label="Адрес доставки полиса", max_length=200)
+
     def __init__(self, *args, **kwargs):
         form_extra_data = kwargs.pop("form_extra_data")
         super(Step3FormReg, self).__init__(*args, **kwargs)
-        self.fields['persona'].queryset = Persona.objects.filter(user=form_extra_data["user"])
+        self.fields['persona'].queryset = Persona.objects.filter(
+            user=form_extra_data["user"])
+
+
+class Step3FormNoReg(forms.Form):
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    middle_name = forms.CharField(max_length=30)
+    phone = PhoneNumberField()
+    email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict,
+                                                               maxlength=75)),
+                             label="Email address")
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
+        label="Password")
+    password2 = forms.CharField(
+        widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
+        label="Password (again)")
+
+#    tos = forms.BooleanField(widget=forms.CheckboxInput(attrs=attrs_dict),
+#                             label='I have read and agree to the Terms of Service'
+#                             ,
+#                             error_messages={
+#                                 'required': "You must agree to the terms to register"})
+    captcha = CaptchaField()
+    reg_address = forms.CharField(label="Адрес прописки", max_length=200)
+    liv_address = forms.CharField(label="Адрес проживания", max_length=200)
+    pol_address = forms.CharField(label="Адрес доставки полиса", max_length=200)
+
+    def clean(self):
+        if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
+            if self.cleaned_data['password1'] != self.cleaned_data['password2']:
+                raise forms.ValidationError(
+                    "The two password fields didn't match.")
+        return self.cleaned_data
+
+    def clean_email(self):
+        if User.objects.filter(email__iexact=self.cleaned_data['email']):
+            raise forms.ValidationError(
+                "This email address is already in use. Please supply a different email address.")
+        return self.cleaned_data['email']
+
+    def clean_phone(self):
+        if self.cleaned_data['phone'] == "":
+            raise forms.ValidationError(
+                "Недопустимые символы в номере телефона.")
+        return self.cleaned_data['phone']

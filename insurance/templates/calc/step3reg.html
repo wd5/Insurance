@@ -1,0 +1,162 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Step3</title>
+    <script type="text/javascript"
+            src="/static/js/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $("#b1").click(function() {
+                if ($("#id_persona").val() == "")
+                    alert("Сначала выберите персону!");
+                else
+                    $.ajax(
+                            {
+                                url:"{% url get_person_address %}",
+                                data:{pers:$("#id_persona").val()},
+                                dataType:"text",
+                                success:function(data) {
+                                    $("#id_reg_address").val(data);
+                                }
+                            }
+                    );
+            });
+            $("#b2").click(function() {
+                if ($("#id_persona").val() == "")
+                    alert("Сначала выберите персону!");
+                else
+                    $.ajax(
+                            {
+                                url:"{% url get_person_address %}",
+                                data:{pers:$("#id_persona").val()},
+                                dataType:"text",
+                                success:function(data) {
+                                    $("#id_liv_address").val(data);
+                                }
+                            }
+                    );
+            });
+            $("#b3").click(function() {
+                if ($("#id_persona").val() == "")
+                    alert("Сначала выберите персону!");
+                else
+                    $.ajax(
+                            {
+                                url:"{% url get_person_address %}",
+                                data:{pers:$("#id_persona").val()},
+                                dataType:"text",
+                                success:function(data) {
+                                    $("#id_pol_address").val(data);
+                                }
+                            }
+                    );
+            });
+        });
+    </script>
+</head>
+<body>
+<form action="" method="post">
+    <table>
+        <tr>
+            <th>Параметр</th>
+            <th>Значение</th>
+        </tr>
+        <tr>
+            <td>Тип полиса</td>
+            <td>{{ data.insurance_type }}</td>
+        </tr>
+        <tr>
+            <td>Марка автомобиля</td>
+            <td>{{ data.mark }}</td>
+        </tr>
+        <tr>
+            <td>Модель автомобиля</td>
+            <td>{{ data.model }}</td>
+        </tr>
+        <tr>
+            <td>Год выпуска</td>
+            <td>{{ data.model_year }}</td>
+        </tr>
+        <tr>
+            <td>Руль</td>
+            <td>{{ data.wheel }}</td>
+        </tr>
+        <tr>
+            <td>Мощность</td>
+            <td>{{ data.power }}</td>
+        </tr>
+        <tr>
+            <td>Стоимость</td>
+            <td>{{ data.price }}</td>
+        </tr>
+        <tr>
+            <td>Кредит</td>
+            <td>{{ data.credit }}</td>
+        </tr>
+        <tr>
+            <td>Регистрация собственника</td>
+            <td>{{ data.city }}</td>
+        </tr>
+        <tr>
+            <td>Возраст</td>
+            <td>{{ data.age }}</td>
+        </tr>
+        <tr>
+            <td>Стаж вождения</td>
+            <td>{{ data.experience_driving }}</td>
+        </tr>
+        <tr>
+            <td>Число водителей</td>
+            <td>{{ data.dr_nr }}</td>
+        </tr>
+        <tr>
+            <td>Страховщик</td>
+            <td>{{ data.company }}</td>
+        </tr>
+        {% csrf_token %}
+        <tr>
+            <td>Персона</td>
+            <td>
+                {{ form.persona }}
+                {{ form.persona.errors }}
+            </td>
+        </tr>
+        <tr>
+            <td>Адрес прописки</td>
+            <td>
+                {{ form.reg_address }}
+                <button type="button" id="b1" title="Подставить из профиля
+персоны">
+                    <img
+                            src="/static/images/edit-copy.png"></button>
+                {{ form.reg_address.errors }}
+            </td>
+        </tr>
+        <tr>
+            <td>Адрес проживания</td>
+            <td>
+                {{ form.liv_address }}
+                <button type="button" id="b2" title="Подставить из профиля
+персоны">
+                    <img
+                            src="/static/images/edit-copy.png"></button>
+                {{ form.liv_address.errors }}
+            </td>
+        </tr>
+        <tr>
+            <td>Адрес доставки полиса</td>
+            <td>
+                {{ form.pol_address }}
+                <button type="button" id="b3" title="Подставить из профиля
+персоны">
+                    <img
+                            src="/static/images/edit-copy.png"></button>
+                {{ form.pol_address.errors }}
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="Заказать"/>
+</form>
+</body>
+</html>
