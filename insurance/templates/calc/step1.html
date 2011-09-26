@@ -12,6 +12,7 @@
 $(function(){
     if($("#id_mark").val() == ""){
         $("#require-auto-data-first select").not(":first").attr("disabled", true);
+        $("#require-auto-data-first input").attr("disabled", true);
     }
 
     $("#require-auto-data-first select").change(function(){
@@ -27,20 +28,40 @@ $(function(){
 
            switch(nextselectdata){
                 case "model":
-                sendingvalue = "{% url get_models %}";
-                data[$(this).attr("name")] = $(this).val();
+                    sendingvalue = "{% url get_models %}";
+                    data[$(this).attr("name")] = $(this).val();
                 break;
 
                case "model_year":
-                sendingvalue = "{% url get_years %}";
-                data[$(this).attr("name")] = $(this).val();
+                    sendingvalue = "{% url get_years %}";
+                    data[$(this).attr("name")] = $(this).val();
                 break;
 
                 case "power":
-                sendingvalue = "{% url get_powers %}";
-                data['model'] = $("#id_model").val();
-                data['year'] = $("#id_model_year").val();
+                    sendingvalue = "{% url get_powers %}";
+                    data['model'] = $("#id_model").val();
+                    data['year'] = $("#id_model_year").val();
                 break;
+
+               default:
+                   $.ajax(
+                            {
+                                url:"{% url get_price %}",
+                                data:{power:$("#id_power").val()},
+                                dataType:"text",
+                                success:function(data) {
+                                    if (data == "") {
+                                        $("#stoim").html("");
+                                        $("#id_price").attr("disabled", true);
+                                    }
+                                    else {
+                                        $("#stoim").html("Стоимость должна быть " + data);
+                                        $("#id_price").removeAttr("disabled");
+                                    }
+                                }
+                            }
+                    );
+               break;
            }
 
            $.ajax(
@@ -59,11 +80,21 @@ $(function(){
                 }
             );
        }else{
-            $(nextselect).attr("disabled", true);
+            $(this).parents("tr").nextAll().find("select").attr("disabled", true);
+            $("#require-auto-data-first input").attr("disabled", true);
        }
     })
 
+   $("#id_unlimited_drivers").click(function(){
+       if($(this).attr("checked")){
+          $("#optional-auto-data").hide();
+          $("#optional-auto-data select").val("");
+       }else{
+           $("#optional-auto-data").show();
+       }
+   })
 
+    
 })
 
 </script>
@@ -124,6 +155,7 @@ $(function(){
        </table>
 
     <br/>
+
      <table id="require-auto-data-second">
         <tr>
             <td>{{ s1_form.wheel.label }}</td>
@@ -169,9 +201,8 @@ $(function(){
         </tr>
         </table>
 
-        <br/>
-        Необязательные данные
-        <table>
+
+      <table id="optional-auto-data">
         <tr id="extrasect">
             <td><b>Доп. водители (опционально):</b></td>
         </tr>
@@ -220,6 +251,7 @@ $(function(){
     </table>
     <input type="submit" value="Рассчитать"/>
 </form>
+
 <br/>
 <a href="{% url cleansession %}">очистить сессию (для тестов)</a>
 </body>
