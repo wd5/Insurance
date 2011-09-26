@@ -6,289 +6,66 @@
 <script type="text/javascript"
         src="/static/js/jquery-1.6.3.min.js"></script>
 <script type="text/javascript">
-$(function() {
-            if ($("#id_mark").val() == "") {
-                $("#id_model").html('');
-                $("#id_model").attr("disabled", true);
-                $("#id_model_year").html('');
-                $("#id_model_year").attr("disabled", true);
-                $("#id_power").html('');
-                $("#id_power").attr("disabled", true);
-                $("#id_price").val('');
-                $("#id_price").attr("disabled", true);
-            }
-            else {
-                if ($("#id_model").val() == "") {
-                    $("#id_model_year").html('');
-                    $("#id_model_year").attr("disabled", true);
-                    $("#id_power").html('');
-                    $("#id_power").attr("disabled", true);
-                    $("#id_price").val('');
-                    $("#id_price").attr("disabled", true);
-                }
-                else {
-                    if ($("#id_model_year").val() == "") {
-                        $("#id_power").html('');
-                        $("#id_power").attr("disabled", true);
-                        $("#id_price").val('');
-                        $("#id_price").attr("disabled", true);
-                    }
-                    else {
-                        if ($("#id_power").val() == "") {
-                            $("#id_price").val('');
-                            $("#id_price").attr("disabled", true);
-                        }
-                        else
-                            $.ajax(
-                                    {
-                                        url:"{% url get_price %}",
-                                        data:{power:$("#id_power").val()},
-                                        dataType:"text",
-                                        success:function(data) {
-                                            if (data == "") {
-                                                $("#stoim").html("");
-                                                $("#id_price").attr("disabled", true);
-                                            }
-                                            else {
-                                                $("#stoim").html("Стоимость должна быть " + data);
-                                                $("#id_price").removeAttr("disabled");
-                                            }
-                                        }
-                                    }
-                            );
-                    }
-                }
-            }
-            if ($("#id_unlimited_drivers").is(':checked')) {
-                $("#extrasect").hide();
-                $("#vod1age").hide();
-                $("#vod1exp").hide();
-                $("#vod2age").hide();
-                $("#vod2exp").hide();
-                $("#vod3age").hide();
-                $("#vod3exp").hide();
-            }
-            else {
-                if ($("#id_age2").val() == "") {
-                    if ($("#id_age1").val() == "") {
-                        $("#vod2age").hide();
-                        $("#vod2exp").hide();
-                        $("#vod3age").hide();
-                        $("#vod3exp").hide();
-                    }
-                    else {
-                        $("#vod3age").hide();
-                        $("#vod3exp").hide();
-                    }
-                }
-                else {
-                    if ($("#id_age3").val() == "") {
-                        if ($("#id_age2").val() == "") {
-                            $("#vod3age").hide();
-                            $("#vod3exp").hide();
-                        }
-                    }
-                }
-            }
-            // Mark.
-            $("#id_mark").change(function() {
-                $("#id_model").html('');
-                $("#id_model_year").html('');
-                $("#id_model_year").attr("disabled", true);
-                $("#id_power").html('');
-                $("#id_power").attr("disabled", true);
-                $("#id_price").val('');
-                $("#id_price").attr("disabled", true);
-                if ($("#id_mark").val() == "")
-                    $("#id_model").attr("disabled", true);
-                else {
-                    $.ajax(
-                            {
-                                url:"{% url get_models %}",
-                                data:{mark:$("#id_mark").val() },
-                                dataType:"json",
-                                success:function(data) {
-                                    var options = '';
-                                    options += '<option value="">' + '--------' + '</option>';
-                                    $.each(data, function(index, value) {
-                                        options += '<option value="' + index + '">' + value + '</option>';
-                                    });
-                                    $("#id_model").html(options);
-                                    $("#id_model").removeAttr("disabled");
-
-                                }
-                            }
-                    );
-                }
-            });
-            // Model.
-            $("#id_model").change(function() {
-                $("#id_model_year").html('');
-                $("#id_power").html('');
-                $("#id_power").attr("disabled", true);
-                $("#id_price").val('');
-                $("#id_price").attr("disabled", true);
-                if ($("#id_model").val() == "") {
-                    $("#id_model_year").attr("disabled", true);
-                }
-                else {
-                    $.ajax(
-                            {
-                                url:"{% url get_years %}",
-                                data:{model:$("#id_model").val() },
-                                dataType:"json",
-                                success:function(data) {
-                                    var options = '';
-                                    options += '<option value="">' + '--------' + '</option>';
-                                    $.each(data, function(index, value) {
-                                        options += '<option value="' + index + '">' + value + '</option>';
-                                    });
-                                    $("#id_model_year").html(options);
-                                    $("#id_model_year").removeAttr("disabled");
-
-                                }
-                            }
-                    );
-                }
-            });
-            // Model year.
-            $("#id_model_year").change(function() {
-                $("#id_power").html('');
-                $("#id_price").val('');
-                $("#id_price").attr("disabled", true);
-                if ($("#id_model_year").val() == "") {
-                    $("#id_power").attr("disabled", true);
-                }
-                else {
-                    $.ajax(
-                            {
-                                url:"{% url get_powers %}",
-                                data:{model:$("#id_model").val(), year:$("#id_model_year").val()},
-                                dataType:"json",
-                                success:function(data) {
-                                    var options = '';
-                                    options += '<option value="">' + '--------' + '</option>';
-                                    $.each(data, function(index, value) {
-                                        options += '<option value="' + index + '">' + value + '</option>';
-                                    });
-                                    $("#id_power").html(options);
-                                    $("#id_power").removeAttr("disabled");
-
-                                }
-                            }
-                    );
-                }
 
 
-            });
-            // Power.
-            $("#id_power").change(function() {
-                $("#id_price").val('');
-                if ($("#id_power").val() == "") {
-                    $("#stoim").html("");
-                    $("#id_price").attr("disabled", true);
+
+$(function(){
+    if($("#id_mark").val() == ""){
+        $("#require-auto-data-first select").not(":first").attr("disabled", true);
+    }
+
+    $("#require-auto-data-first select").change(function(){
+       var nextselect = $(this).parents("tr").next("tr").find("select");
+       $(this).parents("tr").nextAll().find("select").html("");
+
+       if($(this).val() != ""){
+           $(nextselect).removeAttr("disabled");
+
+           var sendingvalue = "";
+           var nextselectdata = nextselect.attr("name");
+           var data = {};
+
+           switch(nextselectdata){
+                case "model":
+                sendingvalue = "{% url get_models %}";
+                data[$(this).attr("name")] = $(this).val();
+                break;
+
+               case "model_year":
+                sendingvalue = "{% url get_years %}";
+                data[$(this).attr("name")] = $(this).val();
+                break;
+
+                case "power":
+                sendingvalue = "{% url get_powers %}";
+                data['model'] = $("#id_model").val();
+                data['year'] = $("#id_model_year").val();
+                break;
+           }
+
+           $.ajax(
+                {
+                    url: sendingvalue,
+                    data: data,
+                    dataType:"json",
+                    success:function(data) {
+                        var options = '';
+                        options += '<option value="">' + '--------' + '</option>';
+                        $.each(data, function(index, value) {
+                            options += '<option value="' + index + '">' + value + '</option>';
+                        });
+                        $(nextselect).html(options);
+                    }
                 }
-                else
-                    $.ajax(
-                            {
-                                url:"{% url get_price %}",
-                                data:{power:$("#id_power").val()},
-                                dataType:"text",
-                                success:function(data) {
-                                    if (data == "") {
-                                        $("#stoim").html("");
-                                        $("#id_price").attr("disabled", true);
-                                    }
-                                    else {
-                                        $("#stoim").html("Стоимость должна быть " + data);
-                                        $("#id_price").removeAttr("disabled");
-                                    }
-                                }
-                            }
-                    );
-            });
-            // Unlimited drivers.
-            $("#id_unlimited_drivers").change(function() {
-                if ($("#id_unlimited_drivers").is(':checked')) {
-                    $("#id_age1").val('');
-                    $("#id_experience_driving1").val('');
-                    $("#id_age2").val('');
-                    $("#id_experience_driving2").val('');
-                    $("#id_age3").val('');
-                    $("#id_experience_driving3").val('');
-                    $("#extrasect").hide();
-                    $("#vod1age").hide();
-                    $("#vod1exp").hide();
-                    $("#vod2age").hide();
-                    $("#vod2exp").hide();
-                    $("#vod3age").hide();
-                    $("#vod3exp").hide();
-                }
-                else {
-                    $("#extrasect").show();
-                    $("#vod1age").show();
-                    $("#vod1exp").show();
-                }
-            });
-            //
-            $("#id_age1").change(function() {
-                if ($("#id_age1").val() != "" && $("#id_experience_driving1").val() != "") {
-                    $("#vod2age").show();
-                    $("#vod2exp").show();
-                }
-                else {
-                    $("#id_age2").val('');
-                    $("#id_experience_driving2").val('');
-                    $("#id_age3").val('');
-                    $("#id_experience_driving3").val('');
-                    $("#vod2age").hide();
-                    $("#vod2exp").hide();
-                    $("#vod3age").hide();
-                    $("#vod3exp").hide();
-                }
-            });
-            $("#id_experience_driving1").change(function() {
-                if ($("#id_age1").val() != "" && $("#id_experience_driving1").val() != "") {
-                    $("#vod2age").show();
-                    $("#vod2exp").show();
-                }
-                else {
-                    $("#id_age2").val('');
-                    $("#id_experience_driving2").val('');
-                    $("#id_age3").val('');
-                    $("#id_experience_driving3").val('');
-                    $("#vod2age").hide();
-                    $("#vod2exp").hide();
-                    $("#vod3age").hide();
-                    $("#vod3exp").hide();
-                }
-            });
-            $("#id_age2").change(function() {
-                if ($("#id_age2").val() != "" && $("#id_experience_driving2").val() != "") {
-                    $("#vod3age").show();
-                    $("#vod3exp").show();
-                }
-                else {
-                    $("#id_age3").val('');
-                    $("#id_experience_driving3").val('');
-                    $("#vod3age").hide();
-                    $("#vod3exp").hide();
-                }
-            });
-            $("#id_experience_driving2").change(function() {
-                if ($("#id_age2").val() != "" && $("#id_experience_driving2").val() != "") {
-                    $("#vod3age").show();
-                    $("#vod3exp").show();
-                }
-                else {
-                    $("#id_age3").val('');
-                    $("#id_experience_driving3").val('');
-                    $("#vod3age").hide();
-                    $("#vod3exp").hide();
-                }
-            });
-        }
-);
+            );
+       }else{
+            $(nextselect).attr("disabled", true);
+       }
+    })
+
+
+})
+
 </script>
 </head>
 <body>
@@ -296,13 +73,16 @@ $(function() {
 
 <form action="" method="post">
     {% csrf_token %}
+
     {% if s1_form.non_field_errors %}
         <div>
             <h2>Ошибки заполнения формы:</h2>
             {{ s1_form.non_field_errors }}
         </div>
     {% endif %}
-    <table>
+
+
+    <table id="require-auto-data-first">
         <tr>
             <td><b>Обязательные данные:</b></td>
         </tr>
@@ -341,6 +121,10 @@ $(function() {
                 {{ s1_form.price.errors }}
             </td>
         </tr>
+       </table>
+
+    <br/>
+     <table id="require-auto-data-second">
         <tr>
             <td>{{ s1_form.wheel.label }}</td>
             <td>
@@ -383,6 +167,11 @@ $(function() {
                 {{ s1_form.unlimited_drivers.errors }}
             </td>
         </tr>
+        </table>
+
+        <br/>
+        Необязательные данные
+        <table>
         <tr id="extrasect">
             <td><b>Доп. водители (опционально):</b></td>
         </tr>
