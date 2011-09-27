@@ -2366,6 +2366,12 @@ div.messages li {
     margin: 100px 0 136px 0;
 }
 
+#calc-tabs #stoim{
+    font-weight: bold;
+    font-size: 12px;
+}
+
+
 /*Transfrom Elements Styles*/
 .long-select select{
     width: 900px;
