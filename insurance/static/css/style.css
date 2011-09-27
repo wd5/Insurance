@@ -2266,12 +2266,13 @@ div.messages li {
     margin-bottom: 10px;
 }
 
+
+/*Price Slider*/
 #id_price{
     width: 124px;
     border: 1px solid #501c07;
     color: #676767;
 }
-
 
 #calc-tabs #require-auto-data-first #price-slider{
     background: url(/static/images/slider_line.png) top left no-repeat;
@@ -2287,4 +2288,27 @@ div.messages li {
     height: 22px;
     width: 22px;
     position: relative;
+}
+
+/*First Driver*/
+#calc-tabs #info-main-driver{
+    font-size: 18px;
+    width: 130%;
+}
+
+#calc-tabs #info-main-driver .label{
+    width: 200px;
+}
+
+#calc-tabs #info-main-driver .label small{
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+}
+
+#calc-tabs #add-driver-button{
+    background: url(/static/images/add_dirver_button.png) top left no-repeat;
+    display: block;
+    width: 154px;
+    height: 30px;
 }

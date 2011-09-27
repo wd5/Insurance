@@ -7,112 +7,112 @@
 
     <script type="text/javascript">
         var model = "{% url get_models %}",
-            model_year = "{% url get_years %}",
-            power = "{% url get_powers %}",
-            price = "{% url get_price %}";
+                model_year = "{% url get_years %}",
+                power = "{% url get_powers %}",
+                price = "{% url get_price %}";
 
         //console.log(modelurl);
-        
-/*
-        $(function() {
-            $("#calc-tabs").tabs();
 
-            if ($("#id_mark").val() == "") {
-                $("#require-auto-data-first select").not(":first").attr("disabled", true);
-                $("#require-auto-data-first input").attr("disabled", true);
-            }
+        /*
+         $(function() {
+         $("#calc-tabs").tabs();
 
-            $("#require-auto-data-first select").change(function() {
-                var nextselect = $(this).parents("tr").next("tr").find("select");
-                $(this).parents("tr").nextAll().find("select").html("");
+         if ($("#id_mark").val() == "") {
+         $("#require-auto-data-first select").not(":first").attr("disabled", true);
+         $("#require-auto-data-first input").attr("disabled", true);
+         }
 
-                if ($(this).val() != "") {
-                    $(nextselect).removeAttr("disabled");
+         $("#require-auto-data-first select").change(function() {
+         var nextselect = $(this).parents("tr").next("tr").find("select");
+         $(this).parents("tr").nextAll().find("select").html("");
 
-                    var sendingvalue = "";
-                    var nextselectdata = nextselect.attr("name");
-                    var data = {};
+         if ($(this).val() != "") {
+         $(nextselect).removeAttr("disabled");
 
-                    switch (nextselectdata) {
-                        case "model":
-                            sendingvalue = "{% url get_models %}";
-                            data[$(this).attr("name")] = $(this).val();
-                            break;
+         var sendingvalue = "";
+         var nextselectdata = nextselect.attr("name");
+         var data = {};
 
-                        case "model_year":
-                            sendingvalue = "{% url get_years %}";
-                            data[$(this).attr("name")] = $(this).val();
-                            break;
+         switch (nextselectdata) {
+         case "model":
+         sendingvalue = "{% url get_models %}";
+         data[$(this).attr("name")] = $(this).val();
+         break;
 
-                        case "power":
-                            sendingvalue = "{% url get_powers %}";
-                            data['model'] = $("#id_model").val();
-                            data['year'] = $("#id_model_year").val();
-                            break;
+         case "model_year":
+         sendingvalue = "{% url get_years %}";
+         data[$(this).attr("name")] = $(this).val();
+         break;
 
-                        default:
-                            $.ajax(
-                                    {
-                                        url:"{% url get_price %}",
-                                        data:{power:$("#id_power").val()},
-                                        dataType:"text",
-                                        success:function(data) {
-                                            if (data == "") {
-                                                $("#stoim").html("");
-                                                $("#id_price").attr("disabled", true);
-                                            }
-                                            else {
-                                                $("#stoim").html("Стоимость должна быть " + data);
-                                                $("#id_price").removeAttr("disabled");
-                                            }
-                                        }
-                                    }
-                            );
-                            break;
-                    }
+         case "power":
+         sendingvalue = "{% url get_powers %}";
+         data['model'] = $("#id_model").val();
+         data['year'] = $("#id_model_year").val();
+         break;
 
-                    $.ajax(
-                            {
-                                url: sendingvalue,
-                                data: data,
-                                dataType:"json",
-                                success:function(data) {
-                                    var options = '';
-                                    options += '<option value="">' + '--------' + '</option>';
-                                    $.each(data, function(index, value) {
-                                        options += '<option value="' + index + '">' + value + '</option>';
-                                    });
-                                    $(nextselect).html(options);
-                                }
-                            }
-                    );
-                } else {
-                    $(this).parents("tr").nextAll().find("select").attr("disabled", true);
-                    $("#require-auto-data-first input").attr("disabled", true);
-                }
-            })
+         default:
+         $.ajax(
+         {
+         url:"{% url get_price %}",
+         data:{power:$("#id_power").val()},
+         dataType:"text",
+         success:function(data) {
+         if (data == "") {
+         $("#stoim").html("");
+         $("#id_price").attr("disabled", true);
+         }
+         else {
+         $("#stoim").html("Стоимость должна быть " + data);
+         $("#id_price").removeAttr("disabled");
+         }
+         }
+         }
+         );
+         break;
+         }
+
+         $.ajax(
+         {
+         url: sendingvalue,
+         data: data,
+         dataType:"json",
+         success:function(data) {
+         var options = '';
+         options += '<option value="">' + '--------' + '</option>';
+         $.each(data, function(index, value) {
+         options += '<option value="' + index + '">' + value + '</option>';
+         });
+         $(nextselect).html(options);
+         }
+         }
+         );
+         } else {
+         $(this).parents("tr").nextAll().find("select").attr("disabled", true);
+         $("#require-auto-data-first input").attr("disabled", true);
+         }
+         })
 
 
-            $("#optional-auto-data tr:eq(1)").siblings().hide();
+         $("#optional-auto-data tr:eq(1)").siblings().hide();
 
-            $("#optional-auto-data select").change(function() {
-                if ($(this).val() != "") {
-                    $(this).parents("tr").next().show();
-                } else {
-                    $(this).parents("tr").nextAll().hide();
-                    $(this).parents("tr").nextAll().find("select").val("");
-                }
-            });
+         $("#optional-auto-data select").change(function() {
+         if ($(this).val() != "") {
+         $(this).parents("tr").next().show();
+         } else {
+         $(this).parents("tr").nextAll().hide();
+         $(this).parents("tr").nextAll().find("select").val("");
+         }
+         });
 
-            $("#id_unlimited_drivers").click(function() {
-                if ($(this).attr("checked")) {
-                    $("#optional-auto-data").hide();
-                    $("#optional-auto-data select").val("");
-                } else {
-                    $("#optional-auto-data").show();
-                }
-            })
-        })*/
+         $("#id_unlimited_drivers").click(function() {
+         if ($(this).attr("checked")) {
+         $("#optional-auto-data").hide();
+         $("#optional-auto-data select").val("");
+         } else {
+         $("#optional-auto-data").show();
+         }
+         })
+         })*/
     </script>
     </head>
 
@@ -211,78 +211,92 @@
                             <td>
                             </td>
                         </tr>
-                        
+
                     </table>
                 </div>
 
-            <div class="form-round-block" id="optional-block-1">
-                <table>
-                    <tr>
-                            <td>{{ s1_form.age.label }}</td>
+                <div class="form-round-block" id="optional-block-1">
+
+                    <table id="info-main-driver">
+                        <tr>
+                            <td class="label">
+                                    {{ s1_form.age.label }}
+                                    <small>(полных лет)</small>
+                            </td>
                             <td>
                                 {{ s1_form.age }}
                                 {{ s1_form.age.errors }}
                             </td>
-                        </tr>
-                        <tr>
-                            <td>{{ s1_form.experience_driving.label }}</td>
+                            <td class="label">
+                                    {{ s1_form.experience_driving.label }}
+                                    <small>(полных лет)</small>
+                            </td>
                             <td>
                                 {{ s1_form.experience_driving }}
                                 {{ s1_form.experience_driving.errors }}
                             </td>
                         </tr>
-                </table>
-                
-                <table id="optional-auto-data">
-                    <tr id="extrasect">
-                        <td><b>Доп. водители (опционально):</b></td>
-                    </tr>
-                    <tr id="vod1age">
-                        <td>{{ s1_form.age1.label }}</td>
-                        <td>
-                            {{ s1_form.age1 }}
-                            {{ s1_form.age1.errors }}
-                        </td>
-                    </tr>
-                    <tr id="vod1exp">
-                        <td>{{ s1_form.experience_driving1.label }}</td>
-                        <td>
-                            {{ s1_form.experience_driving1 }}
-                            {{ s1_form.experience_driving1.errors }}
-                        </td>
-                    </tr>
-                    <tr id="vod2age">
-                        <td>{{ s1_form.age2.label }}</td>
-                        <td>
-                            {{ s1_form.age2 }}
-                            {{ s1_form.age2.errors }}
-                        </td>
-                    </tr>
-                    <tr id="vod2exp">
-                        <td>{{ s1_form.experience_driving2.label }}</td>
-                        <td>
-                            {{ s1_form.experience_driving2 }}
-                            {{ s1_form.experience_driving2.errors }}
-                        </td>
-                    </tr>
-                    <tr id="vod3age">
-                        <td>{{ s1_form.age3.label }}</td>
-                        <td>
-                            {{ s1_form.age3 }}
-                            {{ s1_form.age3.errors }}
-                        </td>
-                    </tr>
-                    <tr id="vod3exp">
-                        <td>{{ s1_form.experience_driving3.label }}</td>
-                        <td>
-                            {{ s1_form.experience_driving3 }}
-                            {{ s1_form.experience_driving3.errors }}
-                        </td>
-                    </tr>
-                </table>
 
-                <a id="add-driver-button" href="#">Добавить водителя</a>
-            </div>
+                        <tr>
+                            <td class="label">
+                                   {{ s1_form.age1.label }}
+                                    <small>(полных лет)</small>
+                            </td>
+                            <td>
+                                {{ s1_form.age1 }}
+                                {{ s1_form.age1.errors }}
+                            </td>
+                            <td class="label">
+                                   {{ s1_form.experience_driving1.label }}
+                                    <small>(полных лет)</small>
+                            </td>
+                            <td>
+                                     {{ s1_form.experience_driving1 }}
+                                     {{ s1_form.experience_driving1.errors }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label">
+                                   {{ s1_form.age2.label }}
+                                    <small>(полных лет)</small>
+                            </td>
+                            <td>
+                                {{ s1_form.age2 }}
+                                {{ s1_form.age2.errors }}
+                            </td>
+                            <td class="label">
+                                   {{ s1_form.experience_driving2.label }}
+                                    <small>(полных лет)</small>
+                            </td>
+                            <td>
+                                     {{ s1_form.experience_driving2 }}
+                                     {{ s1_form.experience_driving2.errors }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td class="label">
+                                   {{ s1_form.age3.label }}
+                                    <small>(полных лет)</small>
+                            </td>
+                            <td>
+                                {{ s1_form.age3 }}
+                                {{ s1_form.age3.errors }}
+                            </td>
+                            <td class="label">
+                                   {{ s1_form.experience_driving3.label }}
+                                    <small>(полных лет)</small>
+                            </td>
+                            <td>
+                                     {{ s1_form.experience_driving3 }}
+                                     {{ s1_form.experience_driving3.errors }}
+                            </td>
+                        </tr>
+
+                    </table>
+                    <a id="add-driver-button" href="#"></a>
+                </div>
                 <input type="submit" value="Рассчитать"/>
             </form>
 
