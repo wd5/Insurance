@@ -16,9 +16,25 @@ $(function() {
 
 
     //Transform standart from elements
-    $(".long-select .select-text").html($(".long-select select option[selected='selected']").text());
+
+    $(".long-select .select-text").each(function(){
+        var displayValue = $(this).parent().find("option[selected='selected']").text();
+        $(this).html(displayValue);
+    })
 
     $(".long-select select").click(function(){
+       var selectedValue = $(this).val();
+       var displayValue = $(this).find("option[value='"+ selectedValue +"']").text();
+       $(this).parent().find(".select-text").html(displayValue);
+    });
+
+    $(".short-select .select-text").each(function(){
+        var displayValue = $(this).parent().find("option[selected='selected']").text();
+        $(this).html(displayValue);
+    })
+       
+
+    $(".short-select select").click(function(){
        var selectedValue = $(this).val();
        var displayValue = $(this).find("option[value='"+ selectedValue +"']").text();
        $(this).parent().find(".select-text").html(displayValue);

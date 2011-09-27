@@ -2266,6 +2266,9 @@ div.messages li {
     margin-bottom: 10px;
 }
 
+#info-main-driver td{
+    vertical-align: top;
+}
 
 /*Price Slider*/
 #id_price{
@@ -2324,7 +2327,6 @@ div.messages li {
 
 /*Transfrom Elements Styles*/
 
-
 .long-select select{
     width: 900px;
     height: 32px;
@@ -2348,6 +2350,33 @@ div.messages li {
     color: #6a6a6a;
     font-size: 16px;
 }
+
+.short-select select{
+    width: 57px;
+    height: 60px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}
+
+.short-select{
+    width: 60px;
+    height: 60px;
+    position: relative;
+    background: url(/static/images/select_square.png) top left no-repeat;
+}
+
+.short-select .select-text{
+    position: absolute;
+    top: 12px;
+    left: 10px;
+    width: 40px;
+    text-align: center;
+    color: #fff;
+    font-size: 32px;
+}
+
 
 .style-checkbox{
     background: url(/static/images/checkbox_off.png) top left no-repeat;
@@ -2374,6 +2403,3 @@ div.messages li {
     opacity: 0;
 }
 
-.style-checkbox .label{
-    
-}

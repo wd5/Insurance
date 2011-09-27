@@ -118,203 +118,230 @@
 
 
     <div id="calc-tabs">
-        <ul>
-            <li><a href="#tabs-1">КАСКО</a></li>
-            <li><a href="#tabs-2">ОСАГО</a></li>
-            <li><a href="#tabs-3">ДМС</a></li>
-            <li><a href="#tabs-4">ДАГО</a></li>
-            <li><a href="#tabs-5">HC</a></li>
-            <li><a href="#tabs-6">ВЗР</a></li>
-            <li><a href="#tabs-7">ИФЛ</a></li>
-        </ul>
+    <ul>
+        <li><a href="#tabs-1">КАСКО</a></li>
+        <li><a href="#tabs-2">ОСАГО</a></li>
+        <li><a href="#tabs-3">ДМС</a></li>
+        <li><a href="#tabs-4">ДАГО</a></li>
+        <li><a href="#tabs-5">HC</a></li>
+        <li><a href="#tabs-6">ВЗР</a></li>
+        <li><a href="#tabs-7">ИФЛ</a></li>
+    </ul>
 
-        <div id="tabs-1">
-            <form action="" method="post">
-                {% csrf_token %}
+    <div id="tabs-1">
+    <form action="" method="post">
+    {% csrf_token %}
 
-                {% if s1_form.non_field_errors %}
-                    <div>
-                        <h2>Ошибки заполнения формы:</h2>
-                        {{ s1_form.non_field_errors }}
-                    </div>
-                {% endif %}
-
-
-                <div id="first-select" class="long-select">
-                    <span class="select-text"></span>
-                    {{ s1_form.mark }}
-                    <span class="form-error">{{ s1_form.mark.errors }}</span>
-                </div>
-
-                <div id="unlimited-drivers" class="style-checkbox">
-                    {{ s1_form.unlimited_drivers }}
-                    <span class="label">{{ s1_form.unlimited_drivers.label }}</span>
-                    <span class="form-error">{{ s1_form.unlimited_drivers.errors }}</span>
-                </div>
-
-                <div class="form-round-block hide" id="require-block-1">
-                    <table id="require-auto-data-first">
-                        <tr>
-                            <td>{{ s1_form.model.label }}</td>
-                            <td class="visible-data second"></td>
-                            <td class="ajax-select">
-                                {{ s1_form.model }}
-                                {{ s1_form.model.errors }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{ s1_form.model_year.label }}</td>
-                            <td class="visible-data second"></td>
-                            <td class="ajax-select">
-                                {{ s1_form.model_year }}
-                                {{ s1_form.model_year.errors }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{ s1_form.power.label }}</td>
-                            <td class="visible-data second"></td>
-                            <td class="ajax-select">
-                                {{ s1_form.power }}
-                                {{ s1_form.power.errors }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{ s1_form.price.label }}</td>
-                            <td class="second">
-                                {{ s1_form.price }}
-                                <div id="price-slider"></div>
-                                <span id="stoim"></span>
-                                {{ s1_form.price.errors }}
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{ s1_form.wheel.label }}</td>
-                            <td class="visible-data second"></td>
-                            <td>
-                                {{ s1_form.wheel }}
-                                {{ s1_form.wheel.errors }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{ s1_form.city.label }}</td>
-                            <td class="visible-data second"></td>
-                            <td>
-                                {{ s1_form.city }}
-                                {{ s1_form.city.errors }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{{ s1_form.credit.label }}</td>
-                            <td class="visible-data second">
-                                <div class="style-checkbox">
-                                    {{ s1_form.credit }}
-                                </div>
-                                {{ s1_form.credit.errors }}
-                            </td>
-                            <td>
-                            </td>
-                        </tr>
-
-                    </table>
-                </div>
-
-                <div class="form-round-block" id="optional-block-1">
-
-                    <table id="info-main-driver">
-                        <tr>
-                            <td class="label">
-                                    {{ s1_form.age.label }}
-                                    <small>(полных лет)</small>
-                            </td>
-                            <td>
-                                {{ s1_form.age }}
-                                {{ s1_form.age.errors }}
-                            </td>
-                            <td class="label">
-                                    {{ s1_form.experience_driving.label }}
-                                    <small>(полных лет)</small>
-                            </td>
-                            <td>
-                                {{ s1_form.experience_driving }}
-                                {{ s1_form.experience_driving.errors }}
-                            </td>
-                        </tr>
-
-                        <tr class="hide">
-                            <td class="label">
-                                   {{ s1_form.age1.label }}
-                                    <small>(полных лет)</small>
-                            </td>
-                            <td>
-                                {{ s1_form.age1 }}
-                                {{ s1_form.age1.errors }}
-                            </td>
-                            <td class="label">
-                                   {{ s1_form.experience_driving1.label }}
-                                    <small>(полных лет)</small>
-                            </td>
-                            <td>
-                                     {{ s1_form.experience_driving1 }}
-                                     {{ s1_form.experience_driving1.errors }}
-                            </td>
-                        </tr>
-
-                        <tr class="hide">
-                            <td class="label">
-                                   {{ s1_form.age2.label }}
-                                    <small>(полных лет)</small>
-                            </td>
-                            <td>
-                                {{ s1_form.age2 }}
-                                {{ s1_form.age2.errors }}
-                            </td>
-                            <td class="label">
-                                   {{ s1_form.experience_driving2.label }}
-                                    <small>(полных лет)</small>
-                            </td>
-                            <td>
-                                     {{ s1_form.experience_driving2 }}
-                                     {{ s1_form.experience_driving2.errors }}
-                            </td>
-                        </tr>
-
-                        <tr class="hide">
-                            <td class="label">
-                                   {{ s1_form.age3.label }}
-                                    <small>(полных лет)</small>
-                            </td>
-                            <td>
-                                {{ s1_form.age3 }}
-                                {{ s1_form.age3.errors }}
-                            </td>
-                            <td class="label">
-                                   {{ s1_form.experience_driving3.label }}
-                                    <small>(полных лет)</small>
-                            </td>
-                            <td>
-                                     {{ s1_form.experience_driving3 }}
-                                     {{ s1_form.experience_driving3.errors }}
-                            </td>
-                        </tr>
-
-                    </table>
-                    <a id="add-driver-button" href="#"></a>
-                </div>
-                <input type="submit" value="Рассчитать"/>
-            </form>
-
-            <br/>
-            <a href="{% url cleansession %}">очистить сессию (для тестов)</a>
+    {% if s1_form.non_field_errors %}
+        <div>
+            <h2>Ошибки заполнения формы:</h2>
+            {{ s1_form.non_field_errors }}
         </div>
+    {% endif %}
 
-        <div id="tabs-2">осаго</div>
-        <div id="tabs-3">дмс</div>
-        <div id="tabs-4">даго</div>
-        <div id="tabs-5">нс</div>
-        <div id="tabs-6">взр</div>
-        <div id="tabs-7">ифл</div>
+
+    <div id="first-select" class="long-select">
+        <span class="select-text"></span>
+        {{ s1_form.mark }}
+        <span class="form-error">{{ s1_form.mark.errors }}</span>
+    </div>
+
+    <div id="unlimited-drivers" class="style-checkbox">
+        {{ s1_form.unlimited_drivers }}
+        <span class="label">{{ s1_form.unlimited_drivers.label }}</span>
+        <span class="form-error">{{ s1_form.unlimited_drivers.errors }}</span>
+    </div>
+
+    <div class="form-round-block hide" id="require-block-1">
+        <table id="require-auto-data-first">
+            <tr>
+                <td>{{ s1_form.model.label }}</td>
+                <td class="visible-data second"></td>
+                <td class="ajax-select">
+                    {{ s1_form.model }}
+                    {{ s1_form.model.errors }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ s1_form.model_year.label }}</td>
+                <td class="visible-data second"></td>
+                <td class="ajax-select">
+                    {{ s1_form.model_year }}
+                    {{ s1_form.model_year.errors }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ s1_form.power.label }}</td>
+                <td class="visible-data second"></td>
+                <td class="ajax-select">
+                    {{ s1_form.power }}
+                    {{ s1_form.power.errors }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ s1_form.price.label }}</td>
+                <td class="second">
+                    {{ s1_form.price }}
+                    <div id="price-slider"></div>
+                    <span id="stoim"></span>
+                    {{ s1_form.price.errors }}
+                </td>
+                <td>
+                </td>
+            </tr>
+            <tr>
+                <td>{{ s1_form.wheel.label }}</td>
+                <td class="visible-data second"></td>
+                <td>
+                    {{ s1_form.wheel }}
+                    {{ s1_form.wheel.errors }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ s1_form.city.label }}</td>
+                <td class="visible-data second"></td>
+                <td>
+                    {{ s1_form.city }}
+                    {{ s1_form.city.errors }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ s1_form.credit.label }}</td>
+                <td class="visible-data second">
+                    <div class="style-checkbox">
+                        {{ s1_form.credit }}
+                    </div>
+                    {{ s1_form.credit.errors }}
+                </td>
+                <td>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+    <div class="form-round-block" id="optional-block-1">
+        <table id="info-main-driver">
+            <tr>
+                <td class="label">
+                    {{ s1_form.age.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.age }}
+                    </div>
+                    {{ s1_form.age.errors }}
+                </td>
+                <td class="label">
+                    {{ s1_form.experience_driving.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.experience_driving }}
+                    </div>
+                    {{ s1_form.experience_driving.errors }}
+                </td>
+            </tr>
+
+            <tr class="hide">
+                <td class="label">
+                    {{ s1_form.age1.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.age1 }}
+                    </div>
+                    {{ s1_form.age1.errors }}
+                </td>
+                <td class="label">
+                    {{ s1_form.experience_driving1.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.experience_driving1 }}
+                    </div>
+
+                    {{ s1_form.experience_driving1.errors }}
+                </td>
+            </tr>
+
+            <tr class="hide">
+                <td class="label">
+                    {{ s1_form.age2.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.age2 }}
+                    </div>
+
+                    {{ s1_form.age2.errors }}
+                </td>
+
+                <td class="label">
+                    {{ s1_form.experience_driving2.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.experience_driving2 }}
+                    </div>
+
+                    {{ s1_form.experience_driving2.errors }}
+                </td>
+            </tr>
+
+            <tr class="hide">
+                <td class="label">
+                    {{ s1_form.age3.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.age3 }}
+                    </div>
+                    {{ s1_form.age3.errors }}
+                </td>
+                <td class="label">
+                    {{ s1_form.experience_driving3.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.experience_driving3 }}
+                    </div>
+                    {{ s1_form.experience_driving3.errors }}
+                </td>
+            </tr>
+
+        </table>
+        <a id="add-driver-button" href="#"></a>
+    </div>
+    <input type="submit" value="Рассчитать"/>
+    </form>
+
+    <br/>
+    <a href="{% url cleansession %}">очистить сессию (для тестов)</a>
+    </div>
+
+    <div id="tabs-2">осаго</div>
+    <div id="tabs-3">дмс</div>
+    <div id="tabs-4">даго</div>
+    <div id="tabs-5">нс</div>
+    <div id="tabs-6">взр</div>
+    <div id="tabs-7">ифл</div>
     </div>
 
 {% endblock %}
