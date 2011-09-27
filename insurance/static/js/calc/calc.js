@@ -34,6 +34,17 @@ $(function() {
     $("#require-auto-data-first select").change(function() {
         get_auto_data($(this).attr("name"));
     })
+
+
+    //Click on visible data elements
+    $(".visible-data span").live('click', function(){
+        var nextSelect = $(this).parents("td").next().find("select");
+        
+        $(".visible-data span").removeClass("active");
+        $(this).addClass("active");
+        nextSelect.val($(this).attr("rel"));
+        nextSelect.change();
+    })
 })
 
 
