@@ -2168,14 +2168,14 @@ div.messages li {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#calc-tabs ul {
+#calc-tabs ul.ui-tabs-nav {
     overflow: hidden;
     margin: 0;
     padding: 0 0 0 28px;
     background: none;
 }
 
-#calc-tabs ul li {
+#calc-tabs ul.ui-tabs-nav li {
     list-style: none;
     font-size: 16px;
     line-height: 47px;
@@ -2185,7 +2185,7 @@ div.messages li {
 
 }
 
-#calc-tabs ul li a {
+#calc-tabs ul.ui-tabs-nav li a {
     display: block;
     background: url(/static/images/tabs_link2.png) top left no-repeat;
     width: 126px;
@@ -2196,7 +2196,7 @@ div.messages li {
     position: relative;
 }
 
-#calc-tabs ul li.ui-state-active a, #calc-tabs ul li a:hover {
+#calc-tabs ul.ui-tabs-nav li.ui-state-active a, #calc-tabs ul.ui-tabs-nav li a:hover {
     background: url(/static/images/tabs_link2_active.png) top left no-repeat;
     z-index: 50;
 }
@@ -2311,4 +2311,33 @@ div.messages li {
     display: block;
     width: 154px;
     height: 30px;
+}
+
+
+/*Transfrom Elements Styles*/
+
+
+.long-select select{
+    width: 900px;
+    height: 32px;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+.long-select{
+    width: 905px;
+    height: 40px;
+    background: url(/static/images/long_select.png) top left no-repeat;
+    position: relative;
+}
+
+.long-select .select-text{
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    color: #6a6a6a;
+    font-size: 16px;
 }

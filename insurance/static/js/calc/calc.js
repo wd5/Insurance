@@ -13,7 +13,18 @@ $(function() {
     });
 
     $("#id_price").val($("#price-slider").slider("value") );
-    
+
+
+    //Transform standart from elements
+    //$(".long-select .select-text").html($(".long-select select option[selected='selected']").text());
+
+    $(".long-select select").click(function(){
+       var selectedValue = $(this).val();
+       var displayValue = $(this).find("option[value='"+ selectedValue +"']").text();
+       $(this).parent().find(".select-text").html(displayValue);
+    });
+
+
     //first select with auto mark
     if ($("#id_mark").val() != "") {
         $("#require-block-1").show();
