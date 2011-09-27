@@ -16,13 +16,19 @@ $(function() {
 
 
     //Transform standart from elements
-    //$(".long-select .select-text").html($(".long-select select option[selected='selected']").text());
+    $(".long-select .select-text").html($(".long-select select option[selected='selected']").text());
 
     $(".long-select select").click(function(){
        var selectedValue = $(this).val();
        var displayValue = $(this).find("option[value='"+ selectedValue +"']").text();
        $(this).parent().find(".select-text").html(displayValue);
     });
+
+    $(".style-checkbox input").click(function(){
+        $(this).parent().toggleClass("on");
+        if($(this).attr("id") == "id_unlimited_drivers")
+            $("#add-driver-button").toggleClass("hide");
+    })
 
 
     //first select with auto mark

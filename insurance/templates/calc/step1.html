@@ -146,8 +146,9 @@
                     <span class="form-error">{{ s1_form.mark.errors }}</span>
                 </div>
 
-                <div id="unlimited-drivers">
-                    {{ s1_form.unlimited_drivers }} {{ s1_form.unlimited_drivers.label }}
+                <div id="unlimited-drivers" class="style-checkbox">
+                    {{ s1_form.unlimited_drivers }}
+                    <span class="label">{{ s1_form.unlimited_drivers.label }}</span>
                     <span class="form-error">{{ s1_form.unlimited_drivers.errors }}</span>
                 </div>
 
@@ -207,7 +208,10 @@
                         <tr>
                             <td>{{ s1_form.credit.label }}</td>
                             <td class="visible-data second">
-                                {{ s1_form.credit }} {{ s1_form.credit.errors }}
+                                <div class="style-checkbox">
+                                    {{ s1_form.credit }}
+                                </div>
+                                {{ s1_form.credit.errors }}
                             </td>
                             <td>
                             </td>

@@ -2282,6 +2282,11 @@ div.messages li {
 
 }
 
+#require-auto-data-first td:first-child{
+    vertical-align: top;
+}
+
+
 #price-slider .ui-slider-handle{
     display: block;
     background: url(/static/images/slider_ball.png) top left no-repeat;
@@ -2313,6 +2318,9 @@ div.messages li {
     height: 30px;
 }
 
+#calc-tabs #add-driver-button.hide{
+    display: none;
+}
 
 /*Transfrom Elements Styles*/
 
@@ -2325,7 +2333,6 @@ div.messages li {
     top: 0;
     left: 0;
 }
-
 
 .long-select{
     width: 905px;
@@ -2340,4 +2347,33 @@ div.messages li {
     left: 10px;
     color: #6a6a6a;
     font-size: 16px;
+}
+
+.style-checkbox{
+    background: url(/static/images/checkbox_off.png) top left no-repeat;
+    height: 30px;
+    position: relative;
+    padding-left: 30px;
+    line-height: 30px;
+    font-size: 16px;
+}
+
+.style-checkbox.on{
+    background: url(/static/images/checkbox_on.png) top left no-repeat;
+    height: 30px;
+    position: relative;
+    padding-left: 30px;
+    line-height: 30px;
+    font-size: 16px;
+}
+
+.style-checkbox input{
+    position: absolute;
+    top: 6px;
+    left: 3px;
+    opacity: 0;
+}
+
+.style-checkbox .label{
+    
 }
