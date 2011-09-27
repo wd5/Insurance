@@ -2166,6 +2166,7 @@ div.messages li {
     width: 966px;
     margin: 50px auto 0 auto;
     font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
 }
 
 #calc-tabs ul.ui-tabs-nav {
@@ -2213,6 +2214,7 @@ div.messages li {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+    overflow: hidden;
 }
 
 #calc-tabs .form-round-block{
@@ -2353,8 +2355,12 @@ div.messages li {
     display: none;
 }
 
-/*Transfrom Elements Styles*/
+#calc-tabs #calculate-button{
+    float: right;
+    margin: 100px 0 136px 0;
+}
 
+/*Transfrom Elements Styles*/
 .long-select select{
     width: 900px;
     height: 32px;
