@@ -68,6 +68,16 @@ $(function() {
         var id = $(this).attr("id");
         get_visible_select_data(id);
     })
+
+    //Click on add driver button
+    $("#add-driver-button").click(function(e){
+        e.preventDefault();
+        $("#info-main-driver").find("tr.hide:first").removeClass("hide").show();
+      
+    })
+
+    //Clear additional drivers info
+    $("#info-main-driver .hide select").val("");
 })
 
 
