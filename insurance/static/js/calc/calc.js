@@ -6,7 +6,9 @@ $(function() {
         $("#require-block-1").show();
     }
 
+    //change first select
     $("#id_mark").change(function() {
+
         if ($("#id_mark").val() != "") {
             $("#require-block-1").slideDown();
             $.ajax(
@@ -26,13 +28,15 @@ $(function() {
                 }
             );
         } else {
+            $("#require-block-1 select").val("");
+            $("#require-block-1 select").html("");
             $("#require-block-1").slideUp();
         }
     })
 
     //Change other ajax-selects
     $(".ajax-select select").change(function() {
-        get_auto_data($(this).attr("name"));
+         get_auto_data($(this).attr("name"));
     })
 
 
@@ -113,11 +117,18 @@ function get_visible_select_data(selectId){
     $("#" +selectId + " option").each(function(e){
         var text = ($(this).text());
         var value = ($(this).val());
+        var myclass = "";
+        
+        if($(this).attr("selected")){
+            myclass="active";
+        }
+
         if(text != "--------"){
-            result += "<span rel='"+ value +"'>" + text + "</span>"
+            result += "<span rel='"+ value +"' class='"+ myclass +"'>" + text + "</span>"
         }
 
     })
 
     $("#" + selectId).parents("td").prev().html("").append(result);
 }
+
