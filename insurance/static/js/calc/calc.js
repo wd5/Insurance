@@ -31,7 +31,7 @@ $(function() {
     })
 
     //Change other ajax-selects
-    $("#require-auto-data-first select").change(function() {
+    $(".ajax-select select").change(function() {
         get_auto_data($(this).attr("name"));
     })
 
@@ -40,7 +40,7 @@ $(function() {
     $(".visible-data span").live('click', function(){
         var nextSelect = $(this).parents("td").next().find("select");
         
-        $(".visible-data span").removeClass("active");
+        $(this).parent().find("span").removeClass("active");
         $(this).addClass("active");
         nextSelect.val($(this).attr("rel"));
         nextSelect.change();

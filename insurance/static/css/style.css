@@ -2223,7 +2223,7 @@ div.messages li {
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 14px;
     color: #501c07;
 }
 
@@ -2235,11 +2235,24 @@ div.messages li {
     padding-bottom: 15px;
 }
 
-
-#calc-tabs .form-round-block table td:first-child{
-    width: 216px;
+#calc-tabs .form-round-block table td.visible-data{
+    padding-left: 20px;
 }
 
+
+
+#calc-tabs .form-round-block table td.visible-data{
+    
+}
+
+#calc-tabs .form-round-block table td.visible-data span{
+    cursor: pointer;
+    padding: 0 10px 5px 0;
+}
+
+#calc-tabs .form-round-block table td.visible-data span.active{
+    font-weight: bolder;
+}
 
 #calc-tabs .hide{
    display: none;

@@ -155,7 +155,7 @@
                         <tr>
                             <td>{{ s1_form.model.label }}</td>
                             <td class="visible-data"></td>
-                            <td>
+                            <td class="ajax-select">
                                 {{ s1_form.model }}
                                 {{ s1_form.model.errors }}
                             </td>
@@ -163,7 +163,7 @@
                         <tr>
                             <td>{{ s1_form.model_year.label }}</td>
                             <td class="visible-data"></td>
-                            <td>
+                            <td class="ajax-select">
                                 {{ s1_form.model_year }}
                                 {{ s1_form.model_year.errors }}
                             </td>
@@ -171,7 +171,7 @@
                         <tr>
                             <td>{{ s1_form.power.label }}</td>
                             <td class="visible-data"></td>
-                            <td>
+                            <td class="ajax-select">
                                 {{ s1_form.power }}
                                 {{ s1_form.power.errors }}
                             </td>
@@ -180,15 +180,12 @@
                             <td>{{ s1_form.price.label }}</td>
                             <td class="visible-data">
                                 {{ s1_form.price }}
-                            </td>
-                            <td>
-                                <b id="stoim"></b><br/>
+                                <span id="stoim"></span>
                                 {{ s1_form.price.errors }}
                             </td>
+                            <td>
+                            </td>
                         </tr>
-                    </table>
-
-                    <table id="require-auto-data-second">
                         <tr>
                             <td>{{ s1_form.wheel.label }}</td>
                             <td class="visible-data"></td>
@@ -207,16 +204,15 @@
                         </tr>
                         <tr>
                             <td>{{ s1_form.credit.label }}</td>
-                            <td class="visible-data"></td>
+                            <td class="visible-data">
+                                {{ s1_form.credit }} {{ s1_form.credit.errors }}
+                            </td>
                             <td>
-                                {{ s1_form.credit }}
-                                {{ s1_form.credit.errors }}
                             </td>
                         </tr>
+                        
                     </table>
                 </div>
-
-
 
             <div class="form-round-block" id="optional-block-1">
                 <table>
