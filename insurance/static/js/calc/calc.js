@@ -16,7 +16,6 @@ $(function() {
 
 
     //Transform standart from elements
-
     $(".long-select .select-text").each(function(){
         var displayValue = $(this).parent().find("option[selected='selected']").text();
         $(this).html(displayValue);
@@ -54,7 +53,11 @@ $(function() {
 
     //change first select
     $("#id_mark").change(function() {
-
+        $(".ajax-select select").each(function(){
+            $(this).val("");
+            get_visible_select_data($(this).attr("id"));
+        });
+        
         if ($("#id_mark").val() != "") {
             $("#require-block-1").slideDown();
             $.ajax(
