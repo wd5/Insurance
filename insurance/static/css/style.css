@@ -2305,6 +2305,7 @@ div.messages li {
     height: 23px;
     width: 191px;
     margin: 15px 0;
+    position: relative;
 }
 
 .form-round-block .errorlist{
@@ -2332,6 +2333,11 @@ div.messages li {
 #calc-tabs #info-main-driver{
     font-size: 18px;
     width: 130%;
+}
+
+/*ie7*/
+*:first-child + html .second{
+    position: relative;
 }
 
 #calc-tabs #info-main-driver .label{
@@ -2365,6 +2371,7 @@ div.messages li {
     width: 900px;
     height: 32px;
     opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
     position: absolute;
     top: 0;
     left: 0;
@@ -2392,6 +2399,7 @@ div.messages li {
     top: 0;
     left: 0;
     opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
 }
 
 .short-select{
@@ -2435,5 +2443,6 @@ div.messages li {
     top: 6px;
     left: 3px;
     opacity: 0;
+    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
 }
 

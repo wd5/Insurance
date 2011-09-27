@@ -13,6 +13,7 @@ $(function() {
     });
 
     $("#id_price").val($("#price-slider").slider("value") );
+    $("#info-main-driver td:odd").addClass("second");
 
   
 
