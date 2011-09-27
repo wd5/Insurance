@@ -2239,8 +2239,6 @@ div.messages li {
     padding-left: 20px;
 }
 
-
-
 #calc-tabs .form-round-block table td.visible-data{
     
 }
@@ -2277,12 +2275,42 @@ div.messages li {
     color: #676767;
 }
 
+#calc-tabs #require-auto-data-first select{
+    visibility: hidden;
+}
+
+
+/*Table Error Block*/
+
+.table-error .errorlist{
+    color: #c81800;
+    font-size: 11px;
+    display: block;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+#first-select .form-error .errorlist{
+    position: absolute;
+    bottom: -10px;
+    color: #c81800;
+    font-size: 11px;
+    font-weight: bold;
+}
+
 #calc-tabs #require-auto-data-first #price-slider{
     background: url(/static/images/slider_line.png) top left no-repeat;
     height: 23px;
     width: 191px;
     margin: 15px 0;
+}
 
+.form-round-block .errorlist{
+     color: #c81800;
+    font-size: 11px;
+    display: block;
+    font-weight: bold;
+    margin-top: 5px;
 }
 
 #require-auto-data-first td:first-child{

@@ -14,6 +14,7 @@ $(function() {
 
     $("#id_price").val($("#price-slider").slider("value") );
 
+  
 
     //Transform standart from elements
     $(".long-select .select-text").each(function(){
