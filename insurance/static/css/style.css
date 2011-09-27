@@ -2265,3 +2265,26 @@ div.messages li {
 #calc-tabs #unlimited-drivers{
     margin-bottom: 10px;
 }
+
+#id_price{
+    width: 124px;
+    border: 1px solid #501c07;
+    color: #676767;
+}
+
+
+#calc-tabs #require-auto-data-first #price-slider{
+    background: url(/static/images/slider_line.png) top left no-repeat;
+    height: 23px;
+    width: 191px;
+    margin: 15px 0;
+
+}
+
+#price-slider .ui-slider-handle{
+    display: block;
+    background: url(/static/images/slider_ball.png) top left no-repeat;
+    height: 22px;
+    width: 22px;
+    position: relative;
+}

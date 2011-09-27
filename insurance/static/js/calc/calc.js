@@ -1,6 +1,19 @@
 $(function() {
     $("#calc-tabs").tabs();
+    
+    //price slider
+    $("#price-slider").slider({
+        value: 0,
+        min: 0,
+        max: 1000000,
+        step: 100,
+        slide: function(event, ui){
+            $("#id_price").val(ui.value);
+        }
+    });
 
+    $("#id_price").val($("#price-slider").slider("value") );
+    
     //first select with auto mark
     if ($("#id_mark").val() != "") {
         $("#require-block-1").show();
