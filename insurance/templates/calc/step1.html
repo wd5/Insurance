@@ -145,6 +145,10 @@
                     <span class="form-error">{{ s1_form.mark.errors }}</span>
                 </div>
 
+                <div id="unlimited-drivers">
+                    {{ s1_form.unlimited_drivers }} {{ s1_form.unlimited_drivers.label }}
+                    <span class="form-error">{{ s1_form.unlimited_drivers.errors }}</span>
+                </div>
 
                 <div class="form-round-block hide" id="require-block-1">
                     <table id="require-auto-data-first">
@@ -215,17 +219,12 @@
                                 {{ s1_form.experience_driving.errors }}
                             </td>
                         </tr>
-                        <tr>
-                            <td>{{ s1_form.unlimited_drivers.label }}</td>
-                            <td>
-                                {{ s1_form.unlimited_drivers }}
-                                {{ s1_form.unlimited_drivers.errors }}
-                            </td>
-                        </tr>
                     </table>
                 </div>
 
 
+
+            <div class="form-round-block" id="optional-block-1">
                 <table id="optional-auto-data">
                     <tr id="extrasect">
                         <td><b>Доп. водители (опционально):</b></td>
@@ -274,6 +273,8 @@
                     </tr>
                 </table>
 
+                <a id="add-driver-button" href="#">Добавить водителя</a>
+            </div>
                 <input type="submit" value="Рассчитать"/>
             </form>
 
@@ -281,7 +282,7 @@
             <a href="{% url cleansession %}">очистить сессию (для тестов)</a>
         </div>
 
-        <div id="tabs-2">каско</div>
+        <div id="tabs-2">осаго</div>
         <div id="tabs-3">дмс</div>
         <div id="tabs-4">даго</div>
         <div id="tabs-5">нс</div>
