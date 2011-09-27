@@ -45,6 +45,12 @@ $(function() {
         nextSelect.val($(this).attr("rel"));
         nextSelect.change();
     })
+
+    //Draw all select values in frist block
+    $("#require-block-1 select").each(function(){
+        var id = $(this).attr("id");
+        get_visible_select_data(id);
+    })
 })
 
 
@@ -107,7 +113,7 @@ function get_visible_select_data(selectId){
     $("#" +selectId + " option").each(function(e){
         var text = ($(this).text());
         var value = ($(this).val());
-        if(e != 0){
+        if(text != "--------"){
             result += "<span rel='"+ value +"'>" + text + "</span>"
         }
 
