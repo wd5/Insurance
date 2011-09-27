@@ -2,10 +2,18 @@
 {% block content %}
 
     <script type="text/javascript" src="/static/js/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
 
     <script type="text/javascript">
+        var model = "{% url get_models %}",
+            model_year = "{% url get_years %}",
+            power = "{% url get_powers %}",
+            price = "{% url get_price %}";
 
+        //console.log(modelurl);
+        
+/*
         $(function() {
             $("#calc-tabs").tabs();
 
@@ -104,7 +112,7 @@
                     $("#optional-auto-data").show();
                 }
             })
-        })
+        })*/
     </script>
     </head>
 
@@ -121,8 +129,6 @@
         </ul>
 
         <div id="tabs-1">
-            <b id="stoim"></b><br/>
-
             <form action="" method="post">
                 {% csrf_token %}
 
@@ -134,93 +140,90 @@
                 {% endif %}
 
 
-                <table id="require-auto-data-first">
-                    <tr>
-                        <td><b>Обязательные данные:</b></td>
-                    </tr>
-                    <tr>
-                        <td>{{ s1_form.mark.label }}</td>
-                        <td>
-                            {{ s1_form.mark }}
-                            {{ s1_form.mark.errors }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{ s1_form.model.label }}</td>
-                        <td>
-                            {{ s1_form.model }}
-                            {{ s1_form.model.errors }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{ s1_form.model_year.label }}</td>
-                        <td>
-                            {{ s1_form.model_year }}
-                            {{ s1_form.model_year.errors }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{ s1_form.power.label }}</td>
-                        <td>
-                            {{ s1_form.power }}
-                            {{ s1_form.power.errors }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{ s1_form.price.label }}</td>
-                        <td>
-                            {{ s1_form.price }}
-                            {{ s1_form.price.errors }}
-                        </td>
-                    </tr>
-                </table>
+                <div if="first-select">
+                    {{ s1_form.mark }}
+                    <span class="form-error">{{ s1_form.mark.errors }}</span>
+                </div>
 
-                <br/>
 
-                <table id="require-auto-data-second">
-                    <tr>
-                        <td>{{ s1_form.wheel.label }}</td>
-                        <td>
-                            {{ s1_form.wheel }}
-                            {{ s1_form.wheel.errors }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{ s1_form.city.label }}</td>
-                        <td>
-                            {{ s1_form.city }}
-                            {{ s1_form.city.errors }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{ s1_form.credit.label }}</td>
-                        <td>
-                            {{ s1_form.credit }}
-                            {{ s1_form.credit.errors }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{ s1_form.age.label }}</td>
-                        <td>
-                            {{ s1_form.age }}
-                            {{ s1_form.age.errors }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{ s1_form.experience_driving.label }}</td>
-                        <td>
-                            {{ s1_form.experience_driving }}
-                            {{ s1_form.experience_driving.errors }}
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>{{ s1_form.unlimited_drivers.label }}</td>
-                        <td>
-                            {{ s1_form.unlimited_drivers }}
-                            {{ s1_form.unlimited_drivers.errors }}
-                        </td>
-                    </tr>
-                </table>
+                <div class="form-round-block hide" id="require-block-1">
+                    <table id="require-auto-data-first">
+                        <tr>
+                            <td>{{ s1_form.model.label }}</td>
+                            <td>
+                                {{ s1_form.model }}
+                                {{ s1_form.model.errors }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ s1_form.model_year.label }}</td>
+                            <td>
+                                {{ s1_form.model_year }}
+                                {{ s1_form.model_year.errors }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ s1_form.power.label }}</td>
+                            <td>
+                                {{ s1_form.power }}
+                                {{ s1_form.power.errors }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ s1_form.price.label }}</td>
+                            <td>
+                                {{ s1_form.price }}
+                                <b id="stoim"></b><br/>
+                                {{ s1_form.price.errors }}
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table id="require-auto-data-second">
+                        <tr>
+                            <td>{{ s1_form.wheel.label }}</td>
+                            <td>
+                                {{ s1_form.wheel }}
+                                {{ s1_form.wheel.errors }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ s1_form.city.label }}</td>
+                            <td>
+                                {{ s1_form.city }}
+                                {{ s1_form.city.errors }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ s1_form.credit.label }}</td>
+                            <td>
+                                {{ s1_form.credit }}
+                                {{ s1_form.credit.errors }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ s1_form.age.label }}</td>
+                            <td>
+                                {{ s1_form.age }}
+                                {{ s1_form.age.errors }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ s1_form.experience_driving.label }}</td>
+                            <td>
+                                {{ s1_form.experience_driving }}
+                                {{ s1_form.experience_driving.errors }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{{ s1_form.unlimited_drivers.label }}</td>
+                            <td>
+                                {{ s1_form.unlimited_drivers }}
+                                {{ s1_form.unlimited_drivers.errors }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
 
                 <table id="optional-auto-data">
