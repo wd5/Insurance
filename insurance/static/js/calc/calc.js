@@ -45,6 +45,7 @@ $(function() {
         $(this).parent().toggleClass("on");
         if($(this).attr("id") == "id_unlimited_drivers")
             $("#add-driver-button").toggleClass("hide");
+            $("#info-main-driver tr").not(":first").val("").hide();
     })
 
 
