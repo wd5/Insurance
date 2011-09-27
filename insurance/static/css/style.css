@@ -2217,14 +2217,38 @@ div.messages li {
 
 #calc-tabs .form-round-block{
     margin: 15px 0;
-    padding: 30px 20px;
+    padding: 20px 20px 30px 20px;
     background: url(/static/images/back_tabs.png) bottom left repeat-x;
     border: 1px solid #4e1b06;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     border-radius: 10px;
+    font-size: 16px;
+    color: #501c07;
 }
+
+#calc-tabs .form-round-block table{
+    
+}
+
+#calc-tabs .form-round-block table td{
+    padding-bottom: 15px;
+}
+
+
+#calc-tabs .form-round-block table td:first-child{
+    width: 216px;
+}
+
 
 #calc-tabs .hide{
    display: none;
+}
+
+#calc-tabs #first-select{
+    margin-bottom: 15px;
+}
+
+#calc-tabs #unlimited-drivers{
+    margin-bottom: 10px;
 }
