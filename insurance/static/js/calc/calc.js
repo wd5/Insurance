@@ -21,6 +21,7 @@ $(function() {
                             options += '<option value="' + index + '">' + value + '</option>';
                         });
                         $("#id_model").html(options);
+                        get_visible_select_data("id_model");
                     }
                 }
             );
@@ -59,6 +60,7 @@ function get_auto_data(currentname) {
         );
     } else {
         var next = $("select[name='" + currentname + "']").parents("tr").next("tr").find("select").attr("name");
+        var nextID = $("select[name='" + next + "']").attr("id");
         if (currentname == "model_year") {
             data['model'] = $("#id_model").val();
             data['year'] = $("#id_model_year").val();
@@ -78,6 +80,7 @@ function get_auto_data(currentname) {
                         options += '<option value="' + index + '">' + value + '</option>';
                     });
                     $("select[name='" + next + "']").html(options);
+                    get_visible_select_data(nextID);
                 }
             }
         );
@@ -85,4 +88,19 @@ function get_auto_data(currentname) {
 
     }
 
+}
+
+function get_visible_select_data(selectId){
+    var result = "";
+    
+    $("#" +selectId + " option").each(function(e){
+        var text = ($(this).text());
+        var value = ($(this).val());
+        if(e != 0){
+            result += "<span rel='"+ value +"'>" + text + "</span>"
+        }
+
+    })
+
+    $("#" + selectId).parents("td").prev().html("").append(result);
 }
