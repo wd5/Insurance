@@ -22,6 +22,8 @@ $(function() {
 
     //experiment
     transform_select($(".long-select"));
+    
+
     //experiment
 
     $(".long-select .select-text").each(function(){
@@ -29,11 +31,11 @@ $(function() {
         $(this).html(displayValue);
     })
 
-    $(".long-select select").click(function(){
+    /*$(".long-select select").click(function(){
        var selectedValue = $(this).val();
        var displayValue = $(this).find("option[value='"+ selectedValue +"']").text();
        $(this).parent().find(".select-text").html(displayValue);
-    });
+    });*/
 
     $(".short-select .select-text").each(function(){
         var displayValue = $(this).parent().find("option[selected]").text();
@@ -203,16 +205,31 @@ function get_visible_select_data(selectId){
 
 function transform_select(selectContainer){
     var result = "";
+    var realselect = $(selectContainer).find("select");
 
+   //read select values, write and add to container
    $(selectContainer).find("select option").each(function(){
-        var text = ($(this).text());
-        var value = ($(this).val());
-
+       var text = ($(this).text());
+       var value = ($(this).val());
        result  += "<li rel='"+ value +"'>" + text + "</li>";
    });
 
    $(selectContainer).append("<ul>"+ result + "</ul>");
 
-   // console.log(result);
+   //base events
+   $(selectContainer).click(function(){
+       $(this).find("ul").show();
+   })
+
+   $(selectContainer).find("ul").bind("mouseleave", function(){
+       $(this).hide();
+   })
+
+   $(selectContainer).find("ul li").live('click', function(){
+       $(selectContainer).find(".select-text").html($(this).text());
+       realselect.val($(this).attr("rel"));
+       realselect.change();
+       $(this).parent().hide();
+   })
 }
 

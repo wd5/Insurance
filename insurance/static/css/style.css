@@ -2412,6 +2412,7 @@ div.messages li {
     z-index: 100;
     max-height: 400px;
     overflow-y: scroll;
+    display: none;
 }
 
 .long-select ul li{
