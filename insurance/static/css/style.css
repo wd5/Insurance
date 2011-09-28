@@ -2309,11 +2309,12 @@ div.messages li {
 }
 
 .form-round-block .errorlist{
-     color: #c81800;
+    color: #c81800;
     font-size: 11px;
     display: block;
     font-weight: bold;
     margin-top: 5px;
+    width: 50%;
 }
 
 #require-auto-data-first td:first-child{
