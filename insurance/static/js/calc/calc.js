@@ -1,4 +1,5 @@
 $(function() {
+    $("#info-main-driver td:odd").addClass("second");
     $("#calc-tabs").tabs();
     
     //price slider
@@ -12,11 +13,10 @@ $(function() {
         }
     });
 
+    $("#id_price").attr("disabled", true);
     $("#id_price").val($("#price-slider").slider("value") );
-    $("#info-main-driver td:odd").addClass("second");
 
-  
-
+        
     //Transform standart from elements
     $(".long-select .select-text").each(function(){
         var displayValue = $(this).parent().find("option[selected='selected']").text();
