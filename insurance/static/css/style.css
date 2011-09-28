@@ -2384,17 +2384,18 @@ div.messages li {
 
 /*Transfrom Elements Styles*/
 .long-select select{
-    width: 900px;
-    height: 32px;
+    width: 340px;
+    height: 27px;
     opacity: 0;
     filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
     position: absolute;
     top: 0;
     left: 0;
+
 }
 
 .long-select{
-    width: 905px;
+    width: 340px;
     height: 40px;
     background: url(/static/images/long_select.png) top left no-repeat;
     position: relative;
@@ -2402,7 +2403,7 @@ div.messages li {
 
 .long-select .select-text{
     position: absolute;
-    top: 8px;
+    top: 4px;
     left: 10px;
     color: #6a6a6a;
     font-size: 16px;

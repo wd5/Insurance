@@ -20,7 +20,7 @@ $(function() {
         
     //Transform standart from elements
     $(".long-select .select-text").each(function(){
-        var displayValue = $(this).parent().find("option[selected='selected']").text();
+        var displayValue = $(this).parent().find("option[selected]").text();
         $(this).html(displayValue);
     })
 
@@ -31,7 +31,7 @@ $(function() {
     });
 
     $(".short-select .select-text").each(function(){
-        var displayValue = $(this).parent().find("option[selected='selected']").text();
+        var displayValue = $(this).parent().find("option[selected]").text();
         $(this).html(displayValue);
     })
        
