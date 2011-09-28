@@ -19,6 +19,11 @@ $(function() {
 
         
     //Transform standart from elements
+
+    //experiment
+    transform_select($(".long-select"));
+    //experiment
+
     $(".long-select .select-text").each(function(){
         var displayValue = $(this).parent().find("option[selected]").text();
         $(this).html(displayValue);
@@ -193,5 +198,21 @@ function get_visible_select_data(selectId){
     })
 
     $("#" + selectId).parents("td").prev().html("").append(result);
+}
+
+
+function transform_select(selectContainer){
+    var result = "";
+
+   $(selectContainer).find("select option").each(function(){
+        var text = ($(this).text());
+        var value = ($(this).val());
+
+       result  += "<li rel='"+ value +"'>" + text + "</li>";
+   });
+
+   $(selectContainer).append("<ul>"+ result + "</ul>");
+
+   // console.log(result);
 }
 

@@ -2391,6 +2391,7 @@ div.messages li {
     position: absolute;
     top: 0;
     left: 0;
+    visibility: hidden;
 
 }
 
@@ -2400,6 +2401,30 @@ div.messages li {
     background: url(/static/images/long_select.png) top left no-repeat;
     position: relative;
 }
+
+.long-select ul{
+    position: absolute;
+    top: 25px;
+    left: 0px;
+    background: #fff;
+    border: 1px solid #f0e8e5;
+    width: 335px;
+    z-index: 100;
+    max-height: 400px;
+    overflow-y: scroll;
+}
+
+.long-select ul li{
+    list-style: none;
+    padding: 5px 0 5px 20px;
+    border-bottom: 1px solid #f0e8e5;
+    cursor: pointer;
+}
+
+.long-select ul li:hover{
+   background: #f0e8e5;
+}
+
 
 .long-select .select-text{
     position: absolute;
