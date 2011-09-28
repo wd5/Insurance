@@ -4,6 +4,8 @@
 
     <script type="text/javascript" src="/static/js/calc/calc.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
 
     <script type="text/javascript">
         var model = "{% url get_models %}",
@@ -42,6 +44,8 @@
         {{ s1_form.mark }}
         <span class="form-error">{{ s1_form.mark.errors }}</span>
     </div>
+
+
 
     <div id="unlimited-drivers" class="style-checkbox">
         {{ s1_form.unlimited_drivers }}
@@ -256,5 +260,6 @@
     <div id="tabs-6">взр</div>
     <div id="tabs-7">ифл</div>
     </div>
-
 {% endblock %}
+
+

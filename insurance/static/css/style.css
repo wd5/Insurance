@@ -1212,24 +1212,6 @@ input.style_input5 {
     cursor: pointer;
 }
 
-.jScrollPaneContainer {
-    position: relative;
-    overflow: hidden;
-}
-
-.jScrollPaneTrack {
-    background: #501c07;
-    position: absolute;
-    right: 30px;
-}
-
-.jScrollPaneDrag {
-    background: #e65a02;
-    position: absolute;
-    margin: 0 -10px;
-    width: 30px !important;
-}
-
 .search_box {
     background: url(/static/images/search_box.jpg) 0 0 no-repeat;
     width: 612px;
@@ -2215,6 +2197,8 @@ div.messages li {
     -moz-border-radius: 10px;
     border-radius: 10px;
     overflow: hidden;
+    position: relative;
+    z-index: 2;
 }
 
 #calc-tabs .form-round-block{
@@ -2404,14 +2388,14 @@ div.messages li {
 
 .long-select ul{
     position: absolute;
-    top: 25px;
-    left: 0px;
+    top: 27px;
+    left: 2px;
     background: #fff;
     border: 1px solid #f0e8e5;
-    width: 335px;
-    z-index: 100;
-    max-height: 400px;
-    overflow-y: scroll;
+    width: 338px;
+    z-index: 10;
+    height: 400px;
+    overflow-y: auto;
     display: none;
 }
 
@@ -2433,6 +2417,12 @@ div.messages li {
     left: 10px;
     color: #6a6a6a;
     font-size: 16px;
+}
+
+#test{
+    overflow-y: scroll;
+    height: 40px;
+    width: 100px;
 }
 
 .short-select select{
@@ -2489,3 +2479,85 @@ div.messages li {
     filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
 }
 
+
+/*jScrollPane settings*/
+.jScrollPaneContainer {
+	position: relative;
+	overflow: hidden;
+    top: 26px;
+	z-index: 1;
+    visibility: hidden;
+}
+
+.jScrollPaneTrack {
+	position: absolute;
+	cursor: pointer;
+	right: 0;
+	top: 0;
+	height: 150px;
+	background: url(/static/images/scroll_back.png) top left no-repeat;
+    z-index: 50;
+   /* opacity: 0;*/
+}
+
+
+.jScrollPaneDrag {
+	position: absolute;
+	background: url(/static/images/scroll_lever.png) top center no-repeat;
+	cursor: pointer;
+    width: 12px;
+    height: 190px;
+	overflow: hidden;
+}
+
+
+.jScrollPaneDragTop {
+	position: absolute;
+    background: url(/static/images/scroll_lever.png) top left no-repeat;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+    height: 60px;
+}
+
+.jScrollPaneDragBottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+    height: 60px;
+}
+a.jScrollArrowUp {
+	display: block;
+	position: absolute;
+	z-index: 50;
+	top: 0;
+	right: 0;
+	text-indent: -2000px;
+	overflow: hidden;
+	background-color: #666;
+	height: 10px;
+    background: url(/static/images/scroll_arrow_down.png) top left no-repeat;
+}
+a.jScrollArrowUp:hover {
+	background-color: #f60;
+}
+
+a.jScrollArrowDown {
+	display: block;
+	position: absolute;
+	z-index: 50;
+	bottom: 0;
+	right: 0;
+	text-indent: -2000px;
+	overflow: hidden;
+	background-color: #666;
+	height: 10px;
+    background: url(/static/images/scroll_arrow_up.png) top left no-repeat;
+}
+a.jScrollArrowDown:hover {
+	background-color: #f60;
+}
+a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
+	background-color: #f00;
+}

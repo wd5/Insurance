@@ -21,8 +21,9 @@ $(function() {
     //Transform standart from elements
 
     //experiment
+ 
     transform_select($(".long-select"));
-    
+
 
     //experiment
 
@@ -206,7 +207,7 @@ function get_visible_select_data(selectId){
 function transform_select(selectContainer){
     var result = "";
     var realselect = $(selectContainer).find("select");
-
+ 
    //read select values, write and add to container
    $(selectContainer).find("select option").each(function(){
        var text = ($(this).text());
@@ -214,15 +215,19 @@ function transform_select(selectContainer){
        result  += "<li rel='"+ value +"'>" + text + "</li>";
    });
 
-   $(selectContainer).append("<ul>"+ result + "</ul>");
+   $(selectContainer).append("<ul>" + result + "</ul>");
+    $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true});
 
    //base events
    $(selectContainer).click(function(){
        $(this).find("ul").show();
+       $(this).parent().find(".jScrollPaneContainer").css("visibility", "visible");
    })
 
    $(selectContainer).find("ul").bind("mouseleave", function(){
+       $(this).parent().css("visibility", "hidden");
        $(this).hide();
+
    })
 
    $(selectContainer).find("ul li").live('click', function(){
@@ -231,5 +236,6 @@ function transform_select(selectContainer){
        realselect.change();
        $(this).parent().hide();
    })
+    
 }
 
