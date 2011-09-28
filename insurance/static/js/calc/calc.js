@@ -10,10 +10,11 @@ $(function() {
         step: 100,
         slide: function(event, ui){
             $("#id_price").val(ui.value);
+            $("#price-label").html(ui.value);
         }
     });
 
-    $("#id_price").attr("disabled", true);
+    $("#id_price").css("visibility", "hidden");
     $("#id_price").val($("#price-slider").slider("value") );
 
         
