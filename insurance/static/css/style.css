@@ -2197,8 +2197,6 @@ div.messages li {
     -moz-border-radius: 10px;
     border-radius: 10px;
     overflow: hidden;
-    position: relative;
-    z-index: 2;
 }
 
 #calc-tabs .form-round-block{
@@ -2329,10 +2327,6 @@ div.messages li {
     width: 130%;
 }
 
-/*ie7*/
-*:first-child + html .second{
-    position: relative;
-}
 
 #calc-tabs #info-main-driver .label{
     width: 200px;
@@ -2384,6 +2378,8 @@ div.messages li {
     height: 40px;
     background: url(/static/images/long_select.png) top left no-repeat;
     position: relative;
+    z-index: 2;
+    
 }
 
 .long-select ul{
@@ -2477,6 +2473,7 @@ div.messages li {
     background: url(/static/images/checkbox_off.png) top left no-repeat;
     height: 30px;
     position: relative;
+    z-index: 1;
     padding-left: 30px;
     line-height: 30px;
     font-size: 16px;
@@ -2497,6 +2494,25 @@ div.messages li {
     left: 3px;
     opacity: 0;
     filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+}
+
+
+/*IE7 Bugs*/
+:first-child + html td.second{
+   position: relative;
+}
+
+:first-child + html .short-select{
+    zoom: 1;
+}
+
+:first-child + html #optional-block-1{
+    position: relative;
+    width: 882px;
+}
+
+:first-child + html .from-round-block{
+    padding-right: 0;
 }
 
 
