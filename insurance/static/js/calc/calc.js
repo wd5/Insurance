@@ -4,6 +4,8 @@ $(function() {
 
     
     //price slider
+    $("#price-label").html($("#id_price").val());
+
     $("#price-slider").slider({
         value: 0,
         min: 0,
@@ -222,6 +224,7 @@ function transform_select(selectContainer){
 
    //base events
    $(selectContainer).click(function(){
+       $(this).find("ul").show();
        $(this).find(".jScrollPaneContainer").css("visibility", "visible");
    })
 
