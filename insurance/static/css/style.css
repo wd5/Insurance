@@ -2480,8 +2480,8 @@ div.messages li {
 }
 
 
-/*jScrollPane settings*/
-.jScrollPaneContainer {
+/*jScrollPane long-select settings*/
+.long-select .jScrollPaneContainer {
 	position: relative;
 	overflow: hidden;
     top: 26px;
@@ -2489,7 +2489,7 @@ div.messages li {
     visibility: hidden;
 }
 
-.jScrollPaneTrack {
+.long-select .jScrollPaneTrack {
 	position: absolute;
 	cursor: pointer;
 	right: 0;
@@ -2497,11 +2497,10 @@ div.messages li {
 	height: 150px;
 	background: url(/static/images/scroll_back.png) top left no-repeat;
     z-index: 50;
-   /* opacity: 0;*/
 }
 
 
-.jScrollPaneDrag {
+.long-select .jScrollPaneDrag {
 	position: absolute;
 	background: url(/static/images/scroll_lever.png) top center no-repeat;
 	cursor: pointer;
@@ -2511,7 +2510,7 @@ div.messages li {
 }
 
 
-.jScrollPaneDragTop {
+.long-select .jScrollPaneDragTop {
 	position: absolute;
     background: url(/static/images/scroll_lever.png) top left no-repeat;
 	top: 0;
@@ -2520,14 +2519,14 @@ div.messages li {
     height: 60px;
 }
 
-.jScrollPaneDragBottom {
+.long-select .jScrollPaneDragBottom {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	overflow: hidden;
     height: 60px;
 }
-a.jScrollArrowUp {
+.long-select a.jScrollArrowUp {
 	display: block;
 	position: absolute;
 	z-index: 50;
@@ -2539,11 +2538,12 @@ a.jScrollArrowUp {
 	height: 10px;
     background: url(/static/images/scroll_arrow_down.png) top left no-repeat;
 }
-a.jScrollArrowUp:hover {
+
+.long-select a.jScrollArrowUp:hover {
 	background-color: #f60;
 }
 
-a.jScrollArrowDown {
+.long-select a.jScrollArrowDown {
 	display: block;
 	position: absolute;
 	z-index: 50;
@@ -2555,9 +2555,9 @@ a.jScrollArrowDown {
 	height: 10px;
     background: url(/static/images/scroll_arrow_up.png) top left no-repeat;
 }
-a.jScrollArrowDown:hover {
+.long-select a.jScrollArrowDown:hover {
 	background-color: #f60;
 }
-a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
+.long-select a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 	background-color: #f00;
 }

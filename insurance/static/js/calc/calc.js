@@ -19,14 +19,8 @@ $(function() {
 
         
     //Transform standart from elements
-
-    //experiment
- 
     transform_select($(".long-select"));
-
-
-    //experiment
-
+    
     $(".long-select .select-text").each(function(){
         var displayValue = $(this).parent().find("option[selected]").text();
         $(this).html(displayValue);
