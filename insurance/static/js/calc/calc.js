@@ -1,6 +1,7 @@
 $(function() {
     $("#info-main-driver td:odd").addClass("second");
     $("#calc-tabs").tabs();
+
     
     //price slider
     $("#price-slider").slider({
@@ -29,11 +30,8 @@ $(function() {
         transform_select($(this));
     })
 
+    $("#info-main-driver tr.hide").css("display", "none");
 
-
-    //transform_select($(".long-select"));
-
-    
     $(".long-select .select-text").each(function(){
         var displayValue = $(this).parent().find("option[selected]").text();
         $(this).html(displayValue);
@@ -44,13 +42,6 @@ $(function() {
         $(this).html(displayValue);
     })
        
-
-    /*$(".short-select select").click(function(){
-       var selectedValue = $(this).val();
-       var displayValue = $(this).find("option[value='"+ selectedValue +"']").text();
-       $(this).parent().find(".select-text").html(displayValue);
-    });*/
-
     $(".style-checkbox input").click(function(){
         $(this).parent().toggleClass("on");
         if($(this).attr("id") == "id_unlimited_drivers")
@@ -121,10 +112,13 @@ $(function() {
     //Click on add driver button
     $("#add-driver-button").click(function(e){
         e.preventDefault();
-        $("#info-main-driver").find("tr.hide:first").removeClass("hide").show();
-      
+        var newRow = $("#info-main-driver").find("tr.hide:first");
+        newRow.find("select").val("");
+        newRow.find(".select-text").html(newRow.find("select option[selected]").text());
+        newRow.removeClass("hide").show();
     })
 
+       
     //Clear additional drivers info
     $("#info-main-driver .hide select").val("");
 })
@@ -228,9 +222,7 @@ function transform_select(selectContainer){
 
    //base events
    $(selectContainer).click(function(){
-       $(this).find("ul").show();
        $(this).find(".jScrollPaneContainer").css("visibility", "visible");
-       //console.log($(this).parent());
    })
 
    $(selectContainer).find(".jScrollPaneContainer").bind("mouseleave", function(){

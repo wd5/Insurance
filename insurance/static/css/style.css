@@ -2236,10 +2236,6 @@ div.messages li {
     font-weight: bolder;
 }
 
-#calc-tabs .hide{
-   display: none;
-}
-
 #calc-tabs #first-select{
     margin-bottom: 15px;
 }
@@ -2347,6 +2343,10 @@ div.messages li {
 
 #calc-tabs #add-driver-button.hide{
     display: none;
+}
+
+#calc-tabs table tr.hide{
+    /*display: none;*/
 }
 
 #calc-tabs #calculate-button{
