@@ -2440,12 +2440,13 @@ div.messages li {
     position: absolute;
     top: 58px;
     left: 4px;
-    width: 31px;
-    /*height: 145px;*/
-    padding: 0 10px;
+    width: 58px;
+    height: 145px;
     background: #6b3c27;
     border-left: 2px solid #895843;
     border-right: 2px solid #895843;
+    z-index: 60;
+    padding-bottom: 10px;
 }
 
 .short-select ul li{
@@ -2574,5 +2575,92 @@ div.messages li {
 	background-color: #f60;
 }
 .long-select a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
+	background-color: #f00;
+}
+
+
+/*jScrollPane short-select settings*/
+.short-select .jScrollPaneContainer {
+	position: relative;
+	overflow: hidden;
+    top: 35px;
+    left: 0px;
+    width: 60px;
+	z-index: 1;
+    visibility: hidden;
+}
+
+.short-select .jScrollPaneTrack {
+	position: absolute;
+	cursor: pointer;
+	right: 0;
+	top: 0;
+	height: 150px;
+	background: none;
+    z-index: 10;
+}
+
+
+.short-select .jScrollPaneDrag {
+	position: absolute;
+	background: none;
+	cursor: pointer;
+    width: 12px;
+    height: 190px;
+	overflow: hidden;
+}
+
+
+.short-select .jScrollPaneDragTop {
+	position: absolute;
+    background: none;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+    height: 60px;
+}
+
+.short-select .jScrollPaneDragBottom {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	overflow: hidden;
+    height: 60px;
+}
+
+.short-select a.jScrollArrowUp {
+	display: block;
+	position: absolute;
+	z-index: 50;
+	top: 0;
+	right: 0;
+	text-indent: -2000px;
+	overflow: hidden;
+	height: 1px;
+    background: none;
+}
+
+.short-select a.jScrollArrowUp:hover {
+	background-color: #f60;
+}
+
+.short-select a.jScrollArrowDown {
+	display: block;
+	position: absolute;
+	z-index: 80;
+	bottom: 0;
+	right: 0;
+	text-indent: -2000px;
+	overflow: hidden;
+	height: 8px;
+    width: 56px;
+    background: url(/static/images/scroll_hor_up.png) top left no-repeat;
+}
+
+.short-select a.jScrollArrowDown:hover {
+	background-color: #f60;
+}
+
+.short-select a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
 	background-color: #f00;
 }

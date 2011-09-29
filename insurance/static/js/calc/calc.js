@@ -24,7 +24,14 @@ $(function() {
         transform_select($(this));
     })
 
-    transform_select($(".long-select"));
+     $(".long-select").each(function(e){
+        $(this).attr("id", "long-" + (e + 1));
+        transform_select($(this));
+    })
+
+
+
+    //transform_select($(".long-select"));
 
     
     $(".long-select .select-text").each(function(){
@@ -211,25 +218,30 @@ function transform_select(selectContainer){
 
 
    $(selectContainer).append("<ul>" + result + "</ul>");
-    $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true});
+
+    if($(selectContainer).attr("class") == "short-select"){
+        $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 54, showArrows: true});
+    }else{
+         $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true});
+    }
+
 
    //base events
    $(selectContainer).click(function(){
        $(this).find("ul").show();
-       $(this).parent().find(".jScrollPaneContainer").css("visibility", "visible");
+       $(this).find(".jScrollPaneContainer").css("visibility", "visible");
+       //console.log($(this).parent());
    })
 
-   $(selectContainer).find("ul").bind("mouseleave", function(){
-       $(this).parent().css("visibility", "hidden");
-       $(this).hide();
-
+   $(selectContainer).find(".jScrollPaneContainer").bind("mouseleave", function(){
+       $(this).css("visibility", "hidden");
    })
 
    $(selectContainer).find("ul li").live('click', function(){
        $(selectContainer).find(".select-text").html($(this).text());
        realselect.val($(this).attr("rel"));
        realselect.change();
-       $(this).parent().hide();
+       $(this).parent().parent().css("visibility", "hidden");
    })
     
 }
