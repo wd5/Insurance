@@ -19,30 +19,30 @@ $(function() {
 
         
     //Transform standart from elements
+    $(".short-select").each(function(e){
+        $(this).attr("id", "short-" + (e + 1));
+        transform_select($(this));
+    })
+
     transform_select($(".long-select"));
+
     
     $(".long-select .select-text").each(function(){
         var displayValue = $(this).parent().find("option[selected]").text();
         $(this).html(displayValue);
     })
 
-    /*$(".long-select select").click(function(){
-       var selectedValue = $(this).val();
-       var displayValue = $(this).find("option[value='"+ selectedValue +"']").text();
-       $(this).parent().find(".select-text").html(displayValue);
-    });*/
-
     $(".short-select .select-text").each(function(){
-        var displayValue = $(this).parent().find("option[selected]").text();
+        var displayValue = $(this).parent().find("select option[selected]").text();
         $(this).html(displayValue);
     })
        
 
-    $(".short-select select").click(function(){
+    /*$(".short-select select").click(function(){
        var selectedValue = $(this).val();
        var displayValue = $(this).find("option[value='"+ selectedValue +"']").text();
        $(this).parent().find(".select-text").html(displayValue);
-    });
+    });*/
 
     $(".style-checkbox input").click(function(){
         $(this).parent().toggleClass("on");
@@ -208,6 +208,7 @@ function transform_select(selectContainer){
        var value = ($(this).val());
        result  += "<li rel='"+ value +"'>" + text + "</li>";
    });
+
 
    $(selectContainer).append("<ul>" + result + "</ul>");
     $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true});

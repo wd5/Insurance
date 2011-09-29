@@ -2426,13 +2426,7 @@ div.messages li {
 }
 
 .short-select select{
-    width: 57px;
-    height: 60px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+    visibility: hidden;
 }
 
 .short-select{
@@ -2440,6 +2434,27 @@ div.messages li {
     height: 60px;
     position: relative;
     background: url(/static/images/select_square.png) top left no-repeat;
+}
+
+.short-select ul{
+    position: absolute;
+    top: 58px;
+    left: 4px;
+    width: 31px;
+    /*height: 145px;*/
+    padding: 0 10px;
+    background: #6b3c27;
+    border-left: 2px solid #895843;
+    border-right: 2px solid #895843;
+}
+
+.short-select ul li{
+    list-style: none;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    border-bottom: 2px solid #895843;
+    cursor: pointer;
 }
 
 .short-select .select-text{
