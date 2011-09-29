@@ -220,7 +220,7 @@ function transform_select(selectContainer){
    $(selectContainer).append("<ul>" + result + "</ul>");
 
     if($(selectContainer).attr("class") == "short-select"){
-        $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 54, showArrows: true});
+        $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 57, showArrows: true});
     }else{
          $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true});
     }

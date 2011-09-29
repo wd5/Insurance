@@ -2431,16 +2431,16 @@ div.messages li {
 
 .short-select{
     width: 60px;
-    height: 60px;
+    height: 62px;
     position: relative;
-    background: url(/static/images/select_square.png) top left no-repeat;
+    background: url(/static/images/select_square_2.png) top left no-repeat;
 }
 
 .short-select ul{
     position: absolute;
-    top: 58px;
-    left: 4px;
-    width: 58px;
+    top: 56px;
+    left: 1px;
+    width: 57px;
     height: 145px;
     background: #6b3c27;
     border-left: 2px solid #895843;
@@ -2451,11 +2451,15 @@ div.messages li {
 
 .short-select ul li{
     list-style: none;
-    text-align: center;
+    padding: 3px 0 3px 16px;
     color: #fff;
     font-size: 16px;
-    border-bottom: 2px solid #895843;
+    background: url(/static/images/back_ul_select.png) bottom left no-repeat;
     cursor: pointer;
+}
+
+.short-select ul li:hover{
+    background: #5c2f1b;
 }
 
 .short-select .select-text{
@@ -2564,7 +2568,7 @@ div.messages li {
 	position: absolute;
 	z-index: 50;
 	bottom: 0;
-	right: 0;
+    right: 0;
 	text-indent: -2000px;
 	overflow: hidden;
 	background-color: #666;
@@ -2653,8 +2657,8 @@ div.messages li {
 	text-indent: -2000px;
 	overflow: hidden;
 	height: 8px;
-    width: 56px;
-    background: url(/static/images/scroll_hor_up.png) top left no-repeat;
+    width: 57px;
+    background: url(/static/images/scroll_hor_up.png) 1px 0 no-repeat;
 }
 
 .short-select a.jScrollArrowDown:hover {
