@@ -2143,7 +2143,7 @@ div.messages li {
     background-color: #969696;
 }
 
-/*New Calc Page*/
+/*Tabs for Calculator Pages*/
 #calc-tabs {
     width: 966px;
     margin: 50px auto 0 auto;
@@ -2199,6 +2199,7 @@ div.messages li {
     overflow: hidden;
 }
 
+/*Main round blocks on Calc Pages*/
 #calc-tabs .form-round-block{
     margin: 15px 0;
     padding: 20px 20px 30px 20px;
@@ -2211,8 +2212,18 @@ div.messages li {
     color: #501c07;
 }
 
-#calc-tabs .form-round-block table{
-    
+.form-round-block h2{
+    font-weight: bolder;
+    font-size: 19px;
+    margin: -10px 0 10px 0;
+}
+
+
+
+/*Sort table on calc page - step 2*/
+.form-round-block #sort-table{
+    overflow: hidden;
+    font-size: 16px;
 }
 
 #calc-tabs .form-round-block table td{
@@ -2221,10 +2232,6 @@ div.messages li {
 
 #calc-tabs .form-round-block table td.second{
     padding-left: 20px;
-}
-
-#calc-tabs .form-round-block table td.visible-data{
-    
 }
 
 #calc-tabs .form-round-block table td.visible-data span{
@@ -2255,13 +2262,7 @@ div.messages li {
     color: #676767;
 }
 
-#calc-tabs #require-auto-data-first select{
-    visibility: hidden;
-}
-
-
 /*Table Error Block*/
-
 .table-error .errorlist{
     color: #c81800;
     font-size: 11px;
@@ -2299,7 +2300,6 @@ div.messages li {
     vertical-align: top;
 }
 
-
 #price-slider .ui-slider-handle{
     display: block;
     background: url(/static/images/slider_ball.png) top left no-repeat;
@@ -2317,12 +2317,11 @@ div.messages li {
     padding: 3px 0 0 5px;
 }
 
-/*First Driver*/
+/*Drivers Table*/
 #calc-tabs #info-main-driver{
     font-size: 18px;
     width: 130%;
 }
-
 
 #calc-tabs #info-main-driver .label{
     width: 200px;
@@ -2345,10 +2344,6 @@ div.messages li {
     display: none;
 }
 
-#calc-tabs table tr.hide{
-    /*display: none;*/
-}
-
 #calc-tabs #calculate-button{
     float: right;
     margin: 100px 0 136px 0;
@@ -2361,6 +2356,10 @@ div.messages li {
 
 
 /*Transfrom Elements Styles*/
+#calc-tabs #require-auto-data-first select{
+    visibility: hidden;
+}
+
 .long-select select{
     width: 340px;
     height: 27px;

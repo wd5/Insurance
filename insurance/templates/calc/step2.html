@@ -56,15 +56,19 @@
 
         <div id="tabs-1">
             <div class="form-round-block">
+                <h2>Сортировать по:</h2>
+
                 {% if msg %}
                     <b>Ошибка: {{ msg }}</b>
                     {% else %}
 
-                    <form action="" method="post">
+                <div id="sort-table">
+                     <form action="" method="post">
                         {% csrf_token %}
                         {{ s1_form.as_p }}
                         <input type="submit" value="Обновить"/>
                     </form>
+                </div>
             </div>
 
 
