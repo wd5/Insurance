@@ -2575,9 +2575,6 @@ div.messages li {
     background: url(/static/images/scroll_arrow_down.png) top left no-repeat;
 }
 
-.long-select a.jScrollArrowUp:hover {
-	background-color: #f60;
-}
 
 .long-select a.jScrollArrowDown {
 	display: block;
@@ -2590,12 +2587,6 @@ div.messages li {
 	background-color: #666;
 	height: 10px;
     background: url(/static/images/scroll_arrow_up.png) top left no-repeat;
-}
-.long-select a.jScrollArrowDown:hover {
-	background-color: #f60;
-}
-.long-select a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
-	background-color: #f00;
 }
 
 
@@ -2660,10 +2651,6 @@ div.messages li {
     background: none;
 }
 
-.short-select a.jScrollArrowUp:hover {
-	background-color: #f60;
-}
-
 .short-select a.jScrollArrowDown {
 	display: block;
 	position: absolute;
@@ -2677,10 +2664,3 @@ div.messages li {
     background: url(/static/images/scroll_hor_up.png) 1px 0 no-repeat;
 }
 
-.short-select a.jScrollArrowDown:hover {
-	background-color: #f60;
-}
-
-.short-select a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
-	background-color: #f00;
-}
