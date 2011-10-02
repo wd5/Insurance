@@ -2261,24 +2261,41 @@ div.messages li {
     background: url(/static/images/result_table_header.png) top left no-repeat;
     width: 714px;
     padding-top: 166px;
+    margin-bottom: 20px;
 }
 
 #result-table-step2 table{
     border: 1px solid #501c09;
     border-radius: 5px;
+    text-align: center;
+
 }
 
-#result-table-step2 table td{
+#result-table-step2 table tr td{
     border-top: 2px dotted #501c09;
     border-left: 2px dotted #501c09;
+    padding: 0;
+    height: 119px;
+    vertical-align: middle;
+}
+
+
+#result-table-step2 table td:first-child{
+    width: 154px;
+    border-left:  0;
 }
 
 #result-table-step2 table tr:first-child td{
-    border:  0;
+   border-top:  0;
 }
 
-#result-table-step2 table td:first-child{
-    border:  0;
+#result-table-step2 table td.small{
+    width: 46px;
+    text-align: center;
+}
+
+#result-table-step2 table td.final-price{
+    width: 175px;
 }
 
 
