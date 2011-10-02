@@ -41,6 +41,7 @@
                 }
         );
     </script>
+
     </head>
 
     <div id="calc-tabs">
@@ -62,50 +63,53 @@
                     <b>Ошибка: {{ msg }}</b>
                     {% else %}
 
-                <div id="sort-table">
-                     <form action="" method="post">
-                        {% csrf_token %}
-                        {{ s1_form.as_p }}
-                        <input type="submit" value="Обновить"/>
-                    </form>
-                </div>
-            </div>
+                    <div id="sort-table">
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{ s1_form.as_p }}
+                            <input type="submit" value="Обновить"/>
+                        </form>
+                    </div>
+                    </div>
 
+                    <div id="result-table-step2">
 
-
-                    <table border="1">
-                        <tr>
-                            <th>Компания</th>
-                            <th>Параметры</th>
-                            <th>Стоимость</th>
-                            <th>Наша стоимость</th>
-                            <th>Выбор</th>
-                        </tr>
-                        {% for comp in result.info %}
+                        <table border="1">
                             <tr>
-                                <td><b>{{ comp.full_name }}</b></td>
-                                <td>
-                                    <table border="1">
-                                        {% for p in comp.parameters.items %}
-                                            <tr>
-                                                <td>{{ p.0 }}</td>
-                                                <td>
-                                                    {% ifequal p.1 "on" %}
-                                                        да
-                                                    {% else %}
-                                                        нет
-                                                    {% endifequal %}
-                                                </td>
-                                            </tr>
-                                        {% endfor %}
-                                    </table>
-                                </td>
-                                <td><b>{{ comp.score }}</b></td>
-                                <td><b>{{ comp.ourscore }}</b></td>
-                                <td><a href="{% url ncalc_step3 comp.alias %}">купить</a></td>
+                                <th>Компания</th>
+                                <th>Параметры</th>
+                                <th>Стоимость</th>
+                                <th>Наша стоимость</th>
+                                <th>Выбор</th>
                             </tr>
-                        {% endfor %}
-                    </table>
+                            {% for comp in result.info %}
+                                <tr>
+                                    <td><b>{{ comp.full_name }}</b></td>
+                                    <td>
+                                        <table border="1">
+                                            {% for p in comp.parameters.items %}
+                                                <tr>
+                                                    <td>{{ p.0 }}</td>
+                                                    <td>
+                                                        {% ifequal p.1 "on" %}
+                                                            да
+                                                        {% else %}
+                                                            нет
+                                                        {% endifequal %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    </td>
+                                    <td><b>{{ comp.score }}</b></td>
+                                    <td><b>{{ comp.ourscore }}</b></td>
+                                    <td><a href="{% url ncalc_step3 comp.alias %}">купить</a></td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+
+
                 {% endif %}
 
             <a href="{% url ncalc_step1 %}">Назад</a><br/>

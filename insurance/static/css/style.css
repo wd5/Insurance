@@ -2255,6 +2255,33 @@ div.messages li {
     vertical-align: top;
 }
 
+
+/*Result table on calc  step 2*/
+#result-table-step2{
+    background: url(/static/images/result_table_header.png) top left no-repeat;
+    width: 714px;
+    padding-top: 166px;
+}
+
+#result-table-step2 table{
+    border: 1px solid #501c09;
+    border-radius: 5px;
+}
+
+#result-table-step2 table td{
+    border-top: 2px dotted #501c09;
+    border-left: 2px dotted #501c09;
+}
+
+#result-table-step2 table tr:first-child td{
+    border:  0;
+}
+
+#result-table-step2 table td:first-child{
+    border:  0;
+}
+
+
 /*Price Slider*/
 #id_price{
     width: 124px;
