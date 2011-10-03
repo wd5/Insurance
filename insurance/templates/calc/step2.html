@@ -177,8 +177,8 @@
 
 
                                     <td class="final-price">
-                                        {{ comp.score }}
-                                        {{ comp.ourscore }}
+                                        <div class="ourscore">{{ comp.ourscore }}</div>
+                                        <div class="score">{{ comp.score }}</div>
                                         <a class="order-button" href="{% url ncalc_step3 comp.alias %}"></a>
                                     </td>
                                 </tr>

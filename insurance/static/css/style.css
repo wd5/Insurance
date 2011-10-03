@@ -2340,6 +2340,19 @@ div.messages li {
     background: url(/static/images/active_order_button.png) top left no-repeat;
 }
 
+#result-table-step2 .ourscore{
+    font-size: 32px;
+    background: url(/static/images/rub_mark.png) 90% center no-repeat;
+}
+
+#result-table-step2 .score{
+    font-size: 19px;
+    color: #8a4e33;
+    background: url(/static/images/rub_mark_small.png) 75% center no-repeat;
+    text-decoration: line-through;
+    margin-bottom: 10px;
+}
+
 
 #result-table-step2 table td:first-child{
     width: 154px;
