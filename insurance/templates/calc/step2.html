@@ -173,7 +173,7 @@
                                     <td class="final-price">
                                         {{ comp.score }}
                                         {{ comp.ourscore }}
-                                        <a href="{% url ncalc_step3 comp.alias %}">купить</a>
+                                        <a class="order-button" href="{% url ncalc_step3 comp.alias %}"></a>
                                     </td>
                                 </tr>
                             {% endfor %}

@@ -2325,6 +2325,19 @@ div.messages li {
     padding: 0;
     height: 119px;
     vertical-align: middle;
+    text-align: center;
+}
+
+.order-button{
+    display: block;
+    width: 80px;
+    height: 28px;
+    background: url(/static/images/order_button.png) top left no-repeat;
+    margin: 0 auto;
+}
+
+.order-button:hover{
+    background: url(/static/images/active_order_button.png) top left no-repeat;
 }
 
 
