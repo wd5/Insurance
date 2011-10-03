@@ -2145,7 +2145,7 @@ div.messages li {
 
 /*Tabs for Calculator Pages*/
 #calc-tabs {
-    width: 966px;
+    width: 990px;
     margin: 50px auto 0 auto;
     font-family: Arial, Helvetica, sans-serif;
     overflow: hidden;
@@ -2230,6 +2230,11 @@ div.messages li {
    font-size: 16px;
    font-weight: bolder;
    width: 120%;
+}
+
+.form-round-block#economy-block{
+    width: 180px;
+    float: right;
 }
 
 #calc-tabs .form-round-block #sort-parameters td{
