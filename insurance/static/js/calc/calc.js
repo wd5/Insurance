@@ -53,6 +53,8 @@ $(function() {
             $("#info-main-driver tr").not(":first").val("").hide();
     })
 
+    
+
 
     //first select with auto mark
     if ($("#id_mark").val() != "") {
@@ -121,7 +123,25 @@ $(function() {
         newRow.removeClass("hide").show();
     })
 
-       
+    //Type into input element
+    $(".long-select input").keypress(function(e){
+        if(e.keyCode == 8){
+           $(this).val("");
+        }
+
+        var current_value = ($(this).val()).toUpperCase();
+        var best_candidate = false;
+        var value_found = false;
+        var list_items = $(this).parent().find("li");
+
+        list_items.each(function(){
+            var text = $(this).text();
+            console.log(text);
+        })
+        
+        //console.log(list_items);
+    })
+
     //Clear additional drivers info
     $("#info-main-driver .hide select").val("");
 })
@@ -234,7 +254,8 @@ function transform_select(selectContainer){
    })
 
    $(selectContainer).find("ul li").live('click', function(){
-       $(selectContainer).find(".select-text").html($(this).text());
+       //$(selectContainer).find(".select-text").html($(this).text());
+       $(selectContainer).find("input").val($(this).text());
        realselect.val($(this).attr("rel"));
        realselect.change();
        $(this).parent().parent().css("visibility", "hidden");
@@ -242,3 +263,8 @@ function transform_select(selectContainer){
     
 }
 
+
+//User type in input value
+function userTypeInput(){
+    
+}
