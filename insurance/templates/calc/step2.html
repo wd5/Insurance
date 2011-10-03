@@ -19,9 +19,13 @@
 
                     $("#id_burglar_alarm_group").change(function() {
                         $("#id_burglar_alarm_model").html('');
+                        $("#id_burglar_alarm_model").parent().find(".select-text").html("");
+
+                        
                         if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2")  //hardcoded no burglar alarm id.
                             $("#id_burglar_alarm_model").attr("disabled", true);
                         else {
+
                             $.ajax(
                                     {
                                         url:"{% url get_ba_models %}",
@@ -34,6 +38,8 @@
                                                 options += '<option value="' + index + '">' + value + '</option>';
                                             });
                                             $("#id_burglar_alarm_model").html(options);
+                                           transform_select($("#id_burglar_alarm_model").parent());
+                                           // console.log($("#id_burglar_alarm_model").parent());
                                             $("#id_burglar_alarm_model").removeAttr("disabled");
 
                                         }

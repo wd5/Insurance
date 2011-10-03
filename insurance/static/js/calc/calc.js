@@ -239,7 +239,8 @@ function transform_select(selectContainer){
        result  += "<li rel='"+ value +"'>" + text + "</li>";
    });
 
-
+   $(selectContainer).find("ul").remove();
+   $(selectContainer).find(".jScrollPaneContainer").remove();
    $(selectContainer).append("<ul>" + result + "</ul>");
 
     if($(selectContainer).attr("class") == "short-select"){
