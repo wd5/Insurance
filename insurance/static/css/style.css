@@ -2237,10 +2237,17 @@ div.messages li {
 #calc-tabs .form-round-block table td.visible-data span{
     cursor: pointer;
     padding: 0 10px 5px 0;
+    display: inline-block;
+}
+
+#calc-tabs .form-round-block table tr:first-child td.visible-data span{
+    cursor: pointer;
+    padding: 0 20px 5px 0;
 }
 
 #calc-tabs .form-round-block table td.visible-data span.active{
     font-weight: bolder;
+    background: url(/static/images/select_marker.png) 0% -5px no-repeat;
 }
 
 #calc-tabs #first-select{
@@ -2567,6 +2574,14 @@ div.messages li {
 
 :first-child + html .from-round-block{
     padding-right: 0;
+}
+
+:first-child + html #price-slider-container{
+    margin-top: 15px;
+}
+
+:first-child + html #price-slider .ui-slider-handle{
+    top: -15px;
 }
 
 

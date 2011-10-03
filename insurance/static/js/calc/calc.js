@@ -1,5 +1,7 @@
 $(function() {
     $("#info-main-driver td:odd").addClass("second");
+    $("#require-auto-data-first td:eq(2)").addClass("third");
+
     $("#calc-tabs").tabs();
 
     
