@@ -136,7 +136,7 @@ $(function() {
 
         list_items.each(function(){
             var text = $(this).text();
-            console.log(text);
+            //console.log(text);
         })
         
         //console.log(list_items);

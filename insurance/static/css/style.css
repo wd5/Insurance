@@ -2226,6 +2226,24 @@ div.messages li {
     font-size: 16px;
 }
 
+.form-round-block #sort-parameters{
+   font-size: 16px;
+   font-weight: bolder;
+   width: 120%;
+}
+
+#calc-tabs .form-round-block #sort-parameters td{
+   padding-bottom: 0;
+   vertical-align: middle;
+}
+
+.form-round-block #sort-parameters td.even{
+    vertical-align: top;
+    padding-left: 20px;
+    width: 165px;
+}
+
+
 #calc-tabs .form-round-block table td{
     padding-bottom: 15px;
 }
