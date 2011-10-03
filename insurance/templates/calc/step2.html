@@ -21,9 +21,11 @@
                         $("#id_burglar_alarm_model").html('');
                         $("#id_burglar_alarm_model").parent().find(".select-text").html("");
 
-                        
-                        if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2")  //hardcoded no burglar alarm id.
+
+                        if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2") {
                             $("#id_burglar_alarm_model").attr("disabled", true);
+                            $("#id_burglar_alarm_model").parent().hide();                 
+                        }
                         else {
 
                             $.ajax(
@@ -37,9 +39,9 @@
                                             $.each(data, function(index, value) {
                                                 options += '<option value="' + index + '">' + value + '</option>';
                                             });
+                                            $("#id_burglar_alarm_model").parent().show();
                                             $("#id_burglar_alarm_model").html(options);
-                                           transform_select($("#id_burglar_alarm_model").parent());
-                                           // console.log($("#id_burglar_alarm_model").parent());
+                                            fillAjaxSelect("id_burglar_alarm_model");
                                             $("#id_burglar_alarm_model").removeAttr("disabled");
 
                                         }
@@ -76,98 +78,99 @@
                         <form action="" method="post">
                             {% csrf_token %}
 
-                        <table id="sort-parameters">
-                            <tr>
-                                <td>Цена</td>
-                                <td>
-                                    <div class="style-checkbox">{{ s1_form.factor_price }}</div>
-                                </td>
-                                <td>Расположение</td>
-                                <td>
-                                    <div class="style-checkbox">{{ s1_form.factor_accessibility }}</div>
-                                </td>
-                                <td>Быстрота покупки</td>
-                                <td>
-                                    <div class="style-checkbox">{{ s1_form.factor_service }}</div>
-                                </td>
-                                <td rowspan="2">Качество информационной поддержки</td>
-                                <td rowspan="2">
-                                    <div class="style-checkbox">{{ s1_form.factor_qualitysupport }}</div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Условия страхования</td>
-                                <td>
-                                    <div class="style-checkbox">{{ s1_form.factor_insuranceterms }}</div>
-                                </td>
-                                <td>Популярность компании</td>
-                                <td>
-                                    <div class="style-checkbox">{{ s1_form.factor_reputation }}</div>
-                                </td>
-                                <td>Простота выплаты</td>
-                                <td>
-                                    <div class="style-checkbox">{{ s1_form.factor_easepay }}</div>
-                                </td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                            <table id="sort-parameters">
+                                <tr>
+                                    <td>Цена</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_price }}</div>
+                                    </td>
+                                    <td>Расположение</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_accessibility }}</div>
+                                    </td>
+                                    <td>Быстрота покупки</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_service }}</div>
+                                    </td>
+                                    <td rowspan="2">Качество информационной поддержки</td>
+                                    <td rowspan="2">
+                                        <div class="style-checkbox">{{ s1_form.factor_qualitysupport }}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Условия страхования</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_insuranceterms }}</div>
+                                    </td>
+                                    <td>Популярность компании</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_reputation }}</div>
+                                    </td>
+                                    <td>Простота выплаты</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_easepay }}</div>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                    </div>
+                    </div>
+
+                    <div class="form-round-block" id="economy-block">
+                        <h2>Экономия</h2>
+
+                        <p><strong>Стандартная франшиза</strong></p>
+
+                        {{ s1_form.franchise }}
+
+                        <p><strong>Охранная система автомобиля</strong></p>
+
+                        <div class="long-select">
+                            <span class="select-text"></span>
+                            {{ s1_form.burglar_alarm_group }}
+                        </div>
+
+                        <div class="long-select">
+                            <span class="select-text"></span>
+                            {{ s1_form.burglar_alarm_model }}
+                        </div>
+
+
+                        <p><input type="submit" value="Обновить"/></p>
+                        </form>
+                    </div>
+
+                    <div id="result-table-step2">
+                        <table border="1">
+                            {% for comp in result.info %}
+                                <tr>
+                                    <td><b>{{ comp.full_name }}</b></td>
+
+                                    {% for p in comp.parameters.items %}
+                                        {% ifequal p.1 "on" %}
+                                            <td class="small">
+
+                                                да
+                                            </td>
+                                        {% else %}
+                                            <td class="small">
+
+                                                нет
+                                            </td>
+                                        {% endifequal %}
+                                    {% endfor %}
+
+
+                                    <td class="final-price">
+                                        {{ comp.score }}
+                                        {{ comp.ourscore }}
+                                        <a href="{% url ncalc_step3 comp.alias %}">купить</a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
                         </table>
                     </div>
-            </div>
-
-            <div class="form-round-block" id="economy-block">
-                <h2>Экономия</h2>
-                <p><strong>Стандартная франшиза</strong></p>
-                
-                {{ s1_form.franchise }}
-
-                <p><strong>Охранная система автомобиля</strong></p>
-                
-                <div class="long-select">
-                    <span class="select-text"></span>
-                    {{ s1_form.burglar_alarm_group }}
-                </div>
-
-                <div class="long-select">
-                    <span class="select-text"></span>
-                    {{ s1_form.burglar_alarm_model }}
-                </div>
-
-
-                <p><input type="submit" value="Обновить"/></p>
-                </form>
-            </div>
-
-            <div id="result-table-step2">
-                <table border="1">
-                    {% for comp in result.info %}
-                        <tr>
-                            <td><b>{{ comp.full_name }}</b></td>
-
-                            {% for p in comp.parameters.items %}
-                                {% ifequal p.1 "on" %}
-                                    <td class="small">
-
-                                        да
-                                    </td>
-                                {% else %}
-                                    <td class="small">
-
-                                        нет
-                                    </td>
-                                {% endifequal %}
-                            {% endfor %}
-
-
-                            <td class="final-price">
-                                {{ comp.score }}
-                                {{ comp.ourscore }}
-                                <a href="{% url ncalc_step3 comp.alias %}">купить</a>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </table>
-            </div>
 
 
                 {% endif %}

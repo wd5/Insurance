@@ -239,8 +239,8 @@ function transform_select(selectContainer){
        result  += "<li rel='"+ value +"'>" + text + "</li>";
    });
 
-   $(selectContainer).find("ul").remove();
-   $(selectContainer).find(".jScrollPaneContainer").remove();
+   //$(selectContainer).find("ul").remove();
+   //$(selectContainer).find(".jScrollPaneContainer").remove();
    $(selectContainer).append("<ul>" + result + "</ul>");
 
     if($(selectContainer).attr("class") == "short-select"){
@@ -268,6 +268,26 @@ function transform_select(selectContainer){
        $(this).parent().parent().css("visibility", "hidden");
    })
     
+}
+
+
+function fillAjaxSelect(selectId){
+    var result = "";
+    var ourSelect = $("#" + selectId);
+    var parentContainer = $("#" + selectId).parent();
+
+    ourSelect.find("option").each(function(){
+       var text = ($(this).text());
+       var value = ($(this).val());
+       result  += "<li rel='"+ value +"'>" + text + "</li>";
+    })
+
+    parentContainer.find("ul").remove();
+    parentContainer.find(".jScrollPaneContainer").remove();
+    parentContainer.append("<ul>" + result + "</ul>");
+    parentContainer.find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true})
+
+    console.log(ourSelect);
 }
 
 
