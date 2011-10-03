@@ -17,7 +17,7 @@ $(function() {
         }
     });
 
-    $("#id_price").css("visibility", "hidden");
+   //$("#id_price").css("visibility", "hidden");
     $("#id_price").val($("#price-slider").slider("value") );
 
         
