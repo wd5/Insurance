@@ -2327,14 +2327,6 @@ div.messages li {
     font-weight: bold;
 }
 
-#calc-tabs #require-auto-data-first #price-slider{
-    background: url(/static/images/slider_line.png) top left no-repeat;
-    height: 23px;
-    width: 191px;
-    margin: 15px 0;
-    position: relative;
-}
-
 .form-round-block .errorlist{
     color: #c81800;
     font-size: 11px;
@@ -2346,6 +2338,21 @@ div.messages li {
 
 #require-auto-data-first td:first-child{
     vertical-align: top;
+}
+
+#require-auto-data-first #price-slider-container{
+    
+    width: 213px;
+     background: url(/static/images/slider_line.png) top left no-repeat;
+}
+
+
+#require-auto-data-first #price-slider{
+
+    height: 23px;
+    width: 191px;
+    margin: 15px 0;
+    position: relative;
 }
 
 #price-slider .ui-slider-handle{
