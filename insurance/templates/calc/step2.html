@@ -122,7 +122,7 @@
                     <div class="form-round-block" id="economy-block">
                         <h2>Экономия</h2>
 
-                        <p><strong>Стандартная франшиза</strong></p>
+                        <p>Стандартная франшиза</p>
 
 
                         <div id="franchize-container">
@@ -135,7 +135,7 @@
                         </div>
 
                         
-                        <p><strong>Охранная система автомобиля</strong></p>
+                        <p>Охранная система автомобиля</p>
 
                         <div class="long-select">
                             <span class="select-text"></span>
@@ -161,13 +161,10 @@
                                     {% for p in comp.parameters.items %}
                                         {% ifequal p.1 "on" %}
                                             <td class="small">
-
-                                                да
+                                                <img src="/static/images/yes_circle.png" alt="да" />
                                             </td>
                                         {% else %}
                                             <td class="small">
-
-                                                нет
                                             </td>
                                         {% endifequal %}
                                     {% endfor %}
