@@ -311,13 +311,21 @@ function franchiseSlider(selectId){
       max: max,
       step: step,
 
+      create: function(){
+          selectId.find("a.ui-slider-handle").append("<span id='current'></span>");
+          $("#current").html(selectId.find("select").val());
+      },
+
       slide: function(event, ui){
-           // $("#id_price").val(ui.value);
-           // $("#price-label").html(ui.value);
+           $("#current").html(ui.value);
+           selectId.find("select").val(ui.value);
        }
   })
 
- // console.log(step);
+
+  selectId.parent().find("#min").html(min);
+  selectId.parent().find("#max").html(max);
+  console.log(selectId.find("select").val());
 }
 
 

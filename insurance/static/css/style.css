@@ -2363,6 +2363,30 @@ div.messages li {
 #franchize-container{
     background: url(/static/images/franchize_slider_back.png) top left no-repeat;
     width: 175px;
+    position: relative;
+    margin: 30px 0;
+}
+
+#franchize-container #min{
+    position: absolute;
+    top: -20px;
+    font-size: 12px;
+    left: 0;
+}
+
+#franchize-container #max{
+    position: absolute;
+    top: -20px;
+    right: 0;
+    font-size: 12px;
+}
+
+#franchize-container #current{
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    font-size: 12px;
+    color: #fff;
 }
 
 #franchize select{
