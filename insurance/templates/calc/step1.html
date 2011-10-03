@@ -61,9 +61,9 @@
                     <span class="table-error">{{ s1_form.model.errors }}</span>
                 </td>
 
-                <td class="visible-data second"></td>
-                <td class="ajax-select">
-                    {{ s1_form.model }}
+                <td class="visible-data second">
+                    <div></div>
+                    <span class="ajax-select">{{ s1_form.model }}</span>
                 </td>
             </tr>
             <tr>
@@ -71,21 +71,23 @@
                     {{ s1_form.model_year.label }}
                      <span class="table-error">{{ s1_form.model_year.errors }}</span>
                 </td>
-                <td class="visible-data second"></td>
-                <td class="ajax-select">
-                    {{ s1_form.model_year }}
+                <td class="visible-data second">
+                    <div></div>
+                    <span class="ajax-select">{{ s1_form.model_year }}</span>
                 </td>
             </tr>
+            
             <tr>
                 <td>
                     {{ s1_form.power.label }}
                      <span class="table-error">{{ s1_form.power.errors }}</span>
                 </td>
-                <td class="visible-data second"></td>
-                <td class="ajax-select">
-                    {{ s1_form.power }}
+                <td class="visible-data second">
+                    <div></div>
+                    <span class="ajax-select">{{ s1_form.power }}</span>
                 </td>
             </tr>
+
             <tr>
                 <td>
                     {{ s1_form.price.label }}
@@ -98,16 +100,14 @@
                     </div>
                     <span id="stoim"></span>
                 </td>
-                <td>
-                </td>
             </tr>
             <tr>
                 <td>
                     {{ s1_form.wheel.label }}
                     <span class="table-error">{{ s1_form.wheel.errors }}</span>
                 </td>
-                <td class="visible-data second"></td>
-                <td>
+                <td class="visible-data second">
+                    <div></div>
                     {{ s1_form.wheel }}
                 </td>
             </tr>
@@ -116,8 +116,8 @@
                     {{ s1_form.city.label }}
                     <span class="table-error">{{ s1_form.city.errors }}</span>
                 </td>
-                <td class="visible-data second"></td>
-                <td>
+                <td class="visible-data second">
+                    <div></div>
                     {{ s1_form.city }}
                 </td>
             </tr>
@@ -130,8 +130,6 @@
                     <div class="style-checkbox">
                         {{ s1_form.credit }}
                     </div>
-                </td>
-                <td>
                 </td>
             </tr>
         </table>

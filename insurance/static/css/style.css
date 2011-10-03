@@ -2234,10 +2234,23 @@ div.messages li {
     padding-left: 20px;
 }
 
+#require-auto-data-first{
+  
+}
+
+#require-auto-data-first td:first-child{
+    font-weight: bolder;
+    vertical-align: top;
+    width: 116px;
+}
+
+#require-auto-data-first td.second{
+    width: 800px;
+}
+
 #calc-tabs .form-round-block table td.visible-data span{
     cursor: pointer;
     padding: 0 10px 5px 0;
-    display: inline-block;
 }
 
 #calc-tabs .form-round-block table tr:first-child td.visible-data span{
@@ -2343,14 +2356,10 @@ div.messages li {
     width: 50%;
 }
 
-#require-auto-data-first td:first-child{
-    vertical-align: top;
-}
 
 #require-auto-data-first #price-slider-container{
-    
     width: 213px;
-     background: url(/static/images/slider_line.png) top left no-repeat;
+    background: url(/static/images/slider_line.png) top left no-repeat;
 }
 
 

@@ -1,7 +1,7 @@
 $(function() {
     $("#info-main-driver td:odd").addClass("second");
-    $("#require-auto-data-first td:eq(2)").addClass("third");
-
+    
+    //Tabs
     $("#calc-tabs").tabs();
 
     
@@ -98,9 +98,8 @@ $(function() {
 
 
     //Click on visible data elements
-    $(".visible-data span").live('click', function(){
-        var nextSelect = $(this).parents("td").next().find("select");
-        
+    $(".visible-data div span").live('click', function(){
+        var nextSelect = $(this).parents("td").find("select");
         $(this).parent().find("span").removeClass("active");
         $(this).addClass("active");
         nextSelect.val($(this).attr("rel"));
@@ -183,7 +182,7 @@ function get_auto_data(currentname) {
 
 function get_visible_select_data(selectId){
     var result = "";
-    
+
     $("#" +selectId + " option").each(function(e){
         var text = ($(this).text());
         var value = ($(this).val());
@@ -199,7 +198,7 @@ function get_visible_select_data(selectId){
 
     })
 
-    $("#" + selectId).parents("td").prev().html("").append(result);
+    $("#" + selectId).parents("td").find("div").html("").append(result);
 }
 
 
