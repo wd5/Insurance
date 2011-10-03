@@ -45,6 +45,12 @@ $(function() {
         var displayValue = $(this).parent().find("select option[selected]").text();
         $(this).html(displayValue);
     })
+
+    $(".style-checkbox input").each(function(){
+         if($(this).attr("checked") == true){
+            $(this).parent().addClass("on");
+         }
+    })
        
     $(".style-checkbox input").click(function(){
         $(this).parent().toggleClass("on");
