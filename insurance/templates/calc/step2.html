@@ -50,7 +50,13 @@
                         }
                     });
 
+                    //Setup franchize slider
                     franchiseSlider($("#franchize"));
+
+                    //click on sort checkbox
+                    $("#sort-table input").click(function(){
+                        $("#sorting").submit();
+                    })
                 }
         );
     </script>
@@ -77,7 +83,7 @@
                     {% else %}
 
                     <div id="sort-table">
-                        <form action="" method="post">
+                        <form action="" method="post" id="sorting">
                             {% csrf_token %}
 
                             <table id="sort-parameters">

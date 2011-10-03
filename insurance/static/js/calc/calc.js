@@ -325,7 +325,6 @@ function franchiseSlider(selectId){
 
   selectId.parent().find("#min").html(min);
   selectId.parent().find("#max").html(max);
-  console.log(selectId.find("select").val());
 }
 
 
