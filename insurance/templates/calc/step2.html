@@ -49,6 +49,8 @@
                             );
                         }
                     });
+
+                    franchiseSlider($("#franchize"));
                 }
         );
     </script>
@@ -122,8 +124,14 @@
 
                         <p><strong>Стандартная франшиза</strong></p>
 
-                        {{ s1_form.franchise }}
 
+                        <div id="franchize-container">
+                            <div id="franchize">
+                                 {{ s1_form.franchise }}
+                            </div>
+                        </div>
+
+                        
                         <p><strong>Охранная система автомобиля</strong></p>
 
                         <div class="long-select">

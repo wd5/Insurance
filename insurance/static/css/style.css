@@ -2358,6 +2358,34 @@ div.messages li {
     font-size: 14px;
 }
 
+
+/*Franchize Slider*/
+#franchize-container{
+    background: url(/static/images/franchize_slider_back.png) top left no-repeat;
+    width: 175px;
+}
+
+#franchize select{
+    visibility: hidden;
+}
+
+#franchize{
+    position: relative;
+    width: 100px;
+
+}
+
+#franchize .ui-slider-handle{
+    width: 76px;
+    height: 20px;
+    background: url(/static/images/franchize_slider_stick.png) top left no-repeat;
+    display: block;
+    position: absolute;
+    top: 0;
+}
+
+
+
 /*Table Error Block*/
 .table-error .errorlist{
     color: #c81800;

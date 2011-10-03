@@ -286,8 +286,38 @@ function fillAjaxSelect(selectId){
     parentContainer.find(".jScrollPaneContainer").remove();
     parentContainer.append("<ul>" + result + "</ul>");
     parentContainer.find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true})
+}
 
-    console.log(ourSelect);
+
+/*Franchize Slider*/
+function franchiseSlider(selectId){
+   var sliderVal = selectId.find("select");
+   var values = [];
+   var min = "",
+       max = "",
+       step = "";
+  
+  sliderVal.find("option").each(function(){
+        values.push($(this).text());
+    });
+
+  min = values[0];
+  max = values[(values.length - 1)];
+  step = values[1] - values[0];
+
+  selectId.slider({
+      value: 0,
+      min: min,
+      max: max,
+      step: step,
+
+      slide: function(event, ui){
+           // $("#id_price").val(ui.value);
+           // $("#price-label").html(ui.value);
+       }
+  })
+
+ // console.log(step);
 }
 
 
