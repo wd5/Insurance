@@ -2533,13 +2533,22 @@ div.messages li {
 /*Transform selects in second calc page*/
 #economy-block .long-select{
     background: url("/static/images/long_select_2.png") no-repeat scroll left top transparent;
-    height: 40px;
+    height: 25px;
     position: relative;
     width: 173px;
+    z-index: 0;
+    margin-bottom: 15px;
+}
+
+#economy-block #long-1{
+    z-index:3;
+}
+
+#economy-block #long-2{
     z-index: 2;
 }
 
-.long-select ul{
+#economy-block  .long-select ul{
     background: none repeat scroll 0 0 #FFFFFF;
     border: 1px solid #F0E8E5;
     display: none;
@@ -2547,11 +2556,22 @@ div.messages li {
     left: 2px;
     overflow-y: auto;
     position: absolute;
-    top: 27px;
+    top: 0px;
     width: 170px;
     z-index: 10;
 }
 
+#economy-block .long-select .jScrollPaneContainer {
+    overflow: hidden;
+    position: relative;
+    top: 26px;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+#economy-block .long-select .select-text{
+    z-index: 0;
+}
 
 /*Short selects in first calc page*/
 
