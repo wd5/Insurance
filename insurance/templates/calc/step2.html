@@ -114,10 +114,16 @@
                 <p><strong>Стандартная франшиза</strong></p>
                 
                 {{ s1_form.franchise }}
-                {{ s1_form.burglar_alarm_group }}
+
+                <p><strong>Охранная система автомобиля</strong></p>
+                
+                <div class="long-select">
+                    <span class="select-text"></span>
+                    {{ s1_form.burglar_alarm_group }}
+                </div>
                 {{ s1_form.burglar_alarm_model }}
-                <br/>
-                <input type="submit" value="Обновить"/>
+
+                <p><input type="submit" value="Обновить"/></p>
                 </form>
             </div>
 

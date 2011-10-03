@@ -2235,6 +2235,11 @@ div.messages li {
 .form-round-block#economy-block{
     width: 180px;
     float: right;
+    margin-top: 0;
+}
+
+.form-round-block#economy-block p{
+    margin: 10px 0;
 }
 
 #calc-tabs .form-round-block #sort-parameters td{
@@ -2524,6 +2529,31 @@ div.messages li {
     height: 40px;
     width: 100px;
 }
+
+/*Transform selects in second calc page*/
+#economy-block .long-select{
+    background: url("/static/images/long_select_2.png") no-repeat scroll left top transparent;
+    height: 40px;
+    position: relative;
+    width: 173px;
+    z-index: 2;
+}
+
+.long-select ul{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #F0E8E5;
+    display: none;
+    height: 200px;
+    left: 2px;
+    overflow-y: auto;
+    position: absolute;
+    top: 27px;
+    width: 170px;
+    z-index: 10;
+}
+
+
+/*Short selects in first calc page*/
 
 .short-select select{
     visibility: hidden;

@@ -260,8 +260,8 @@ function transform_select(selectContainer){
    })
 
    $(selectContainer).find("ul li").live('click', function(){
-       //$(selectContainer).find(".select-text").html($(this).text());
-       $(selectContainer).find("input").val($(this).text());
+       $(selectContainer).find(".select-text").html($(this).text());
+       //$(selectContainer).find("input").val($(this).text());
        realselect.val($(this).attr("rel"));
        realselect.change();
        $(this).parent().parent().css("visibility", "hidden");
