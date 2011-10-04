@@ -2517,6 +2517,13 @@ div.messages li {
     height: 30px;
 }
 
+#calc-tabs #delete-driver-button{
+    background: url(/static/images/delete_driver_button.png) top left no-repeat;
+    display: block;
+    width: 154px;
+    height: 30px;
+}
+
 #calc-tabs #add-driver-button.hide{
     display: none;
 }
