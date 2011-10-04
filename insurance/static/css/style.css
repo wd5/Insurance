@@ -2524,7 +2524,7 @@ div.messages li {
     height: 30px;
 }
 
-#calc-tabs #add-driver-button.hide{
+#calc-tabs #add-driver-button.hide, #calc-tabs #delete-driver-button.hide{
     display: none;
 }
 
