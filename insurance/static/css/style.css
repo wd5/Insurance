@@ -2143,9 +2143,9 @@ div.messages li {
     background-color: #969696;
 }
 
-/*New Calc Page*/
+/*Tabs for Calculator Pages*/
 #calc-tabs {
-    width: 966px;
+    width: 990px;
     margin: 50px auto 0 auto;
     font-family: Arial, Helvetica, sans-serif;
     overflow: hidden;
@@ -2199,6 +2199,7 @@ div.messages li {
     overflow: hidden;
 }
 
+/*Main round blocks on Calc Pages*/
 #calc-tabs .form-round-block{
     margin: 15px 0;
     padding: 20px 20px 30px 20px;
@@ -2211,9 +2212,47 @@ div.messages li {
     color: #501c07;
 }
 
-#calc-tabs .form-round-block table{
-    
+.form-round-block h2{
+    font-weight: bolder;
+    font-size: 19px;
+    margin: -10px 0 10px 0;
 }
+
+
+
+/*Sort table on calc page - step 2*/
+.form-round-block #sort-table{
+    overflow: hidden;
+    font-size: 16px;
+}
+
+.form-round-block #sort-parameters{
+   font-size: 16px;
+   font-weight: bolder;
+   width: 120%;
+}
+
+.form-round-block#economy-block{
+    width: 180px;
+    float: right;
+    margin-top: 0;
+}
+
+.form-round-block#economy-block p{
+    margin: 10px 0;
+}
+
+#calc-tabs .form-round-block #sort-parameters td{
+   padding-bottom: 0;
+   vertical-align: middle;
+}
+
+.form-round-block #sort-parameters td.even{
+    vertical-align: top;
+    padding-left: 20px;
+    width: 165px;
+}
+
 
 #calc-tabs .form-round-block table td{
     padding-bottom: 15px;
@@ -2223,8 +2262,18 @@ div.messages li {
     padding-left: 20px;
 }
 
-#calc-tabs .form-round-block table td.visible-data{
-    
+#require-auto-data-first{
+  
+}
+
+#require-auto-data-first td:first-child{
+    font-weight: bolder;
+    vertical-align: top;
+    width: 116px;
+}
+
+#require-auto-data-first td.second{
+    width: 800px;
 }
 
 #calc-tabs .form-round-block table td.visible-data span{
@@ -2232,8 +2281,14 @@ div.messages li {
     padding: 0 10px 5px 0;
 }
 
+#calc-tabs .form-round-block table tr:first-child td.visible-data span{
+    cursor: pointer;
+    padding: 0 20px 5px 0;
+}
+
 #calc-tabs .form-round-block table td.visible-data span.active{
     font-weight: bolder;
+    background: url(/static/images/select_marker.png) 0% -5px no-repeat;
 }
 
 #calc-tabs #first-select{
@@ -2248,20 +2303,140 @@ div.messages li {
     vertical-align: top;
 }
 
-/*Price Slider*/
-#id_price{
-    width: 124px;
-    border: 1px solid #501c07;
-    color: #676767;
+
+/*Result table on calc  step 2*/
+#result-table-step2{
+    background: url(/static/images/result_table_header.png) top left no-repeat;
+    width: 714px;
+    padding-top: 166px;
+    margin-bottom: 20px;
 }
 
-#calc-tabs #require-auto-data-first select{
+#result-table-step2 table{
+    border: 1px solid #501c09;
+    border-radius: 5px;
+    text-align: center;
+
+}
+
+#result-table-step2 table tr td{
+    border-top: 2px dotted #501c09;
+    border-left: 2px dotted #501c09;
+    padding: 0;
+    height: 119px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.order-button{
+    display: block;
+    width: 80px;
+    height: 28px;
+    background: url(/static/images/order_button.png) top left no-repeat;
+    margin: 0 auto;
+}
+
+.order-button:hover{
+    background: url(/static/images/active_order_button.png) top left no-repeat;
+}
+
+#result-table-step2 .ourscore{
+    font-size: 32px;
+    background: url(/static/images/rub_mark.png) 90% center no-repeat;
+}
+
+#result-table-step2 .score{
+    font-size: 19px;
+    color: #8a4e33;
+    background: url(/static/images/rub_mark_small.png) 75% center no-repeat;
+    text-decoration: line-through;
+    margin-bottom: 10px;
+}
+
+
+#result-table-step2 table td:first-child{
+    width: 154px;
+    border-left:  0;
+}
+
+#result-table-step2 table tr:first-child td{
+   border-top:  0;
+}
+
+#result-table-step2 table td.small{
+    width: 46px;
+    text-align: center;
+}
+
+#result-table-step2 table td.final-price{
+    width: 175px;
+}
+
+
+/*Price Slider*/
+#id_price{
+    border: 1px solid #501C07;
+    color: #676767;
+    display: block;
+    height: 20px;
+    padding: 0px 0 0 5px;
+    width: 125px;
+    font-size: 14px;
+}
+
+
+/*Franchize Slider*/
+#franchize-container{
+    background: url(/static/images/franchize_slider_back.png) top left no-repeat;
+    width: 175px;
+    position: relative;
+    margin: 50px 0 20px 0;
+}
+
+#franchize-container #min{
+    position: absolute;
+    top: -20px;
+    font-size: 14px;
+    left: 0;
+}
+
+#franchize-container #max{
+    position: absolute;
+    top: -20px;
+    right: 0;
+    font-size: 14px;
+}
+
+#franchize-container #current{
+    position: absolute;
+    top: 2px;
+    left: 20px;
+    font-size: 13px;
+    color: #fff;
+}
+
+#franchize select{
     visibility: hidden;
 }
 
+#franchize{
+    position: relative;
+    width: 100px;
+
+}
+
+#franchize .ui-slider-handle{
+    width: 76px;
+    height: 20px;
+    background: url(/static/images/franchize_slider_stick.png) top left no-repeat;
+    display: block;
+    position: absolute;
+    top: 0;
+}
+
+
 
 /*Table Error Block*/
-
 .table-error .errorlist{
     color: #c81800;
     font-size: 11px;
@@ -2278,14 +2453,6 @@ div.messages li {
     font-weight: bold;
 }
 
-#calc-tabs #require-auto-data-first #price-slider{
-    background: url(/static/images/slider_line.png) top left no-repeat;
-    height: 23px;
-    width: 191px;
-    margin: 15px 0;
-    position: relative;
-}
-
 .form-round-block .errorlist{
     color: #c81800;
     font-size: 11px;
@@ -2295,10 +2462,20 @@ div.messages li {
     width: 50%;
 }
 
-#require-auto-data-first td:first-child{
-    vertical-align: top;
+
+#require-auto-data-first #price-slider-container{
+    width: 213px;
+    background: url(/static/images/slider_line.png) top left no-repeat;
 }
 
+
+#require-auto-data-first #price-slider{
+
+    height: 23px;
+    width: 191px;
+    margin: 15px 0;
+    position: relative;
+}
 
 #price-slider .ui-slider-handle{
     display: block;
@@ -2317,12 +2494,11 @@ div.messages li {
     padding: 3px 0 0 5px;
 }
 
-/*First Driver*/
+/*Drivers Table*/
 #calc-tabs #info-main-driver{
     font-size: 18px;
     width: 130%;
 }
-
 
 #calc-tabs #info-main-driver .label{
     width: 200px;
@@ -2341,12 +2517,15 @@ div.messages li {
     height: 30px;
 }
 
-#calc-tabs #add-driver-button.hide{
-    display: none;
+#calc-tabs #delete-driver-button{
+    background: url(/static/images/delete_driver_button.png) top left no-repeat;
+    display: block;
+    width: 154px;
+    height: 30px;
 }
 
-#calc-tabs table tr.hide{
-    /*display: none;*/
+#calc-tabs #add-driver-button.hide, #calc-tabs #delete-driver-button.hide{
+    display: none;
 }
 
 #calc-tabs #calculate-button{
@@ -2361,6 +2540,10 @@ div.messages li {
 
 
 /*Transfrom Elements Styles*/
+#calc-tabs #require-auto-data-first select{
+    visibility: hidden;
+}
+
 .long-select select{
     width: 340px;
     height: 27px;
@@ -2380,6 +2563,17 @@ div.messages li {
     position: relative;
     z-index: 2;
     
+}
+
+.long-select input{
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    color: #6a6a6a;
+    font-size: 16px;
+    height: 18px;
+    width: 312px;
+    border: none;
 }
 
 .long-select ul{
@@ -2420,6 +2614,51 @@ div.messages li {
     height: 40px;
     width: 100px;
 }
+
+/*Transform selects in second calc page*/
+#economy-block .long-select{
+    background: url("/static/images/long_select_2.png") no-repeat scroll left top transparent;
+    height: 25px;
+    position: relative;
+    width: 173px;
+    z-index: 0;
+    margin-bottom: 15px;
+}
+
+#economy-block #long-1{
+    z-index:3;
+}
+
+#economy-block #long-2{
+    z-index: 2;
+}
+
+#economy-block  .long-select ul{
+    background: none repeat scroll 0 0 #FFFFFF;
+    border: 1px solid #F0E8E5;
+    display: none;
+    height: 200px;
+    left: 2px;
+    overflow-y: auto;
+    position: absolute;
+    top: 0px;
+    width: 170px;
+    z-index: 10;
+}
+
+#economy-block .long-select .jScrollPaneContainer {
+    overflow: hidden;
+    position: relative;
+    top: 26px;
+    visibility: hidden;
+    z-index: 1000;
+}
+
+#economy-block .long-select .select-text{
+    z-index: 0;
+}
+
+/*Short selects in first calc page*/
 
 .short-select select{
     visibility: hidden;
@@ -2515,6 +2754,14 @@ div.messages li {
     padding-right: 0;
 }
 
+:first-child + html #price-slider-container{
+    margin-top: 15px;
+}
+
+:first-child + html #price-slider .ui-slider-handle{
+    top: -15px;
+}
+
 
 /*jScrollPane long-select settings*/
 .long-select .jScrollPaneContainer {
@@ -2575,9 +2822,6 @@ div.messages li {
     background: url(/static/images/scroll_arrow_down.png) top left no-repeat;
 }
 
-.long-select a.jScrollArrowUp:hover {
-	background-color: #f60;
-}
 
 .long-select a.jScrollArrowDown {
 	display: block;
@@ -2590,12 +2834,6 @@ div.messages li {
 	background-color: #666;
 	height: 10px;
     background: url(/static/images/scroll_arrow_up.png) top left no-repeat;
-}
-.long-select a.jScrollArrowDown:hover {
-	background-color: #f60;
-}
-.long-select a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
-	background-color: #f00;
 }
 
 
@@ -2660,10 +2898,6 @@ div.messages li {
     background: none;
 }
 
-.short-select a.jScrollArrowUp:hover {
-	background-color: #f60;
-}
-
 .short-select a.jScrollArrowDown {
 	display: block;
 	position: absolute;
@@ -2677,10 +2911,3 @@ div.messages li {
     background: url(/static/images/scroll_hor_up.png) 1px 0 no-repeat;
 }
 
-.short-select a.jScrollArrowDown:hover {
-	background-color: #f60;
-}
-
-.short-select a.jScrollActiveArrowButton, a.jScrollActiveArrowButton:hover {
-	background-color: #f00;
-}

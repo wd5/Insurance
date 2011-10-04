@@ -41,6 +41,7 @@
 
     <div id="first-select" class="long-select">
         <span class="select-text"></span>
+        <input type="text" value="" />
         {{ s1_form.mark }}
         <span class="form-error">{{ s1_form.mark.errors }}</span>
     </div>
@@ -61,9 +62,9 @@
                     <span class="table-error">{{ s1_form.model.errors }}</span>
                 </td>
 
-                <td class="visible-data second"></td>
-                <td class="ajax-select">
-                    {{ s1_form.model }}
+                <td class="visible-data second">
+                    <div></div>
+                    <span class="ajax-select">{{ s1_form.model }}</span>
                 </td>
             </tr>
             <tr>
@@ -71,33 +72,34 @@
                     {{ s1_form.model_year.label }}
                      <span class="table-error">{{ s1_form.model_year.errors }}</span>
                 </td>
-                <td class="visible-data second"></td>
-                <td class="ajax-select">
-                    {{ s1_form.model_year }}
+                <td class="visible-data second">
+                    <div></div>
+                    <span class="ajax-select">{{ s1_form.model_year }}</span>
                 </td>
             </tr>
+            
             <tr>
                 <td>
                     {{ s1_form.power.label }}
                      <span class="table-error">{{ s1_form.power.errors }}</span>
                 </td>
-                <td class="visible-data second"></td>
-                <td class="ajax-select">
-                    {{ s1_form.power }}
+                <td class="visible-data second">
+                    <div></div>
+                    <span class="ajax-select">{{ s1_form.power }}</span>
                 </td>
             </tr>
+
             <tr>
                 <td>
                     {{ s1_form.price.label }}
                      <span class="table-error">{{ s1_form.price.errors }}</span>
                 </td>
                 <td class="second">
-                    <span id="price-label"></span>
-                    <div id="price-slider"></div>
-                    <span id="stoim"></span>
-                </td>
-                <td>
                     {{ s1_form.price }}
+                    <div id="price-slider-container">
+                        <div id="price-slider"></div>
+                    </div>
+                    <span id="stoim"></span>
                 </td>
             </tr>
             <tr>
@@ -105,8 +107,8 @@
                     {{ s1_form.wheel.label }}
                     <span class="table-error">{{ s1_form.wheel.errors }}</span>
                 </td>
-                <td class="visible-data second"></td>
-                <td>
+                <td class="visible-data second">
+                    <div></div>
                     {{ s1_form.wheel }}
                 </td>
             </tr>
@@ -115,22 +117,9 @@
                     {{ s1_form.city.label }}
                     <span class="table-error">{{ s1_form.city.errors }}</span>
                 </td>
-                <td class="visible-data second"></td>
-                <td>
-                    {{ s1_form.city }}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{ s1_form.credit.label }}
-                    <span class="table-error">{{ s1_form.credit.errors }}</span>
-                </td>
                 <td class="visible-data second">
-                    <div class="style-checkbox">
-                        {{ s1_form.credit }}
-                    </div>
-                </td>
-                <td>
+                    <div></div>
+                    {{ s1_form.city }}
                 </td>
             </tr>
         </table>
@@ -244,6 +233,7 @@
 
         </table>
         <a id="add-driver-button" href="#"></a>
+         <a id="delete-driver-button" class="hide" href="#"></a>
     </div>
 
     <input id="calculate-button" type="image" value="" src="/static/images/calculate_button.png"/>

@@ -132,6 +132,7 @@ class Company(models.Model):
     company_full_name = models.CharField(max_length=100)
     company_block = models.SmallIntegerField()
     company_alias = models.CharField(max_length=50)
+    company_comment = models.CharField(max_length=255)
     class Meta:
         db_table = u'company'
         managed = False

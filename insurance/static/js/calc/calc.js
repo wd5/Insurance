@@ -1,5 +1,7 @@
 $(function() {
     $("#info-main-driver td:odd").addClass("second");
+    
+    //Tabs
     $("#calc-tabs").tabs();
 
     
@@ -17,7 +19,7 @@ $(function() {
         }
     });
 
-    $("#id_price").css("visibility", "hidden");
+   //$("#id_price").css("visibility", "hidden");
     $("#id_price").val($("#price-slider").slider("value") );
 
         
@@ -43,6 +45,12 @@ $(function() {
         var displayValue = $(this).parent().find("select option[selected]").text();
         $(this).html(displayValue);
     })
+
+    $(".style-checkbox input").each(function(){
+         if($(this).attr("checked") == true){
+            $(this).parent().addClass("on");
+         }
+    })
        
     $(".style-checkbox input").click(function(){
         $(this).parent().toggleClass("on");
@@ -50,6 +58,8 @@ $(function() {
             $("#add-driver-button").toggleClass("hide");
             $("#info-main-driver tr").not(":first").val("").hide();
     })
+
+    
 
 
     //first select with auto mark
@@ -96,9 +106,8 @@ $(function() {
 
 
     //Click on visible data elements
-    $(".visible-data span").live('click', function(){
-        var nextSelect = $(this).parents("td").next().find("select");
-        
+    $(".visible-data div span").live('click', function(){
+        var nextSelect = $(this).parents("td").find("select");
         $(this).parent().find("span").removeClass("active");
         $(this).addClass("active");
         nextSelect.val($(this).attr("rel"));
@@ -117,10 +126,39 @@ $(function() {
         var newRow = $("#info-main-driver").find("tr.hide:first");
         newRow.find("select").val("");
         newRow.find(".select-text").html(newRow.find("select option[selected]").text());
-        newRow.removeClass("hide").show();
+        newRow.removeClass("hide").addClass("show").show();
+        $("#delete-driver-button").removeClass("hide");
     })
 
-       
+    //Click on delete driver button
+    $("#delete-driver-button").click(function(e){
+        e.preventDefault();
+        var lastRow = $("#info-main-driver").find("tr.show:last");
+        if($("#info-main-driver tr").not(".hide").length == 2){
+           $("#delete-driver-button").hide();
+        }
+        lastRow.removeClass("show").addClass("hide").hide();
+    })
+
+    //Type into input element
+    $(".long-select input").keypress(function(e){
+        if(e.keyCode == 8){
+           $(this).val("");
+        }
+
+        var current_value = ($(this).val()).toUpperCase();
+        var best_candidate = false;
+        var value_found = false;
+        var list_items = $(this).parent().find("li");
+
+        list_items.each(function(){
+            var text = $(this).text();
+            //console.log(text);
+        })
+        
+        //console.log(list_items);
+    })
+
     //Clear additional drivers info
     $("#info-main-driver .hide select").val("");
 })
@@ -181,7 +219,7 @@ function get_auto_data(currentname) {
 
 function get_visible_select_data(selectId){
     var result = "";
-    
+
     $("#" +selectId + " option").each(function(e){
         var text = ($(this).text());
         var value = ($(this).val());
@@ -197,7 +235,7 @@ function get_visible_select_data(selectId){
 
     })
 
-    $("#" + selectId).parents("td").prev().html("").append(result);
+    $("#" + selectId).parents("td").find("div").html("").append(result);
 }
 
 
@@ -212,7 +250,8 @@ function transform_select(selectContainer){
        result  += "<li rel='"+ value +"'>" + text + "</li>";
    });
 
-
+   //$(selectContainer).find("ul").remove();
+   //$(selectContainer).find(".jScrollPaneContainer").remove();
    $(selectContainer).append("<ul>" + result + "</ul>");
 
     if($(selectContainer).attr("class") == "short-select"){
@@ -234,6 +273,7 @@ function transform_select(selectContainer){
 
    $(selectContainer).find("ul li").live('click', function(){
        $(selectContainer).find(".select-text").html($(this).text());
+       //$(selectContainer).find("input").val($(this).text());
        realselect.val($(this).attr("rel"));
        realselect.change();
        $(this).parent().parent().css("visibility", "hidden");
@@ -241,3 +281,65 @@ function transform_select(selectContainer){
     
 }
 
+
+function fillAjaxSelect(selectId){
+    var result = "";
+    var ourSelect = $("#" + selectId);
+    var parentContainer = $("#" + selectId).parent();
+
+    ourSelect.find("option").each(function(){
+       var text = ($(this).text());
+       var value = ($(this).val());
+       result  += "<li rel='"+ value +"'>" + text + "</li>";
+    })
+
+    parentContainer.find("ul").remove();
+    parentContainer.find(".jScrollPaneContainer").remove();
+    parentContainer.append("<ul>" + result + "</ul>");
+    parentContainer.find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true})
+}
+
+
+/*Franchize Slider*/
+function franchiseSlider(selectId){
+   var sliderVal = selectId.find("select");
+   var values = [];
+   var min = "",
+       max = "",
+       step = "";
+  
+  sliderVal.find("option").each(function(){
+        values.push($(this).text());
+    });
+
+  min = values[0];
+  max = values[(values.length - 1)];
+  step = values[1] - values[0];
+
+  selectId.slider({
+      value: 0,
+      min: min,
+      max: max,
+      step: step,
+
+      create: function(){
+          selectId.find("a.ui-slider-handle").append("<span id='current'></span>");
+          $("#current").html(selectId.find("select").val());
+      },
+
+      slide: function(event, ui){
+           $("#current").html(ui.value);
+           selectId.find("select").val(ui.value);
+       }
+  })
+
+
+  selectId.parent().find("#min").html(min);
+  selectId.parent().find("#max").html(max);
+}
+
+
+//User type in input value
+function userTypeInput(){
+    
+}

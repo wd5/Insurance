@@ -1,12 +1,16 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title>Step2</title>
-    <script type="text/javascript"
-            src="/static/js/jquery-1.6.3.min.js"></script>
+{% extends "base.html" %}
+{% block content %}
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+
+
     <script type="text/javascript">
         $(function() {
+
+                    $("#sort-parameters td:even").addClass("even");
+
                     if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2")  //hardcoded no burglar alarm id.
                     {
                         $("#id_burglar_alarm_model").html('');
@@ -15,9 +19,15 @@
 
                     $("#id_burglar_alarm_group").change(function() {
                         $("#id_burglar_alarm_model").html('');
-                        if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2")  //hardcoded no burglar alarm id.
+                        $("#id_burglar_alarm_model").parent().find(".select-text").html("");
+
+
+                        if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2") {
                             $("#id_burglar_alarm_model").attr("disabled", true);
+                            $("#id_burglar_alarm_model").parent().hide();                 
+                        }
                         else {
+
                             $.ajax(
                                     {
                                         url:"{% url get_ba_models %}",
@@ -29,7 +39,9 @@
                                             $.each(data, function(index, value) {
                                                 options += '<option value="' + index + '">' + value + '</option>';
                                             });
+                                            $("#id_burglar_alarm_model").parent().show();
                                             $("#id_burglar_alarm_model").html(options);
+                                            fillAjaxSelect("id_burglar_alarm_model");
                                             $("#id_burglar_alarm_model").removeAttr("disabled");
 
                                         }
@@ -37,56 +49,156 @@
                             );
                         }
                     });
+
+                    //Setup franchize slider
+                    franchiseSlider($("#franchize"));
+
+                    //click on sort checkbox
+                    $("#sort-table input").click(function(){
+                        $("#sorting").submit();
+                    })
                 }
         );
     </script>
-</head>
-<body>
-<br/>
-<a href="{% url ncalc_step1 %}">Назад</a><br/>
-{% if msg %}
-    <b>Ошибка: {{ msg }}</b>
-    {% else %}
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ s1_form.as_p }}
-        <input type="submit" value="Обновить"/>
-    </form>
-    <br/>
-    <br/>
-    <table border="1">
-            <tr>
-                <th>Компания</th>
-                <th>Параметры</th>
-                <th>Стоимость</th>
-                <th>Наша стоимость</th>
-                <th>Выбор</th>
-            </tr>
-        {% for comp in result.info %}
-            <tr>
-                <td><b>{{ comp.full_name }}</b></td>
-                <td>
-                    <table border="1">
-                        {% for p in comp.parameters.items %}
-                            <tr>
-                                <td>{{ p.0 }}</td>
-                                <td>
-                                    {% ifequal p.1 "on" %}
-                                        да
-                                    {% else %}
-                                        нет
-                                    {% endifequal %}
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </table>
-                </td>
-                <td><b>{{ comp.score }}</b></td>
-                <td><b>{{ comp.ourscore }}</b></td>
-                <td><a href="{% url ncalc_step3 comp.alias %}">купить</a></td>
-            </tr>
-        {% endfor %}
-    </table>
-{% endif %}
-</body>
-</html>
+
+    </head>
+
+    <div id="calc-tabs">
+        <ul>
+            <li><a href="#tabs-1">КАСКО</a></li>
+            <li><a href="#tabs-2">ОСАГО</a></li>
+            <li><a href="#tabs-3">ДМС</a></li>
+            <li><a href="#tabs-4">ДАГО</a></li>
+            <li><a href="#tabs-5">HC</a></li>
+            <li><a href="#tabs-6">ВЗР</a></li>
+            <li><a href="#tabs-7">ИФЛ</a></li>
+        </ul>
+
+        <div id="tabs-1">
+            <div class="form-round-block">
+                <h2>Сортировать по:</h2>
+
+                {% if msg %}
+                    <b>Ошибка: {{ msg }}</b>
+                    {% else %}
+
+                    <div id="sort-table">
+                        <form action="" method="post" id="sorting">
+                            {% csrf_token %}
+
+                            <table id="sort-parameters">
+                                <tr>
+                                    <td>Цена</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_price }}</div>
+                                    </td>
+                                    <td>Расположение</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_accessibility }}</div>
+                                    </td>
+                                    <td>Быстрота покупки</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_service }}</div>
+                                    </td>
+                                    <td rowspan="2">Качество информационной поддержки</td>
+                                    <td rowspan="2">
+                                        <div class="style-checkbox">{{ s1_form.factor_qualitysupport }}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Условия страхования</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_insuranceterms }}</div>
+                                    </td>
+                                    <td>Популярность компании</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_reputation }}</div>
+                                    </td>
+                                    <td>Простота выплаты</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_easepay }}</div>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                    </div>
+                    </div>
+
+                    <div class="form-round-block" id="economy-block">
+                        <h2>Экономия</h2>
+
+                        <p>Стандартная франшиза</p>
+
+
+                        <div id="franchize-container">
+                            <span id="min"></span>
+                            <span id="max"></span>
+
+                            <div id="franchize">
+                                 {{ s1_form.franchise }}
+                            </div>
+                        </div>
+
+                        
+                        <p>Охранная система автомобиля</p>
+
+                        <div class="long-select">
+                            <span class="select-text"></span>
+                            {{ s1_form.burglar_alarm_group }}
+                        </div>
+
+                        <div class="long-select">
+                            <span class="select-text"></span>
+                            {{ s1_form.burglar_alarm_model }}
+                        </div>
+
+
+                        <p><input type="submit" value="Обновить"/></p>
+                        </form>
+                    </div>
+
+                    <div id="result-table-step2">
+                        <table border="1">
+                            {% for comp in result.info %}
+                                <tr>
+                                    <td><b>{{ comp.full_name }}<span>{{ comp.company_comment}}</span></b></td>
+
+                                    {% for p in comp.parameters.items %}
+                                        {% ifequal p.1 "on" %}
+                                            <td class="small">
+                                                <img src="/static/images/yes_circle.png" alt="да" />
+                                            </td>
+                                        {% else %}
+                                            <td class="small">
+                                            </td>
+                                        {% endifequal %}
+                                    {% endfor %}
+
+
+                                    <td class="final-price">
+                                        <div class="ourscore">{{ comp.ourscore }}</div>
+                                        <div class="score">{{ comp.score }}</div>
+                                        <a class="order-button" href="{% url ncalc_step3 comp.alias %}"></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+
+
+                {% endif %}
+
+            <a href="{% url ncalc_step1 %}">Назад</a><br/>
+        </div>
+
+
+        <div id="tabs-2">осаго</div>
+        <div id="tabs-3">дмс</div>
+        <div id="tabs-4">даго</div>
+        <div id="tabs-5">нс</div>
+        <div id="tabs-6">взр</div>
+        <div id="tabs-7">ифл</div>
+    </div>
+
+{% endblock %}

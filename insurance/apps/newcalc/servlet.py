@@ -9,6 +9,7 @@ import socket
 
 FAKE_RESPONSE = {'status': 'OK', 'info':
     [{'full_name': 'АльфаСтрахование',
+      'company_comment': 'testComment-1',
       'alias': 'alfa',
       'parameters': {'Evacuator': 'on',
                      'TheEmergencyCommissioner': 'on',
@@ -20,6 +21,7 @@ FAKE_RESPONSE = {'status': 'OK', 'info':
                      'AlternativenessOfFormsOfPayment': 'on',
                      }},
             {'full_name': 'Ингосстрах',
+             'company_comment': 'testComment-2',
              'alias': 'ingos',
              'parameters': {'Evacuator': 'on',
                             'TheEmergencyCommissioner': '',
@@ -31,6 +33,7 @@ FAKE_RESPONSE = {'status': 'OK', 'info':
                             'AlternativenessOfFormsOfPayment': '',
                             }},
             {'full_name': 'ГУТА-Страхование',
+             'company_comment': 'testComment-3',
              'alias': 'guta',
              'parameters': {'Evacuator': '',
                             'TheEmergencyCommissioner': 'on',
