@@ -162,7 +162,7 @@
                         <table border="1">
                             {% for comp in result.info %}
                                 <tr>
-                                    <td><b>{{ comp.full_name }}</b></td>
+                                    <td><b>{{ comp.full_name }}<span>{{ company.company_comment}}</span></b></td>
 
                                     {% for p in comp.parameters.items %}
                                         {% ifequal p.1 "on" %}
