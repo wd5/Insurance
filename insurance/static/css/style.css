@@ -2316,7 +2316,6 @@ div.messages li {
     border: 1px solid #501c09;
     border-radius: 5px;
     text-align: center;
-
 }
 
 #result-table-step2 table tr td{
@@ -2326,6 +2325,33 @@ div.messages li {
     height: 119px;
     vertical-align: middle;
     text-align: center;
+}
+
+#result-table-step2 .tooltip{
+    position: relative;
+    top: 45px;
+    right: 5px;
+}
+
+#result-table-step2 .tooltip span{
+    display: none;
+    padding: 10px;
+    background: #fff;
+    min-width: 200px;
+    border: 2px solid #ac826f;
+    position: absolute;
+    top: -55px;
+    right: -120px;
+    font-size: 11px;
+    color: #8a4e33;
+    z-index: 20;
+}
+
+#result-table-step2 .tooltip span img{
+    position: absolute;
+    top: 34px;
+    left: 50px;
+    z-index: 25;
 }
 
 .order-button{
