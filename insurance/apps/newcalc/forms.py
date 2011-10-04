@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.models import User
 from models import Mark, City, ModelYear, Power, Model, BurglarAlarm
 from profile.models import Persona
+from polices.models import BODY_TYPE_CHOICES, SEX_CHOICES
 from email_login.forms import PhoneNumberField
 from captcha.fields import CaptchaField
 
@@ -231,18 +232,7 @@ class Step2Form(forms.Form):
 
 
 class Step3FormReg(forms.Form):
-    persona = forms.ModelChoiceField(label="Персона",
-                                     queryset=Persona.objects.none(),
-                                     empty_label="--------", required=False)
-    reg_address = forms.CharField(label="Адрес прописки", max_length=200)
-    liv_address = forms.CharField(label="Адрес проживания", max_length=200)
-    pol_address = forms.CharField(label="Адрес доставки полиса", max_length=200)
-
-    def __init__(self, *args, **kwargs):
-        form_extra_data = kwargs.pop("form_extra_data")
-        super(Step3FormReg, self).__init__(*args, **kwargs)
-        self.fields['persona'].queryset = Persona.objects.filter(
-            user=form_extra_data["user"])
+    pass
 
 
 class Step3FormNoReg(forms.Form):
@@ -254,21 +244,13 @@ class Step3FormNoReg(forms.Form):
                                                                maxlength=75)),
                              label="Email address")
     password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
+        widget=forms.PasswordInput(attrs=attrs_dict),
         label="Password")
     password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs=attrs_dict, render_value=False),
+        widget=forms.PasswordInput(attrs=attrs_dict),
         label="Password (again)")
 
-#    tos = forms.BooleanField(widget=forms.CheckboxInput(attrs=attrs_dict),
-#                             label='I have read and agree to the Terms of Service'
-#                             ,
-#                             error_messages={
-#                                 'required': "You must agree to the terms to register"})
     captcha = CaptchaField()
-    reg_address = forms.CharField(label="Адрес прописки", max_length=200)
-    liv_address = forms.CharField(label="Адрес проживания", max_length=200)
-    pol_address = forms.CharField(label="Адрес доставки полиса", max_length=200)
 
     def clean(self):
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
@@ -288,3 +270,42 @@ class Step3FormNoReg(forms.Form):
             raise forms.ValidationError(
                 "Недопустимые символы в номере телефона.")
         return self.cleaned_data['phone']
+
+
+class Step4FormReg(forms.Form):
+    vin = forms.CharField(label="VIN", min_length=17, max_length=17)
+    body_type = forms.ChoiceField(label="Тип кузова", choices=BODY_TYPE_CHOICES)
+    mileage = forms.IntegerField(label="Пробег", min_value=0)
+    first_name = forms.CharField(label="Имя владельца", max_length=30)
+    last_name = forms.CharField(label="Фамилия владельца", max_length=30)
+    middle_name = forms.CharField(label="Отчество владельца", max_length=30)
+    birth_date = forms.DateField(label="Дата рождения")
+    first_owner = forms.BooleanField(label="Первый владелец авто", required=False)
+    sex = forms.ChoiceField(label="Пол", choices=SEX_CHOICES)
+    persona = forms.ModelChoiceField(label="Персона",
+                                     queryset=Persona.objects.none(),
+                                     empty_label="--------", required=False)
+    reg_address = forms.CharField(label="Адрес прописки", max_length=200)
+    liv_address = forms.CharField(label="Адрес проживания", max_length=200)
+    pol_address = forms.CharField(label="Адрес доставки полиса", max_length=200)
+
+    def __init__(self, *args, **kwargs):
+        form_extra_data = kwargs.pop("form_extra_data")
+        super(Step4FormReg, self).__init__(*args, **kwargs)
+        self.fields['persona'].queryset = Persona.objects.filter(
+            user=form_extra_data["user"])
+
+
+class Step4FormNoReg(forms.Form):
+    vin = forms.CharField(label="VIN", min_length=17, max_length=17)
+    body_type = forms.ChoiceField(label="Тип кузова", choices=BODY_TYPE_CHOICES)
+    mileage = forms.IntegerField(label="Пробег", min_value=0)
+    first_name = forms.CharField(label="Имя владельца", max_length=30)
+    last_name = forms.CharField(label="Фамилия владельца", max_length=30)
+    middle_name = forms.CharField(label="Отчество владельца", max_length=30)
+    birth_date = forms.DateField(label="Дата рождения")
+    first_owner = forms.BooleanField(label="Первый владелец авто", required=False)
+    sex = forms.ChoiceField(label="Пол", choices=SEX_CHOICES)
+    reg_address = forms.CharField(label="Адрес прописки", max_length=200)
+    liv_address = forms.CharField(label="Адрес проживания", max_length=200)
+    pol_address = forms.CharField(label="Адрес доставки полиса", max_length=200)

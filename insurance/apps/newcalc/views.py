@@ -7,12 +7,15 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
 from django.conf import settings
+from django.contrib.auth.models import User, Group
 
 import socket
 
-from newcalc.models import Mark, Model, Mym, Power, City, BurglarAlarm, Company
-from newcalc.forms import Step1Form, Step2Form, Step3FormReg, Step3FormNoReg
+from models import Mark, Model, Mym, Power, City, BurglarAlarm, Company
+from forms import Step1Form, Step2Form, Step3FormReg, Step3FormNoReg
+from forms import Step4FormReg, Step4FormNoReg
 from profile.models import Persona
+from polices.models import InsurancePolicy
 from email_login.backends import RegistrationBackend
 from servlet import servlet_request
 
@@ -109,26 +112,130 @@ def step3(request, alias):
             data["dr_nr"] = "1"
     if request.method == "POST":
         if request.user.is_authenticated():
-            form = Step3FormReg(request.POST, form_extra_data={"user": request.user,})
+            form = Step3FormReg(request.POST)
             if form.is_valid():
-                cd = form.cleaned_data
-                # Здесь создаем полис.
-                return HttpResponse("Полис создан")
+                request.session["company_alias"] = alias
+                return redirect(reverse('ncalc_step4'))
         else:
             form = Step3FormNoReg(request.POST)
             if form.is_valid():
-                RegistrationBackend().register(request, **form.cleaned_data)
-                # Здесь создаем полис.
-                return HttpResponse("Полис создан")
+                new_user = RegistrationBackend().register(request,
+                                                          **form.cleaned_data)
+                request.session["new_user"] = new_user.pk
+                request.session["company_alias"] = alias
+                return redirect(reverse('ncalc_step4'))
     else:
         if request.user.is_authenticated():
-            form = Step3FormReg(form_extra_data={"user": request.user,})
+            form = Step3FormReg()
         else:
             form = Step3FormNoReg()
     if request.user.is_authenticated():
         return direct_to_template(request, 'calc/step3reg.html', {"data": data, "form": form})
     else:
         return direct_to_template(request, 'calc/step3noreg.html', {"data": data, "form": form})
+
+
+def step4(request):
+    if request.method == "POST":
+        if request.user.is_authenticated():
+            form = Step4FormReg(request.POST, form_extra_data={"user": request.user,})
+            if form.is_valid():
+                cd = form.cleaned_data
+                s1_data = request.session.get("s1_data")
+                ip = InsurancePolicy()
+                ip.user = request.user
+                ip.company = Company.objects.get(company_alias=request.session["company_alias"]).company_full_name
+                ip.mark = Mark.objects.get(pk=s1_data["mark"]).mark_name
+                ip.model = Model.objects.get(pk=s1_data["model"]).model_name
+                ip.model_year = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
+#                ip.power = Power.objects.get(pk=s1_data["power"]).power_name
+                ip.price = s1_data["price"]
+                ip.wheel = s1_data["wheel"]
+                ip.city = City.objects.get(pk=s1_data["city"]).city_name
+                ip.credit = bool(s1_data["credit"])
+                ip.age = s1_data["age"]
+                ip.experience_driving = s1_data["experience_driving"]
+                if s1_data["unlimited_drivers"]:
+                    ip.unlimited_users = True
+                else:
+                    ip.unlimited_users = False
+                    if s1_data.has_key("age1"):
+                        ip.age1 = s1_data["age1"]
+                        ip.experience_driving1 = s1_data["experience_driving1"]
+                    if s1_data.has_key("age2"):
+                        ip.age2 = s1_data["age2"]
+                        ip.experience_driving2 = s1_data["experience_driving2"]
+                    if s1_data.has_key("age3"):
+                        ip.age3 = s1_data["age3"]
+                        ip.experience_driving3 = s1_data["experience_driving3"]
+                ip.vin = cd["vin"]
+                ip.body_type = cd["body_type"]
+                ip.mileage = cd["mileage"]
+                ip.last_name = cd["last_name"]
+                ip.first_name = cd["first_name"]
+                ip.middle_name = cd["middle_name"]
+                ip.birth_date = cd["birth_date"]
+                ip.first_owner = cd["first_owner"]
+                ip.sex = cd["sex"]
+                ip.reg_address = cd["reg_address"]
+                ip.liv_address = cd["liv_address"]
+                ip.pol_address = cd["pol_address"]
+                ip.save()
+                return HttpResponse("Полис создан!")
+        else:
+            form = Step4FormNoReg(request.POST)
+            if form.is_valid():
+                cd = form.cleaned_data
+                s1_data = request.session.get("s1_data")
+                ip = InsurancePolicy()
+                ip.user = User.objects.get(pk=request.session["new_user"])
+                ip.company = Company.objects.get(company_alias=request.session["company_alias"]).company_full_name
+                ip.mark = Mark.objects.get(pk=s1_data["mark"]).mark_name
+                ip.model = Model.objects.get(pk=s1_data["model"]).model_name
+                ip.model_year = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
+#                ip.power = Power.objects.get(pk=s1_data["power"]).power_name
+                ip.price = s1_data["price"]
+                ip.wheel = s1_data["wheel"]
+                ip.city = City.objects.get(pk=s1_data["city"]).city_name
+                ip.credit = bool(s1_data["credit"])
+                ip.age = s1_data["age"]
+                ip.experience_driving = s1_data["experience_driving"]
+                if s1_data["unlimited_drivers"]:
+                    ip.unlimited_users = True
+                else:
+                    ip.unlimited_users = False
+                    if s1_data.has_key("age1"):
+                        ip.age1 = s1_data["age1"]
+                        ip.experience_driving1 = s1_data["experience_driving1"]
+                    if s1_data.has_key("age2"):
+                        ip.age2 = s1_data["age2"]
+                        ip.experience_driving2 = s1_data["experience_driving2"]
+                    if s1_data.has_key("age3"):
+                        ip.age3 = s1_data["age3"]
+                        ip.experience_driving3 = s1_data["experience_driving3"]
+                ip.vin = cd["vin"]
+                ip.body_type = cd["body_type"]
+                ip.mileage = cd["mileage"]
+                ip.last_name = cd["last_name"]
+                ip.first_name = cd["first_name"]
+                ip.middle_name = cd["middle_name"]
+                ip.birth_date = cd["birth_date"]
+                ip.first_owner = cd["first_owner"]
+                ip.sex = cd["sex"]
+                ip.reg_address = cd["reg_address"]
+                ip.liv_address = cd["liv_address"]
+                ip.pol_address = cd["pol_address"]
+                ip.save()
+                return HttpResponse("Полис создан!")
+    else:
+        if request.user.is_authenticated():
+            form = Step4FormReg(form_extra_data={"user": request.user,})
+        else:
+            form = Step4FormNoReg()
+    if request.user.is_authenticated():
+        return direct_to_template(request, 'calc/step4reg.html', {"form": form,})
+    else:
+        return direct_to_template(request, 'calc/step4noreg.html', {"form": form,})
 
 
 def cleansession(request):

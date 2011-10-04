@@ -5,55 +5,6 @@
     <title>Step3</title>
     <script type="text/javascript"
             src="/static/js/jquery-1.6.3.min.js"></script>
-    <script type="text/javascript">
-        $(function() {
-            $("#b1").click(function() {
-                if ($("#id_persona").val() == "")
-                    alert("Сначала выберите персону!");
-                else
-                    $.ajax(
-                            {
-                                url:"{% url get_person_address %}",
-                                data:{pers:$("#id_persona").val()},
-                                dataType:"text",
-                                success:function(data) {
-                                    $("#id_reg_address").val(data);
-                                }
-                            }
-                    );
-            });
-            $("#b2").click(function() {
-                if ($("#id_persona").val() == "")
-                    alert("Сначала выберите персону!");
-                else
-                    $.ajax(
-                            {
-                                url:"{% url get_person_address %}",
-                                data:{pers:$("#id_persona").val()},
-                                dataType:"text",
-                                success:function(data) {
-                                    $("#id_liv_address").val(data);
-                                }
-                            }
-                    );
-            });
-            $("#b3").click(function() {
-                if ($("#id_persona").val() == "")
-                    alert("Сначала выберите персону!");
-                else
-                    $.ajax(
-                            {
-                                url:"{% url get_person_address %}",
-                                data:{pers:$("#id_persona").val()},
-                                dataType:"text",
-                                success:function(data) {
-                                    $("#id_pol_address").val(data);
-                                }
-                            }
-                    );
-            });
-        });
-    </script>
 </head>
 <body>
 <form action="" method="post">
@@ -115,46 +66,6 @@
             <td>{{ data.company }}</td>
         </tr>
         {% csrf_token %}
-        <tr>
-            <td>Персона</td>
-            <td>
-                {{ form.persona }}
-                {{ form.persona.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Адрес прописки</td>
-            <td>
-                {{ form.reg_address }}
-                <button type="button" id="b1" title="Подставить из профиля
-персоны">
-                    <img
-                            src="/static/images/edit-copy.png"></button>
-                {{ form.reg_address.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Адрес проживания</td>
-            <td>
-                {{ form.liv_address }}
-                <button type="button" id="b2" title="Подставить из профиля
-персоны">
-                    <img
-                            src="/static/images/edit-copy.png"></button>
-                {{ form.liv_address.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Адрес доставки полиса</td>
-            <td>
-                {{ form.pol_address }}
-                <button type="button" id="b3" title="Подставить из профиля
-персоны">
-                    <img
-                            src="/static/images/edit-copy.png"></button>
-                {{ form.pol_address.errors }}
-            </td>
-        </tr>
     </table>
     <input type="submit" value="Заказать"/>
 </form>

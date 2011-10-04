@@ -8,8 +8,8 @@ import socket
 
 
 FAKE_RESPONSE = {'status': 'OK', 'info':
-    [{'full_name': 'TestCompany-1',
-      'alias': 'testcomp1',
+    [{'full_name': 'АльфаСтрахование',
+      'alias': 'alfa',
       'parameters': {'Evacuator': 'on',
                      'TheEmergencyCommissioner': 'on',
                      'PaymentWithoutInquiries': 'on',
@@ -19,8 +19,8 @@ FAKE_RESPONSE = {'status': 'OK', 'info':
                      'TheObligatoryFranchize': 'on',
                      'AlternativenessOfFormsOfPayment': 'on',
                      }},
-            {'full_name': 'TestCompany-2',
-             'alias': 'testcomp2',
+            {'full_name': 'Ингосстрах',
+             'alias': 'ingos',
              'parameters': {'Evacuator': 'on',
                             'TheEmergencyCommissioner': '',
                             'PaymentWithoutInquiries': 'on',
@@ -30,8 +30,8 @@ FAKE_RESPONSE = {'status': 'OK', 'info':
                             'TheObligatoryFranchize': 'on',
                             'AlternativenessOfFormsOfPayment': '',
                             }},
-            {'full_name': 'TestCompany-3',
-             'alias': 'testcomp3',
+            {'full_name': 'ГУТА-Страхование',
+             'alias': 'guta',
              'parameters': {'Evacuator': '',
                             'TheEmergencyCommissioner': 'on',
                             'PaymentWithoutInquiries': '',
