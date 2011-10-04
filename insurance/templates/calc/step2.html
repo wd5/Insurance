@@ -1,9 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
     <script type="text/javascript" src="/static/js/calc/calc.js"></script>
-    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
-    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
-    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+    <script type="text/javascript"
+            src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript"
+            src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript"
+            src="/static/js/calc/jscrollpane.js"></script>
 
 
     <script type="text/javascript">
@@ -24,7 +27,7 @@
 
                         if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2") {
                             $("#id_burglar_alarm_model").attr("disabled", true);
-                            $("#id_burglar_alarm_model").parent().hide();                 
+                            $("#id_burglar_alarm_model").parent().hide();
                         }
                         else {
 
@@ -54,14 +57,14 @@
                     franchiseSlider($("#franchize"));
 
                     //click on sort checkbox
-                    $("#sort-table input").click(function(){
+                    $("#sort-table input").click(function() {
                         $("#sorting").submit();
                     })
                 }
         );
     </script>
 
-    </head>
+    {#    </head>#}
 
     <div id="calc-tabs">
         <ul>
@@ -80,7 +83,7 @@
 
                 {% if msg %}
                     <b>Ошибка: {{ msg }}</b>
-                    {% else %}
+                {% else %}
 
                     <div id="sort-table">
                         <form action="" method="post" id="sorting">
@@ -100,7 +103,9 @@
                                     <td>
                                         <div class="style-checkbox">{{ s1_form.factor_service }}</div>
                                     </td>
-                                    <td rowspan="2">Качество информационной поддержки</td>
+                                    <td rowspan="2">Качество информационной
+                                        поддержки
+                                    </td>
                                     <td rowspan="2">
                                         <div class="style-checkbox">{{ s1_form.factor_qualitysupport }}</div>
                                     </td>
@@ -136,11 +141,11 @@
                             <span id="max"></span>
 
                             <div id="franchize">
-                                 {{ s1_form.franchise }}
+                                {{ s1_form.franchise }}
                             </div>
                         </div>
 
-                        
+
                         <p>Охранная система автомобиля</p>
 
                         <div class="long-select">
@@ -162,24 +167,61 @@
                         <table border="1">
                             {% for comp in result.info %}
                                 <tr>
-                                    <td><b>{{ comp.full_name }}<span>{{ comp.company_comment}}</span></b></td>
-
-                                    {% for p in comp.parameters.items %}
-                                        {% ifequal p.1 "on" %}
-                                            <td class="small">
-                                                <img src="/static/images/yes_circle.png" alt="да" />
-                                            </td>
-                                        {% else %}
-                                            <td class="small">
-                                            </td>
-                                        {% endifequal %}
-                                    {% endfor %}
-
+                                    <td><b>{{ comp.full_name }}</b>
+                                        {#                                        <span>{{ comp.company_comment}}</span>#}
+                                    </td>
+                                    <td class="small">
+                                        {% if comp.parameters.Evacuator %}
+                                            <img src="/static/images/yes_circle.png"
+                                                 alt="да"/>
+                                        {% endif %}
+                                    </td>
+                                    {% if comp.parameters.TheEmergencyCommissioner %}
+                                        <img src="/static/images/yes_circle.png"
+                                             alt="да"/>
+                                    {% endif %}
+                                    <td class="small">
+                                        {% if comp.parameters.PaymentWithoutInquiries %}
+                                            <img src="/static/images/yes_circle.png"
+                                                 alt="да"/>
+                                        {% endif %}
+                                    </td>
+                                    <td class="small">
+                                        {% if comp.parameters.GatheringOfInquiries %}
+                                            <img src="/static/images/yes_circle.png"
+                                                 alt="да"/>
+                                        {% endif %}
+                                    </td>
+                                    <td class="small">
+                                        {% if comp.parameters.TheModularInsuranceSum %}
+                                            <img src="/static/images/yes_circle.png"
+                                                 alt="да"/>
+                                        {% endif %}
+                                    </td>
+                                    <td class="small">
+                                        {% if comp.parameters.NewForTheOld %}
+                                            <img src="/static/images/yes_circle.png"
+                                                 alt="да"/>
+                                        {% endif %}
+                                    </td>
+                                    <td class="small">
+                                        {% if comp.parameters.TheObligatoryFranchize %}
+                                            <img src="/static/images/yes_circle.png"
+                                                 alt="да"/>
+                                        {% endif %}
+                                    </td>
+                                    <td class="small">
+                                        {% if comp.parameters.AlternativenessOfFormsOfPayment %}
+                                            <img src="/static/images/yes_circle.png"
+                                                 alt="да"/>
+                                        {% endif %}
+                                    </td>
 
                                     <td class="final-price">
                                         <div class="ourscore">{{ comp.ourscore }}</div>
                                         <div class="score">{{ comp.score }}</div>
-                                        <a class="order-button" href="{% url ncalc_step3 comp.alias %}"></a>
+                                        <a class="order-button"
+                                           href="{% url ncalc_step3 comp.alias %}"></a>
                                     </td>
                                 </tr>
                             {% endfor %}

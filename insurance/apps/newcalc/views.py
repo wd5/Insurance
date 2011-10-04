@@ -72,7 +72,7 @@ def step2(request):
     else:
         form_extra_data, initial_data = _s2_read_form_data(s2_data)
         form = Step2Form(form_extra_data=form_extra_data, initial=initial_data)
-
+        
     return direct_to_template(request, 'calc/step2.html', {"msg": msg,
                                                            "s1_form": form,
                                                            "result": result})
