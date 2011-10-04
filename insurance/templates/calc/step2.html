@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+
     <script type="text/javascript" src="/static/js/calc/calc.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
@@ -57,11 +58,16 @@
                     $("#sort-table input").click(function(){
                         $("#sorting").submit();
                     })
+
+                    //tooltip
+                    $(".tooltip").hover(function(){
+                        $(this).find("span").show();
+                    }, function(){
+                        $(this).find("span").hide();
+                    })
                 }
         );
     </script>
-
-    </head>
 
     <div id="calc-tabs">
         <ul>
@@ -162,7 +168,13 @@
                         <table border="1">
                             {% for comp in result.info %}
                                 <tr>
-                                    <td><b>{{ comp.full_name }}<span>{{ comp.company_comment}}</span></b></td>
+                                    <td>
+                                        <b>{{ comp.full_name }}</b>
+                                        <a class="tooltip" href="#">
+                                            Условия
+                                            <span>{{ comp.company_comment}} <img src="/static/images/tooltip_angle.png" alt="" /></span>
+                                        </a>
+                                    </td>
 
                                     {% for p in comp.parameters.items %}
                                         {% ifequal p.1 "on" %}
