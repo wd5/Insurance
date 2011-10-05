@@ -1,13 +1,9 @@
 {% extends "base.html" %}
-{% block content %}
+{% block extra_head %}
     <script type="text/javascript" src="/static/js/calc/calc.js"></script>
-    <script type="text/javascript"
-            src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
-    <script type="text/javascript"
-            src="/static/js/jquery.mousewheel.js"></script>
-    <script type="text/javascript"
-            src="/static/js/calc/jscrollpane.js"></script>
-
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
 
     <script type="text/javascript">
         $(function() {
@@ -63,8 +59,9 @@
                 }
         );
     </script>
+{% endblock %}
 
-    {#    </head>#}
+{% block content %}
 
     <div id="calc-tabs">
         <ul>

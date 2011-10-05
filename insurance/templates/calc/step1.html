@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-{% block content %}
-
-
+{% block extra_head %}
     <script type="text/javascript" src="/static/js/calc/calc.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
@@ -13,10 +11,11 @@
                 power = "{% url get_powers %}",
                 price = "{% url get_price %}";
     </script>
-    </head>
+{% endblock %}
 
+{% block content %}
 
-    <div id="calc-tabs">
+<div id="calc-tabs">
     <ul>
         <li><a href="#tabs-1">КАСКО</a></li>
         <li><a href="#tabs-2">ОСАГО</a></li>
@@ -41,11 +40,10 @@
 
     <div id="first-select" class="long-select">
         <span class="select-text"></span>
-        <input type="text" value="" />
+        <input type="text" value=""/>
         {{ s1_form.mark }}
         <span class="form-error">{{ s1_form.mark.errors }}</span>
     </div>
-
 
 
     <div id="unlimited-drivers" class="style-checkbox">
@@ -70,18 +68,18 @@
             <tr>
                 <td>
                     {{ s1_form.model_year.label }}
-                     <span class="table-error">{{ s1_form.model_year.errors }}</span>
+                    <span class="table-error">{{ s1_form.model_year.errors }}</span>
                 </td>
                 <td class="visible-data second">
                     <div></div>
                     <span class="ajax-select">{{ s1_form.model_year }}</span>
                 </td>
             </tr>
-            
+
             <tr>
                 <td>
                     {{ s1_form.power.label }}
-                     <span class="table-error">{{ s1_form.power.errors }}</span>
+                    <span class="table-error">{{ s1_form.power.errors }}</span>
                 </td>
                 <td class="visible-data second">
                     <div></div>
@@ -92,7 +90,7 @@
             <tr>
                 <td>
                     {{ s1_form.price.label }}
-                     <span class="table-error">{{ s1_form.price.errors }}</span>
+                    <span class="table-error">{{ s1_form.price.errors }}</span>
                 </td>
                 <td class="second">
                     {{ s1_form.price }}
@@ -233,14 +231,14 @@
 
         </table>
         <a id="add-driver-button" href="#"></a>
-         <a id="delete-driver-button" class="hide" href="#"></a>
+        <a id="delete-driver-button" class="hide" href="#"></a>
     </div>
 
     <input id="calculate-button" type="image" value="" src="/static/images/calculate_button.png"/>
     </form>
 
     <br/>
-        <a href="{% url cleansession %}">очистить сессию (для тестов)</a>
+    <a href="{% url cleansession %}">очистить сессию (для тестов)</a>
     </div>
 
     <div id="tabs-2">осаго</div>
