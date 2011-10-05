@@ -140,6 +140,11 @@ $(function() {
         lastRow.removeClass("show").addClass("hide").hide();
     })
 
+    //Submit data on server - step1, step2
+    $("#form-step1, #sorting").submit(function(){
+        preloaderScreen();
+    })
+
     //Type into input element
     $(".long-select input").keypress(function(e){
         if(e.keyCode == 8){
@@ -336,6 +341,16 @@ function franchiseSlider(selectId){
 
   selectId.parent().find("#min").html(min);
   selectId.parent().find("#max").html(max);
+}
+
+//Show Preloader function
+function preloaderScreen(){
+    var over = $("#overlay");
+    var width = $(document).width(),
+        heigth = $(document).height();
+
+    over.css({"width": width, "height" : heigth});
+    over.show();
 }
 
 
