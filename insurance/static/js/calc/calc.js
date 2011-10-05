@@ -5,16 +5,8 @@ $(function() {
     $("#calc-tabs").tabs();
 
     
-    //price slider
-    $("#price-slider").slider({
-        value: $("#id_price").val(),
-        min: 0,
-        max: 1000000,
-        step: 100,
-        slide: function(event, ui){
-            $("#id_price").val(ui.value);
-        }
-    });
+    //price slider on first calc page
+    priceSlider($("#price-slider"));
 
     
     //Transform standart from elements
@@ -297,6 +289,34 @@ function fillAjaxSelect(selectId){
     parentContainer.find(".jScrollPaneContainer").remove();
     parentContainer.append("<ul>" + result + "</ul>");
     parentContainer.find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true})
+}
+
+/*Price Slider*/
+function priceSlider(containerId){
+    var min = "0",
+        max = "1000000",
+        step = 100;
+
+    containerId.slider({
+        value:  $("#id_price").val(),
+        min: min,
+        max: max,
+        step: step,
+
+        create: function(){
+            $("#id_price").css("visibility", "hidden");
+            containerId.find("a.ui-slider-handle").append("<span id='current'></span>");
+            containerId.find("#current").html($("#id_price").val());
+        },
+
+        slide: function(event, ui){
+             $("#current").html(ui.value);
+             $("#id_price").val(ui.value);
+        }
+    });
+
+    containerId.parent().find("#min").html(min);
+    containerId.parent().find("#max").html(max);
 }
 
 

@@ -2471,22 +2471,28 @@ div.messages li {
 }
 
 
-/*Franchize Slider*/
-#franchize-container{
+/*Sliders*/
+#franchize-container, {
     background: url(/static/images/franchize_slider_back.png) top left no-repeat;
     width: 175px;
     position: relative;
     margin: 50px 0 20px 0;
 }
 
-#franchize-container #min{
+#price-slider-container{
+    background: url(/static/images/franchize_slider_back.png) top left no-repeat;
+    width: 175px;
+    position: relative;
+}
+
+#franchize-container #min, #price-slider-container #min{
     position: absolute;
     top: -20px;
     font-size: 14px;
     left: 0;
 }
 
-#franchize-container #max{
+#franchize-container #max, #price-slider-container #max{
     position: absolute;
     top: -20px;
     right: 0;
@@ -2501,18 +2507,26 @@ div.messages li {
     color: #fff;
 }
 
+#price-slider-container #current{
+    position: absolute;
+    top: 2px;
+    left: 15px;
+    font-size: 13px;
+    color: #fff;
+}
+
 #franchize select{
     visibility: hidden;
 }
 
-#franchize{
+#franchize, #price-slider{
     position: relative;
     width: 100px;
-
+    height: 22px;
 }
 
-#franchize .ui-slider-handle{
-    width: 76px;
+#franchize .ui-slider-handle, #price-slider .ui-slider-handle{
+    width: 73px;
     height: 20px;
     background: url(/static/images/franchize_slider_stick.png) top left no-repeat;
     display: block;
@@ -2549,6 +2563,8 @@ div.messages li {
 }
 
 
+/*
+
 #require-auto-data-first #price-slider-container{
     width: 213px;
     background: url(/static/images/slider_line.png) top left no-repeat;
@@ -2569,7 +2585,7 @@ div.messages li {
     height: 22px;
     width: 22px;
     position: relative;
-}
+}*/
 
 #calc-tabs span#price-label{
     display: block;
