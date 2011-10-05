@@ -165,52 +165,47 @@
                             {% for comp in result.info %}
                                 <tr>
                                     <td><b>{{ comp.full_name }}</b>
-                                        {#                                        <span>{{ comp.company_comment}}</span>#}
+                                        {#<span>{{ comp.company_comment}}</span>#}
                                     </td>
                                     <td class="small">
                                         {% if comp.parameters.Evacuator %}
-                                            <img src="/static/images/yes_circle.png"
-                                                 alt="да"/>
+                                            <img src="/static/images/yes_circle.png" alt="да"/>
                                         {% endif %}
                                     </td>
-                                    {% if comp.parameters.TheEmergencyCommissioner %}
-                                        <img src="/static/images/yes_circle.png"
-                                             alt="да"/>
-                                    {% endif %}
+                                    <td class="small">
+                                        {% if comp.parameters.TheEmergencyCommissioner %}
+                                            <img src="/static/images/yes_circle.png" alt="да"/>
+                                        {% endif %}
+                                    </td>
+
                                     <td class="small">
                                         {% if comp.parameters.PaymentWithoutInquiries %}
-                                            <img src="/static/images/yes_circle.png"
-                                                 alt="да"/>
+                                            <img src="/static/images/yes_circle.png" alt="да"/>
                                         {% endif %}
                                     </td>
                                     <td class="small">
                                         {% if comp.parameters.GatheringOfInquiries %}
-                                            <img src="/static/images/yes_circle.png"
-                                                 alt="да"/>
+                                            <img src="/static/images/yes_circle.png" alt="да"/>
                                         {% endif %}
                                     </td>
                                     <td class="small">
                                         {% if comp.parameters.TheModularInsuranceSum %}
-                                            <img src="/static/images/yes_circle.png"
-                                                 alt="да"/>
+                                            <img src="/static/images/yes_circle.png" alt="да"/>
                                         {% endif %}
                                     </td>
                                     <td class="small">
                                         {% if comp.parameters.NewForTheOld %}
-                                            <img src="/static/images/yes_circle.png"
-                                                 alt="да"/>
+                                            <img src="/static/images/yes_circle.png" alt="да"/>
                                         {% endif %}
                                     </td>
                                     <td class="small">
                                         {% if comp.parameters.TheObligatoryFranchize %}
-                                            <img src="/static/images/yes_circle.png"
-                                                 alt="да"/>
+                                            <img src="/static/images/yes_circle.png" alt="да"/>
                                         {% endif %}
                                     </td>
                                     <td class="small">
                                         {% if comp.parameters.AlternativenessOfFormsOfPayment %}
-                                            <img src="/static/images/yes_circle.png"
-                                                 alt="да"/>
+                                            <img src="/static/images/yes_circle.png" alt="да"/>
                                         {% endif %}
                                     </td>
 
