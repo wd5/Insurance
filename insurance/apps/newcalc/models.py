@@ -25,6 +25,7 @@ class Model(models.Model):
     model_id = models.IntegerField(primary_key=True)
     model_name = models.CharField(max_length=50)
     model_mark = models.ForeignKey(Mark, db_column="model_mark")
+    model_active = models.IntegerField(default=1)
 
     def __unicode__(self):
         return self.model_name

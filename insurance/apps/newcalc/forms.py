@@ -35,7 +35,7 @@ class Step1Form(forms.Form):
     power = forms.ModelChoiceField(label="Мощность",
                                    queryset=Power.objects.none(),
                                    empty_label="--------")
-    price = forms.IntegerField(label="Стоимость")
+    price = forms.IntegerField(label="Стоимость", max_value=5000000)
     wheel = forms.ChoiceField(label="Руль",
                               choices=(("left", "левый"), ("right", "правый")))
     city = forms.ModelChoiceField(label="Регистрация собственника",
@@ -206,7 +206,7 @@ class Step2Form(forms.Form):
     burglar_alarm_group = forms.ModelChoiceField(label="Сигнализация",
                                                  queryset=BurglarAlarm.objects.filter(
                                                      pk__gt=0,
-                                                     burglar_alarm_parent=0),
+                                                     burglar_alarm_parent=0).order_by("burglar_alarm_name"),
                                                  empty_label="--------",
                                                  required=False)
     burglar_alarm_model = forms.ModelChoiceField(label="Модель сигнализации",
@@ -219,14 +219,14 @@ class Step2Form(forms.Form):
         super(Step2Form, self).__init__(*args, **kwargs)
         if form_extra_data.has_key("burglar_alarm_group"):
             self.fields['burglar_alarm_model'].queryset = form_extra_data[
-                                                          "burglar_alarm_group"].models.all()
+                                                          "burglar_alarm_group"].models.order_by("burglar_alarm_name")
 
     def clean_burglar_alarm_group(self):
         burglar_alarm_group = self.cleaned_data['burglar_alarm_group']
         if (burglar_alarm_group is not None and
             burglar_alarm_group.models.all().count()):
             self.fields[
-            'burglar_alarm_model'].queryset = burglar_alarm_group.models.all()
+            'burglar_alarm_model'].queryset = burglar_alarm_group.models.order_by("burglar_alarm_name")
             self.fields['burglar_alarm_model'].required = True
         return burglar_alarm_group
 

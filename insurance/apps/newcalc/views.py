@@ -260,7 +260,7 @@ def get_models(request):
         except ObjectDoesNotExist:
             pass
         else:
-            models = mark.model_set.all()
+            models = mark.model_set.filter(model_active=1)
             for model in models:
                 response_dict[model.model_id] = model.model_name
     response = simplejson.dumps(response_dict)
@@ -402,7 +402,7 @@ def _s1_read_form_data(s1_data):
 
     if ok:
         try:
-            model = Model.objects.get(pk=s1_data.get("model"))
+            model = Model.objects.get(pk=s1_data.get("model"), model_active=1)
             initial_data["model"] = model
             form_extra_data["model"] = model
         except (ObjectDoesNotExist, KeyError):
