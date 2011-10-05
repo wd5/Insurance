@@ -18,27 +18,18 @@ $(function() {
 
     
     //Transform standart from elements
+    $(".long-select").each(function(e){
+        $(this).attr("id", "long-" + (e + 1));
+        transform_select($(this));
+    })
+
     $(".short-select").each(function(e){
         $(this).attr("id", "short-" + (e + 1));
         transform_select($(this));
     })
 
-     $(".long-select").each(function(e){
-        $(this).attr("id", "long-" + (e + 1));
-        transform_select($(this));
-    })
 
     $("#info-main-driver tr.hide").css("display", "none");
-
-    $(".long-select .select-text").each(function(){
-        var displayValue = $(this).parent().find("option[selected]").text();
-        $(this).html(displayValue);
-    })
-
-    $(".short-select .select-text").each(function(){
-        var displayValue = $(this).parent().find("select option[selected]").text();
-        $(this).html(displayValue);
-    })
 
     $(".style-checkbox input").each(function(){
          if($(this).attr("checked") == true){
@@ -249,8 +240,6 @@ function transform_select(selectContainer){
        result  += "<li rel='"+ value +"'>" + text + "</li>";
    });
 
-   //$(selectContainer).find("ul").remove();
-   //$(selectContainer).find(".jScrollPaneContainer").remove();
    $(selectContainer).append("<ul>" + result + "</ul>");
 
     if($(selectContainer).attr("class") == "short-select"){
@@ -259,6 +248,7 @@ function transform_select(selectContainer){
          $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true});
     }
 
+    $(selectContainer).find(".select-text").html(realselect.find("option[selected]").text());
 
    //base events
    $(selectContainer).click(function(){

@@ -2299,7 +2299,11 @@ div.messages li {
 
 #calc-tabs .form-round-block table tr:first-child td.visible-data span{
     cursor: pointer;
-    padding: 0 20px 5px 0;
+    display: block;
+    float: left;
+    /*padding: 0 20px 5px 0;*/
+    margin: 0 20px 0 5px 0;
+    width: 145px;
 }
 
 #calc-tabs .form-round-block table td.visible-data span.active{
