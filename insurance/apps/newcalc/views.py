@@ -50,13 +50,15 @@ def step2(request):
     """
     s1_data = request.session.get("s1_data")
     s2_data = request.session.get("s2_data")
-
+    
     if not s1_data:
         return redirect(reverse('ncalc_step1'))
     for k in S1_REQUIRED_KEYS:
         if not s1_data.has_key(k):
             return redirect(reverse('ncalc_step1'))
-
+	if not s2_data: 
+		s2_data = dict()
+		s2_data['factor_price'] = True #Если нет данных => только перешли ко 2 шагу - сортируем по цене
     result = servlet_request(_build_servlet_request_data(s1_data, s2_data))
 
     result, msg = _parse_servlet_response(result)
