@@ -40,16 +40,9 @@
 
     <div id="first-select" class="long-select">
         <span class="select-text"></span>
-        <input type="text" value=""/>
+        <!--input type="text" value=""/-->
         {{ s1_form.mark }}
         <span class="form-error">{{ s1_form.mark.errors }}</span>
-    </div>
-
-
-    <div id="unlimited-drivers" class="style-checkbox">
-        {{ s1_form.unlimited_drivers }}
-        <span class="label">{{ s1_form.unlimited_drivers.label }}</span>
-        <span class="form-error">{{ s1_form.unlimited_drivers.errors }}</span>
     </div>
 
     <div class="form-round-block hide" id="require-block-1">
@@ -121,6 +114,12 @@
                 </td>
             </tr>
         </table>
+    </div>
+
+    <div id="unlimited-drivers" class="style-checkbox">
+        {{ s1_form.unlimited_drivers }}
+        <span class="label">{{ s1_form.unlimited_drivers.label }}</span>
+        <span class="form-error">{{ s1_form.unlimited_drivers.errors }}</span>
     </div>
 
     <div class="form-round-block" id="optional-block-1">
@@ -228,17 +227,19 @@
                     {{ s1_form.experience_driving3.errors }}
                 </td>
             </tr>
-
         </table>
-        <a id="add-driver-button" href="#"></a>
+
         <a id="delete-driver-button" class="hide" href="#"></a>
+        <a id="add-driver-button" href="#"></a>
+
     </div>
 
     <input id="calculate-button" type="image" value="" src="/static/images/calculate_button.png"/>
     </form>
 
     <br/>
-    <a href="{% url cleansession %}">очистить сессию (для тестов)</a>
+
+    <!--a href="{% url cleansession %}">очистить сессию (для тестов)</a-->
     </div>
 
     <div id="tabs-2">осаго</div>

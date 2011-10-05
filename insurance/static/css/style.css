@@ -2548,6 +2548,7 @@ div.messages li {
     display: block;
     width: 154px;
     height: 30px;
+    float: right;
 }
 
 #calc-tabs #add-driver-button.hide, #calc-tabs #delete-driver-button.hide{
@@ -2556,7 +2557,7 @@ div.messages li {
 
 #calc-tabs #calculate-button{
     float: right;
-    margin: 100px 0 136px 0;
+    margin: 0px 0 60px 0;
 }
 
 #calc-tabs #stoim{

@@ -127,7 +127,7 @@ $(function() {
         newRow.find("select").val("");
         newRow.find(".select-text").html(newRow.find("select option[selected]").text());
         newRow.removeClass("hide").addClass("show").show();
-        $("#delete-driver-button").removeClass("hide");
+        $("#delete-driver-button").removeClass("hide").show();
     })
 
     //Click on delete driver button
