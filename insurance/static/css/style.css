@@ -2326,6 +2326,24 @@ div.messages li {
     width: 714px;
     padding-top: 166px;
     margin-bottom: 20px;
+    position: relative;
+}
+
+#result-table-step2 #autodata-step1{
+    width: 188px;
+    height: 83px;
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    font-size: 18px;
+}
+
+#result-table-step2 #autodata-step1 span{
+    display: block;
+    padding: 3px 0;
+    font-size: 28px;
+    color: #8a4e33;
+    font-weight: bold;
 }
 
 #result-table-step2 table{
