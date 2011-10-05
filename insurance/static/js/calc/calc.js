@@ -6,23 +6,17 @@ $(function() {
 
     
     //price slider
-    $("#price-label").html($("#id_price").val());
-
     $("#price-slider").slider({
-        value: 0,
+        value: $("#id_price").val(),
         min: 0,
         max: 1000000,
         step: 100,
         slide: function(event, ui){
             $("#id_price").val(ui.value);
-            $("#price-label").html(ui.value);
         }
     });
 
-   //$("#id_price").css("visibility", "hidden");
-    $("#id_price").val($("#price-slider").slider("value") );
-
-        
+    
     //Transform standart from elements
     $(".short-select").each(function(e){
         $(this).attr("id", "short-" + (e + 1));
@@ -173,7 +167,7 @@ function get_auto_data(currentname) {
     var data = {};
 
     if (currentname == "power") {
-        $("#id_price").val("");
+        //$("#id_price").val("");
         
         $.ajax(
             {
@@ -322,7 +316,7 @@ function franchiseSlider(selectId){
   step = values[1] - values[0];
 
   selectId.slider({
-      value: 0,
+      value: selectId.find("select").val(),
       min: min,
       max: max,
       step: step,
@@ -335,6 +329,7 @@ function franchiseSlider(selectId){
       slide: function(event, ui){
            $("#current").html(ui.value);
            selectId.find("select").val(ui.value);
+           selectId.find("select").change();
        }
   })
 
