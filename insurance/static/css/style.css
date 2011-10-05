@@ -2384,7 +2384,7 @@ div.messages li {
 
 
 #result-table-step2 table td:first-child{
-    width: 154px;
+    width: 151px;
     border-left:  0;
 }
 
@@ -2393,7 +2393,7 @@ div.messages li {
 }
 
 #result-table-step2 table td.small{
-    width: 46px;
+    width: 47px;
     text-align: center;
 }
 
