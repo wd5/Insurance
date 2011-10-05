@@ -133,113 +133,113 @@
                                 </tr>
                             </table>
                     </div>
+                </div>
+
+                <div class="form-round-block" id="economy-block">
+                    <h2>Экономия</h2>
+
+                    <p>Стандартная франшиза</p>
+
+
+                    <div id="franchize-container">
+                        <span id="min"></span>
+                        <span id="max"></span>
+
+                        <div id="franchize">
+                            {{ s1_form.franchise }}
+                        </div>
                     </div>
 
-                    <div class="form-round-block" id="economy-block">
-                        <h2>Экономия</h2>
 
-                        <p>Стандартная франшиза</p>
+                    <p>Охранная система автомобиля</p>
 
-
-                        <div id="franchize-container">
-                            <span id="min"></span>
-                            <span id="max"></span>
-
-                            <div id="franchize">
-                                {{ s1_form.franchise }}
-                            </div>
-                        </div>
-
-
-                        <p>Охранная система автомобиля</p>
-
-                        <div class="long-select">
-                            <span class="select-text"></span>
-                            {{ s1_form.burglar_alarm_group }}
-                        </div>
-
-                        <div class="long-select">
-                            <span class="select-text"></span>
-                            {{ s1_form.burglar_alarm_model }}
-                        </div>
-
-
-                        <p><input type="submit" value="Обновить"/></p>
-                        </form>
+                    <div class="long-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.burglar_alarm_group }}
                     </div>
 
-                    <div id="result-table-step2">
-                        <div id="autodata-step1">
-                            Вы страхуете:
-                            <span>BMW 1-series</span>
-                            2011 года, 813000 руб
-                        </div>
-                    
-                        <table border="1">
-                            {% for comp in result.info %}
-                                <tr>
-                                    <td><b>{{ comp.full_name }}</b>
-                                        <a class="conditions" href="#">
-                                            условия
-                                            <div class="tooltip">
-                                                <span>- форма рекламы в сети Интернет, направленная на увеличение</span>
-                                                <img src="/static/images/tooltip_angle.png" alt="" />
-                                            </div>
-                                        </a>
-                                        {#<span>{{ comp.company_comment}}</span>#}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.Evacuator %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.TheEmergencyCommissioner %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-
-                                    <td class="small">
-                                        {% if comp.parameters.PaymentWithoutInquiries %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.GatheringOfInquiries %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.TheModularInsuranceSum %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.NewForTheOld %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.TheObligatoryFranchize %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.AlternativenessOfFormsOfPayment %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-
-                                    <td class="final-price">
-                                        <div class="ourscore">{{ comp.ourscore }}</div>
-                                        <div class="score">{{ comp.score }}</div>
-                                        <a class="order-button"
-                                           href="{% url ncalc_step3 comp.alias %}"></a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                        </table>
+                    <div class="long-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.burglar_alarm_model }}
                     </div>
+
+
+                    <p><input type="submit" value="Обновить"/></p>
+                    </form>
+                </div>
+
+                <div id="result-table-step2">
+                    <div id="autodata-step1">
+                        Вы страхуете:
+                        <span>BMW 1-series</span>
+                        2011 года, 813000 руб
+                    </div>
+
+                    <table border="1">
+                        {% for comp in result.info %}
+                            <tr>
+                                <td><img src="/static/images/company_logo/{{ comp.full_name|add:".png" }}" alt="{{ comp.full_name }}" /></b>
+                                    <a class="conditions" href="#">
+                                        условия
+                                        <div class="tooltip">
+                                            <span>- форма рекламы в сети Интернет, направленная на увеличение</span>
+                                            <img src="/static/images/tooltip_angle.png" alt="" />
+                                        </div>
+                                    </a>
+                                    {#<span>{{ comp.company_comment}}</span>#}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.Evacuator %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.TheEmergencyCommissioner %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+
+                                <td class="small">
+                                    {% if comp.parameters.PaymentWithoutInquiries %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.GatheringOfInquiries %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.TheModularInsuranceSum %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.NewForTheOld %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.TheObligatoryFranchize %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.AlternativenessOfFormsOfPayment %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+
+                                <td class="final-price">
+                                    <div class="ourscore">{{ comp.ourscore }}</div>
+                                    <div class="score">{{ comp.score }}</div>
+                                    <a class="order-button"
+                                       href="{% url ncalc_step3 comp.alias %}"></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
 
 
                 {% endif %}
