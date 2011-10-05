@@ -122,6 +122,7 @@ class BurglarAlarm(models.Model):
     class Meta:
         db_table = u'burglar_alarm'
         managed = False
+        ordering = ["burglar_alarm_name",]
 
 
 class Company(models.Model):
