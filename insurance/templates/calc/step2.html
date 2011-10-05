@@ -56,6 +56,13 @@
                     $("#sort-table input").click(function() {
                         $("#sorting").submit();
                     })
+
+                    //tooltip in table
+                    $(".conditions").hover(function(){
+                        $(this).find(".tooltip").fadeIn();
+                    }, function(){
+                        $(this).find(".tooltip").fadeOut();
+                    })
                 }
         );
     </script>
@@ -165,6 +172,13 @@
                             {% for comp in result.info %}
                                 <tr>
                                     <td><b>{{ comp.full_name }}</b>
+                                        <a class="conditions" href="#">
+                                            условия
+                                            <div class="tooltip">
+                                                <span>- форма рекламы в сети Интернет, направленная на увеличение</span>
+                                                <img src="/static/images/tooltip_angle.png" alt="" />
+                                            </div>
+                                        </a>
                                         {#<span>{{ comp.company_comment}}</span>#}
                                     </td>
                                     <td class="small">
