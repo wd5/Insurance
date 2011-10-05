@@ -126,7 +126,18 @@ $(function() {
         var newRow = $("#info-main-driver").find("tr.hide:first");
         newRow.find("select").val("");
         newRow.find(".select-text").html(newRow.find("select option[selected]").text());
-        newRow.removeClass("hide").show();
+        newRow.removeClass("hide").addClass("show").show();
+        $("#delete-driver-button").removeClass("hide");
+    })
+
+    //Click on delete driver button
+    $("#delete-driver-button").click(function(e){
+        e.preventDefault();
+        var lastRow = $("#info-main-driver").find("tr.show:last");
+        if($("#info-main-driver tr").not(".hide").length == 2){
+           $("#delete-driver-button").hide();
+        }
+        lastRow.removeClass("show").addClass("hide").hide();
     })
 
     //Type into input element

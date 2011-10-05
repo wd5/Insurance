@@ -122,17 +122,6 @@
                     {{ s1_form.city }}
                 </td>
             </tr>
-            <tr>
-                <td>
-                    {{ s1_form.credit.label }}
-                    <span class="table-error">{{ s1_form.credit.errors }}</span>
-                </td>
-                <td class="visible-data second">
-                    <div class="style-checkbox">
-                        {{ s1_form.credit }}
-                    </div>
-                </td>
-            </tr>
         </table>
     </div>
 
@@ -244,6 +233,7 @@
 
         </table>
         <a id="add-driver-button" href="#"></a>
+         <a id="delete-driver-button" class="hide" href="#"></a>
     </div>
 
     <input id="calculate-button" type="image" value="" src="/static/images/calculate_button.png"/>
