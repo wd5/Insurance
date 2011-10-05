@@ -54,6 +54,9 @@ $(function() {
 
     //change first select
     $("#id_mark").change(function() {
+        //Hide all table data, except first one
+        $("#require-auto-data-first tr").not(":first").hide();
+        
         $(".ajax-select select").each(function(){
             $(this).val("");
             get_visible_select_data($(this).attr("id"));
@@ -92,11 +95,19 @@ $(function() {
 
     //Click on visible data elements
     $(".visible-data div span").live('click', function(){
-        var nextSelect = $(this).parents("td").find("select");
+        var nextSelect = $(this).parents("td").find("select"),
+            nextRow = $(this).parents("tr").next();
         $(this).parent().find("span").removeClass("active");
         $(this).addClass("active");
         nextSelect.val($(this).attr("rel"));
         nextSelect.change();
+
+        if((nextRow.index()) == 3){
+            $("#require-auto-data-first tr").show();
+        }else{
+            nextRow.show();
+        }
+
     })
 
     //Draw all select values in frist block
@@ -158,7 +169,7 @@ function get_auto_data(currentname) {
     var data = {};
 
     if (currentname == "power") {
-        //$("#id_price").val("");
+        //$("#id_price").val(0);
         
         $.ajax(
             {
