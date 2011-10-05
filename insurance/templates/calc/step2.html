@@ -178,15 +178,17 @@
                     <table border="1">
                         {% for comp in result.info %}
                             <tr>
-                                <td><img src="/static/images/company_logo/{{ comp.full_name|add:".png" }}" alt="{{ comp.full_name }}" /></b>
-                                    <a class="conditions" href="#">
-                                        условия
-                                        <div class="tooltip">
-                                            <span>- форма рекламы в сети Интернет, направленная на увеличение</span>
-                                            <img src="/static/images/tooltip_angle.png" alt="" />
-                                        </div>
-                                    </a>
-                                    {#<span>{{ comp.company_comment}}</span>#}
+                                <td>
+                                   <div class="company-data">
+                                       <img src="/static/images/company_logo/{{ comp.full_name|add:".png" }}" alt="{{ comp.full_name }}" />
+                                        <a class="conditions" href="#">
+                                            Условия
+                                            <div class="tooltip">
+                                                <span>- форма рекламы в сети Интернет, направленная на увеличение</span>
+                                                <img src="/static/images/tooltip_angle.png" alt="" />
+                                            </div>
+                                        </a>
+                                   </div>
                                 </td>
                                 <td class="small">
                                     {% if comp.parameters.Evacuator %}
