@@ -2472,7 +2472,7 @@ div.messages li {
 
 
 /*Sliders*/
-#franchize-container, {
+#franchize-container{
     background: url(/static/images/franchize_slider_back.png) top left no-repeat;
     width: 175px;
     position: relative;
