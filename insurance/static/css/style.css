@@ -2838,6 +2838,20 @@ div.messages li {
     background: url(/static/images/select_square_2.png) top left no-repeat;
 }
 
+.short-select input{
+    border: none;
+    position: absolute;
+    top: 5px;
+    left: 7px;
+    width: 45px;
+    height: 50px;
+    background: none;
+    text-align: center;
+    color: #fff;
+    font-size: 32px;
+}
+
+
 .short-select ul{
     position: absolute;
     top: 56px;
@@ -2872,6 +2886,7 @@ div.messages li {
     text-align: center;
     color: #fff;
     font-size: 32px;
+    display: none;
 }
 
 
