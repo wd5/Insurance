@@ -390,4 +390,5 @@ function userTypeInput(input) {
 function scrollToItem(list_item) {
     list_item.parent().find("li").removeClass("selected");
     list_item.addClass("selected");
+    list_item.parent().css("top", -list_item.position().top);
 }

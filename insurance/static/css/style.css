@@ -2877,6 +2877,7 @@ div.messages li {
     top: 26px;
 	z-index: 1;
     visibility: hidden;
+    background: #fff;
 }
 
 .long-select .jScrollPaneTrack {
