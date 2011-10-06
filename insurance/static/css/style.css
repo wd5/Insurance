@@ -2147,8 +2147,7 @@ div.messages li {
 #overlay{
     display: none;
     position: absolute;
-    background: #5b5757;
-    opacity: 0.5;
+    background: url(/static/images/back_opacity.png);
     z-index: 1000;
     top: 0;
     left: 0;
@@ -2532,6 +2531,7 @@ div.messages li {
     display: block;
     position: absolute;
     top: 0;
+    text-decoration: none;
 }
 
 
@@ -2754,6 +2754,8 @@ div.messages li {
     padding: 10px 0;
     border: 1px solid #f0e8e5;
     box-shadow:0px 3px 9px #333333;
+    -moz-box-shadow:0px 3px 9px #333333;
+    -webkit-box-shadow:0px 3px 9px #333333;
 }
 
 #long-1.long-select ul{
@@ -2944,6 +2946,19 @@ div.messages li {
 
 :first-child + html #price-slider .ui-slider-handle{
     top: -15px;
+}
+
+:first-child + html #long-1 input{
+    border: none;
+    left: 5px;
+    height: 21px;
+    width: 877px;
+}
+
+:first-child + html #price-slider .ui-slider-handle{
+    bottom: 0;
+    margin-top: 16px;
+    text-decoration: none;
 }
 
 
