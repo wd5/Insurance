@@ -143,13 +143,28 @@ $(function() {
         var best_candidate = false;
         var value_found = false;
         var list_items = $(this).parent().find("li");
+        var list_item = $(this).parent().find("ul");
 
         list_items.each(function(){
-            var text = $(this).text();
-            //console.log(text);
-        })
-        
-        //console.log(list_items);
+            if(!value_found){
+              var text = $(this).text();
+            }
+            if(text == current_value){
+                value_found = true;
+                console.log(value_found);
+                //scrollToListItem($(this));
+                return false;
+            }else if(text.indexOf(current_value) === 0 && !best_candidate ){
+                best_candidate = $(this);
+            }
+            
+        });
+
+        if(best_candidate && !value_found){
+            console.log(best_candidate.text());
+        }else if(!best_candidate && !value_found){
+            console.log("[eq");
+        }
     })
 
     //Clear additional drivers info
@@ -373,4 +388,10 @@ function preloaderScreen(){
 //User type in input value
 function userTypeInput(){
     
+}
+
+function scrollToListItem(list_item){
+    if(this.height){
+        this.wrapper.scrollTo(list_item[0].offsetTop - (this.height)/2);
+    }
 }
