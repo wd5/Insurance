@@ -40,6 +40,8 @@ $(function() {
     //first select with auto mark
     if ($("#id_mark").val() != "") {
         $("#require-block-1").show();
+    }else{
+        $("#require-block-1").hide();
     }
 
     //change first select
@@ -131,7 +133,7 @@ $(function() {
         preloaderScreen();
     })
 
-    //Type into input element
+    //Type into input element inside select
     $(".long-select input, .short-select input").keyup(function(e) {
         if (e.keyCode == 8) {
             $(this).val("");
@@ -238,7 +240,7 @@ function transform_select(selectContainer) {
         $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true});
     }
 
-    $(selectContainer).find(".select-text").html(realselect.find("option[selected]").text());
+    $(selectContainer).find("input").val(realselect.find("option[selected]").text());
 
     //base events
     $(selectContainer).click(function() {
