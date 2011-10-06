@@ -59,12 +59,18 @@ def step2(request):
     for k in S1_REQUIRED_KEYS:
         if not s1_data.has_key(k):
             return redirect(reverse('ncalc_step1'))
-	if not s2_data: 
-		s2_data = dict()
-		s2_data['factor_price'] = True #Если нет данных => только перешли ко 2 шагу - сортируем по цене
+    if not s2_data:
+        s2_data = dict()
+        s2_data['factor_price'] = True #Если нет данных => только перешли ко 2 шагу - сортируем по цене
     result = servlet_request(_build_servlet_request_data(s1_data, s2_data))
 
     result, msg = _parse_servlet_response(result)
+
+    data = {}
+    data["mark"] = Mark.objects.get(pk=s1_data["mark"]).mark_name
+    data["model"] = Model.objects.get(pk=s1_data["model"]).model_name
+    data["model_year"] = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
+    data["price"] = s1_data["price"]
 
     if request.method == "POST":
         form = Step2Form(request.POST, form_extra_data={})
@@ -77,7 +83,8 @@ def step2(request):
         
     return direct_to_template(request, 'calc/step2.html', {"msg": msg,
                                                            "s1_form": form,
-                                                           "result": result})
+                                                           "result": result,
+                                                           "data": data})
 
 
 def step3(request, alias):
