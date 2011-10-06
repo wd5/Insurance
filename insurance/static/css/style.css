@@ -2747,11 +2747,13 @@ div.messages li {
 	position: relative;
 	overflow: hidden;
     top: 31px;
+    left: 5px;
 	z-index: 1;
     visibility: hidden;
     background: #f8f5f5;
     padding: 10px 0;
     border: 1px solid #f0e8e5;
+    box-shadow:0px 3px 9px #333333;
 }
 
 #long-1.long-select ul{
@@ -2760,7 +2762,7 @@ div.messages li {
     left: 3px;
     background: #f8f5f5;
     border: none;
-    width: 911px;
+    width: 905px;
     z-index: 10;
     height: 400px;
     overflow-y: auto;
