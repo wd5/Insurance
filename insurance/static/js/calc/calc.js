@@ -1,21 +1,21 @@
 $(function() {
     $("#info-main-driver td:odd").addClass("second");
-    
+
     //Tabs
     $("#calc-tabs").tabs();
 
-    
+
     //price slider on first calc page
     priceSlider($("#price-slider"));
 
-    
+
     //Transform standart from elements
-    $(".long-select").each(function(e){
+    $(".long-select").each(function(e) {
         $(this).attr("id", "long-" + (e + 1));
         transform_select($(this));
     })
 
-    $(".short-select").each(function(e){
+    $(".short-select").each(function(e) {
         $(this).attr("id", "short-" + (e + 1));
         transform_select($(this));
     })
@@ -23,20 +23,18 @@ $(function() {
 
     $("#info-main-driver tr.hide").css("display", "none");
 
-    $(".style-checkbox input").each(function(){
-         if($(this).attr("checked") == true){
+    $(".style-checkbox input").each(function() {
+        if ($(this).attr("checked") == true) {
             $(this).parent().addClass("on");
-         }
-    })
-       
-    $(".style-checkbox input").click(function(){
-        $(this).parent().toggleClass("on");
-        if($(this).attr("id") == "id_unlimited_drivers")
-            $("#add-driver-button").toggleClass("hide");
-            $("#info-main-driver tr").not(":first").val("").hide();
+        }
     })
 
-    
+    $(".style-checkbox input").click(function() {
+        $(this).parent().toggleClass("on");
+        if ($(this).attr("id") == "id_unlimited_drivers")
+            $("#add-driver-button").toggleClass("hide");
+        $("#info-main-driver tr").not(":first").val("").hide();
+    })
 
 
     //first select with auto mark
@@ -48,12 +46,12 @@ $(function() {
     $("#id_mark").change(function() {
         //Hide all table data, except first one
         $("#require-auto-data-first tr").not(":first").hide();
-        
-        $(".ajax-select select").each(function(){
+
+        $(".ajax-select select").each(function() {
             $(this).val("");
             get_visible_select_data($(this).attr("id"));
         });
-        
+
         if ($("#id_mark").val() != "") {
             $("#require-block-1").slideDown();
             $.ajax(
@@ -81,12 +79,12 @@ $(function() {
 
     //Change other ajax-selects
     $(".ajax-select select").change(function() {
-         get_auto_data($(this).attr("name"));
+        get_auto_data($(this).attr("name"));
     })
 
 
     //Click on visible data elements
-    $(".visible-data div span").live('click', function(){
+    $(".visible-data div span").live('click', function() {
         var nextSelect = $(this).parents("td").find("select"),
             nextRow = $(this).parents("tr").next();
         $(this).parent().find("span").removeClass("active");
@@ -94,22 +92,22 @@ $(function() {
         nextSelect.val($(this).attr("rel"));
         nextSelect.change();
 
-        if((nextRow.index()) == 3){
+        if ((nextRow.index()) == 3) {
             $("#require-auto-data-first tr").show();
-        }else{
+        } else {
             nextRow.show();
         }
 
     })
 
     //Draw all select values in frist block
-    $("#require-block-1 select").each(function(){
+    $("#require-block-1 select").each(function() {
         var id = $(this).attr("id");
         get_visible_select_data(id);
     })
 
     //Click on add driver button
-    $("#add-driver-button").click(function(e){
+    $("#add-driver-button").click(function(e) {
         e.preventDefault();
         var newRow = $("#info-main-driver").find("tr.hide:first");
         newRow.find("select").val("");
@@ -119,51 +117,26 @@ $(function() {
     })
 
     //Click on delete driver button
-    $("#delete-driver-button").click(function(e){
+    $("#delete-driver-button").click(function(e) {
         e.preventDefault();
         var lastRow = $("#info-main-driver").find("tr.show:last");
-        if($("#info-main-driver tr").not(".hide").length == 2){
-           $("#delete-driver-button").hide();
+        if ($("#info-main-driver tr").not(".hide").length == 2) {
+            $("#delete-driver-button").hide();
         }
         lastRow.removeClass("show").addClass("hide").hide();
     })
 
     //Submit data on server - step1, step2
-    $("#form-step1, #sorting").submit(function(){
+    $("#form-step1, #sorting").submit(function() {
         preloaderScreen();
     })
 
     //Type into input element
-    $(".long-select input").keypress(function(e){
-        if(e.keyCode == 8){
-           $(this).val("");
+    $(".long-select input").keypress(function(e) {
+        if (e.keyCode == 8) {
+            $(this).val("");
         }
-
-        var current_value = ($(this).val()).toUpperCase();
-        var best_candidate = false;
-        var value_found = false;
-        var list_items = $(this).parent().find("li");
-        var list_item = $(this).parent().find("ul");
-
-        list_items.each(function(){
-            if(!value_found){
-              var text = $(this).text();
-            }
-            if(text == current_value){
-                value_found = true;
-                scrollToItem(value_found);
-                return false;
-            }else if(text.indexOf(current_value) === 0 && !best_candidate ){
-                best_candidate = $(this);
-            }
-            
-        });
-
-        if(best_candidate && !value_found){
-            scrollToItem(best_candidate);
-        }else if(!best_candidate && !value_found){
-            
-        }
+        userTypeInput($(this));
     })
 
     //Clear additional drivers info
@@ -176,7 +149,7 @@ function get_auto_data(currentname) {
 
     if (currentname == "power") {
         //$("#id_price").val(0);
-        
+
         $.ajax(
             {
                 url: price,
@@ -224,20 +197,20 @@ function get_auto_data(currentname) {
 
 }
 
-function get_visible_select_data(selectId){
+function get_visible_select_data(selectId) {
     var result = "";
 
-    $("#" +selectId + " option").each(function(e){
+    $("#" + selectId + " option").each(function(e) {
         var text = ($(this).text());
         var value = ($(this).val());
         var myclass = "";
-        
-        if($(this).attr("selected")){
-            myclass="active";
+
+        if ($(this).attr("selected")) {
+            myclass = "active";
         }
 
-        if(text != "--------"){
-            result += "<span rel='"+ value +"' class='"+ myclass +"'>" + text + "</span>"
+        if (text != "--------") {
+            result += "<span rel='" + value + "' class='" + myclass + "'>" + text + "</span>"
         }
 
     })
@@ -246,57 +219,57 @@ function get_visible_select_data(selectId){
 }
 
 
-function transform_select(selectContainer){
+function transform_select(selectContainer) {
     var result = "";
     var realselect = $(selectContainer).find("select");
- 
-   //read select values, write and add to container
-   $(selectContainer).find("select option").each(function(){
-       var text = ($(this).text());
-       var value = ($(this).val());
-       result  += "<li rel='"+ value +"'>" + text + "</li>";
-   });
 
-   $(selectContainer).append("<ul>" + result + "</ul>");
+    //read select values, write and add to container
+    $(selectContainer).find("select option").each(function() {
+        var text = ($(this).text());
+        var value = ($(this).val());
+        result += "<li rel='" + value + "'>" + text + "</li>";
+    });
 
-    if($(selectContainer).attr("class") == "short-select"){
+    $(selectContainer).append("<ul>" + result + "</ul>");
+
+    if ($(selectContainer).attr("class") == "short-select") {
         $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 57, showArrows: true});
-    }else{
-         $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true});
+    } else {
+        $(selectContainer).find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true});
     }
 
     $(selectContainer).find(".select-text").html(realselect.find("option[selected]").text());
 
-   //base events
-   $(selectContainer).click(function(){
-       $(this).find("ul").show();
-       $(this).find(".jScrollPaneContainer").css("visibility", "visible");
-   })
+    //base events
+    $(selectContainer).click(function() {
+        $(this).find("ul").show();
+        $(this).find(".jScrollPaneContainer").css("visibility", "visible");
+    })
 
-   $(selectContainer).find(".jScrollPaneContainer").bind("mouseleave", function(){
-       $(this).css("visibility", "hidden");
-   })
+    $(selectContainer).find(".jScrollPaneContainer").bind("mouseleave", function() {
+        $(this).css("visibility", "hidden");
+    })
 
-   $(selectContainer).find("ul li").live('click', function(){
-       $(selectContainer).find(".select-text").html($(this).text());
-       //$(selectContainer).find("input").val($(this).text());
-       realselect.val($(this).attr("rel"));
-       realselect.change();
-       $(this).parent().parent().css("visibility", "hidden");
-   })
-    
+    $(selectContainer).find("ul li").live('click', function() {
+       // $(selectContainer).find(".select-text").html($(this).text());
+        $(selectContainer).find("input").val($(this).text());
+        realselect.val($(this).attr("rel"));
+        realselect.change();
+        $(this).parent().parent().css("visibility", "hidden");
+    })
+
 }
 
 
-function fillAjaxSelect(selectId){
+function fillAjaxSelect(selectId) {
     var result = "";
     var ourSelect = $("#" + selectId);
     var parentContainer = $("#" + selectId).parent();
 
-    ourSelect.find("option").each(function(){
-       var text = ($(this).text());
-       var value = ($(this).val());
-       result  += "<li rel='"+ value +"'>" + text + "</li>";
+    ourSelect.find("option").each(function() {
+        var text = ($(this).text());
+        var value = ($(this).val());
+        result += "<li rel='" + value + "'>" + text + "</li>";
     })
 
     parentContainer.find("ul").remove();
@@ -306,7 +279,7 @@ function fillAjaxSelect(selectId){
 }
 
 /*Price Slider*/
-function priceSlider(containerId){
+function priceSlider(containerId) {
     var min = "0",
         max = "5000000",
         step = 100;
@@ -317,15 +290,15 @@ function priceSlider(containerId){
         max: max,
         step: step,
 
-        create: function(){
+        create: function() {
             $("#id_price").css("visibility", "hidden");
             containerId.find("a.ui-slider-handle").append("<span id='current'></span>");
             containerId.find("#current").html($("#id_price").val());
         },
 
-        slide: function(event, ui){
-             $("#current").html(ui.value);
-             $("#id_price").val(ui.value);
+        slide: function(event, ui) {
+            $("#current").html(ui.value);
+            $("#id_price").val(ui.value);
         }
     });
 
@@ -335,46 +308,46 @@ function priceSlider(containerId){
 
 
 /*Franchize Slider*/
-function franchiseSlider(selectId){
-   var sliderVal = selectId.find("select");
-   var values = [];
-   var min = "",
-       max = "",
-       step = "";
-  
-  sliderVal.find("option").each(function(){
+function franchiseSlider(selectId) {
+    var sliderVal = selectId.find("select");
+    var values = [];
+    var min = "",
+        max = "",
+        step = "";
+
+    sliderVal.find("option").each(function() {
         values.push($(this).text());
     });
 
-  min = values[0];
-  max = values[(values.length - 1)];
-  step = values[1] - values[0];
+    min = values[0];
+    max = values[(values.length - 1)];
+    step = values[1] - values[0];
 
-  selectId.slider({
-      value: selectId.find("select").val(),
-      min: min,
-      max: max,
-      step: step,
+    selectId.slider({
+        value: selectId.find("select").val(),
+        min: min,
+        max: max,
+        step: step,
 
-      create: function(){
-          selectId.find("a.ui-slider-handle").append("<span id='current'></span>");
-          $("#current").html(selectId.find("select").val());
-      },
+        create: function() {
+            selectId.find("a.ui-slider-handle").append("<span id='current'></span>");
+            $("#current").html(selectId.find("select").val());
+        },
 
-      slide: function(event, ui){
-           $("#current").html(ui.value);
-           selectId.find("select").val(ui.value);
-           selectId.find("select").change();
-       }
-  })
+        slide: function(event, ui) {
+            $("#current").html(ui.value);
+            selectId.find("select").val(ui.value);
+            selectId.find("select").change();
+        }
+    })
 
 
-  selectId.parent().find("#min").html(min);
-  selectId.parent().find("#max").html(max);
+    selectId.parent().find("#min").html(min);
+    selectId.parent().find("#max").html(max);
 }
 
 //Show Preloader function
-function preloaderScreen(){
+function preloaderScreen() {
     var over = $("#overlay");
     var width = $(document).width(),
         heigth = $(document).height();
@@ -385,11 +358,36 @@ function preloaderScreen(){
 
 
 //User type in input value
-function userTypeInput(){
-    
+function userTypeInput(input) {
+    var current_value = (input.val()).toUpperCase();
+    var best_candidate = false;
+    var value_found = false;
+    var list_items = input.parent().find("li");
+    var list_item = input.parent().find("ul");
+
+    list_items.each(function() {
+        if (!value_found) {
+            var text = $(this).text();
+        }
+        if (text == current_value) {
+            value_found = true;
+            scrollToItem(value_found);
+            return false;
+        } else if (text.indexOf(current_value) === 0 && !best_candidate) {
+            best_candidate = $(this);
+        }
+
+    });
+
+    if (best_candidate && !value_found) {
+        scrollToItem(best_candidate);
+    } else if (!best_candidate && !value_found) {
+
+    }
 }
 
-function scrollToItem(list_item){
-   list_item.parent().find("li").removeClass("selected");
-   list_item.addClass("selected");
+/*Highlight value in list*/
+function scrollToItem(list_item) {
+    list_item.parent().find("li").removeClass("selected");
+    list_item.addClass("selected");
 }
