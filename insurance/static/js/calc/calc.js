@@ -151,8 +151,7 @@ $(function() {
             }
             if(text == current_value){
                 value_found = true;
-                console.log(value_found);
-                //scrollToListItem($(this));
+                scrollToItem(value_found);
                 return false;
             }else if(text.indexOf(current_value) === 0 && !best_candidate ){
                 best_candidate = $(this);
@@ -161,9 +160,9 @@ $(function() {
         });
 
         if(best_candidate && !value_found){
-            console.log(best_candidate.text());
+            scrollToItem(best_candidate);
         }else if(!best_candidate && !value_found){
-            console.log("[eq");
+            
         }
     })
 
@@ -390,8 +389,7 @@ function userTypeInput(){
     
 }
 
-function scrollToListItem(list_item){
-    if(this.height){
-        this.wrapper.scrollTo(list_item[0].offsetTop - (this.height)/2);
-    }
+function scrollToItem(list_item){
+   list_item.parent().find("li").removeClass("selected");
+   list_item.addClass("selected");
 }

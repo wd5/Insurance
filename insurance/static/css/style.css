@@ -2704,6 +2704,10 @@ div.messages li {
 }
 
 
+.long-select ul li.selected{
+    background: #f0e8e5;
+}
+
 .long-select .select-text{
     position: absolute;
     top: 4px;
