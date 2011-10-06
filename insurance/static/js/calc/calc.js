@@ -294,7 +294,7 @@ function fillAjaxSelect(selectId){
 /*Price Slider*/
 function priceSlider(containerId){
     var min = "0",
-        max = "1000000",
+        max = "5000000",
         step = 100;
 
     containerId.slider({
