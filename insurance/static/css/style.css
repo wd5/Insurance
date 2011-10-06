@@ -2874,7 +2874,7 @@ div.messages li {
     cursor: pointer;
 }
 
-.short-select ul li:hover{
+.short-select ul li:hover, .short-select ul li.selected{
     background: #5c2f1b;
 }
 
