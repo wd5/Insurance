@@ -63,6 +63,10 @@ def step2(request):
         s2_data = dict()
         s2_data['factor_price'] = True #Если нет данных => только перешли ко 2 шагу - сортируем по цене
     result = servlet_request(_build_servlet_request_data(s1_data, s2_data))
+    if result is None:
+        err_text = "Превышен лимит ожидания. Не получен ответ сервлета в "\
+                   "течение %d сек." % settings.SERVLET_TIMEOUT
+        return direct_to_template(request, "calc/error.html", {"err_text": err_text,})
 
     result, msg = _parse_servlet_response(result)
 

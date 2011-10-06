@@ -35,7 +35,7 @@ class Step1Form(forms.Form):
     power = forms.ModelChoiceField(label="Мощность",
                                    queryset=Power.objects.none(),
                                    empty_label="--------")
-    price = forms.IntegerField(label="Стоимость", max_value=5000000)
+    price = forms.IntegerField(label="Стоимость", max_value=10000000)
     wheel = forms.ChoiceField(label="Руль",
                               choices=(("left", "левый"), ("right", "правый")))
     city = forms.ModelChoiceField(label="Регистрация собственника",

@@ -62,9 +62,9 @@ def servlet_request(data):
         print "REQUEST:", req
         try:
             result = urllib2.urlopen(req).read()
-            print "RESULT: ", result
-        except socket.timeout:
-            pass
+#            print "RESULT: ", result
+        except urllib2.URLError:
+            return None
     else:
         result = simplejson.dumps(FAKE_RESPONSE)
     return result
