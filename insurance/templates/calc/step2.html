@@ -63,6 +63,11 @@
                     }, function() {
                         $(this).find(".tooltip").fadeOut();
                     })
+
+                    //Prevent Default on table conditions href
+                    $(".conditions").click(function(e){
+                        e.preventDefault();
+                    })
                 }
         );
     </script>
