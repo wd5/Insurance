@@ -243,6 +243,7 @@ function transform_select(selectContainer) {
     }
 
     $(selectContainer).find("input").val(realselect.find("option[selected]").text());
+    $(selectContainer).find(".select-text").html(realselect.find("option[selected]").text());
 
     //base events
     $(selectContainer).click(function() {
@@ -255,7 +256,7 @@ function transform_select(selectContainer) {
     })
 
     $(selectContainer).find("ul li").live('click', function() {
-       // $(selectContainer).find(".select-text").html($(this).text());
+        $(selectContainer).find(".select-text").html($(this).text());
         $(selectContainer).find("input").val($(this).text());
         realselect.val($(this).attr("rel"));
         realselect.change();
