@@ -2873,7 +2873,7 @@ div.messages li {
     top: 56px;
     left: 1px;
     width: 57px;
-    height: 145px;
+    height: 155px;
     background: #6b3c27;
     border-left: 2px solid #895843;
     border-right: 2px solid #895843;
@@ -3096,7 +3096,7 @@ div.messages li {
 	bottom: 0;
 	left: 0;
 	overflow: hidden;
-    height: 60px;
+    height: 70px;
 }
 
 .short-select a.jScrollArrowUp {
@@ -3115,12 +3115,12 @@ div.messages li {
 	display: block;
 	position: absolute;
 	z-index: 80;
-	bottom: 0;
+	bottom: 0px;
 	right: 0;
 	text-indent: -2000px;
 	overflow: hidden;
-	height: 8px;
-    width: 57px;
-    background: url(/static/images/scroll_hor_up.png) 1px 0 no-repeat;
+	height: 12px;
+    width: 56px;
+    background: url(/static/images/scroll_hor_up2.png) 1px 0px no-repeat;
 }
 
