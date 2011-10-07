@@ -2239,6 +2239,13 @@ div.messages li {
 .form-round-block #sort-table{
     overflow: hidden;
     font-size: 16px;
+    position: relative;
+}
+
+#sort-table #second-submit{
+    display: block;
+    margin: 15px 0 0 0;
+    float: right;
 }
 
 .form-round-block #sort-parameters{
@@ -2704,8 +2711,13 @@ div.messages li {
 }
 
 
-.long-select ul li.selected{
+.long-select ul li.selected.inactive{
     background: #f0e8e5;
+    color: #000;
+}
+
+.long-select ul li.inactive{
+    color: #dddbdb;
 }
 
 .long-select .select-text{

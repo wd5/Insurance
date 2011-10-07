@@ -100,7 +100,6 @@ $(function() {
         } else {
             nextRow.show();
         }
-
     })
 
     //Draw all select values in frist block
@@ -140,6 +139,10 @@ $(function() {
             $(this).val("");
         }
         userTypeInput($(this));
+    })
+
+    $(".short-select input, .long-select input").click(function(){
+        $(this).select();
     })
 
     //Clear additional drivers info
@@ -421,6 +424,7 @@ function userTypeShortInput(input, val) {
 /*Highlight value in list*/
 function scrollToItem(list_item) {
     list_item.parent().find("li").removeClass("selected");
+    list_item.parent().find("li").not(list_item).addClass("inactive");
     list_item.addClass("selected");
     list_item.parent().css("top", -list_item.position().top);
 }
