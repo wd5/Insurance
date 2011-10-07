@@ -10,13 +10,125 @@
                 model_year = "{% url get_years %}",
                 power = "{% url get_powers %}",
                 price = "{% url get_price %}";
+
+        $(function() {
+            //Add class to table cell's
+            $("#info-main-driver td:odd").addClass("second");
+            $("#info-main-driver tr.hide").css("display", "none");
+
+            //price slider
+            priceSlider($("#price-slider"));
+
+            //first select with auto mark
+            if ($("#id_mark").val() != "") {
+                $("#require-block-1").show();
+            } else {
+                $("#require-block-1").hide();
+            }
+
+            $("#id_mark").change(function() {
+                //Hide all table data, except first one
+                $("#require-auto-data-first tr").not(":first").hide();
+
+                $(".ajax-select select").each(function() {
+                    $(this).val("");
+                    get_visible_select_data($(this).attr("id"));
+                });
+
+                if ($("#id_mark").val() != "") {
+                    $("#require-block-1").slideDown();
+                    $.ajax(
+                            {
+                                url: model,
+                                data: {mark: $(this).val()},
+                                dataType:"json",
+                                success:function(data) {
+                                    var options = '';
+                                    options += '<option value="">' + '--------' + '</option>';
+                                    $.each(data, function(index, value) {
+                                        options += '<option value="' + index + '">' + value + '</option>';
+                                    });
+                                    $("#id_model").html(options);
+                                    get_visible_select_data("id_model");
+                                }
+                            }
+                    );
+                } else {
+                    $("#require-block-1 select").val("");
+                    $("#require-block-1 select").html("");
+                    $("#require-block-1").slideUp();
+                }
+            })
+
+            //Change other ajax-selects
+            $(".ajax-select select").change(function() {
+                get_auto_data($(this).attr("name"));
+            })
+
+            //Click on visible data elements
+            $(".visible-data div span").live('click', function() {
+                var nextSelect = $(this).parents("td").find("select"),
+                        nextRow = $(this).parents("tr").next();
+                $(this).parent().find("span").removeClass("active");
+                $(this).addClass("active");
+                nextSelect.val($(this).attr("rel"));
+                nextSelect.change();
+
+                if ((nextRow.index()) == 3) {
+                    $("#require-auto-data-first tr").show();
+                } else {
+                    nextRow.show();
+                }
+            })
+
+            //Draw all select values in frist block
+            $("#require-block-1 select").each(function() {
+                var id = $(this).attr("id");
+                get_visible_select_data(id);
+            })
+
+            //Click on add driver button
+            $("#add-driver-button").click(function(e) {
+                e.preventDefault();
+                var newRow = $("#info-main-driver").find("tr.hide:first");
+                newRow.find("select").val("");
+                newRow.find(".select-text").html(newRow.find("select option[selected]").text());
+                newRow.removeClass("hide").addClass("show").show();
+                $("#delete-driver-button").removeClass("hide").show();
+            })
+
+            //Click on delete driver button
+            $("#delete-driver-button").click(function(e) {
+                e.preventDefault();
+                var lastRow = $("#info-main-driver").find("tr.show:last");
+                if ($("#info-main-driver tr").not(".hide").length == 2) {
+                    $("#delete-driver-button").hide();
+                }
+                lastRow.removeClass("show").addClass("hide").hide();
+            })
+
+            //Type into input element inside select
+            $(".long-select input, .short-select input").keyup(function(e) {
+                if (e.keyCode == 8) {
+                    $(this).val("");
+                }
+                userTypeInput($(this));
+            })
+
+            $(".short-select input, .long-select input").click(function() {
+                $(this).select();
+            })
+
+            //Clear additional drivers info
+            $("#info-main-driver .hide select").val("");
+        })
     </script>
 {% endblock %}
 
 {% block content %}
-<div id="overlay"><img src="/static/images/preloader.gif" alt="" /></div>
+    <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
 
-<div id="calc-tabs">
+    <div id="calc-tabs">
     <ul>
         <li><a href="#tabs-1">КАСКО</a></li>
         <li><a href="#tabs-2">ОСАГО</a></li>
@@ -90,6 +202,7 @@
                     <div id="price-slider-container">
                         <span id="min"></span>
                         <span id="max"></span>
+
                         <div id="price-slider"></div>
                     </div>
                     <span id="stoim"></span>
