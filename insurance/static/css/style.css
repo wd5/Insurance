@@ -2515,9 +2515,9 @@ div.messages li {
 
 #price-slider-container #current{
     position: absolute;
-    top: 2px;
-    left: 11px;
-    font-size: 12px;
+    top: 3px;
+    left: 13px;
+    font-size: 11px;
     color: #fff;
 }
 
