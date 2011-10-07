@@ -42,6 +42,8 @@ def step1(request):
         s1_data = request.session.get("s1_data")
         if s1_data:
             form_extra_data, initial_data = _s1_read_form_data(s1_data)
+        else:
+            initial_data['price'] = 0
         form = Step1Form(form_extra_data=form_extra_data, initial=initial_data)
     return direct_to_template(request, 'calc/step1.html', {"s1_form": form, })
 
