@@ -288,6 +288,10 @@ function priceSlider(containerId) {
         max = "10000000",
         step = 100;
 
+    $("#id_price").change(function(e){
+        $(this).parent().find("#current").html($(this).val());
+    })
+
     containerId.slider({
         value:  $("#id_price").val(),
         min: min,
@@ -295,7 +299,7 @@ function priceSlider(containerId) {
         step: step,
 
         create: function() {
-            $("#id_price").css("visibility", "hidden");
+            //$("#id_price").css("visibility", "hidden");
             containerId.find("a.ui-slider-handle").append("<span id='current'>0</span>");
             containerId.find("#current").html($("#id_price").val());
         },
