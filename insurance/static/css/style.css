@@ -2345,13 +2345,14 @@ div.messages li {
     position: absolute;
     top: 20px;
     left: 10px;
-    font-size: 18px;
+    font-size: 14px;
+    font-weight: bolder;
 }
 
 #result-table-step2 #autodata-step1 span{
     display: block;
     padding: 3px 0;
-    font-size: 28px;
+    font-size: 22px;
     color: #8a4e33;
     font-weight: bold;
 }
