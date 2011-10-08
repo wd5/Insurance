@@ -241,10 +241,14 @@ function franchiseSlider(selectId) {
 //Show Preloader function when submit data on server
 function preloaderScreen() {
     var over = $("#overlay");
-    var width = $(document).width(),
-        heigth = $(document).height();
+    
+    var overWidth = $(document).width(),
+        overHeight = $(document).height();
 
-    over.css({"width": width, "height" : heigth});
+    $("body").css({"overflow" : "hidden"});
+    console.log($(window).height());
+    over.css({"width": overWidth, "height" : overHeight});
+    over.find("img").css("top", $(window).height()/2);
     over.show();
 }
 
