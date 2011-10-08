@@ -114,7 +114,7 @@ function transform_select(selectContainer) {
     $(selectContainer).find("select option").each(function() {
         var text = ($(this).text());
         var value = ($(this).val());
-        result += "<li rel='" + value + "'>" + text + "</li>";
+        result += "<li rel='" + value + "' text='"+text +"'>" + text + "</li>";
     });
 
     $(selectContainer).append("<ul>" + result + "</ul>");
@@ -265,16 +265,17 @@ function userTypeInput(input) {
             value_found = true;
             scrollToItem($(this));
             return false;
-        } else if (text.indexOf(current_value) === 0 && !best_candidate) {
-            best_candidate = $(this);
         }
-
     });
 
-    if (best_candidate && !value_found) {
-        scrollToItem(best_candidate);
-    } else if (!best_candidate && !value_found) {
-
+    if(current_value != ""){
+        var val = input.parent().find("li[text^='"+current_value+"']");
+        if(val.length > 0){
+            scrollToItem(val);
+        }else{
+            list_item.css("top", -20);
+            list_items.removeClass("inactive").removeClass("selected");
+        }
     }
 }
 
@@ -303,7 +304,6 @@ function userTypeShortInput(input, val) {
 
     if (best_candidate && !value_found) {
         scrollToItem(best_candidate);
-        // console.log(best_candidate.text());
     } else if (!best_candidate && !value_found) {
 
     }
