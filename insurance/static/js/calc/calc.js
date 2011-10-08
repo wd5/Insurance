@@ -170,7 +170,7 @@ function fillAjaxSelect(selectId) {
 function priceSlider(containerId) {
     var min = "0",
         max = "10000000",
-        step = 100;
+        step = 10;
 
     $("#id_price").change(function(e) {
         $(this).parent().find("#current").html($(this).val());
@@ -181,6 +181,8 @@ function priceSlider(containerId) {
         min: min,
         max: max,
         step: step,
+
+        animate: true,
 
         create: function() {
             //$("#id_price").css("visibility", "hidden");
@@ -220,6 +222,8 @@ function franchiseSlider(selectId) {
         min: min,
         max: max,
         step: step,
+
+        animate: true,
 
         create: function() {
             selectId.find("a.ui-slider-handle").append("<span id='current'></span>");
