@@ -108,16 +108,48 @@
             })
 
             //Type into input element inside select
-            $(".long-select input, .short-select input").keyup(function(e) {
+            $(".long-select input").keyup(function(e) {
                 if (e.keyCode == 8) {
                     $(this).val("");
                 }
                 userTypeInput($(this));
             })
 
+            $(".short-select input").keyup(function(e) {
+                if (e.keyCode == 8) {
+                    $(this).val("");
+                }
+                userTypeInput($(this));
+            })
+
+             $(".short-select input").keypress(function(e) {
+                var currentVal = $(this).val();
+                var list_items = $(this).parent().find("select option");
+                var nowSelected = $(this).parent().find("select option[selected]");
+
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+
+                    list_items.each(function(){
+                        var text = $(this).text();
+                        if (text == currentVal){
+                            nowSelected.removeAttr("selected");
+                            $(this).attr("selected", "selected");
+                            $(this).parents("div").find(".jScrollPaneContainer").css("visibility", "hidden");
+                        }
+                    })
+                    
+                    return false;
+                }
+            })
+
+
+
             $(".short-select input, .long-select input").click(function() {
                 $(this).select();
             })
+
+          
 
             //Clear additional drivers info
             $("#info-main-driver .hide select").val("");
