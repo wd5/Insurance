@@ -8,68 +8,68 @@
     <script type="text/javascript">
         $(function() {
 
-            $("#sort-parameters td:even").addClass("even");
-            $("td:empty").html("&nbsp;");
+                    $("#sort-parameters td:even").addClass("even");
+                    $("td:empty").html("&nbsp;");
 
-            if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2")  //hardcoded no burglar alarm id.
-            {
-                $("#id_burglar_alarm_model").html('');
-                $("#id_burglar_alarm_model").attr("disabled", true);
-            }
+                    if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2")  //hardcoded no burglar alarm id.
+                    {
+                        $("#id_burglar_alarm_model").html('');
+                        $("#id_burglar_alarm_model").attr("disabled", true);
+                    }
 
-            $("#id_burglar_alarm_group").change(function() {
-                $("#id_burglar_alarm_model").html('');
-                $("#id_burglar_alarm_model").parent().find(".select-text").html("");
+                    $("#id_burglar_alarm_group").change(function() {
+                        $("#id_burglar_alarm_model").html('');
+                        $("#id_burglar_alarm_model").parent().find(".select-text").html("");
 
 
-                if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2") {
-                    $("#id_burglar_alarm_model").attr("disabled", true);
-                    $("#id_burglar_alarm_model").parent().hide();
+                        if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2") {
+                            $("#id_burglar_alarm_model").attr("disabled", true);
+                            $("#id_burglar_alarm_model").parent().hide();
+                        }
+                        else {
+                            $.ajax(
+                                    {
+                                        url:"{% url get_ba_models %}",
+                                        data:{group:$("#id_burglar_alarm_group").val() },
+                                        dataType:"json",
+                                        success:function(data) {
+                                            var options = '';
+                                            options += '<option value="">' + '--------' + '</option>';
+                                            $.each(data, function(index, value) {
+                                                options += '<option value="' + index + '">' + value + '</option>';
+                                            });
+                                            $("#id_burglar_alarm_model").parent().show();
+                                            $("#id_burglar_alarm_model").html(options);
+                                            fillAjaxSelect("id_burglar_alarm_model");
+                                            $("#id_burglar_alarm_model").removeAttr("disabled");
+
+                                        }
+                                    }
+                            );
+                        }
+                    });
+
+                    //Setup franchize slider
+                    franchiseSlider($("#franchize"));
+
+                    //click on sort checkbox
+                    $("#second-submit").click(function(e) {
+                        e.preventDefault();
+                        $("#sorting").submit();
+                    })
+
+                    //tooltip in table
+                    $(".conditions").hover(function() {
+                        $(this).find(".tooltip").fadeIn();
+                    }, function() {
+                        $(this).find(".tooltip").fadeOut();
+                    })
+
+                    //Prevent Default on table conditions href
+                    $(".conditions").click(function(e) {
+                        e.preventDefault();
+                    })
                 }
-                else {
-                    $.ajax(
-                            {
-                                url:"{% url get_ba_models %}",
-                                data:{group:$("#id_burglar_alarm_group").val() },
-                                dataType:"json",
-                                success:function(data) {
-                                    var options = '';
-                                    options += '<option value="">' + '--------' + '</option>';
-                                    $.each(data, function(index, value) {
-                                        options += '<option value="' + index + '">' + value + '</option>';
-                                    });
-                                    $("#id_burglar_alarm_model").parent().show();
-                                    $("#id_burglar_alarm_model").html(options);
-                                    fillAjaxSelect("id_burglar_alarm_model");
-                                    $("#id_burglar_alarm_model").removeAttr("disabled");
-
-                                }
-                            }
-                    );
-                }
-            });
-
-            //Setup franchize slider
-            franchiseSlider($("#franchize"));
-
-            //click on sort checkbox
-            $("#second-submit").click(function(e) {
-                e.preventDefault();
-                $("#sorting").submit();
-            })
-
-            //tooltip in table
-            $(".conditions").hover(function() {
-                $(this).find(".tooltip").fadeIn();
-            }, function() {
-                $(this).find(".tooltip").fadeOut();
-            })
-
-            //Prevent Default on table conditions href
-            $(".conditions").click(function(e){
-                e.preventDefault();
-            })
-        }
         );
     </script>
 {% endblock %}
@@ -139,7 +139,8 @@
                                 </tr>
                             </table>
 
-                            <a id="second-submit" href="#"><img src="/static/images/recount_button.png" alt="пересчитать" /></a>
+                            <a id="second-submit" href="#"><img src="/static/images/recount_button.png"
+                                                                alt="пересчитать"/></a>
                     </div>
                     </div>
 
@@ -173,8 +174,8 @@
 
 
                         <p><input type="image" src="/static/images/update_button.png" value="Обновить"/></p>
-                        </form>
                     </div>
+                    </form>
 
                     <div id="result-table-step2">
                         <div id="autodata-step1">
