@@ -134,21 +134,12 @@ function transform_select(selectContainer) {
         $(this).find(".jScrollPaneContainer").css("visibility", "visible");
     })
 
-    var inputfocus = false;
-    
-    $(selectContainer).find("input").focus(function(){
-        inputfocus = true;
-    })
 
-    $(selectContainer).find("input").blur(function(){
-        inputfocus = false;
-        //$(this).parent().find(".jScrollPaneContainer").css("visibility", "hidden");
-    })
-
-    $(selectContainer).find(".jScrollPaneContainer").bind("mouseleave", function() {
-        if(inputfocus == false){
-            $(this).css("visibility", "hidden");
+    $(selectContainer).bind("mouseleave", function() {
+        if($(this).find("input").length == 0){
+            $(this).find(".jScrollPaneContainer").css("visibility", "hidden");
         }
+
     })
 
     $(selectContainer).find("ul li").live('click', function() {
@@ -185,8 +176,8 @@ function priceSlider(containerId) {
         max = "10000000",
         step = 10;
 
-    $("#id_price").change(function(e) {
-        $(this).parent().find("#current").html($(this).val());
+    $("#current").live("change", function(){
+        $("#id_price").val($(this).val());
     })
 
     containerId.slider({
@@ -198,13 +189,13 @@ function priceSlider(containerId) {
         animate: true,
 
         create: function() {
-            //$("#id_price").css("visibility", "hidden");
-            containerId.find("a.ui-slider-handle").append("<span id='current'>0</span>");
-            containerId.find("#current").html($("#id_price").val());
+            $("#id_price").css("visibility", "hidden");
+            containerId.find("a.ui-slider-handle").append("<input type='text' value='0' id='current' />");
+            containerId.find("#current").val($("#id_price").val());
         },
 
         slide: function(event, ui) {
-            $("#current").html(ui.value);
+            $("#current").val(ui.value);
             $("#id_price").val(ui.value);
         }
     });
