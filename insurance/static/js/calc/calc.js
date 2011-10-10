@@ -318,7 +318,6 @@ function userTypeInput(input) {
 //User type in short input value
 function userTypeShortInput(input, val) {
     var current_value = (input.val()).toUpperCase();
-    // console.log(current_value);
     var best_candidate = false;
     var value_found = false;
     var list_items = input.parent().find("li");
@@ -351,4 +350,9 @@ function scrollToItem(list_item) {
     list_item.parent().find("li").not(list_item).addClass("inactive");
     list_item.addClass("selected");
     list_item.parent().css("top", -list_item.position().top);
+}
+
+/*Show tooltip on map image hover*/
+function showTooltip(){
+    
 }
