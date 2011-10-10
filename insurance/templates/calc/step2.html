@@ -69,12 +69,30 @@
                     $(".conditions").click(function(e) {
                         e.preventDefault();
                     })
+
+
+                    //Hover on table cells
+                    $("#map-table area").hover(function(e){
+                         var top = e.pageY,
+                             left = e.pageX,
+                             toolHeight = $("#tooltip").innerHeight();
+                        $("#tooltip span").html($(this).attr("title"));
+                        $("#tooltip").css({"top": top - toolHeight, "left" : left-20});
+                        $("#tooltip").stop().show();
+                    }, function(){
+                        $("#tooltip").stop().hide();
+                    })
                 }
         );
     </script>
 {% endblock %}
 
 {% block content %}
+    <div id="tooltip">
+         <span></span>
+         <img src="/static/images/tooltip_angle.png" alt=""/>
+    </div>
+    
     <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
 
     <div id="calc-tabs">
@@ -181,15 +199,15 @@
                             <!-- Beginning of Client Side Image Map -->
                                 <img id="map-image" src="/static/images/result_table_header.png" usemap="#result_table_header" border=0>
                     
-                                <map name="result_table_header">
-                                  <area shape="poly" coords="281,1,329,1,328,4,286,54,203,154,203,164,154,166,154,153,282,9,281,0,293,0" href=""  alt="" title="Эвакуатор">
-                                  <area shape="poly" coords="250,165,249,157,258,144,376,10,377,5,375,0,332,0,201,158,209,162,211,166,253,165" href=""  alt="" title="Авар. ком.">
-                                  <area shape="poly" coords="298,164,295,159,320,130,414,22,425,8,424,0,378,0,251,155,252,163,300,164,300,164" href=""  alt="" title="Без справок">
-                                  <area shape="poly" coords="347,165,345,158,365,133,421,70,463,22,475,5,472,0,428,0,296,154,299,165,347,165" href=""  alt="" title="Сбор справок">
-                                  <area shape="poly" coords="398,166,395,161,395,153,443,102,480,57,517,17,522,8,522,0,478,1,426,63,342,160,353,163,396,163" href=""  alt="" title="Агрегатная сумма">
-                                  <area shape="poly" coords="446,165,443,159,487,109,561,19,572,5,569,1,524,2,524,2,396,157,399,164,445,163,445,163" href=""  alt="" title="Новое за старое">
-                                  <area shape="poly" coords="495,164,490,158,499,148,544,97,592,42,616,11,623,1,575,0,446,157,446,165,494,167,494,167" href=""  alt="" title="Франшиза">
-                                  <area shape="poly" coords="543,164,541,157,557,132,587,101,613,73,639,41,657,24,668,8,668,0,623,1,525,117,492,157,494,163,507,165,540,165,541,165" href=""  alt="" title="Форма выплаты">
+                                <map id="map-table" name="result_table_header">
+                                  <area shape="poly" coords="281,1,329,1,328,4,286,54,203,154,203,164,154,166,154,153,282,9,281,0,293,0" href="#"  alt="" title="Эвакуатор">
+                                  <area shape="poly" coords="250,165,249,157,258,144,376,10,377,5,375,0,332,0,201,158,209,162,211,166,253,165" href="#"  alt="" title="Авар. ком.">
+                                  <area shape="poly" coords="298,164,295,159,320,130,414,22,425,8,424,0,378,0,251,155,252,163,300,164,300,164" href="#"  alt="" title="Без справок">
+                                  <area shape="poly" coords="347,165,345,158,365,133,421,70,463,22,475,5,472,0,428,0,296,154,299,165,347,165" href="#"  alt="" title="Сбор справок">
+                                  <area shape="poly" coords="398,166,395,161,395,153,443,102,480,57,517,17,522,8,522,0,478,1,426,63,342,160,353,163,396,163" href="#"  alt="" title="Агрегатная сумма">
+                                  <area shape="poly" coords="446,165,443,159,487,109,561,19,572,5,569,1,524,2,524,2,396,157,399,164,445,163,445,163" href="#"  alt="" title="Новое за старое">
+                                  <area shape="poly" coords="495,164,490,158,499,148,544,97,592,42,616,11,623,1,575,0,446,157,446,165,494,167,494,167" href="#"  alt="" title="Франшиза">
+                                  <area shape="poly" coords="543,164,541,157,557,132,587,101,613,73,639,41,657,24,668,8,668,0,623,1,525,117,492,157,494,163,507,165,540,165,541,165" href="#"  alt="" title="Форма выплаты">
                                 </map>
                            <!-- End of Client Side Image Map -->
                     
