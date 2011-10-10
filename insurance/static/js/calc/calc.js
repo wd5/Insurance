@@ -250,11 +250,39 @@ function preloaderScreen() {
         overHeight = $(document).height();
 
     $("body").css({"overflow" : "hidden"});
-    console.log($(window).height());
     over.css({"width": overWidth, "height" : overHeight});
-    over.find("img").css("top", $(window).height()/2);
+    over.find("img").css("top", getPageScroll() + getPageHeight()/2);
     over.show();
 }
+
+
+// getPageScroll() by quirksmode.com
+function getPageScroll() {
+    var xScroll, yScroll;
+    if (self.pageYOffset) {
+      yScroll = self.pageYOffset;
+    } else if (document.documentElement && document.documentElement.scrollTop) {
+      yScroll = document.documentElement.scrollTop;
+    } else if (document.body) {// all other Explorers
+      yScroll = document.body.scrollTop;
+    }
+    return yScroll;
+}
+
+// Adapted from getPageSize() by quirksmode.com
+function getPageHeight() {
+    var windowHeight
+    if (self.innerHeight) { // all except Explorer
+      windowHeight = self.innerHeight;
+    } else if (document.documentElement && document.documentElement.clientHeight) {
+      windowHeight = document.documentElement.clientHeight;
+    } else if (document.body) { // other Explorers
+      windowHeight = document.body.clientHeight;
+    }
+    return windowHeight
+}
+
+
 
 
 //User type in input value
