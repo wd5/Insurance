@@ -3,9 +3,10 @@ from django import forms
 from django.contrib.auth.models import User
 from models import Mark, City, ModelYear, Power, Model, BurglarAlarm
 from profile.models import Persona
-from polices.models import BODY_TYPE_CHOICES, SEX_CHOICES
+from polices.models import BODY_TYPE_CHOICES, SEX_CHOICES, InsurancePolicyData
 from email_login.forms import PhoneNumberField
 from captcha.fields import CaptchaField
+from django.forms import ModelForm
 
 AGE_CHOISES = [(i, i) for i in xrange(18, 81)]
 AGE_CHOISES.insert(0, ("", "--------"))
@@ -19,7 +20,6 @@ FRANCHISE_CHOICE = (
     (15000, 15000),
     (30000, 30000)
     )
-
 attrs_dict = {'class': 'required'}
 
 class Step1Form(forms.Form):
@@ -272,40 +272,93 @@ class Step3FormNoReg(forms.Form):
         return self.cleaned_data['phone']
 
 
-class Step4FormReg(forms.Form):
-    vin = forms.CharField(label="VIN", min_length=17, max_length=17)
-    body_type = forms.ChoiceField(label="Тип кузова", choices=BODY_TYPE_CHOICES)
-    mileage = forms.IntegerField(label="Пробег", min_value=0)
-    first_name = forms.CharField(label="Имя владельца", max_length=30)
-    last_name = forms.CharField(label="Фамилия владельца", max_length=30)
-    middle_name = forms.CharField(label="Отчество владельца", max_length=30)
-    birth_date = forms.DateField(label="Дата рождения")
-    first_owner = forms.BooleanField(label="Первый владелец авто", required=False)
-    sex = forms.ChoiceField(label="Пол", choices=SEX_CHOICES)
-    persona = forms.ModelChoiceField(label="Персона",
-                                     queryset=Persona.objects.none(),
-                                     empty_label="--------", required=False)
-    reg_address = forms.CharField(label="Адрес прописки", max_length=200)
-    liv_address = forms.CharField(label="Адрес проживания", max_length=200)
-    pol_address = forms.CharField(label="Адрес доставки полиса", max_length=200)
-
-    def __init__(self, *args, **kwargs):
-        form_extra_data = kwargs.pop("form_extra_data")
-        super(Step4FormReg, self).__init__(*args, **kwargs)
-        self.fields['persona'].queryset = Persona.objects.filter(
-            user=form_extra_data["user"])
-
-
-class Step4FormNoReg(forms.Form):
-    vin = forms.CharField(label="VIN", min_length=17, max_length=17)
-    body_type = forms.ChoiceField(label="Тип кузова", choices=BODY_TYPE_CHOICES)
-    mileage = forms.IntegerField(label="Пробег", min_value=0)
-    first_name = forms.CharField(label="Имя владельца", max_length=30)
-    last_name = forms.CharField(label="Фамилия владельца", max_length=30)
-    middle_name = forms.CharField(label="Отчество владельца", max_length=30)
-    birth_date = forms.DateField(label="Дата рождения")
-    first_owner = forms.BooleanField(label="Первый владелец авто", required=False)
-    sex = forms.ChoiceField(label="Пол", choices=SEX_CHOICES)
-    reg_address = forms.CharField(label="Адрес прописки", max_length=200)
-    liv_address = forms.CharField(label="Адрес проживания", max_length=200)
-    pol_address = forms.CharField(label="Адрес доставки полиса", max_length=200)
+class Step4Form(ModelForm):
+    class Meta:
+        model = InsurancePolicyData
+        exclude = ('polisy',)
+#
+#class Step4FormReg(forms.Form):
+#    vin = forms.CharField(widget=forms.TextInput(attrs={'class':'required', 'minlength':'17', 'maxlength':'17'}), label="VIN", min_length=17, max_length=17)
+#    body_type = forms.ChoiceField(label="Тип кузова", choices=BODY_TYPE_CHOICES)
+#    mileage = forms.IntegerField(label="Пробег", min_value=0)
+#    first_name = forms.CharField(label="Имя владельца", max_length=30)
+#    last_name = forms.CharField(label="Фамилия владельца", max_length=30)
+#    middle_name = forms.CharField(label="Отчество владельца", max_length=30)
+#    birth_date = forms.DateField(label="Дата рождения")
+#    first_owner = forms.BooleanField(label="Первый владелец авто", required=False)
+#    sex = forms.ChoiceField(label="Пол", choices=SEX_CHOICES)
+#    persona = forms.ModelChoiceField(label="Персона",
+#                                     queryset=Persona.objects.none(),
+#                                     empty_label="--------", required=False)
+#    reg_address = forms.CharField(label="Адрес прописки", max_length=200)
+#    liv_address = forms.CharField(label="Адрес проживания", max_length=200)
+#    pol_address = forms.CharField(label="Адрес доставки полиса", max_length=200)
+#
+#    def __init__(self, *args, **kwargs):
+#        form_extra_data = kwargs.pop("form_extra_data")
+#        super(Step4FormReg, self).__init__(*args, **kwargs)
+#        self.fields['persona'].queryset = Persona.objects.filter(
+#            user=form_extra_data["user"])
+#
+#
+#class Step4Form1(forms.Form):
+#    first_name = forms.CharField(label="Имя владельца", max_length=30, required=False)
+#    last_name = forms.CharField(label="Фамилия владельца", max_length=30, required=False)
+#    middle_name = forms.CharField(label="Отчество владельца", max_length=30, required=False)
+#    birth_date = forms.DateField(label="Дата рождения", required=False)
+#    sex = forms.ChoiceField(label="Пол", choices=SEX_CHOICES, required=False)
+#    category = forms.ChoiceField(widget=forms.RadioSelect, label=u'категория прав', choices=CATEGORY_CHOICES, required=False)
+#    citizenship = forms.ChoiceField(widget=forms.RadioSelect, label=u'Гражданство', choices=CITIZEN_CHOICES, required=False)
+#    passport_series = forms.CharField(label='Серия паспорта', required=False)
+#    passport_number = forms.CharField(label='Номер паспорта', required=False)
+#    issued_org = forms.CharField(label='Кем выдан', required=False)
+#    issued_date = forms.CharField(label='Дата выдачи', required=False)
+#    
+#    reg_region = forms.CharField(label='Область, край', required=False)
+#    reg_area = forms.CharField(label='Район', required=False)
+#    reg_city = forms.CharField(label='Населенный пункт', required=False)
+#    reg_street = forms.CharField(label='Улица', required=False)
+#    reg_index = forms.CharField(label='Индекс', required=False)
+#    reg_building = forms.CharField(label='Дом', required=False)
+#    reg_housing = forms.CharField(label='Корпус', required=False)
+#    reg_flat = forms.CharField(label='Квартира', required=False)
+#   
+#    live_region = forms.CharField(label='Область, край', required=False)
+#    live_area = forms.CharField(label='Район', required=False)
+#    live_city = forms.CharField(label='Населенный пункт', required=False)
+#    live_street = forms.CharField(label='Улица', required=False)
+#    live_index = forms.CharField(label='Индекс', required=False)
+#    live_building = forms.CharField(label='Дом', required=False)
+#    live_housing = forms.CharField(label='Корпус', required=False)
+#    live_flat = forms.CharField(label='Квартира', required=False)
+#
+#    step = forms.CharField(widget=forms.HiddenInput, initial='1')
+#
+#class Step4Form2(forms.Form):
+#    vin = forms.CharField(label="VIN", min_length=17, max_length=17, required=False)
+#    number = forms.CharField(label="Гос. номер", required=False)
+#    body_number = forms.CharField(label="Номер кузова", required=False)
+#    body_type = forms.ChoiceField(label="Тип кузова", choices=BODY_TYPE_CHOICES, required=False)
+#    pts_number = forms.CharField(label="Серия и номер ПТС", required=False)
+#    pts_date = forms.CharField(label="Дата выдачи ПТС", required=False)
+#    power = forms.CharField(label="Мощность", required=False)
+#    volume = form.CharField(label="Объем двигателя", required=False)
+#    mileage = forms.IntegerField(label="Пробег", min_value=0, required=False)
+#    kpp = forms.ChoiceField(widget=forms.RadioSelect, label="Коробка передач", choices=KPP_CHOICES)
+#    motor = forms.ChoiceField(widget=forms.RadioSelect, label="Двигатель", choices=MOTOR_CHOICES)
+#    
+#    owner_first_name = forms.CharField(label="Имя владельца", max_length=30, required=False)
+#    owner_last_name = forms.CharField(label="Фамилия владельца", max_length=30, required=False)
+#    owner_middle_name = forms.CharField(label="Отчество владельца", max_length=30, required=False)
+#    birth_date = forms.DateField(label="Дата рождения", required=False)
+#    sex = forms.ChoiceField(label="Пол", choices=SEX_CHOICES, required=False)
+#
+#    first_owner = forms.BooleanField(label="Первый владелец авто", required=False)
+#    reg_address = forms.CharField(label="Адрес прописки", max_length=200, required=False)
+#    
+##liv_address = forms.CharField(label="Адрес проживания", max_length=200, required=False)
+##    pol_address = forms.CharField(label="Адрес доставки полиса", max_length=200, required=False)
+#    step = forms.CharField(widget=forms.HiddenInput, initial='2', required=False)
+#
+#class Step4Form3(forms.Form):
+#    date = forms

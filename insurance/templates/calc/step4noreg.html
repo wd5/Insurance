@@ -3,100 +3,32 @@
 <html>
 <head>
     <title>Step4</title>
-    <script type="text/javascript"
-            src="/static/js/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-1.6.3.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#test").validate({
+            messages: {
+                first_name: "Please specify your name",
+                email: {
+                    required: "We need your email address to contact you",
+                    email: "Your email address must be in the format of name@domain.com"
+                    }
+                }
+            });
+        });
+  </script>
 </head>
 <body>
-<form action="" method="post">
-    <table>
-        {% csrf_token %}
-        <tr>
-            <td>VIN</td>
-            <td>
-                {{ form.vin }}
-                {{ form.vin.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Тип кузова</td>
-            <td>
-                {{ form.body_type }}
-                {{ form.body_type.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Пробег</td>
-            <td>
-                {{ form.mileage }}
-                {{ form.mileage.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Имя владельца</td>
-            <td>
-                {{ form.first_name }}
-                {{ form.first_name.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Фамилия владельца</td>
-            <td>
-                {{ form.last_name }}
-                {{ form.last_name.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Отчество владельца</td>
-            <td>
-                {{ form.middle_name }}
-                {{ form.middle_name.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Дата рождения</td>
-            <td>
-                {{ form.birth_date }}
-                {{ form.birth_date.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Первый владелец авто</td>
-            <td>
-                {{ form.first_owner }}
-                {{ form.first_owner.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Пол</td>
-            <td>
-                {{ form.sex }}
-                {{ form.sex.errors }}
-            </td>
-        </tr>
-        <tr>
-        <tr>
-            <td>Адрес прописки</td>
-            <td>
-                {{ form.reg_address }}
-                {{ form.reg_address.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Адрес проживания</td>
-            <td>
-                {{ form.liv_address }}
-                {{ form.liv_address.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Адрес доставки полиса</td>
-            <td>
-                {{ form.pol_address }}
-                {{ form.pol_address.errors }}
-            </td>
-        </tr>
-    </table>
+<div id="form">
+<form action="" id="test" method="post">
+{% csrf_token %}
+<h2>Водители</h2>
+{{ form.non_field_errors }}
+<p></p>
+{{form.as_p}}
     <input type="submit" value="Заказать"/>
 </form>
+</div>
 </body>
 </html>
