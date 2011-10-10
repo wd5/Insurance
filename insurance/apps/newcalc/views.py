@@ -213,7 +213,8 @@ def step3(request, alias):
 def step4(request):
     policy_id = request.session.get('policy')
     if not policy_id:
-        return redirect(reverse('ncalc_step3', args=[request.session.get('company_alias')]))
+        policy_id = 1 #для показа
+        #return redirect(reverse('ncalc_step3', args=[request.session.get('company_alias')]))
     policy = InsurancePolicy.objects.get(pk=policy_id)
     if request.method == 'POST':
         form = Step4Form(request.POST)
@@ -221,8 +222,7 @@ def step4(request):
             policy_data = form.save(commit=False)
             policy_data.polisy = policy
             policy_data.save()
-        else:
-            print form.errors
+            #return redirect(reverse('ncalc_success'))
     initial_data = {}
 #    if request.user.is_authenticated() or policy:
 #TODO: возможно несколько персон у одного юзера - учесть это

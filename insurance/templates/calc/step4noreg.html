@@ -7,6 +7,38 @@
     <script type="text/javascript" src="/static/js/jquery.validate.js"></script>
     <script>
         $(document).ready(function(){
+            var step = 1;
+            $('.next').show();
+            if (window.location.hash) {
+                    var hash = window.location.hash;
+                    if (hash.indexOf('#step') >= 0){
+                            step = hash.substring(5);
+                            $('.steps').hide();
+                            if (step == 3) $('.next').hide();
+                            $('#step'+step).fadeIn('slow');
+                        }
+                }
+            $('.next').click(function(){
+                    $('#step'+step).fadeOut('slow');
+                    step++;
+                    if (step != 1) $('.prew').show();
+                    window.location.hash='#step'+step;
+                    $('#step'+step).fadeIn('slow');
+                    if (step == 3) {
+                            $('.next').hide();
+                        }
+                    return false;
+                });
+            $('.prew').click(function(){
+                $('#step'+step).fadeOut('slow');
+                $('.next').show();
+                step--;
+                if (step == 1) $(this).hide();
+                window.location.hash='#step'+step;
+                $('#step'+step).fadeIn('slow');
+                return false;
+            });
+
             $("#test").validate({
             messages: {
                 first_name: "Please specify your name",
@@ -23,11 +55,225 @@
 <div id="form">
 <form action="" id="test" method="post">
 {% csrf_token %}
-<h2>Водители</h2>
 {{ form.non_field_errors }}
-<p></p>
-{{form.as_p}}
-    <input type="submit" value="Заказать"/>
+<div class="steps" id="step1">
+<p>
+{{ form.first_name.label }}
+{{ form.first_name }}
+</p>
+<p>
+{{ form.last_name.label }}
+{{ form.last_name }}
+</p>
+<p>
+{{ form.middle_name.label }}
+{{ form.middle_name }}
+</p>
+<p>
+{{ form.birth_date.label }}
+{{ form.birth_date }}
+</p>
+<p>
+
+{{ form.sex.label }}
+{{ form.sex }}
+</p>
+<p>
+
+{{ form.category.label }}
+{{ form.category }}</p>
+<p>
+
+{{ form.citizenship.label }}
+{{ form.citizenship }}</p>
+<p>
+
+{{ form.passport_series.label }}
+{{ form.passport_series }}</p>
+<p>
+
+{{ form.passport_number.label }}
+{{ form.passport_number }}</p>
+<p>
+
+{{ form.issued_org.label }}
+{{ form.issued_org }}</p>
+<p>
+
+{{ form.issued_date.label }}
+{{ form.issued_date }}</p>
+<p>
+
+
+{{ form.reg_region.label }}
+{{ form.reg_region }}</p>
+<p>
+
+{{ form.reg_area.label }}
+{{ form.reg_area }}</p>
+<p>
+
+{{ form.reg_city.label }}
+{{ form.reg_city }}</p>
+<p>
+
+{{ form.reg_index.label }}
+{{ form.reg_index }}</p>
+<p>
+
+{{ form.reg_street.label }}
+{{ form.reg_street }}</p>
+<p>
+
+{{ form.reg_building.label }}
+{{ form.reg_building }}</p>
+<p>
+
+{{ form.reg_housing.label }}
+{{ form.reg_housing }}</p>
+<p>
+
+{{ form.reg_flat.label }}
+{{ form.reg_flat }}</p>
+<p>
+
+
+{{ form.live_region.label }}
+{{ form.live_region }}</p>
+<p>
+
+{{ form.live_area.label }}
+{{ form.live_area }}</p>
+<p>
+
+{{ form.live_city.label }}
+{{ form.live_city }}</p>
+<p>
+
+{{ form.live_index.label }}
+{{ form.live_index }}</p>
+<p>
+
+{{ form.live_street.label }}
+{{ form.live_street }}</p>
+<p>
+
+{{ form.live_building.label }}
+{{ form.live_building }}</p>
+<p>
+
+{{ form.live_housing.label }}
+{{ form.live_housing }}</p>
+<p>
+
+{{ form.live_flat.label }}
+{{ form.live_flat }}</p>
+</div>
+<div id="step2" class="steps" style="display:none;">
+<p>
+{{ form.vin.label }}
+{{ form.vin }}
+</p>
+<p>
+{{ form.number.label }}
+{{ form.number }}
+</p>
+<p>
+{{ form.body_type.label }}
+{{ form.body_type }}
+</p>
+<p>
+{{ form.pts_number.label }}
+{{ form.pts_number }}
+</p><p>
+{{ form.pts_date.label }}
+{{ form.pts_date }}
+</p><p>
+{{ form.power.label }}
+{{ form.power }}
+</p><p>
+{{ form.volume.label }}
+{{ form.volume }}
+</p>
+<p>
+{{ form.mileage.label }}
+{{ form.mileage }}
+</p><p>
+{{ form.kpp.label }}
+{{ form.kpp }}
+</p><p>
+{{ form.motor.label }}
+{{ form.motor }}
+</p>
+<p>
+{{ form.owner_last_name.label }}
+{{ form.owner_last_name }}
+</p><p>
+{{ form.owner_first_name.label }}
+{{ form.owner_first_name }}
+</p>
+<p>
+{{ form.owner_middle_name.label }}
+{{ form.owner_middle_name }}
+</p>
+<p>
+{{ form.owner_birth_date.label }}
+{{ form.owner_birth_date }}
+</p>
+<p>
+{{ form.first_owner.label }}
+{{ form.first_owner }}
+</p>
+<p>
+{{ form.owner_sex.label }}
+{{ form.owner_sex }}
+</p>
+</div>
+<div id="step3" class="steps" style="display:none;">
+<p>
+{{ form.date.label }}
+{{ form.date }}
+</p>
+<p>
+{{ form.time.label }}
+{{ form.time }}
+</p>
+<p>
+{{ form.street.label }}
+{{ form.street }}
+</p>
+<p>
+{{ form.building.label }}
+{{ form.building }}
+</p><p>
+{{ form.structur.label }}
+{{ form.structur }}
+</p><p>
+{{ form.housing.label }}
+{{ form.housing }}
+</p><p>
+{{ form.floor.label }}
+{{ form.floor }}
+</p><p>
+{{ form.domophon.label }}
+{{ form.domophon }}
+</p><p>
+{{ form.flat.label }}
+{{ form.flat }}
+</p><p>
+{{ form.porch.label }}
+{{ form.porch }}
+</p><p>
+{{ form.payments.label }}
+{{ form.payments }}
+</p><p>
+{{ form.comment.label }}
+{{ form.comment }}
+</p>
+<input type="submit" value="Заказать"/>
+</div>
+<a href="#" style="display:none" class="prew">Назад</a>
+<a href="#" class="next" /> Далее </a>
 </form>
 </div>
 </body>
