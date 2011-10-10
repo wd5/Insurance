@@ -2336,12 +2336,17 @@ div.messages li {
 
 /*Result table on calc  step 2*/
 #result-table-step2{
-    background: url(/static/images/result_table_header.png) top left no-repeat;
     width: 714px;
     padding-top: 166px;
     margin-bottom: 20px;
     position: relative;
 }
+
+#result-table-step2 #map-image{
+    position: absolute;
+    top: 0; left: 0;
+}
+
 
 #result-table-step2 #autodata-step1{
     width: 188px;
