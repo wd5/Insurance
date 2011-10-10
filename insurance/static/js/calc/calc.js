@@ -176,6 +176,10 @@ function priceSlider(containerId) {
         max = "10000000",
         step = 10;
 
+    $("#current").live("change", function(){
+        $("#id_price").val($(this).val());
+    })
+
     containerId.slider({
         value:  $("#id_price").val(),
         min: min,
