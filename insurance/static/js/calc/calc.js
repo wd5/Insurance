@@ -176,10 +176,6 @@ function priceSlider(containerId) {
         max = "10000000",
         step = 10;
 
-    $("#id_price").change(function(e) {
-        $(this).parent().find("#current").html($(this).val());
-    })
-
     containerId.slider({
         value:  $("#id_price").val(),
         min: min,
@@ -189,13 +185,13 @@ function priceSlider(containerId) {
         animate: true,
 
         create: function() {
-            //$("#id_price").css("visibility", "hidden");
-            containerId.find("a.ui-slider-handle").append("<span id='current'>0</span>");
-            containerId.find("#current").html($("#id_price").val());
+            $("#id_price").css("visibility", "hidden");
+            containerId.find("a.ui-slider-handle").append("<input type='text' value='0' id='current' />");
+            containerId.find("#current").val($("#id_price").val());
         },
 
         slide: function(event, ui) {
-            $("#current").html(ui.value);
+            $("#current").val(ui.value);
             $("#id_price").val(ui.value);
         }
     });
