@@ -249,7 +249,7 @@ function preloaderScreen() {
     var overWidth = $(document).width(),
         overHeight = $(document).height();
 
-    $("body").css({"overflow" : "hidden"});
+    $("html").css("overflow" , "hidden");
     over.css({"width": overWidth, "height" : overHeight});
     over.find("img").css("top", getPageScroll() + getPageHeight()/2);
     over.show();
