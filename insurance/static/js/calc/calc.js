@@ -134,21 +134,12 @@ function transform_select(selectContainer) {
         $(this).find(".jScrollPaneContainer").css("visibility", "visible");
     })
 
-    var inputfocus = false;
-    
-    $(selectContainer).find("input").focus(function(){
-        inputfocus = true;
-    })
 
-    $(selectContainer).find("input").blur(function(){
-        inputfocus = false;
-        //$(this).parent().find(".jScrollPaneContainer").css("visibility", "hidden");
-    })
-
-    $(selectContainer).find(".jScrollPaneContainer").bind("mouseleave", function() {
-        if(inputfocus == false){
-            $(this).css("visibility", "hidden");
+    $(selectContainer).bind("mouseleave", function() {
+        if($(this).find("input").length == 0){
+            $(this).find(".jScrollPaneContainer").css("visibility", "hidden");
         }
+
     })
 
     $(selectContainer).find("ul li").live('click', function() {
