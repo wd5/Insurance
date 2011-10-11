@@ -1,129 +1,150 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-        "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-    <title>Step3</title>
-    <script type="text/javascript"
-            src="/static/js/jquery-1.6.3.min.js"></script>
-</head>
-<body>
-<form action="" method="post">
-    <table>
-        <tr>
-            <th>Параметр</th>
-            <th>Значение</th>
-        </tr>
-        <tr>
-            <td>Тип полиса</td>
-            <td>{{ data.insurance_type }}</td>
-        </tr>
-        <tr>
-            <td>Марка автомобиля</td>
-            <td>{{ data.mark }}</td>
-        </tr>
-        <tr>
-            <td>Модель автомобиля</td>
-            <td>{{ data.model }}</td>
-        </tr>
-        <tr>
-            <td>Год выпуска</td>
-            <td>{{ data.model_year }}</td>
-        </tr>
-        <tr>
-            <td>Руль</td>
-            <td>{{ data.wheel }}</td>
-        </tr>
-        <tr>
-            <td>Мощность</td>
-            <td>{{ data.power }}</td>
-        </tr>
-        <tr>
-            <td>Стоимость</td>
-            <td>{{ data.price }}</td>
-        </tr>
-        <tr>
-            <td>Кредит</td>
-            <td>{{ data.credit }}</td>
-        </tr>
-        <tr>
-            <td>Регистрация собственника</td>
-            <td>{{ data.city }}</td>
-        </tr>
-        <tr>
-            <td>Возраст</td>
-            <td>{{ data.age }}</td>
-        </tr>
-        <tr>
-            <td>Стаж вождения</td>
-            <td>{{ data.experience_driving }}</td>
-        </tr>
-        <tr>
-            <td>Число водителей</td>
-            <td>{{ data.dr_nr }}</td>
-        </tr>
-        <tr>
-            <td>Страховщик</td>
-            <td>{{ data.company }}</td>
-        </tr>
-        {% csrf_token %}
-        <tr>
-            <td>Фамилия</td>
-            <td>
-                {{ form.last_name }}
-                {{ form.last_name.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Имя</td>
-            <td>
-                {{ form.first_name }}
-                {{ form.first_name.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Отчество</td>
-            <td>
-                {{ form.middle_name }}
-                {{ form.middle_name.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Телефон</td>
-            <td>
-                {{ form.phone }}
-                {{ form.phone.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Адрес эл. почты</td>
-            <td>
-                {{ form.email }}
-                {{ form.email.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Пароль</td>
-            <td>
-                {{ form.password1 }}
-                {{ form.password1.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Пароль(еще раз)</td>
-            <td>
-                {{ form.password2 }}
-                {{ form.password2.errors }}
-            </td>
-        </tr>
-        <tr>
-            <td>Капча</td>
-            <td>
-                {{ form.captcha }}
-                {{ form.captcha.errors }}
-            </td>
-        </tr>
-    </table>
-    <input type="submit" value="Заказать"/>
-</form>
-</body>
-</html>
+{% extends "base.html" %}
+{% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
+
+    <div id="calc-tabs">
+        <ul>
+            <li><a href="#tabs-1">КАСКО</a></li>
+            <li><a href="#tabs-2">ОСАГО</a></li>
+            <li><a href="#tabs-3">ДМС</a></li>
+            <li><a href="#tabs-4">ДАГО</a></li>
+            <li><a href="#tabs-5">HC</a></li>
+            <li><a href="#tabs-6">ВЗР</a></li>
+            <li><a href="#tabs-7">ИФЛ</a></li>
+        </ul>
+
+        <div id="tabs-1">
+            <form action="" method="post">
+                <table>
+                    <tr>
+                        <th>Параметр</th>
+                        <th>Значение</th>
+                    </tr>
+                    <tr>
+                        <td>Тип полиса</td>
+                        <td>{{ data.insurance_type }}</td>
+                    </tr>
+                    <tr>
+                        <td>Марка автомобиля</td>
+                        <td>{{ data.mark }}</td>
+                    </tr>
+                    <tr>
+                        <td>Модель автомобиля</td>
+                        <td>{{ data.model }}</td>
+                    </tr>
+                    <tr>
+                        <td>Год выпуска</td>
+                        <td>{{ data.model_year }}</td>
+                    </tr>
+                    <tr>
+                        <td>Руль</td>
+                        <td>{{ data.wheel }}</td>
+                    </tr>
+                    <tr>
+                        <td>Мощность</td>
+                        <td>{{ data.power }}</td>
+                    </tr>
+                    <tr>
+                        <td>Стоимость</td>
+                        <td>{{ data.price }}</td>
+                    </tr>
+                    <tr>
+                        <td>Кредит</td>
+                        <td>{{ data.credit }}</td>
+                    </tr>
+                    <tr>
+                        <td>Регистрация собственника</td>
+                        <td>{{ data.city }}</td>
+                    </tr>
+                    <tr>
+                        <td>Возраст</td>
+                        <td>{{ data.age }}</td>
+                    </tr>
+                    <tr>
+                        <td>Стаж вождения</td>
+                        <td>{{ data.experience_driving }}</td>
+                    </tr>
+                    <tr>
+                        <td>Число водителей</td>
+                        <td>{{ data.dr_nr }}</td>
+                    </tr>
+                    <tr>
+                        <td>Страховщик</td>
+                        <td>{{ data.company }}</td>
+                    </tr>
+                    {% csrf_token %}
+                    <tr>
+                        <td>Фамилия</td>
+                        <td>
+                            {{ form.last_name }}
+                            {{ form.last_name.errors }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Имя</td>
+                        <td>
+                            {{ form.first_name }}
+                            {{ form.first_name.errors }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Отчество</td>
+                        <td>
+                            {{ form.middle_name }}
+                            {{ form.middle_name.errors }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Телефон</td>
+                        <td>
+                            {{ form.phone }}
+                            {{ form.phone.errors }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Адрес эл. почты</td>
+                        <td>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Пароль</td>
+                        <td>
+                            {{ form.password1 }}
+                            {{ form.password1.errors }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Пароль(еще раз)</td>
+                        <td>
+                            {{ form.password2 }}
+                            {{ form.password2.errors }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Капча</td>
+                        <td>
+                            {{ form.captcha }}
+                            {{ form.captcha.errors }}
+                        </td>
+                    </tr>
+                </table>
+                <input type="submit" value="Заказать"/>
+            </form>
+        </div>
+        <div id="tabs-2">осаго</div>
+        <div id="tabs-3">дмс</div>
+        <div id="tabs-4">даго</div>
+        <div id="tabs-5">нс</div>
+        <div id="tabs-6">взр</div>
+        <div id="tabs-7">ифл</div>
+    </div>
+{% endblock %}
