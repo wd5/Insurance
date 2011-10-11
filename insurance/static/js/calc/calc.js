@@ -87,6 +87,43 @@ function get_visible_select_data(selectId) {
         if (text != "--------") {
             result += "<span rel='" + value + "' class='" + myclass + "'>" + text + "</span>"
         }
+    })
+
+    $("#" + selectId).parents("td").find("div").html("").append(result);
+}
+
+function get_visible_select_data_model(selectId) {
+    var result = "",
+        i = 1,
+        options = $("#" + selectId).find("option").length,
+        divide = "";
+
+    divide = Math.ceil(options / 4);
+    console.log(options);
+    console.log(divide);
+
+    $("#" + selectId + " option").each(function(e) {
+        var text = ($(this).text());
+        var value = ($(this).val());
+        var myclass = "";
+
+        if (i == 1) {
+            result += "<div class='container'>";
+        }
+
+        if ($(this).attr("selected")) {
+            myclass = "active";
+        }
+
+        if (text != "--------") {
+            result += "<span rel='" + value + "' class='" + myclass + "'>" + text + "</span>";
+            i++;
+        }
+
+        if (i == divide+1) {
+            result += "</div>";
+            i = 1;
+        }
 
     })
 
@@ -179,12 +216,6 @@ function transform_firstSelect(selectContainer) {
     })
 
     $(selectContainer).find("input").blur(function(){
-        /*if($(this).val() == ""){
-            $(this).val(realselect.find("option:eq(0)").text());
-            realselect.val(realselect.find("option:eq(0)").val());
-            realselect.change();
-        }
-        $(this).parent().find(".inner-container").hide();*/
         inputfocus = false;
     })
 

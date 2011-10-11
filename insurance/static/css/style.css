@@ -2307,11 +2307,22 @@ div.messages li {
     padding: 0 10px 5px 0;
 }
 
-#calc-tabs .form-round-block table tr:first-child td.visible-data span{
+.visible-data .container{
+    float: left;
+    margin-right: 20px;
+}
+
+.visible-data .container span{
     cursor: pointer;
     display: block;
-    float: left;
-    /*padding: 0 20px 5px 0;*/
+    margin: 0 0px 0 5px 0;
+    width: 145px;
+}
+
+
+.visible-data span{
+    cursor: pointer;
+    display: inline;
     margin: 0 20px 0 5px 0;
     width: 145px;
 }
@@ -2511,7 +2522,6 @@ div.messages li {
     padding: 0px 0 0 5px;
     width: 125px;
     font-size: 14px;
-    margin-bottom: 30px;
 }
 
 

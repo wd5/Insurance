@@ -36,8 +36,10 @@
             $("#id_mark").change(function() {
                 //Hide all table data, except first one
                 $("#require-auto-data-first tr").not(":first").hide();
+                get_visible_select_data_model($("#require-block-1 #id_model").attr("id"));
+                //console.log($(".ajax-select select").not("#id_model"));
 
-                $(".ajax-select select").each(function() {
+                $(".ajax-select select").not(":first").each(function() {
                     $(this).val("");
                     get_visible_select_data($(this).attr("id"));
                 });
@@ -56,7 +58,7 @@
                                         options += '<option value="' + index + '">' + value + '</option>';
                                     });
                                     $("#id_model").html(options);
-                                    get_visible_select_data("id_model");
+                                    get_visible_select_data_model("id_model");
                                 }
                             }
                     );
@@ -89,7 +91,9 @@
             })
 
             //Draw all select values in frist block
-            $("#require-block-1 select").each(function() {
+            get_visible_select_data_model($("#require-block-1 #id_model").attr("id"));
+
+            $("#require-block-1 select").not(":first").each(function() {
                 var id = $(this).attr("id");
                 get_visible_select_data(id);
             })
