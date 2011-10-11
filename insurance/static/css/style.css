@@ -982,14 +982,16 @@ input.style_input5 {
     font-weight: bold;
 }
 
-#login-url {
+#login-url, #calc-url, #office-url {
     position: absolute;
     top: 433px;
     right: 45px;
     color: #4e1b07;
     text-transform: uppercase;
     font-size: 18px;
+    display: none;
 }
+
 
 .tabs_footer {
     padding: 0 0 0 25px;
