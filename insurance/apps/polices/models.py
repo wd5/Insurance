@@ -92,7 +92,7 @@ class InsurancePolicy(models.Model):
     mark = models.CharField("Марка", max_length=20)
     model = models.CharField("Модель", max_length=50)
     model_year = models.PositiveIntegerField("Год выпуска")
-    power = models.CharField(u'Мощность', blank=True, null=True, max_length=10)
+    power = models.CharField(u'Мощность', blank=True, null=True, max_length=20)
     #power = models.PositiveIntegerField("Мощность", blank=True, null=True) #WTF в модели POWER варчар, тут инт? Либо добавить надо в Павер еще одно поле инт с мощностью, либо это сделать варчаром.
     price = models.PositiveIntegerField("Стоимость")
     wheel = models.CharField("Руль", choices=WHEEL_CHOICES, max_length=5)
