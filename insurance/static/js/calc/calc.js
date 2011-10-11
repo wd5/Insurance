@@ -141,6 +141,48 @@ function transform_select(selectContainer) {
 
 }
 
+//Transform Select on first calc page into custom selects
+function transform_firstSelect(selectContainer){
+    var result = "";
+    var realselect = $(selectContainer).find("select");
+
+    //read select values, write and add to container
+    $(selectContainer).find("select option").each(function() {
+        var text = ($(this).text());
+        var value = ($(this).val());
+        result += "<li rel='" + value + "' text='"+text +"'>" + text + "</li>";
+    });
+
+    $(selectContainer).append("<ul>" + result + "</ul>");
+
+
+    $(selectContainer).find("input").val(realselect.find("option[selected]").text());
+    $(selectContainer).find(".select-text").html(realselect.find("option[selected]").text());
+
+    //base events
+    $(selectContainer).click(function() {
+        $(this).find("ul").show();
+        $(this).find(".jScrollPaneContainer").css("visibility", "visible");
+    })
+
+
+    $(selectContainer).bind("mouseleave", function() {
+        if($(this).find("input").length == 0){
+            $(this).find(".jScrollPaneContainer").css("visibility", "hidden");
+        }
+
+    })
+
+    $(selectContainer).find("ul li").live('click', function() {
+        $(selectContainer).find(".select-text").html($(this).text());
+        $(selectContainer).find("input").val($(this).text());
+        realselect.val($(this).attr("rel"));
+        realselect.change();
+        $(this).parent().css("display", "none");
+    })
+}
+
+
 //Fill data on second ajax-select, in calc step 2
 function fillAjaxSelect(selectId) {
     var result = "";

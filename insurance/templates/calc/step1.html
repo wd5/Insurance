@@ -16,6 +16,8 @@
             $("#info-main-driver td:odd").addClass("second");
             $("#info-main-driver tr.hide").css("display", "none");
 
+            transform_firstSelect($("#first-select"));
+
             $(".short-select").each(function(e) {
                 $(this).attr("id", "short-" + (e + 1));
                 transform_select($(this));

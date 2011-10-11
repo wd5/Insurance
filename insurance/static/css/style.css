@@ -2821,7 +2821,7 @@ div.messages li {
     border: none;
     width: 905px;
     z-index: 10;
-    height: 400px;
+    height: auto;
     overflow-y: auto;
     display: none;
     padding: 20px 0;
