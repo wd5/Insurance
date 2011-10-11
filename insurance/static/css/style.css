@@ -2778,7 +2778,7 @@ div.messages li {
 }
 
 /*Select style for auto mark*/
-#long-1.long-select{
+#first-select.long-select{
     width: 914px;
     height: 36px;
     background: url(/static/images/long_select.png) top left no-repeat;
@@ -2787,7 +2787,7 @@ div.messages li {
 
 }
 
-#long-1.long-select input{
+#first-select.long-select input{
     position: absolute;
     top: 4px;
     left: 6px;
@@ -2798,7 +2798,7 @@ div.messages li {
     border: none;
 }
 
-#long-1.long-select .jScrollPaneContainer {
+#first-select.long-select .jScrollPaneContainer {
 	position: relative;
 	overflow: hidden;
     top: 31px;
@@ -2813,7 +2813,7 @@ div.messages li {
     -webkit-box-shadow:0px 3px 9px #333333;
 }
 
-#long-1.long-select ul{
+#first-select.long-select ul{
     position: absolute;
     top: 34px;
     left: 3px;
@@ -2828,7 +2828,7 @@ div.messages li {
     font-size: 14px;
 }
 
-#long-1.long-select ul li{
+#first-select.long-select ul li{
     list-style: none;
     padding: 5px 0 5px 20px;
     float: left;
@@ -2837,7 +2837,7 @@ div.messages li {
     cursor: pointer;
 }
 
-#long-1 a{
+#first-select a{
     color: #4e1b06;
 }
 
