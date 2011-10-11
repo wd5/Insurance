@@ -96,6 +96,8 @@ def step2(request):
 
 def step3(request, alias):
     s1_data = request.session.get("s1_data")
+    if not s1_data:
+        return redirect(reverse('ncalc_step1'))
     data = {}
     data["insurance_type"] = "КАСКО"
     data["mark"] = Mark.objects.get(pk=s1_data["mark"]).mark_name
@@ -159,7 +161,6 @@ def step3(request, alias):
                         ip.age3 = s1_data["age3"]
                         ip.experience_driving3 = s1_data["experience_driving3"]
                 policy = ip.save()
-                print ip
                 request.session['policy'] = ip.pk
 
                 return redirect(reverse('ncalc_step4'))
@@ -196,7 +197,6 @@ def step3(request, alias):
                         ip.age3 = s1_data["age3"]
                         ip.experience_driving3 = s1_data["experience_driving3"]
                 policy = ip.save()
-                print ip
                 request.session['policy'] = ip.pk
                 request.session["company_alias"] = alias
                 return redirect(reverse('ncalc_step4'))
