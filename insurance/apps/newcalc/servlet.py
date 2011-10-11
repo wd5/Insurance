@@ -57,9 +57,9 @@ def servlet_request(data):
     result = None
     if not settings.SERVLET_FAKE:
         encoded_data = urllib.urlencode(data)
-        print "REQUEST:", encoded_data
+        #print "REQUEST:", encoded_data
         req = urllib2.Request(settings.SERVLET_URL, encoded_data)
-        print "REQUEST:", req
+        #print "REQUEST:", req
         try:
             result = urllib2.urlopen(req).read()
 #            print "RESULT: ", result

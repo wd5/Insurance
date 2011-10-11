@@ -214,7 +214,7 @@ def step4(request):
     policy_id = request.session.get('policy')
     if not policy_id:
         #policy_id = 1 #для показа
-        return redirect(reverse('ncalc_step3', args=[request.session.get('company_alias')]))
+        return redirect(reverse('ncalc_step1')) #, args=[request.session.get('company_alias')]))
     policy = InsurancePolicy.objects.get(pk=policy_id)
     if request.method == 'POST':
         form = Step4Form(request.POST)
