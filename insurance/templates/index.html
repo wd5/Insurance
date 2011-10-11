@@ -1,5 +1,12 @@
 {% extends "base.html" %}
 
+{% block extra_head %}
+    <script type="text/javascript">
+        $(document).ready(function(){
+            
+        })
+    </script>
+{% endblock %}
 
 {% block content %}
 
@@ -42,7 +49,12 @@
             </div>
         </div>
 
-        <a href="#" rel="#pop_up_2" id="login-url">вход в кабинет</a>
+        <div id="carosel-links">
+            <a href="#" rel="#pop_up_2" name="#tabs_crug_1" id="login-url">вход в кабинет</a>
+            <a href="#" name="#tabs_crug_3" id="office-url">офис пользователя</a>
+            <a href="{% url ncalc_step1 %}" name="#tabs_crug_2" id="calc-url">Перейти к расчетам</a>
+        </div>
+
     </div>
 
     <script type="text/javascript" src="{{ STATIC_URL }}js/script.js"></script>

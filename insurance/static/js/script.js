@@ -6,6 +6,7 @@ $(document).ready(function(){
 
 	var images	= $('#stage img').removeClass('default').addClass('animationReady');
 	var dim		= { width:images.width(),height:images.height()};
+
 	
 	var cnt = images.length;
 	
@@ -64,7 +65,9 @@ $(document).ready(function(){
 		}
 
         var href = images.eq(currentBubble).parent().attr('href');
+        $("#carosel-links a").hide();
         $("#tabsCarosel > .tabs").not(href).hide();
+        $("#carosel-links a[name="+ href +"]").show();
         $(href).show();
 
         
@@ -79,6 +82,8 @@ $(document).ready(function(){
 	
 	// Running the animation once at load time (and moving the iPhone into view):
 	rotate(10,360/cnt);
+
+    $("#carosel-links a").hide();
 	
 	$('#phoneCarousel .previous').click(function(){
 		// 360/cnt lets us distribute the phones evenly in a circle
