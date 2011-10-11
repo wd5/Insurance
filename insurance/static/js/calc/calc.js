@@ -103,7 +103,7 @@ function transform_select(selectContainer) {
     $(selectContainer).find("select option").each(function() {
         var text = ($(this).text());
         var value = ($(this).val());
-        result += "<li rel='" + value + "' text='"+text +"'>" + text + "</li>";
+        result += "<li rel='" + value + "' text='" + text + "'>" + text + "</li>";
     });
 
     $(selectContainer).append("<ul>" + result + "</ul>");
@@ -125,7 +125,7 @@ function transform_select(selectContainer) {
 
 
     $(selectContainer).bind("mouseleave", function() {
-        if($(this).find("input").length == 0){
+        if ($(this).find("input").length == 0) {
             $(this).find(".jScrollPaneContainer").css("visibility", "hidden");
         }
 
@@ -142,18 +142,37 @@ function transform_select(selectContainer) {
 }
 
 //Transform Select on first calc page into custom selects
-function transform_firstSelect(selectContainer){
-    var result = "";
-    var realselect = $(selectContainer).find("select");
+function transform_firstSelect(selectContainer) {
+    var result = "",
+        realselect = $(selectContainer).find("select"),
+        options = realselect.find("option").length,
+        divide = "",
+        i = 0;
+
+    divide = Math.floor(options / 5);
+
+    //console.log(divide);
 
     //read select values, write and add to container
     $(selectContainer).find("select option").each(function() {
         var text = ($(this).text());
         var value = ($(this).val());
-        result += "<li rel='" + value + "' text='"+text +"'>" + text + "</li>";
+
+        if (i == 0) {
+            result += "<div>";
+        }
+
+        result += "<span rel='" + value + "' text='" + text + "'>" + text + "</span>";
+        i++;
+
+        if (i == divide + 1) {
+            result += "</div>";
+            i = 0;
+        }
+
     });
 
-    $(selectContainer).append("<ul>" + result + "</ul>");
+    $(selectContainer).append("<div class='inner-container'>" + result + "</div>");
 
 
     $(selectContainer).find("input").val(realselect.find("option[selected]").text());
@@ -161,19 +180,18 @@ function transform_firstSelect(selectContainer){
 
     //base events
     $(selectContainer).click(function() {
-        $(this).find("ul").show();
-        $(this).find(".jScrollPaneContainer").css("visibility", "visible");
+        $(this).find(".inner-container").show();
     })
 
 
     $(selectContainer).bind("mouseleave", function() {
-        if($(this).find("input").length == 0){
+        if ($(this).find("input").length == 0) {
             $(this).find(".jScrollPaneContainer").css("visibility", "hidden");
         }
 
     })
 
-    $(selectContainer).find("ul li").live('click', function() {
+    $(selectContainer).find(".inner-container span").live('click', function() {
         $(selectContainer).find(".select-text").html($(this).text());
         $(selectContainer).find("input").val($(this).text());
         realselect.val($(this).attr("rel"));
@@ -207,7 +225,7 @@ function priceSlider(containerId) {
         max = "10000000",
         step = 10;
 
-    $("#current").live("change", function(){
+    $("#current").live("change", function() {
         $("#id_price").val($(this).val());
     })
 
@@ -279,13 +297,13 @@ function franchiseSlider(selectId) {
 //Show Preloader function when submit data on server
 function preloaderScreen() {
     var over = $("#overlay");
-    
+
     var overWidth = $(document).width(),
         overHeight = $(document).height();
 
-    $("html").css("overflow" , "hidden");
+    $("html").css("overflow", "hidden");
     over.css({"width": overWidth, "height" : overHeight});
-    over.find("img").css("top", getPageScroll() + getPageHeight()/2);
+    over.find("img").css("top", getPageScroll() + getPageHeight() / 2);
     over.show();
 }
 
@@ -294,11 +312,11 @@ function preloaderScreen() {
 function getPageScroll() {
     var xScroll, yScroll;
     if (self.pageYOffset) {
-      yScroll = self.pageYOffset;
+        yScroll = self.pageYOffset;
     } else if (document.documentElement && document.documentElement.scrollTop) {
-      yScroll = document.documentElement.scrollTop;
+        yScroll = document.documentElement.scrollTop;
     } else if (document.body) {// all other Explorers
-      yScroll = document.body.scrollTop;
+        yScroll = document.body.scrollTop;
     }
     return yScroll;
 }
@@ -307,16 +325,14 @@ function getPageScroll() {
 function getPageHeight() {
     var windowHeight
     if (self.innerHeight) { // all except Explorer
-      windowHeight = self.innerHeight;
+        windowHeight = self.innerHeight;
     } else if (document.documentElement && document.documentElement.clientHeight) {
-      windowHeight = document.documentElement.clientHeight;
+        windowHeight = document.documentElement.clientHeight;
     } else if (document.body) { // other Explorers
-      windowHeight = document.body.clientHeight;
+        windowHeight = document.body.clientHeight;
     }
     return windowHeight
 }
-
-
 
 
 //User type in input value
@@ -338,11 +354,11 @@ function userTypeInput(input) {
         }
     });
 
-    if(current_value != ""){
-        var val = input.parent().find("li[text^='"+current_value+"']");
-        if(val.length > 0){
+    if (current_value != "") {
+        var val = input.parent().find("li[text^='" + current_value + "']");
+        if (val.length > 0) {
             scrollToItem(val);
-        }else{
+        } else {
             list_item.css("top", -20);
             list_items.removeClass("inactive").removeClass("selected");
         }
@@ -387,6 +403,6 @@ function scrollToItem(list_item) {
 }
 
 /*Show tooltip on map image hover*/
-function showTooltip(){
-    
+function showTooltip() {
+
 }
