@@ -2,17 +2,6 @@ $(function() {
     //Tabs
     $("#calc-tabs").tabs();
 
-    //Transform standart from elements
-    $(".long-select").each(function(e) {
-        $(this).attr("id", "long-" + (e + 1));
-        transform_select($(this));
-    })
-
-    $(".short-select").each(function(e) {
-        $(this).attr("id", "short-" + (e + 1));
-        transform_select($(this));
-    })
-
     $(".style-checkbox input").each(function() {
         if ($(this).attr("checked") == true) {
             $(this).parent().addClass("on");

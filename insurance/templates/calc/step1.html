@@ -16,6 +16,11 @@
             $("#info-main-driver td:odd").addClass("second");
             $("#info-main-driver tr.hide").css("display", "none");
 
+            $(".short-select").each(function(e) {
+                $(this).attr("id", "short-" + (e + 1));
+                transform_select($(this));
+            })
+
             //price slider
             priceSlider($("#price-slider"));
 
@@ -110,8 +115,8 @@
             //Type into input element inside select
             $(".long-select input").keyup(function(e) {
                 /*if (e.keyCode == 8) {
-                    $(this).val("");
-                }*/
+                 $(this).val("");
+                 }*/
                 userTypeInput($(this));
             })
 
@@ -122,7 +127,7 @@
                 userTypeInput($(this));
             })
 
-             $(".short-select input").keypress(function(e) {
+            $(".short-select input").keypress(function(e) {
                 var currentVal = $(this).val();
                 var list_items = $(this).parent().find("select option");
                 var nowSelected = $(this).parent().find("select option[selected]");
@@ -130,15 +135,15 @@
                 if (e.keyCode == 13) {
                     e.preventDefault();
 
-                    list_items.each(function(){
+                    list_items.each(function() {
                         var text = $(this).text();
-                        if (text == currentVal){
+                        if (text == currentVal) {
                             nowSelected.removeAttr("selected");
                             $(this).attr("selected", "selected");
                             $(this).parents("div").find(".jScrollPaneContainer").css("visibility", "hidden");
                         }
                     })
-                    
+
                     return false;
                 }
             })

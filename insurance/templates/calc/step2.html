@@ -8,6 +8,12 @@
     <script type="text/javascript">
         $(function() {
 
+                    //Transform standart from elements
+                    $(".long-select").each(function(e) {
+                        $(this).attr("id", "long-" + (e + 1));
+                        transform_select($(this));
+                    })
+
                     $("#sort-parameters td:even").addClass("even");
                     $("td:empty").html("&nbsp;");
 
@@ -72,14 +78,14 @@
 
 
                     //Hover on table cells
-                    $("#map-table area").hover(function(e){
-                         var top = e.pageY,
-                             left = e.pageX,
-                             toolHeight = $("#tooltip").innerHeight();
+                    $("#map-table area").hover(function(e) {
+                        var top = e.pageY,
+                                left = e.pageX,
+                                toolHeight = $("#tooltip").innerHeight();
                         $("#tooltip span").html($(this).attr("alt"));
-                        $("#tooltip").css({"top": top - toolHeight, "left" : left-15});
+                        $("#tooltip").css({"top": top - toolHeight, "left" : left - 15});
                         $("#tooltip").show();
-                    }, function(){
+                    }, function() {
                         $("#tooltip").hide();
                     })
                 }
@@ -89,216 +95,233 @@
 
 {% block content %}
     <div id="tooltip">
-         <span></span>
-         <img src="/static/images/tooltip_angle.png" alt=""/>
+        <span></span>
+        <img src="/static/images/tooltip_angle.png" alt=""/>
     </div>
-    
+
     <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
 
     <div id="calc-tabs">
-        <ul>
-            <li><a href="#tabs-1">КАСКО</a></li>
-            <li><a href="#tabs-2">ОСАГО</a></li>
-            <li><a href="#tabs-3">ДМС</a></li>
-            <li><a href="#tabs-4">ДАГО</a></li>
-            <li><a href="#tabs-5">HC</a></li>
-            <li><a href="#tabs-6">ВЗР</a></li>
-            <li><a href="#tabs-7">ИФЛ</a></li>
-        </ul>
+    <ul>
+        <li><a href="#tabs-1">КАСКО</a></li>
+        <li><a href="#tabs-2">ОСАГО</a></li>
+        <li><a href="#tabs-3">ДМС</a></li>
+        <li><a href="#tabs-4">ДАГО</a></li>
+        <li><a href="#tabs-5">HC</a></li>
+        <li><a href="#tabs-6">ВЗР</a></li>
+        <li><a href="#tabs-7">ИФЛ</a></li>
+    </ul>
 
-        <div id="tabs-1">
-            <div class="form-round-block">
-                <h2>Сортировать по:</h2>
+    <div id="tabs-1">
+        <div class="form-round-block">
+            <h2>Сортировать по:</h2>
 
-                {% if msg %}
-                    <b>Ошибка: {{ msg }}</b>
-                {% else %}
+            {% if msg %}
+                <b>Ошибка: {{ msg }}</b>
+            {% else %}
 
-                    <div id="sort-table">
-                        <form action="" method="post" id="sorting">
-                            {% csrf_token %}
+                <div id="sort-table">
+                    <form action="" method="post" id="sorting">
+                        {% csrf_token %}
 
-                            <table id="sort-parameters">
-                                <tr>
-                                    <td>Цена</td>
-                                    <td>
-                                        <div class="style-checkbox">{{ s1_form.factor_price }}</div>
-                                    </td>
-                                    <td>Расположение</td>
-                                    <td>
-                                        <div class="style-checkbox">{{ s1_form.factor_accessibility }}</div>
-                                    </td>
-                                    <td>Быстрота покупки</td>
-                                    <td>
-                                        <div class="style-checkbox">{{ s1_form.factor_service }}</div>
-                                    </td>
-                                    <td rowspan="2">Качество информационной
-                                        поддержки
-                                    </td>
-                                    <td rowspan="2">
-                                        <div class="style-checkbox">{{ s1_form.factor_qualitysupport }}</div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Условия страхования</td>
-                                    <td>
-                                        <div class="style-checkbox">{{ s1_form.factor_insuranceterms }}</div>
-                                    </td>
-                                    <td>Популярность компании</td>
-                                    <td>
-                                        <div class="style-checkbox">{{ s1_form.factor_reputation }}</div>
-                                    </td>
-                                    <td>Простота выплаты</td>
-                                    <td>
-                                        <div class="style-checkbox">{{ s1_form.factor_easepay }}</div>
-                                    </td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-                            <a id="second-submit" href="#"><img src="/static/images/recount_button.png"
-                                                                alt="пересчитать"/></a>
-                    </div>
-                    </div>
-
-                    <div class="form-round-block" id="economy-block">
-                        <h2>Экономия</h2>
-
-                        <p>Стандартная франшиза</p>
-
-
-                        <div id="franchize-container">
-                            <span id="min"></span>
-                            <span id="max"></span>
-
-                            <div id="franchize">
-                                {{ s1_form.franchise }}
-                            </div>
-                        </div>
-
-
-                        <p>Охранная система автомобиля</p>
-
-                        <div class="long-select">
-                            <span class="select-text"></span>
-                            {{ s1_form.burglar_alarm_group }}
-                        </div>
-
-                        <div class="long-select">
-                            <span class="select-text"></span>
-                            {{ s1_form.burglar_alarm_model }}
-                        </div>
-
-
-                        <p><input type="image" src="/static/images/update_button.png" value="Обновить"/></p>
-                    </div>
-                    </form>
-
-                    <div id="result-table-step2">
-                            <!-- Beginning of Client Side Image Map -->
-                                <img id="map-image" src="/static/images/result_table_header.png" usemap="#result_table_header" border=0>
-                    
-                                <map id="map-table" name="result_table_header">
-                                  <area shape="poly" coords="281,1,329,1,328,4,286,54,203,154,203,164,154,166,154,153,282,9,281,0,293,0" href="#"  alt="Эвакуатор" title="">
-                                  <area shape="poly" coords="250,165,249,157,258,144,376,10,377,5,375,0,332,0,201,158,209,162,211,166,253,165" href="#"  alt="Авар. ком." title="">
-                                  <area shape="poly" coords="298,164,295,159,320,130,414,22,425,8,424,0,378,0,251,155,252,163,300,164,300,164" href="#"  alt="Без справок" title="">
-                                  <area shape="poly" coords="347,165,345,158,365,133,421,70,463,22,475,5,472,0,428,0,296,154,299,165,347,165" href="#"  alt="Сбор справок" title="">
-                                  <area shape="poly" coords="398,166,395,161,395,153,443,102,480,57,517,17,522,8,522,0,478,1,426,63,342,160,353,163,396,163" href="#"  alt="Агрегатная сумма" title="">
-                                  <area shape="poly" coords="446,165,443,159,487,109,561,19,572,5,569,1,524,2,524,2,396,157,399,164,445,163,445,163" href="#"  alt="Новое за старое" title="">
-                                  <area shape="poly" coords="495,164,490,158,499,148,544,97,592,42,616,11,623,1,575,0,446,157,446,165,494,167,494,167" href="#"  alt="Франшиза" title="">
-                                  <area shape="poly" coords="543,164,541,157,557,132,587,101,613,73,639,41,657,24,668,8,668,0,623,1,525,117,492,157,494,163,507,165,540,165,541,165" href="#"  alt="Форма выплаты" title="">
-                                </map>
-                           <!-- End of Client Side Image Map -->
-                    
-                        <div id="autodata-step1">
-                            Вы страхуете:
-                            <span>{{ data.mark }} {{ data.model }}</span>
-                            {{ data.model_year }} года, {{ data.price }} руб.
-                        </div>
-
-                        <table border="1">
-                            {% for comp in result.info %}
-                                <tr>
-                                    <td>
-                                        <div class="company-data">
-                                            <img src="/static/images/company_logo/{{ comp.alias|add:".png" }}"
-                                                 alt="{{ comp.full_name }}"/>
-                                            <a class="conditions" href="#">
-                                                Условия
-                                                <div class="tooltip">
-                                                    <span>- форма рекламы в сети Интернет, направленная на увеличение</span>
-                                                    <img src="/static/images/tooltip_angle.png" alt=""/>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.Evacuator %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.TheEmergencyCommissioner %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-
-                                    <td class="small">
-                                        {% if comp.parameters.PaymentWithoutInquiries %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.GatheringOfInquiries %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.TheModularInsuranceSum %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.NewForTheOld %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.TheObligatoryFranchize %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-                                    <td class="small">
-                                        {% if comp.parameters.AlternativenessOfFormsOfPayment %}
-                                            <img src="/static/images/yes_circle.png" alt="да"/>
-                                        {% endif %}
-                                    </td>
-
-                                    <td class="final-price">
-                                        <div class="ourscore">{{ comp.ourscore }}</div>
-                                        <div class="score">{{ comp.score }}</div>
-                                        <a class="order-button"
-                                           href="{% url ncalc_step3 comp.alias %}"></a>
-                                    </td>
-                                </tr>
-                            {% endfor %}
+                        <table id="sort-parameters">
+                            <tr>
+                                <td>Цена</td>
+                                <td>
+                                    <div class="style-checkbox">{{ s1_form.factor_price }}</div>
+                                </td>
+                                <td>Расположение</td>
+                                <td>
+                                    <div class="style-checkbox">{{ s1_form.factor_accessibility }}</div>
+                                </td>
+                                <td>Быстрота покупки</td>
+                                <td>
+                                    <div class="style-checkbox">{{ s1_form.factor_service }}</div>
+                                </td>
+                                <td rowspan="2">Качество информационной
+                                    поддержки
+                                </td>
+                                <td rowspan="2">
+                                    <div class="style-checkbox">{{ s1_form.factor_qualitysupport }}</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Условия страхования</td>
+                                <td>
+                                    <div class="style-checkbox">{{ s1_form.factor_insuranceterms }}</div>
+                                </td>
+                                <td>Популярность компании</td>
+                                <td>
+                                    <div class="style-checkbox">{{ s1_form.factor_reputation }}</div>
+                                </td>
+                                <td>Простота выплаты</td>
+                                <td>
+                                    <div class="style-checkbox">{{ s1_form.factor_easepay }}</div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
                         </table>
+
+                        <a id="second-submit" href="#"><img src="/static/images/recount_button.png"
+                                                            alt="пересчитать"/></a>
+                </div>
+                </div>
+
+                <div class="form-round-block" id="economy-block">
+                    <h2>Экономия</h2>
+
+                    <p>Стандартная франшиза</p>
+
+
+                    <div id="franchize-container">
+                        <span id="min"></span>
+                        <span id="max"></span>
+
+                        <div id="franchize">
+                            {{ s1_form.franchise }}
+                        </div>
                     </div>
 
 
-                {% endif %}
+                    <p>Охранная система автомобиля</p>
 
-            <a href="{% url ncalc_step1 %}">Назад</a><br/>
-        </div>
+                    <div class="long-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.burglar_alarm_group }}
+                    </div>
+
+                    <div class="long-select">
+                        <span class="select-text"></span>
+                        {{ s1_form.burglar_alarm_model }}
+                    </div>
 
 
-        <div id="tabs-2">осаго</div>
-        <div id="tabs-3">дмс</div>
-        <div id="tabs-4">даго</div>
-        <div id="tabs-5">нс</div>
-        <div id="tabs-6">взр</div>
-        <div id="tabs-7">ифл</div>
+                    <p><input type="image" src="/static/images/update_button.png" value="Обновить"/></p>
+                </div>
+                </form>
+
+                <div id="result-table-step2">
+                    <!-- Beginning of Client Side Image Map -->
+                    <img id="map-image" src="/static/images/result_table_header.png" usemap="#result_table_header"
+                         border=0>
+
+                    <map id="map-table" name="result_table_header">
+                        <area shape="poly"
+                              coords="281,1,329,1,328,4,286,54,203,154,203,164,154,166,154,153,282,9,281,0,293,0"
+                              href="#" alt="Эвакуатор" title="">
+                        <area shape="poly"
+                              coords="250,165,249,157,258,144,376,10,377,5,375,0,332,0,201,158,209,162,211,166,253,165"
+                              href="#" alt="Авар. ком." title="">
+                        <area shape="poly"
+                              coords="298,164,295,159,320,130,414,22,425,8,424,0,378,0,251,155,252,163,300,164,300,164"
+                              href="#" alt="Без справок" title="">
+                        <area shape="poly"
+                              coords="347,165,345,158,365,133,421,70,463,22,475,5,472,0,428,0,296,154,299,165,347,165"
+                              href="#" alt="Сбор справок" title="">
+                        <area shape="poly"
+                              coords="398,166,395,161,395,153,443,102,480,57,517,17,522,8,522,0,478,1,426,63,342,160,353,163,396,163"
+                              href="#" alt="Агрегатная сумма" title="">
+                        <area shape="poly"
+                              coords="446,165,443,159,487,109,561,19,572,5,569,1,524,2,524,2,396,157,399,164,445,163,445,163"
+                              href="#" alt="Новое за старое" title="">
+                        <area shape="poly"
+                              coords="495,164,490,158,499,148,544,97,592,42,616,11,623,1,575,0,446,157,446,165,494,167,494,167"
+                              href="#" alt="Франшиза" title="">
+                        <area shape="poly"
+                              coords="543,164,541,157,557,132,587,101,613,73,639,41,657,24,668,8,668,0,623,1,525,117,492,157,494,163,507,165,540,165,541,165"
+                              href="#" alt="Форма выплаты" title="">
+                    </map>
+                    <!-- End of Client Side Image Map -->
+
+                    <div id="autodata-step1">
+                        Вы страхуете:
+                        <span>{{ data.mark }} {{ data.model }}</span>
+                        {{ data.model_year }} года, {{ data.price }} руб.
+                    </div>
+
+                    <table border="1">
+                        {% for comp in result.info %}
+                            <tr>
+                                <td>
+                                    <div class="company-data">
+                                        <img src="/static/images/company_logo/{{ comp.alias|add:".png" }}"
+                                             alt="{{ comp.full_name }}"/>
+                                        <a class="conditions" href="#">
+                                            Условия
+                                            <div class="tooltip">
+                                                <span>- форма рекламы в сети Интернет, направленная на увеличение</span>
+                                                <img src="/static/images/tooltip_angle.png" alt=""/>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.Evacuator %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.TheEmergencyCommissioner %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+
+                                <td class="small">
+                                    {% if comp.parameters.PaymentWithoutInquiries %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.GatheringOfInquiries %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.TheModularInsuranceSum %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.NewForTheOld %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.TheObligatoryFranchize %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+                                <td class="small">
+                                    {% if comp.parameters.AlternativenessOfFormsOfPayment %}
+                                        <img src="/static/images/yes_circle.png" alt="да"/>
+                                    {% endif %}
+                                </td>
+
+                                <td class="final-price">
+                                    <div class="ourscore">{{ comp.ourscore }}</div>
+                                    <div class="score">{{ comp.score }}</div>
+                                    <a class="order-button"
+                                       href="{% url ncalc_step3 comp.alias %}"></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+
+
+            {% endif %}
+
+        <a href="{% url ncalc_step1 %}">Назад</a><br/>
+    </div>
+
+
+    <div id="tabs-2">осаго</div>
+    <div id="tabs-3">дмс</div>
+    <div id="tabs-4">даго</div>
+    <div id="tabs-5">нс</div>
+    <div id="tabs-6">взр</div>
+    <div id="tabs-7">ифл</div>
     </div>
 
 {% endblock %}
