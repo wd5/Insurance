@@ -37,7 +37,6 @@
                 //Hide all table data, except first one
                 $("#require-auto-data-first tr").not(":first").hide();
                 get_visible_select_data_model($("#require-block-1 #id_model").attr("id"));
-                //console.log($(".ajax-select select").not("#id_model"));
 
                 $(".ajax-select select").not(":first").each(function() {
                     $(this).val("");
@@ -75,10 +74,17 @@
             })
 
             //Click on visible data elements
-            $(".visible-data div span").live('click', function() {
+            $(".visible-data .visual span").live('click', function() {
                 var nextSelect = $(this).parents("td").find("select"),
-                        nextRow = $(this).parents("tr").next();
-                $(this).parent().find("span").removeClass("active");
+                    nextRow = $(this).parents("tr").next(),
+                    nextRows = $(this).parents("tr").nextAll(),
+                    parent = $(this).parent();
+
+                if(parent.attr("class") == "container"){
+                    parent = $(this).parent().parent();
+                }
+                nextRows.hide();
+                parent.find("span").removeClass("active");
                 $(this).addClass("active");
                 nextSelect.val($(this).attr("rel"));
                 nextSelect.change();
@@ -202,7 +208,7 @@
                     <span class="table-error">{{ s1_form.model.errors }}</span>
                 </td>
                 <td class="visible-data second">
-                    <div></div>
+                    <div class="visual"></div>
                     <span class="ajax-select">{{ s1_form.model }}</span>
                 </td>
             </tr>
@@ -213,7 +219,7 @@
                 </td>
 
                 <td class="visible-data second">
-                    <div></div>
+                    <div class="visual"></div>
                     <span class="ajax-select">{{ s1_form.model_year }}</span>
                 </td>
             </tr>
@@ -224,7 +230,7 @@
                     <span class="table-error">{{ s1_form.power.errors }}</span>
                 </td>
                 <td class="visible-data second">
-                    <div></div>
+                    <div class="visual"></div>
                     <span class="ajax-select">{{ s1_form.power }}</span>
                 </td>
             </tr>
@@ -251,7 +257,7 @@
                     <span class="table-error">{{ s1_form.wheel.errors }}</span>
                 </td>
                 <td class="visible-data second">
-                    <div></div>
+                    <div class="visual"></div>
                     {{ s1_form.wheel }}
                 </td>
             </tr>
@@ -261,7 +267,7 @@
                     <span class="table-error">{{ s1_form.city.errors }}</span>
                 </td>
                 <td class="visible-data second">
-                    <div></div>
+                    <div class="visual"></div>
                     {{ s1_form.city }}
                 </td>
             </tr>

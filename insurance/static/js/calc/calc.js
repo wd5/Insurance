@@ -99,8 +99,6 @@ function get_visible_select_data_model(selectId) {
         divide = "";
 
     divide = Math.ceil(options / 4);
-    console.log(options);
-    console.log(divide);
 
     $("#" + selectId + " option").each(function(e) {
         var text = ($(this).text());
@@ -111,14 +109,14 @@ function get_visible_select_data_model(selectId) {
             result += "<div class='container'>";
         }
 
-        if ($(this).attr("selected")) {
-            myclass = "active";
-        }
+            if ($(this).attr("selected")) {
+                myclass = "active";
+            }
 
-        if (text != "--------") {
-            result += "<span rel='" + value + "' class='" + myclass + "'>" + text + "</span>";
-            i++;
-        }
+            if (text != "--------") {
+                result += "<span rel='" + value + "' class='" + myclass + "'>" + text + "</span>";
+                i++;
+            }
 
         if (i == divide+1) {
             result += "</div>";
