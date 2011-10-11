@@ -393,36 +393,6 @@ function userTypeInputFirst(input) {
     }
 }
 
-
-//User type in short input value
-function userTypeShortInput(input, val) {
-    var current_value = (input.val()).toUpperCase();
-    var best_candidate = false;
-    var value_found = false;
-    var list_items = input.parent().find("li");
-    var list_item = input.parent().find("ul");
-
-    list_items.each(function() {
-        if (!value_found) {
-            var text = $(this).text();
-        }
-        if (text == current_value) {
-            value_found = true;
-            scrollToItem($(this));
-            return false;
-        } else if (text.indexOf(current_value) === 0 && !best_candidate) {
-            best_candidate = $(this);
-        }
-
-    });
-
-    if (best_candidate && !value_found) {
-        scrollToItem(best_candidate);
-    } else if (!best_candidate && !value_found) {
-
-    }
-}
-
 /*Highlight value in list*/
 function scrollToItem(list_item) {
     list_item.parent().find("li").removeClass("selected");
