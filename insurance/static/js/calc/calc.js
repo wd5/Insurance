@@ -151,8 +151,6 @@ function transform_firstSelect(selectContainer) {
 
     divide = Math.floor(options / 5);
 
-    //console.log(divide);
-
     //read select values, write and add to container
     $(selectContainer).find("select option").each(function() {
         var text = ($(this).text());
@@ -169,14 +167,12 @@ function transform_firstSelect(selectContainer) {
             result += "</div>";
             i = 0;
         }
-
     });
 
     $(selectContainer).append("<div class='inner-container'>" + result + "</div>");
 
 
     $(selectContainer).find("input").val(realselect.find("option[selected]").text());
-    $(selectContainer).find(".select-text").html(realselect.find("option[selected]").text());
 
     //base events
     $(selectContainer).click(function() {
@@ -185,18 +181,14 @@ function transform_firstSelect(selectContainer) {
 
 
     $(selectContainer).bind("mouseleave", function() {
-        if ($(this).find("input").length == 0) {
-            $(this).find(".jScrollPaneContainer").css("visibility", "hidden");
-        }
 
     })
 
     $(selectContainer).find(".inner-container span").live('click', function() {
-        $(selectContainer).find(".select-text").html($(this).text());
         $(selectContainer).find("input").val($(this).text());
         realselect.val($(this).attr("rel"));
         realselect.change();
-        $(this).parent().css("display", "none");
+        $(this).parent().parent().css("display", "none");
     })
 }
 
