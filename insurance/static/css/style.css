@@ -3049,6 +3049,12 @@ div.messages li {
     text-decoration: none;
 }
 
+:first-child + html #first-select.long-select input{
+    height: 21px;
+    left: 5px;
+    width: 878px;
+}
+
 
 /*jScrollPane long-select settings*/
 .long-select .jScrollPaneContainer {
