@@ -2845,6 +2845,19 @@ div.messages li {
     display: block;
 }
 
+#first-select.long-select .inner-container span:hover{
+    background: #f0e8e5;
+}
+
+.long-select .inner-container span.selected.inactive{
+    background: #f0e8e5;
+    color: #000;
+}
+
+.long-select .inner-container span.inactive{
+    color: #dddbdb;
+}
+
 #first-select a{
     color: #4e1b06;
 }

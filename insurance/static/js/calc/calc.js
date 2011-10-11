@@ -357,6 +357,43 @@ function userTypeInput(input) {
     }
 }
 
+
+//User type in first select input value
+function userTypeInputFirst(input) {
+    var current_value = (input.val()).toUpperCase();
+    var best_candidate = false;
+    var value_found = false;
+    var list_items = input.parent().find(".inner-container span");
+    var list_item = input.parent().find(".inner-container");
+
+    list_items.each(function() {
+        if (!value_found) {
+            var text = $(this).text();
+        }
+        if (text == current_value) {
+            value_found = true;
+            list_item.find("span").removeClass("selected");
+            list_item.find("span").not($(this)).addClass("inactive");
+            $(this).addClass("selected");
+            return false;
+        }
+    });
+
+    if (current_value != "") {
+        var val = list_item.find("span[text^='" + current_value + "']");
+        if (val.length > 0) {
+            list_item.find("span").removeClass("selected");
+            list_item.find("span").not(val).addClass("inactive");
+            val.addClass("selected");
+        } else {
+            list_items.removeClass("inactive").removeClass("selected");
+        }
+    }else{
+        list_items.removeClass("inactive").removeClass("selected");
+    }
+}
+
+
 //User type in short input value
 function userTypeShortInput(input, val) {
     var current_value = (input.val()).toUpperCase();
