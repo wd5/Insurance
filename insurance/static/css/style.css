@@ -2482,13 +2482,15 @@ div.messages li {
 
 #result-table-step2 .ourscore{
     font-size: 32px;
-    background: url(/static/images/rub_mark.png) 90% center no-repeat;
+    background: url(/static/images/rub_mark.png) 88% center no-repeat;
+    color: #fc7300;
+    font-weight: bold;
 }
 
 #result-table-step2 .score{
     font-size: 19px;
     color: #8a4e33;
-    background: url(/static/images/rub_mark_small.png) 75% center no-repeat;
+    background: url(/static/images/rub_mark_small.png) 72% center no-repeat;
     text-decoration: line-through;
     margin-bottom: 10px;
 }
