@@ -263,19 +263,15 @@ function fillAjaxSelect(selectId) {
 
 /*Price Slider on calc step 1*/
 function priceSlider(containerId) {
-    var min = "0",
-        max = "10000000",
-        step = 10;
-
     $("#current").live("change", function() {
         $("#id_price").val($(this).val());
     })
 
     containerId.slider({
         value:  $("#id_price").val(),
-        min: min,
-        max: max,
-        step: step,
+        min: 0,
+        max: 10000000,
+        step: 10,
 
         animate: true,
 
@@ -291,8 +287,8 @@ function priceSlider(containerId) {
         }
     });
 
-    containerId.parent().find("#min").html(min);
-    containerId.parent().find("#max").html(max);
+    containerId.parent().find("#min").html(0);
+    containerId.parent().find("#max").html(10000000);
 }
 
 
