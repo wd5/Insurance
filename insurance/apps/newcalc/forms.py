@@ -73,7 +73,7 @@ class Step1Form(forms.Form):
         super(Step1Form, self).__init__(*args, **kwargs)
         if form_extra_data.has_key("mark"):
             self.fields['model'].queryset = form_extra_data[
-                                            "mark"].model_set.all()
+                                            "mark"].model_set.filter(model_active=1)
             if form_extra_data.has_key("model"):
                 # COMMENT: временное упрощение
                 # self.fields['model_year'].queryset =\
