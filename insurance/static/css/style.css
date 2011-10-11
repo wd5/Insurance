@@ -3055,6 +3055,14 @@ div.messages li {
     width: 878px;
 }
 
+:first-child + html #result-table-step2 .conditions .tooltip{
+    left: -25px;
+}
+
+:first-child + html #result-table-step2 .tooltip img{
+    margin: -2px 0 0 -210px;
+}
+
 
 /*jScrollPane long-select settings*/
 .long-select .jScrollPaneContainer {
