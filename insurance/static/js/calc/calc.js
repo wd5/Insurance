@@ -147,6 +147,7 @@ function transform_firstSelect(selectContainer) {
         realselect = $(selectContainer).find("select"),
         options = realselect.find("option").length,
         divide = "",
+        inputfocus = false,
         i = 0;
 
     divide = Math.floor(options / 5);
@@ -170,25 +171,45 @@ function transform_firstSelect(selectContainer) {
     });
 
     $(selectContainer).append("<div class='inner-container'>" + result + "</div>");
-
-
     $(selectContainer).find("input").val(realselect.find("option[selected]").text());
 
     //base events
+    $(selectContainer).find("input").focus(function(){
+        inputfocus = true;
+    })
+
+    $(selectContainer).find("input").blur(function(){
+        /*if($(this).val() == ""){
+            $(this).val(realselect.find("option:eq(0)").text());
+            realselect.val(realselect.find("option:eq(0)").val());
+            realselect.change();
+        }
+        $(this).parent().find(".inner-container").hide();*/
+        inputfocus = false;
+    })
+
     $(selectContainer).click(function() {
         $(this).find(".inner-container").show();
     })
 
-
-    $(selectContainer).bind("mouseleave", function() {
-
+    $(selectContainer).find(".inner-container").mouseleave(function(){
+        if(!inputfocus){
+            if($(this).parent().find("input").val() == ""){
+                $(this).parent().find("input").val(realselect.find("option:eq(0)").text());
+                realselect.val(realselect.find("option:eq(0)").val());
+                realselect.change();
+            }
+            $(this).hide();
+        }
     })
 
     $(selectContainer).find(".inner-container span").live('click', function() {
-        $(selectContainer).find("input").val($(this).text());
+
+        $(selectContainer).find("input").val($(this).text()).addClass("focus");
         realselect.val($(this).attr("rel"));
         realselect.change();
         $(this).parent().parent().css("display", "none");
+
     })
 }
 
