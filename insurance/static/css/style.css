@@ -216,13 +216,13 @@ a:hover {
     height: 47px;
     color: #4f1b06;
     cursor: pointer;
+    text-align: center;
 }
 
 #head-buttons #account-link span {
-    position: absolute;
-    top: 10px;
-    right: 8px;
     font-size: 8px;
+    display: block;
+    padding-top: 15px;
 }
 
 /*---------------------
@@ -2309,6 +2309,10 @@ div.messages li {
     padding: 0 10px 5px 0;
 }
 
+#calc-tabs .form-round-block table td.visible-data .wheel span{
+    padding: 0 25px 5px 5px;
+}
+
 .visible-data .container{
     float: left;
     margin-right: 20px;
@@ -2492,7 +2496,7 @@ div.messages li {
 #result-table-step2 .score{
     font-size: 19px;
     color: #8a4e33;
-    background: url(/static/images/rub_mark_small.png) 72% center no-repeat;
+    background: url(/static/images/rub_mark_small.png) 75% center no-repeat;
     text-decoration: line-through;
     margin-bottom: 10px;
 }
@@ -2698,6 +2702,11 @@ div.messages li {
 #calc-tabs #calculate-button{
     float: right;
     margin: 0px 0 60px 0;
+}
+
+#calc-tabs .back-button{
+    margin: 0px 0 60px 0;
+    display: block;
 }
 
 #calc-tabs #stoim{
@@ -3148,7 +3157,7 @@ div.messages li {
 .short-select .jScrollPaneContainer {
 	position: relative;
 	overflow: hidden;
-    top: 35px;
+    top: 33px;
     left: 0px;
     width: 60px;
 	z-index: 1;
@@ -3196,13 +3205,13 @@ div.messages li {
 .short-select a.jScrollArrowUp {
 	display: block;
 	position: absolute;
-	z-index: 50;
-	top: 0;
+	z-index: 80;
+	top: 0px;
 	right: 0;
 	text-indent: -2000px;
 	overflow: hidden;
-	height: 1px;
-    background: none;
+	height: 12px;
+    background: url(/static/images/scroll_hor_up2.png) 1px 0px no-repeat;
 }
 
 .short-select a.jScrollArrowDown {
@@ -3215,6 +3224,6 @@ div.messages li {
 	overflow: hidden;
 	height: 12px;
     width: 56px;
-    background: url(/static/images/scroll_hor_up2.png) 1px 0px no-repeat;
+    background: url(/static/images/scroll_hor_down.png) 1px 0px no-repeat;
 }
 
