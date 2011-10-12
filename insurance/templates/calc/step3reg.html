@@ -10,85 +10,87 @@
     <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
 
     <div id="calc-tabs">
-    <ul>
-        <li><a href="#tabs-1">КАСКО</a></li>
-        <li><a href="#tabs-2">ОСАГО</a></li>
-        <li><a href="#tabs-3">ДМС</a></li>
-        <li><a href="#tabs-4">ДАГО</a></li>
-        <li><a href="#tabs-5">HC</a></li>
-        <li><a href="#tabs-6">ВЗР</a></li>
-        <li><a href="#tabs-7">ИФЛ</a></li>
-    </ul>
+        <ul>
+            <li><a href="#tabs-1">КАСКО</a></li>
+            <li><a href="#tabs-2">ОСАГО</a></li>
+            <li><a href="#tabs-3">ДМС</a></li>
+            <li><a href="#tabs-4">ДАГО</a></li>
+            <li><a href="#tabs-5">HC</a></li>
+            <li><a href="#tabs-6">ВЗР</a></li>
+            <li><a href="#tabs-7">ИФЛ</a></li>
+        </ul>
 
-    <div id="tabs-1">
-        <form action="" method="post">
-            <table>
-                <tr>
-                    <th>Параметр</th>
-                    <th>Значение</th>
-                </tr>
-                <tr>
-                    <td>Тип полиса</td>
-                    <td>{{ data.insurance_type }}</td>
-                </tr>
-                <tr>
-                    <td>Марка автомобиля</td>
-                    <td>{{ data.mark }}</td>
-                </tr>
-                <tr>
-                    <td>Модель автомобиля</td>
-                    <td>{{ data.model }}</td>
-                </tr>
-                <tr>
-                    <td>Год выпуска</td>
-                    <td>{{ data.model_year }}</td>
-                </tr>
-                <tr>
-                    <td>Руль</td>
-                    <td>{{ data.wheel }}</td>
-                </tr>
-                <tr>
-                    <td>Мощность</td>
-                    <td>{{ data.power }}</td>
-                </tr>
-                <tr>
-                    <td>Стоимость</td>
-                    <td>{{ data.price }}</td>
-                </tr>
-                <tr>
-                    <td>Кредит</td>
-                    <td>{{ data.credit }}</td>
-                </tr>
-                <tr>
-                    <td>Регистрация собственника</td>
-                    <td>{{ data.city }}</td>
-                </tr>
-                <tr>
-                    <td>Возраст</td>
-                    <td>{{ data.age }}</td>
-                </tr>
-                <tr>
-                    <td>Стаж вождения</td>
-                    <td>{{ data.experience_driving }}</td>
-                </tr>
-                <tr>
-                    <td>Число водителей</td>
-                    <td>{{ data.dr_nr }}</td>
-                </tr>
-                <tr>
-                    <td>Страховщик</td>
-                    <td>{{ data.company }}</td>
-                </tr>
-                {% csrf_token %}
-            </table>
-            <input type="submit" value="Заказать"/>
-        </form>
-    </div>
-    <div id="tabs-2">осаго</div>
-    <div id="tabs-3">дмс</div>
-    <div id="tabs-4">даго</div>
-    <div id="tabs-5">нс</div>
-    <div id="tabs-6">взр</div>
-    <div id="tabs-7">ифл</div>
+        <div id="tabs-1">
+            <div class="form-round-block">
+                <form action="" method="post">
+
+                    <table id="step3-data">
+                        <tr>
+                            <td>Тип полиса</td>
+                            <td>{{ data.insurance_type }}</td>
+                        </tr>
+                        <tr>
+                            <td>Марка автомобиля</td>
+                            <td>{{ data.mark }}</td>
+                        </tr>
+                        <tr>
+                            <td>Модель автомобиля</td>
+                            <td>{{ data.model }}</td>
+                        </tr>
+                        <tr>
+                            <td>Год выпуска</td>
+                            <td>{{ data.model_year }}</td>
+                        </tr>
+                        <tr>
+                            <td>Руль</td>
+                            <td>{{ data.wheel }}</td>
+                        </tr>
+                        <tr>
+                            <td>Мощность</td>
+                            <td>{{ data.power }}</td>
+                        </tr>
+                        <tr>
+                            <td>Стоимость</td>
+                            <td>{{ data.price }}</td>
+                        </tr>
+                        <tr>
+                            <td>Кредит</td>
+                            <td>{{ data.credit }}</td>
+                        </tr>
+                        <tr>
+                            <td>Регистрация собственника</td>
+                            <td>{{ data.city }}</td>
+                        </tr>
+                        <tr>
+                            <td>Возраст</td>
+                            <td>{{ data.age }}</td>
+                        </tr>
+                        <tr>
+                            <td>Стаж вождения</td>
+                            <td>{{ data.experience_driving }}</td>
+                        </tr>
+                        <tr>
+                            <td>Число водителей</td>
+                            <td>{{ data.dr_nr }}</td>
+                        </tr>
+                        <tr>
+                            <td>Страховщик</td>
+                            <td>{{ data.company }}</td>
+                        </tr>
+                        {% csrf_token %}
+                    </table>
+
+                    <input type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
+                </form>
+            </div>
+
+        </div>
+
+        <div id="tabs-2">осаго</div>
+        <div id="tabs-3">дмс</div>
+        <div id="tabs-4">даго</div>
+        <div id="tabs-5">нс</div>
+        <div id="tabs-6">взр</div>
+        <div id="tabs-7">ифл</div>
     </div>
 {% endblock %}

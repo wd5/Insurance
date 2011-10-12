@@ -2521,6 +2521,28 @@ div.messages li {
 }
 
 
+
+/*Calc Page Step 3 */
+#calc-tabs #step3-data{
+    margin-bottom: 30px;
+}
+
+#calc-tabs #step3-data td{
+    font-size: 16px;
+    color: #4e1b06;
+    font-weight: bold;
+    padding: 0 0 5px 35px;
+    vertical-align: middle;
+}
+
+#calc-tabs #step3-data td:first-child{
+    width: 100px;
+    padding-left: 0;
+    font-size: 13px;
+}
+
+
+
 /*Price Slider*/
 #id_price{
     border: 1px solid #501C07;
