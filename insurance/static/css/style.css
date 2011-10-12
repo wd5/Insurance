@@ -2523,8 +2523,17 @@ div.messages li {
 
 
 /*Calc Page Step 3 */
+.clear-float{
+    overflow: hidden;
+}
+
 #calc-tabs #step3-data{
     margin-bottom: 30px;
+}
+
+#calc-tabs #step3-data.left-float{
+    float: left;
+    margin-right: 100px;
 }
 
 #calc-tabs #step3-data td{
@@ -2543,10 +2552,12 @@ div.messages li {
 
 #calc-tabs #user-login-data{
     font-size: 13px;
+    float: left;
+    margin-right: 70px;
 }
 
 #user-login-data .data-block{
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 #user-login-data .data-block span{
@@ -2557,12 +2568,24 @@ div.messages li {
 
 #user-login-data .data-block input{
    width: 200px;
+   height: 23px;
    border: 1px solid #501C06;
 }
 
 #user-login-data .data-block input#id_phone_0,
 #user-login-data .data-block input#id_phone_1{
     width: 95px;
+}
+
+#step3-captcha span{
+    display: block;
+    font-weight: bolder;
+    margin-bottom: 5px;
+}
+
+#step3-captcha input{
+    display: block;
+    margin: 10px 0;
 }
 
 /*Price Slider*/

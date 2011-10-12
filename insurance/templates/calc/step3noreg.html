@@ -21,10 +21,10 @@
         </ul>
 
         <div id="tabs-1">
-            <div class="form-round-block">
+            <div class="form-round-block clear-float">
                 <form action="" method="post">
 
-                    <table id="step3-data">
+                    <table id="step3-data" class="left-float">
                         <tr>
                             <td>Тип полиса</td>
                             <td>{{ data.insurance_type }}</td>
@@ -79,6 +79,7 @@
                         </tr>
                     </table>
 
+                    {% csrf_token %}
                     <div id="user-login-data">
                         <div class="data-block">
                             <span>Фамилия:</span>
@@ -86,48 +87,44 @@
                             {{ form.last_name.errors }}
                         </div>
                         <div class="data-block">
-                                <span>Имя:</span>
-                                {{ form.first_name }}
-                                {{ form.first_name.errors }}
+                            <span>Имя:</span>
+                            {{ form.first_name }}
+                            {{ form.first_name.errors }}
                         </div>
                         <div class="data-block">
-                                <span>Отчество:</span>
-                                {{ form.middle_name }}
-                                {{ form.middle_name.errors }}
+                            <span>Отчество:</span>
+                            {{ form.middle_name }}
+                            {{ form.middle_name.errors }}
                         </div>
                         <div class="data-block">
-                                <span>Телефон:</span>
-                                {{ form.phone }}
-                                {{ form.phone.errors }}
+                            <span>Телефон:</span>
+                            {{ form.phone }}
+                            {{ form.phone.errors }}
                         </div>
                         <div class="data-block">
-                                <span>Адрес эл-почты:</span>
-                                {{ form.email }}
-                                {{ form.email.errors }}
+                            <span>Адрес эл-почты:</span>
+                            {{ form.email }}
+                            {{ form.email.errors }}
                         </div>
                         <div class="data-block">
-                                <span>Пароль:</span>
-                                {{ form.password1 }}
-                                {{ form.password1.errors }}
+                            <span>Пароль:</span>
+                            {{ form.password1 }}
+                            {{ form.password1.errors }}
                         </div>
                         <div class="data-block">
-                                <span>Пароль еще раз:</span>
-                                {{ form.password2 }}
-                                {{ form.password2.errors }}
+                            <span>Пароль еще раз:</span>
+                            {{ form.password2 }}
+                            {{ form.password2.errors }}
                         </div>
                     </div>
 
-                    {% csrf_token %}
-                    <table>
-                        <tr>
-                            <td>Введите цифры с картинки</td>
-                            <td>
-                                {{ form.captcha }}
-                                {{ form.captcha.errors }}
-                            </td>
-                        </tr>
-                    </table>
-                    <input type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
+                    <div id="step3-captcha">
+                        <span>Введите символы:</span>
+                        {{ form.captcha }}
+                        {{ form.captcha.errors }}
+
+                        <input type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
+                    </div>
                 </form>
             </div>
         </div>
