@@ -216,13 +216,13 @@ a:hover {
     height: 47px;
     color: #4f1b06;
     cursor: pointer;
+    text-align: center;
 }
 
 #head-buttons #account-link span {
-    position: absolute;
-    top: 10px;
-    right: 8px;
     font-size: 8px;
+    display: block;
+    padding-top: 15px;
 }
 
 /*---------------------
