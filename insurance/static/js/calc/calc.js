@@ -109,16 +109,16 @@ function get_visible_select_data_model(selectId) {
             result += "<div class='container'>";
         }
 
-            if ($(this).attr("selected")) {
-                myclass = "active";
-            }
+        if ($(this).attr("selected")) {
+            myclass = "active";
+        }
 
-            if (text != "--------") {
-                result += "<span rel='" + value + "' class='" + myclass + "'>" + text + "</span>";
-                i++;
-            }
+        if (text != "--------") {
+            result += "<span rel='" + value + "' class='" + myclass + "'>" + text + "</span>";
+            i++;
+        }
 
-        if (i == divide+1) {
+        if (i == divide + 1) {
             result += "</div>";
             i = 1;
         }
@@ -209,11 +209,11 @@ function transform_firstSelect(selectContainer) {
     $(selectContainer).find("input").val(realselect.find("option[selected]").text());
 
     //base events
-    $(selectContainer).find("input").focus(function(){
+    $(selectContainer).find("input").focus(function() {
         inputfocus = true;
     })
 
-    $(selectContainer).find("input").blur(function(){
+    $(selectContainer).find("input").blur(function() {
         inputfocus = false;
     })
 
@@ -221,9 +221,9 @@ function transform_firstSelect(selectContainer) {
         $(this).find(".inner-container").show();
     })
 
-    $(selectContainer).find(".inner-container").mouseleave(function(){
-        if(!inputfocus){
-            if($(this).parent().find("input").val() == ""){
+    $(selectContainer).find(".inner-container").mouseleave(function() {
+        if (!inputfocus) {
+            if ($(this).parent().find("input").val() == "") {
                 $(this).parent().find("input").val(realselect.find("option:eq(0)").text());
                 realselect.val(realselect.find("option:eq(0)").val());
                 realselect.change();
@@ -372,6 +372,22 @@ function getPageHeight() {
     return windowHeight
 }
 
+//Save input value on click enter or change event
+function saveValue(input) {
+    var currentVal = input.val(),
+        list_items = input.parent().find("select option"),
+        nowSelected = input.parent().find("select option[selected]");
+
+    list_items.each(function() {
+        var text = $(this).text();
+        if (text == currentVal) {
+            nowSelected.removeAttr("selected");
+            $(this).attr("selected", "selected");
+            $(this).parents("div").find(".jScrollPaneContainer").css("visibility", "hidden");
+        }
+    })
+}
+
 
 //User type in input value
 function userTypeInput(input) {
@@ -434,7 +450,7 @@ function userTypeInputFirst(input) {
         } else {
             list_items.removeClass("inactive").removeClass("selected");
         }
-    }else{
+    } else {
         list_items.removeClass("inactive").removeClass("selected");
     }
 }

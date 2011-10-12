@@ -76,11 +76,11 @@
             //Click on visible data elements
             $(".visible-data .visual span").live('click', function() {
                 var nextSelect = $(this).parents("td").find("select"),
-                    nextRow = $(this).parents("tr").next(),
-                    nextRows = $(this).parents("tr").nextAll(),
-                    parent = $(this).parent();
+                        nextRow = $(this).parents("tr").next(),
+                        nextRows = $(this).parents("tr").nextAll(),
+                        parent = $(this).parent();
 
-                if(parent.attr("class") == "container"){
+                if (parent.attr("class") == "container") {
                     parent = $(this).parent().parent();
                 }
                 nextRows.hide();
@@ -136,25 +136,17 @@
                 userTypeInput($(this));
             })
 
+            //Save value in input on click button
             $(".short-select input").keypress(function(e) {
-                var currentVal = $(this).val();
-                var list_items = $(this).parent().find("select option");
-                var nowSelected = $(this).parent().find("select option[selected]");
-
                 if (e.keyCode == 13) {
                     e.preventDefault();
-
-                    list_items.each(function() {
-                        var text = $(this).text();
-                        if (text == currentVal) {
-                            nowSelected.removeAttr("selected");
-                            $(this).attr("selected", "selected");
-                            $(this).parents("div").find(".jScrollPaneContainer").css("visibility", "hidden");
-                        }
-                    })
-
+                    saveValue($(this));
                     return false;
                 }
+            })
+
+            $(".short-select input").change(function() {
+                saveValue($(this));
             })
 
 
