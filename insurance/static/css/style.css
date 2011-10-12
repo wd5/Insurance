@@ -2496,7 +2496,7 @@ div.messages li {
 #result-table-step2 .score{
     font-size: 19px;
     color: #8a4e33;
-    background: url(/static/images/rub_mark_small.png) 72% center no-repeat;
+    background: url(/static/images/rub_mark_small.png) 75% center no-repeat;
     text-decoration: line-through;
     margin-bottom: 10px;
 }
