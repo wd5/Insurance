@@ -2541,7 +2541,29 @@ div.messages li {
     font-size: 13px;
 }
 
+#calc-tabs #user-login-data{
+    font-size: 13px;
+}
 
+#user-login-data .data-block{
+    margin-bottom: 10px;
+}
+
+#user-login-data .data-block span{
+    display: block;
+    font-weight: bolder;
+    margin-bottom: 5px;
+}
+
+#user-login-data .data-block input{
+   width: 200px;
+   border: 1px solid #501C06;
+}
+
+#user-login-data .data-block input#id_phone_0,
+#user-login-data .data-block input#id_phone_1{
+    width: 95px;
+}
 
 /*Price Slider*/
 #id_price{
