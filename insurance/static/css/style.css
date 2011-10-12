@@ -2704,6 +2704,11 @@ div.messages li {
     margin: 0px 0 60px 0;
 }
 
+#calc-tabs .back-button{
+    margin: 0px 0 60px 0;
+    display: block;
+}
+
 #calc-tabs #stoim{
     font-weight: bold;
     font-size: 12px;

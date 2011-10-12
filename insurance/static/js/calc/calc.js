@@ -309,7 +309,7 @@ function franchiseSlider(selectId) {
     step = values[1] - values[0];
 
     selectId.slider({
-        value: selectId.find("select").val(),
+        value: sliderVal,
         min: min,
         max: max,
         step: step,
