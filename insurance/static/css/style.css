@@ -2309,6 +2309,10 @@ div.messages li {
     padding: 0 10px 5px 0;
 }
 
+#calc-tabs .form-round-block table td.visible-data .wheel span{
+    padding: 0 25px 5px 5px;
+}
+
 .visible-data .container{
     float: left;
     margin-right: 20px;
