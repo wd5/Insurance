@@ -25,10 +25,10 @@ attrs_dict = {'class': 'required'}
 class Step1Form(forms.Form):
     mark = forms.ModelChoiceField(label="Марка автомобиля",
                                   queryset=Mark.objects.all(),
-                                  empty_label="--------")
+                                  empty_label="Выберите марку автомобиля")
     model = forms.ModelChoiceField(label="Модель автомобиля",
                                    queryset=Model.objects.none(),
-                                   empty_label="--------")
+                                   empty_label="Выберите модель автомобиля")
     model_year = forms.ModelChoiceField(label="Год выпуска",
                                         queryset=ModelYear.objects.none(),
                                         empty_label="--------")
