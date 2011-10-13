@@ -2864,12 +2864,6 @@ div.messages li {
     font-size: 14px;
 }
 
-#test{
-    overflow-y: scroll;
-    height: 40px;
-    width: 100px;
-}
-
 /*Select style for auto mark*/
 #first-select.long-select{
     width: 914px;
