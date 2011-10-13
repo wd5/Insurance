@@ -2398,8 +2398,9 @@ div.messages li {
     position: absolute;
     top: 20px;
     left: 10px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bolder;
+    color: #501c07;
 }
 
 #result-table-step2 #autodata-step1 span{
@@ -2427,7 +2428,7 @@ div.messages li {
 
 #result-table-step2 .company-data{
     position: relative;
-    width: 152px;
+    width: 163px;
     height: 113px;
 }
 
@@ -2503,21 +2504,23 @@ div.messages li {
 
 
 #result-table-step2 table td:first-child{
-    width: 151px;
     border-left:  0;
+    width: 31px;
+    text-align: center;
 }
+
 
 #result-table-step2 table tr:first-child td{
    border-top:  0;
 }
 
 #result-table-step2 table td.small{
-    width: 47px;
+    width: 54px;
     text-align: center;
 }
 
 #result-table-step2 table td.final-price{
-    width: 175px;
+    width: 215px;
 }
 
 
