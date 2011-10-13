@@ -10,39 +10,8 @@
         $(document).ready(function() {
             $("#step4-tabs").tabs();
 
-            var step = 1;
-            $('.next').show();
-            if (window.location.hash) {
-                var hash = window.location.hash;
-                if (hash.indexOf('#step') >= 0) {
-                    step = hash.substring(5);
-                    $('.steps').hide();
-                    if (step == 3) $('.next').hide();
-                    $('#step' + step).fadeIn('slow');
-                }
-            }
-            $('.next').click(function() {
-                $('#step' + step).fadeOut('slow');
-                step++;
-                if (step != 1) $('.prew').show();
-                window.location.hash = '#step' + step;
-                $('#step' + step).fadeIn('slow');
-                if (step == 3) {
-                    $('.next').hide();
-                }
-                return false;
-            });
-            $('.prew').click(function() {
-                $('#step' + step).fadeOut('slow');
-                $('.next').show();
-                step--;
-                if (step == 1) $(this).hide();
-                window.location.hash = '#step' + step;
-                $('#step' + step).fadeIn('slow');
-                return false;
-            });
-
-            $("#test").validate({
+            
+            $("#step4-tabs form").validate({
                 messages: {
                     first_name: "Please specify your name",
                     email: {
