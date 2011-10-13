@@ -225,14 +225,14 @@ def step4(request):
     initial_data = {}
 #    if request.user.is_authenticated() or policy:
 #TODO: возможно несколько персон у одного юзера - учесть это
-    persona = Persona.objects.get(user=policy.user)
+    persona = Persona.objects.get(user=policy.user)[0]
     #initial_data['power'] = policy.power
     initial_data['first_name'] = persona.first_name
     initial_data['last_name'] = persona.last_name
     initial_data['middle_name'] = persona.middle_name
 
     form = Step4Form(initial=initial_data)
-    return direct_to_template(request, 'calc/step4noreg.html', {"form": form})
+    return direct_to_template(request, 'calc/step4.html', {"form": form})
 
 def cleansession(request):
     """
