@@ -2591,6 +2591,318 @@ div.messages li {
     margin: 10px 0;
 }
 
+
+/*Calc Page Step 4*/
+#step4-tabs{
+
+}
+
+#step4-tabs a{
+    color: #4e1b06;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#step4-tabs input{
+    width: 203px;
+    height: 20px;
+    border: 1px solid #4e1b06;
+}
+
+#step4-tabs h5{
+    color: #4e1b06;
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+#calc-tabs #step4-tabs ul.ui-tabs-nav{
+    padding: 0;
+}
+
+#calc-tabs #step4-tabs ul.ui-tabs-nav li{
+    background: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+#calc-tabs #step4-tabs ul.ui-tabs-nav li a{
+    background: #fc7300;
+    text-transform: none;
+}
+
+
+#calc-tabs #step4-tabs .ui-tabs-panel{
+    border: none;
+    background: none;
+    padding: 30px 15px;
+}
+
+
+/*Calc page Step 4 - first tab*/
+#step4-tabs #person-info-table{
+    margin-bottom: 20px;
+}
+
+#step4-tabs #person-info-table span{
+    color: #4e1b06;
+    font-size: 13px;
+    font-weight: bolder;
+    padding-right: 10px;
+}
+
+#step4-tabs #person-info-table td{
+    vertical-align: bottom;
+    padding: 0 15px 10px 0;
+}
+
+#person-info-table .category-drive a{
+    text-transform: uppercase;
+    color: #46342c;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+#person-info-table .category-drive a.active{
+    font-size: 25px;
+}
+
+#person-info-table #sex-label{
+    display: block;
+    float: left;
+    padding-top: 10px;
+}
+
+#woman-sex, #woman-sex2{
+    display: block;
+    float: left;
+    width: 17px;
+    height: 32px;
+    padding: 0 3px;
+    background: url(/static/images/woman_sex.png) top left no-repeat;
+}
+
+#woman-sex.active, #woman-sex:hover,
+#woman-sex2.active, #woman-sex2:hover{
+     background: url(/static/images/woman_sex_active.png) top left no-repeat;
+}
+
+#man-sex, #man-sex2{
+    display: block;
+    float: left;
+    width: 17px;
+    height: 32px;
+    padding: 0 3px;
+    background: url(/static/images/man_sex.png) top left no-repeat;
+}
+
+#man-sex.active, #man-sex:hover,
+#man-sex2.active, #man-sex2:hover{
+    background: url(/static/images/man_sex_active.png) top left no-repeat;
+}
+
+#citizenship{
+    margin-bottom: 20px;
+}
+
+#citizenship a{
+    display: block;
+    float: left;
+    margin-right: 20px;
+    background: url(/static/images/radio.png) top left no-repeat;
+    padding: 3px 0 3px 30px;
+}
+
+#citizenship a.active{
+    background: url(/static/images/radio_active.png) top left no-repeat;
+}
+
+#document-data{
+    margin-bottom: 20px;
+}
+
+#document-data h5{
+    margin-bottom: 7px;
+}
+
+#document-data input{
+    margin-right: 16px;
+}
+
+#document-data #id_passport_series{
+    margin-right: 10px;
+}
+
+#document-data #id_passport_series,
+#document-data #id_passport_number{
+    width: 76px;
+}
+
+#document-address{
+    margin-bottom: 10px;
+}
+
+#calc-tabs .form-round-block #document-address table td,
+#calc-tabs .form-round-block #real-address table td
+{
+    padding: 0 20px 5px 0;
+}
+
+#document-address input, #real-address input{
+    width: 150px;
+}
+
+#document-address #id_reg_index,
+#document-address #id_reg_building,
+#document-address #id_reg_housing,
+#document-address #id_reg_flat,
+#real-address #id_live_index,
+#real-address #id_live_building,
+#real-address #id_live_housing,
+#real-address #id_live_flat{
+    width: 72px;
+}
+
+#real-address{
+    position: relative;
+}
+
+#real-address #copy-data-link{
+    position: absolute;
+    top: 0;
+    left: 140px;
+}
+
+/*Calc page Step 4 - second tab*/
+#inner-tab2{
+    position: relative;
+}
+
+#inner-tab2 #head-data{
+    position: absolute;
+    top: 33px;
+    left: 15px;
+    width: 131px;
+}
+
+#inner-tab2 #tech-auto-data, #inner-tab2 #tech-auto-data2{
+    margin-left: 170px;
+}
+
+#inner-tab2 #tech-auto-data td{
+    padding-right: 20px;
+    vertical-align: top;
+}
+
+#tech-auto-data td.short-input div{
+   float: left;
+   margin-left: 10px;
+}
+
+#tech-auto-data td.short-input div:first-child{
+    margin-left: 0;
+}
+
+
+#tech-auto-data #id_power,
+#tech-auto-data #id_volume{
+    width: 82px;
+}
+
+#inner-tab2 #tech-auto-data2{
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+
+#inner-tab2 #tech-auto-data2 div{
+    float: left;
+    width: 256px;
+}
+
+#inner-tab2 #tech-auto-data2 div:first-child{
+    width: 226px;
+}
+
+#inner-tab2 #tech-auto-data2 div a{
+    padding-right: 7px;
+}
+
+#inner-tab2 #tech-auto-data2 div a.active{
+    font-size: 25px;
+}
+
+#auto-owner{
+    border: 1px solid #4E1B06;
+    border-radius: 10px 10px 10px 10px;
+    color: #501C07;
+    font-size: 13px;
+    margin: 15px 0;
+    padding: 20px 20px 0 30px;
+    position: relative;
+}
+
+#auto-owner #owner-label{
+    position: absolute;
+    top: 20px;
+    left: 26px;
+    width: 81px;
+}
+
+#auto-owner #copy-data-link2{
+    position: absolute;
+    top: 57px;
+    left: 26px;
+    font-size: 11px;
+    width: 124px;
+    
+}
+
+#auto-owner table{
+    margin-left: 140px;
+}
+
+#calc-tabs .form-round-block #auto-owner table td{
+    padding: 0 20px 10px 0;
+    vertical-align: top;
+}
+
+#auto-owner #sex-owner{
+    overflow: hidden;
+    float: left;
+    padding: 15px 15px 0 0;
+    width: 125px;
+}
+
+#sex-owner select, #is-first-owner input{
+    visibility: hidden;
+}
+
+#auto-owner #sex-owner h5{
+    float: left;
+    margin-top: 8px;
+    padding-right: 10px;
+}
+
+#auto-owner #is-first-owner{
+    padding: 15px 0 0 0;
+}
+
+#auto-owner #is-first-owner h5{
+    float: left;
+    margin: 8px 20px 0 0;
+}
+
+#auto-owner #is-first-owner a{
+    text-transform: uppercase;
+}
+
+#auto-owner #is-first-owner a.active{
+    font-size: 25px;
+}
+
 /*Price Slider*/
 #id_price{
     border: 1px solid #501C07;
@@ -2862,12 +3174,6 @@ div.messages li {
     left: 10px;
     color: #6a6a6a;
     font-size: 14px;
-}
-
-#test{
-    overflow-y: scroll;
-    height: 40px;
-    width: 100px;
 }
 
 /*Select style for auto mark*/
