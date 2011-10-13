@@ -10,6 +10,11 @@
         $(document).ready(function() {
             $("#step4-tabs").tabs();
 
+            $("li.ui-state-default a").click(function(){
+                $(this).parents("ul").removeClass("active-1").removeClass("active-2").removeClass("active-3");
+                $(this).parents("ul").addClass("active-"+$(this).attr("dataid"));
+                
+            })
             
             $("#step4-tabs form").validate({
                 messages: {
@@ -43,9 +48,9 @@
 
     <div id="step4-tabs">
     <ul>
-        <li><a href="#inner-tab1">Водители</a></li>
-        <li><a href="#inner-tab2">Автомобиль</a></li>
-        <li><a href="#inner-tab3">Доставка</a></li>
+        <li><a dataid="1" href="#inner-tab1">Водители</a></li>
+        <li><a dataid="2" href="#inner-tab2" >Автомобиль</a></li>
+        <li><a dataid="3" href="#inner-tab3">Доставка</a></li>
     </ul>
 
     <form action="" id="test" method="post">

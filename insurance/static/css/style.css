@@ -2623,18 +2623,42 @@ div.messages li {
 
 #calc-tabs #step4-tabs ul.ui-tabs-nav{
     padding: 0;
+    background: url(/static/images/second_tabs_back1.png) top left no-repeat;
+    height: 35px;
+    overflow: hidden;
+}
+
+#calc-tabs #step4-tabs ul.ui-tabs-nav.active-1{
+   background: url(/static/images/second_tabs_back1.png) top left no-repeat;
+}
+
+#calc-tabs #step4-tabs ul.ui-tabs-nav.active-2{
+    background: url(/static/images/second_tabs_back2.png) top left no-repeat;
+}
+
+#calc-tabs #step4-tabs ul.ui-tabs-nav.active-3{
+   background: url(/static/images/second_tabs_back3.png) top left no-repeat;
 }
 
 #calc-tabs #step4-tabs ul.ui-tabs-nav li{
     background: none;
     margin: 0;
     padding: 0;
-
+    height: 35px;
+    line-height: 30px;
+    width: 238px;
 }
 
 #calc-tabs #step4-tabs ul.ui-tabs-nav li a{
-    background: #fc7300;
     text-transform: none;
+    height: 35px;
+    width: 238px;
+    display: block;
+    background: none;
+}
+
+#calc-tabs #step4-tabs ul.ui-tabs-nav li a:hover{
+    background: none;
 }
 
 
