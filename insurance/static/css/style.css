@@ -2732,7 +2732,40 @@ div.messages li {
     width: 76px;
 }
 
+#document-address{
+    margin-bottom: 10px;
+}
 
+#calc-tabs .form-round-block #document-address table td,
+#calc-tabs .form-round-block #real-address table td
+{
+    padding: 0 20px 5px 0;
+}
+
+#document-address input, #real-address input{
+    width: 150px;
+}
+
+#document-address #id_reg_index,
+#document-address #id_reg_building,
+#document-address #id_reg_housing,
+#document-address #id_reg_flat,
+#real-address #id_live_index,
+#real-address #id_live_building,
+#real-address #id_live_housing,
+#real-address #id_live_flat{
+    width: 72px;
+}
+
+#real-address{
+    position: relative;
+}
+
+#real-address #copy-data-link{
+    position: absolute;
+    top: 0;
+    left: 140px;
+}
 
 /*Price Slider*/
 #id_price{
