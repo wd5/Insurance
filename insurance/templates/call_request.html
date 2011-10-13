@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<form target="{% url call %}" method='post'>{% csrf_token %}
+{{ call_form.phone }}<br />
+{{ call_form.phone.errors }}<br />
+{{ call_form.comment }}<br />
+{{ call_form.comment.errors }}<br />
+{{ call_form.captcha }}
+{{ call_form.captcha.errors }}
+<input type="submit" value="save">
+</form>
+{% endblock %}

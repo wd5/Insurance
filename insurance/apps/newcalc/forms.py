@@ -21,7 +21,6 @@ FRANCHISE_CHOICE = (
     (30000, 30000)
     )
 attrs_dict = {'class': 'required'}
-
 class Step1Form(forms.Form):
     mark = forms.ModelChoiceField(label="Марка автомобиля",
                                   queryset=Mark.objects.all(),

@@ -79,6 +79,12 @@ PAYMENT_CHOICES = (
     (2, 'Картой')
 )
 
+class CallRequests(models.Model):
+    user = models.ForeignKey(User, null=True, blank=True)
+    date = models.DateTimeField(u'Дата заявки', auto_now_add=True)
+    phone = models.CharField(u'Телефонный номер', max_length=14)
+    comment = models.CharField(u'Комментарий', max_length=255, blank = True, null=True)
+
 
 class InsurancePolicy(models.Model):
     user = models.ForeignKey(User)
@@ -173,6 +179,7 @@ class InsurancePolicyData(models.Model):
 #STEP 4-2
     vin = models.CharField("VIN", max_length=17, null=True, blank=True)
     number = models.CharField("Гос. номер", null=True, blank=True, max_length=10)
+    body_number = models.CharField("Номер кузова", null=True, blank=True, max_length=10)
     body_type = models.CharField("Тип кузова", max_length=15, choices=BODY_TYPE_CHOICES, null=True, blank=True)
 
     pts_number = models.CharField(u"Серия и номер ПТС", max_length=10, null=True, blank=True)

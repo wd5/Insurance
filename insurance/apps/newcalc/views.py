@@ -16,9 +16,10 @@ from models import Mark, Model, Mym, Power, City,\
     BurglarAlarm, Company, CompanyCondition, InsuranceType, \
     KackoParameters
 from forms import Step1Form, Step2Form, Step3FormReg, Step3FormNoReg
-from forms import Step4Form #1, Step4Form2 #, Step4Form1NoReg
+from forms import Step4Form
+from polices.forms import CallRequestForm
 from profile.models import Persona
-from polices.models import InsurancePolicy
+from polices.models import InsurancePolicy #, CallRequests
 from email_login.backends import RegistrationBackend
 from servlet import servlet_request
 
@@ -101,6 +102,7 @@ def step2(request):
 
 
 def step3(request, alias):
+    call_form = CallRequestForm()
     s1_data = request.session.get("s1_data")
     if not s1_data:
         return redirect(reverse('ncalc_step1'))
@@ -211,9 +213,9 @@ def step3(request, alias):
         else:
             form = Step3FormNoReg()
     if request.user.is_authenticated():
-        return direct_to_template(request, 'calc/step3reg.html', {"data": data, "form": form})
+        return direct_to_template(request, 'calc/step3reg.html', {"data": data, "form": form, "call_form":call_form})
     else:
-        return direct_to_template(request, 'calc/step3noreg.html', {"data": data, "form": form})
+        return direct_to_template(request, 'calc/step3noreg.html', {"data": data, "form": form, "call_form":call_form})
 
 def step4(request):
     policy_id = request.session.get('policy')
