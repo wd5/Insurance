@@ -133,7 +133,6 @@ def step3(request, alias):
             form = Step3FormReg(request.POST)
             if form.is_valid():
                 request.session["company_alias"] = alias
-                print s1_data
                 ip = InsurancePolicy()
                 ip.user = request.user
                 ip.company = Company.objects.get(company_alias=alias).company_full_name
@@ -226,7 +225,7 @@ def step4(request):
     initial_data = {}
 #    if request.user.is_authenticated() or policy:
 #TODO: возможно несколько персон у одного юзера - учесть это
-    persona = Persona.objects.filter(user=policy.user)[0]
+    persona = Persona.objects.get(user=policy.user)
     #initial_data['power'] = policy.power
     initial_data['first_name'] = persona.first_name
     initial_data['last_name'] = persona.last_name
