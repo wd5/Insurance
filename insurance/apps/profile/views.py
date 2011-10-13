@@ -10,7 +10,7 @@ from django.template import RequestContext
 from django.views.generic.list_detail import object_list
 from django.views.generic.simple import direct_to_template
 
-from calc.models import InsurancePolicy
+from polices.models import InsurancePolicy, TYPE_CHOICES
 from ins_notification.forms import QuestionForm
 from ins_notification.models import Question
 
@@ -103,13 +103,15 @@ def delete_persona(request, persona_id):
 
 @login_required
 def policy_list(request, policy_type=None):
-    policy_types = dict(InsurancePolicy.TYPE_CHOICES)
+    policy_types = dict(TYPE_CHOICES)
     if not policy_type:
-        policy_type, _ = InsurancePolicy.TYPE_CHOICES[0]
+        policy_type, _ = TYPE_CHOICES[0] #InsurancePolicy.TYPE_CHOICES[0]
     user = request.user
-    personas = user.persona_set.all()
-    # TODO: i wonder if the whole "in" thing works :)
-    query = InsurancePolicy.objects.filter(persona__in=personas, type=policy_type)
+    #TODO: персоны!!!!
+    #personas = user.persona_set.all()
+    #print personas
+    query = InsurancePolicy.objects.filter(user=user, type=policy_type)
+    print query
     extra_context = {
         "policy_type": policy_type,
         "policy_types": policy_types,
