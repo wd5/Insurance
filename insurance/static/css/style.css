@@ -2592,10 +2592,21 @@ div.messages li {
 }
 
 
-
 /*Calc Page Step 4*/
 #step4-tabs{
 
+}
+
+#step4-tabs input{
+    width: 203px;
+    height: 20px;
+    border: 1px solid #4e1b06;
+}
+
+#step4-tabs h5{
+    color: #4e1b06;
+    font-size: 13px;
+    margin-bottom: 5px;
 }
 
 #calc-tabs #step4-tabs ul.ui-tabs-nav{
@@ -2610,7 +2621,7 @@ div.messages li {
 }
 
 #calc-tabs #step4-tabs ul.ui-tabs-nav li a{
-    background: lime;
+    background: #fc7300;
     text-transform: none;
 }
 
@@ -2619,6 +2630,62 @@ div.messages li {
     border: none;
     background: none;
     padding: 30px 15px;
+}
+
+
+/*Calc page Step 4 - first tab*/
+#step4-tabs #person-info-table{
+    margin-bottom: 20px;
+}
+
+#step4-tabs #person-info-table span{
+    color: #4e1b06;
+    font-size: 13px;
+    font-weight: bolder;
+    padding-right: 10px;
+}
+
+#step4-tabs #person-info-table td{
+    vertical-align: bottom;
+    padding: 0 15px 10px 0;
+}
+
+#person-info-table .category-drive a{
+    text-transform: uppercase;
+    color: #46342c;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bolder;
+}
+
+#person-info-table .category-drive a.active{
+    font-size: 25px;
+}
+
+#person-info-table #woman-sex{
+    display: block;
+    float: left;
+    width: 17px;
+    height: 32px;
+    padding: 0 3px;
+    background: url(/static/images/woman_sex.png) top left no-repeat;
+}
+
+#person-info-table #woman-sex.active, #person-info-table #woman-sex:hover{
+     background: url(/static/images/woman_sex_active.png) top left no-repeat;
+}
+
+#person-info-table #man-sex{
+    display: block;
+    float: left;
+    width: 17px;
+    height: 32px;
+    padding: 0 3px;
+    background: url(/static/images/man_sex.png) top left no-repeat;
+}
+
+#person-info-table #man-sex.active, #person-info-table #man-sex:hover{
+    background: url(/static/images/man_sex_active.png) top left no-repeat;
 }
 
 /*Price Slider*/

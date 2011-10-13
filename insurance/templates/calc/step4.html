@@ -100,11 +100,18 @@
                     <h5>Дата рождения:</h5>
                     {{ form.birth_date }}
                 </td>
-                <td>
-                    Категория прав: {{ form.category }}
+                <td class="category-drive">
+                    <span>Категория прав:</span>
+                    <a href="#" class="active">B</a>
+                    <a href="#">C</a>
+                    <a href="#">D</a>
+                    {{ form.category }}
                 </td>
                 <td>
-                    Пол: {{ form.sex }}
+                    <span>Пол:</span>
+                    <a id="woman-sex" class="active" href="#"></a>
+                    <a id="man-sex" href="#"></a>
+                    {{ form.sex }}
                 </td>
             </tr>
         </table>
