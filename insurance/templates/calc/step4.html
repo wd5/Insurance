@@ -309,11 +309,21 @@
                 </td>
                 <td>
                     <h5>Время доставки:</h5>
-                    {{ form.time }}
+                    <div id="time-deliviry">
+                        <a href="#" class="active">9:30 - 12:00</a>
+                        <a href="#">12:00 - 15:00</a>
+                        <a href="#">15:00 - 18:00</a>
+                        
+                        {{ form.time }}
+                    </div>
                 </td>
                 <td>
                     <h5>Вариант оплаты:</h5>
-                    {{ form.payments }}
+                    <div id="payment-form">
+                        <a href="#">Наличными</a>
+                        <a href="#">Кредитная карта</a>
+                        {{ form.payments }}
+                    </div>
                 </td>
             </tr>
         </table>

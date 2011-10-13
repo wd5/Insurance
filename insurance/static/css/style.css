@@ -2940,12 +2940,35 @@ div.messages li {
     padding: 0 40px 5px 0;
 }
 
+#time-deliviry{
+    width: 117px;
+}
+
+#time-deliviry input{
+    visibility: hidden;
+}
+
+#time-deliviry a, #payment-form a{
+    display: block;
+    background: url(/static/images/radio.png) top left no-repeat;
+    padding: 3px 0 3px 35px;
+}
+
+#time-deliviry a.active, #payment-form a.active{
+    background: url(/static/images/radio_active.png) top left no-repeat;
+}
+
+#payment-form select{
+    visibility: hidden;
+}
+
 #inner-tab3 #order-button{
     height: 31px;
     width: 81px;
     border: none;
     margin-bottom: 15px;
 }
+
 
 /*Price Slider*/
 #id_price{
