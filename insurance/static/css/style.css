@@ -2597,6 +2597,11 @@ div.messages li {
 
 }
 
+#calc-tabs .form-round-block.no-back{
+    background: none;
+    padding-bottom: 0;
+}
+
 #step4-tabs a{
     color: #4e1b06;
     text-decoration: none;
@@ -2637,6 +2642,7 @@ div.messages li {
     border: none;
     background: none;
     padding: 30px 15px;
+    min-height: 300px;
 }
 
 
