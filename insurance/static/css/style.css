@@ -2903,6 +2903,50 @@ div.messages li {
     font-size: 25px;
 }
 
+/*Calc page Step 4 - third tab*/
+#deliviry-1{
+    margin-top: 20px;
+}
+
+#calc-tabs .form-round-block #deliviry-1 td,
+#calc-tabs .form-round-block #deliviry-2 td
+{
+    padding: 0 20px 5px 0;
+}
+
+#inner-tab3 #id_building,
+#inner-tab3 #id_structure,
+#inner-tab3 #id_housing,
+#inner-tab3 #id_porch,
+#inner-tab3 #id_domophone,
+#inner-tab3 #id_floor,
+#inner-tab3 #id_flat,
+#inner-tab3 #id_date{
+    width: 102px;
+}
+
+#deliviry-3{
+    margin-top: 10px;
+}
+
+
+#deliviry-3 textarea{
+    width: 280px;
+    height: 93px;
+    border: 1px solid #4E1B06;
+}
+
+#calc-tabs .form-round-block #deliviry-3 td{
+    padding: 0 40px 5px 0;
+}
+
+#inner-tab3 #order-button{
+    height: 31px;
+    width: 81px;
+    border: none;
+    margin-bottom: 15px;
+}
+
 /*Price Slider*/
 #id_price{
     border: 1px solid #501C07;
