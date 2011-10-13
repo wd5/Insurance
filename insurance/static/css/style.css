@@ -2669,6 +2669,12 @@ div.messages li {
     font-size: 25px;
 }
 
+#person-info-table #sex-label{
+    display: block;
+    float: left;
+    padding-top: 10px;
+}
+
 #person-info-table #woman-sex{
     display: block;
     float: left;
