@@ -247,22 +247,34 @@
 
 
         <div id="auto-owner">
-            <table>
+            <h5 id="owner-label">Владелец автомобиля:</h5>
+            <a href="#" id="copy-data-link2">(Скопировать данные страхователя)</a>
+            
+            <table id="auto-owner-table">
                 <tr>
-                    <td><h5>Владелец автомобиля:</h5></td>
                     <td>{{ form.owner_first_name }}</td>
                     <td>{{ form.owner_last_name }}</td>
                     <td>{{ form.owner_middle_name }}</td>
                 </tr>
                  <tr>
-                    <td><a href="#" id="copy-data-link2">(Скопировать данные страхователя)</a></td>
                     <td>
                         <h5>Дата рождения</h5>
                         {{ form.owner_birth_date }}
                     </td>
                     <td colspan="2">
-                        {{ form.owner_sex }}
-                        {{ form.first_owner }}
+                        <div id="sex-owner">
+                            <h5>Пол:</h5>
+                            <a id="woman-sex2" class="active" href="#"></a>
+                            <a id="man-sex2" href="#"></a>
+                            {{ form.owner_sex }}
+                        </div>
+
+                        <div id="is-first-owner">
+                            <h5>Первый владелец автомобиля:</h5>
+                                <a href="#" class="active">Да</a>
+                                <a href="#">Нет</a>
+                            {{ form.first_owner }}
+                        </div>
                     </td>
                 </tr>
             </table>

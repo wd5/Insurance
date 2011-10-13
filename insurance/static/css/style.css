@@ -2675,7 +2675,7 @@ div.messages li {
     padding-top: 10px;
 }
 
-#person-info-table #woman-sex{
+#woman-sex, #woman-sex2{
     display: block;
     float: left;
     width: 17px;
@@ -2684,11 +2684,12 @@ div.messages li {
     background: url(/static/images/woman_sex.png) top left no-repeat;
 }
 
-#person-info-table #woman-sex.active, #person-info-table #woman-sex:hover{
+#woman-sex.active, #woman-sex:hover,
+#woman-sex2.active, #woman-sex2:hover{
      background: url(/static/images/woman_sex_active.png) top left no-repeat;
 }
 
-#person-info-table #man-sex{
+#man-sex, #man-sex2{
     display: block;
     float: left;
     width: 17px;
@@ -2697,7 +2698,8 @@ div.messages li {
     background: url(/static/images/man_sex.png) top left no-repeat;
 }
 
-#person-info-table #man-sex.active, #person-info-table #man-sex:hover{
+#man-sex.active, #man-sex:hover,
+#man-sex2.active, #man-sex2:hover{
     background: url(/static/images/man_sex_active.png) top left no-repeat;
 }
 
@@ -2829,6 +2831,75 @@ div.messages li {
 }
 
 #inner-tab2 #tech-auto-data2 div a.active{
+    font-size: 25px;
+}
+
+#auto-owner{
+    border: 1px solid #4E1B06;
+    border-radius: 10px 10px 10px 10px;
+    color: #501C07;
+    font-size: 13px;
+    margin: 15px 0;
+    padding: 20px 20px 0 30px;
+    position: relative;
+}
+
+#auto-owner #owner-label{
+    position: absolute;
+    top: 20px;
+    left: 26px;
+    width: 81px;
+}
+
+#auto-owner #copy-data-link2{
+    position: absolute;
+    top: 57px;
+    left: 26px;
+    font-size: 11px;
+    width: 124px;
+    
+}
+
+#auto-owner table{
+    margin-left: 140px;
+}
+
+#calc-tabs .form-round-block #auto-owner table td{
+    padding: 0 20px 10px 0;
+    vertical-align: top;
+}
+
+#auto-owner #sex-owner{
+    overflow: hidden;
+    float: left;
+    padding: 15px 15px 0 0;
+    width: 125px;
+}
+
+#sex-owner select, #is-first-owner input{
+    visibility: hidden;
+}
+
+#auto-owner #sex-owner h5{
+    float: left;
+    margin-top: 8px;
+    padding-right: 10px;
+}
+
+#auto-owner #is-first-owner{
+    padding: 15px 0 0 0;
+}
+
+#auto-owner #is-first-owner h5{
+    float: left;
+    margin: 8px 20px 0 0;
+}
+
+#auto-owner #is-first-owner a{
+    text-transform: uppercase;
+}
+
+#auto-owner #is-first-owner a.active{
     font-size: 25px;
 }
 
