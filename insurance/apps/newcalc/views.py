@@ -12,7 +12,7 @@ from django.template.loader import render_to_string
 
 import socket
 
-from models import Mark, Model, Mym, Power, City, BurglarAlarm, Company
+from models import Mark, Model, Mym, Power, City, BurglarAlarm, Company, CompanyCondition, InsuranceType
 from forms import Step1Form, Step2Form, Step3FormReg, Step3FormNoReg
 from forms import Step4Form #1, Step4Form2 #, Step4Form1NoReg
 from profile.models import Persona
@@ -501,7 +501,7 @@ def _build_servlet_request_data(s1_data, s2_data):
     if unlimited_drivers is None:
         unlimited_drivers = 0
 
-
+#TODO: insurance_type!!!
 
     servlet_request_data = {"insurance_type": 1,
                             "mark": s1_data["mark"],
@@ -550,6 +550,16 @@ def _parse_servlet_response(result):
         else:
             if result["status"] != "OK":
                 msg = "Сервлет сообщил об ошибке"
+            else:
+                for company in result['info']:
+                    print company['alias']
+                    company_id = Company.objects.get(company_alias = company['alias']).company_id
+                    print company_id
+                    comment = CompanyCondition.objects.filter(company_condition_company = company_id)[:1]
+                    if comment:
+                        company['company_comment'] = comment[0].company_condition_comment
+                    else:
+                        company['company_comment'] = ''
     return result, msg
 
 

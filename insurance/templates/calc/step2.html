@@ -229,13 +229,15 @@
                                 <div class="company-data">
                                     <img src="/static/images/company_logo/{{ comp.alias|add:".png" }}"
                                          alt="{{ comp.full_name }}"/>
+                                         {% if comp.company_comment %}
                                     <a class="conditions" href="#">
                                         Условия
                                         <div class="tooltip">
-                                            <span>- форма рекламы в сети Интернет, направленная на увеличение</span>
+                                            <span>{{ comp.company_comment }}</span>
                                             <img src="/static/images/tooltip_angle.png" alt=""/>
                                         </div>
                                     </a>
+                                    {% endif %}
                                 </div>
                             </td>
                             <td class="small">
@@ -260,8 +262,9 @@
                                 {% endif %}
                             </td>
                             <td class="small">
-                               <!-- столбик "Тех. помомщь" -->
+                                {% if comp.parameters.TheTechnicalHelp %}
                                     <img src="/static/images/yes_circle.png" alt="да"/>
+                                {% endif %}
                             </td>
 
                             <td class="final-price">

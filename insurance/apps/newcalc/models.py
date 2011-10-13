@@ -140,6 +140,22 @@ class Company(models.Model):
         managed = False
 
 
+class InsuranceType(models.Model):
+    insurance_type_id = models.IntegerField(primary_key=True)
+    insurance_type_name = models.CharField(max_length=150)
+    insurance_type_block = models.IntegerField()
+    class Meta:
+        db_table = u'insurance_type'
+
+class CompanyCondition(models.Model):
+    company_condition_id = models.IntegerField(primary_key=True)
+    company_condition_company = models.IntegerField()
+    company_condition_insurance = models.IntegerField()
+    company_condition_comment = models.CharField(max_length=255)
+    class Meta:
+        db_table = u'company_condition'
+        managed = False
+
         #class KackoIt(models.Model):
 
 #    kacko_it_it = models.IntegerField(db_column='KACKO_it_it') # Field name made lowercase.
@@ -198,12 +214,6 @@ class Company(models.Model):
 #    class Meta:
 #        db_table = u'factors'
 #
-#class InsuranceType(models.Model):
-#    insurance_type_id = models.IntegerField(primary_key=True)
-#    insurance_type_name = models.CharField(max_length=150)
-#    insurance_type_block = models.IntegerField()
-#    class Meta:
-#        db_table = u'insurance_type'
 #
 #
 #
