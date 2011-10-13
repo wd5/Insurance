@@ -164,13 +164,16 @@ class CompanyCondition(models.Model):
 #    class Meta:
 #        db_table = u'KACKO_it'
 #
-#class KackoParameters(models.Model):
-#    kparameter_id = models.IntegerField(primary_key=True)
-#    kparameter_name = models.CharField(max_length=765, blank=True)
-#    kparameter_description = models.CharField(max_length=3000, blank=True)
-#    kparameter_alias = models.CharField(max_length=765)
-#    class Meta:
-#        db_table = u'KACKO_parameters'
+class KackoParameters(models.Model):
+    kparameter_id = models.IntegerField(primary_key=True)
+    kparameter_name = models.CharField(max_length=765, blank=True)
+    kparameter_description = models.CharField(max_length=3000, blank=True)
+    kparameter_alias = models.CharField(max_length=765)
+    kparameter_comment = models.CharField(max_length=255)
+    is_active = models.BooleanField(default=True)
+    class Meta:
+        db_table = u'KACKO_parameters'
+        managed = False
 #
 #
 #class Cf(models.Model):

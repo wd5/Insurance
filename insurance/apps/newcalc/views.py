@@ -12,7 +12,9 @@ from django.template.loader import render_to_string
 
 import socket
 
-from models import Mark, Model, Mym, Power, City, BurglarAlarm, Company, CompanyCondition, InsuranceType
+from models import Mark, Model, Mym, Power, City,\
+    BurglarAlarm, Company, CompanyCondition, InsuranceType, \
+    KackoParameters
 from forms import Step1Form, Step2Form, Step3FormReg, Step3FormNoReg
 from forms import Step4Form #1, Step4Form2 #, Step4Form1NoReg
 from profile.models import Persona
@@ -87,10 +89,14 @@ def step2(request):
     else:
         form_extra_data, initial_data = _s2_read_form_data(s2_data)
         form = Step2Form(form_extra_data=form_extra_data, initial=initial_data)
-        
+    table = KackoParameters.objects.filter(is_active=True)
+    header = dict()
+    for t in table:
+        header[t.kparameter_alias] = {'name':t.kparameter_name, 'comment':t.kparameter_comment}
     return direct_to_template(request, 'calc/step2.html', {"msg": msg,
                                                            "s1_form": form,
                                                            "result": result,
+                                                           "header":header,
                                                            "data": data})
 
 
@@ -552,9 +558,7 @@ def _parse_servlet_response(result):
                 msg = "Сервлет сообщил об ошибке"
             else:
                 for company in result['info']:
-                    print company['alias']
                     company_id = Company.objects.get(company_alias = company['alias']).company_id
-                    print company_id
                     comment = CompanyCondition.objects.filter(company_condition_company = company_id)[:1]
                     if comment:
                         company['company_comment'] = comment[0].company_condition_comment
