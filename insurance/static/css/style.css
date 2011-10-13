@@ -2597,6 +2597,13 @@ div.messages li {
 
 }
 
+#step4-tabs a{
+    color: #4e1b06;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: bold;
+}
+
 #step4-tabs input{
     width: 203px;
     height: 20px;
@@ -2687,6 +2694,23 @@ div.messages li {
 #person-info-table #man-sex.active, #person-info-table #man-sex:hover{
     background: url(/static/images/man_sex_active.png) top left no-repeat;
 }
+
+#citizenship{
+    margin-bottom: 20px;
+}
+
+#citizenship a{
+    display: block;
+    float: left;
+    margin-right: 20px;
+    background: url(/static/images/radio.png) top left no-repeat;
+    padding: 3px 0 3px 30px;
+}
+
+#citizenship a.active{
+    background: url(/static/images/radio_active.png) top left no-repeat;
+}
+
 
 /*Price Slider*/
 #id_price{
