@@ -255,68 +255,71 @@
     <div id="inner-tab3">
         <h5>Укажите максимально подробно адрес и условия доставки:</h5>
 
-        
+        <table id="deliviry-1">
+            <tr>
+                <td>
+                    <h5>Точный адрес доставки:</h5>
+                    {{ form.street }}
+                </td>
+                <td>
+                    <h5>Дом:</h5>
+                    {{ form.building }}
+                </td>
+                <td>
+                    <h5>Строение:</h5>
+                    {{ form.structure }}
+                </td>
+                <td>
+                    <h5>Корпус:</h5>
+                    {{ form.housing }}
+                </td>
+            </tr>
+        </table>
 
-        <p>
-            {{ form.date.label }}
-            {{ form.date }}
-        </p>
+        <table id="deliviry-2">
+            <tr>
+                <td>
+                    <h5>Подьезд:</h5>
+                    {{ form.porch }}
+                </td>
+                <td>
+                    <h5>Домофон:</h5>
+                    {{ form.domophone }}
+                </td>
+                <td>
+                    <h5>Этаж:</h5>
+                    {{ form.floor }}
+                </td>
+                <td>
+                    <h5>Квартира:</h5>
+                    {{ form.flat }}
+                </td>
+            </tr>
+        </table>
 
-        <p>
-            {{ form.time.label }}
-            {{ form.time }}
-        </p>
+         <table id="deliviry-3">
+            <tr>
+                <td>
+                    <h5>Комментарии к доставке:</h5>
+                    {{ form.comment }}
+                </td>
+                <td>
+                    <h5>Дата доставки:</h5>
+                    {{ form.date }}
+                </td>
+                <td>
+                    <h5>Время доставки:</h5>
+                    {{ form.time }}
+                </td>
+                <td>
+                    <h5>Вариант оплаты:</h5>
+                    {{ form.payments }}
+                </td>
+            </tr>
+        </table>
+        <input type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
 
-        <p>
-            {{ form.street.label }}
-            {{ form.street }}
-        </p>
-
-        <p>
-            {{ form.building.label }}
-            {{ form.building }}
-        </p>
-
-        <p>
-            {{ form.structur.label }}
-            {{ form.structur }}
-        </p>
-
-        <p>
-            {{ form.housing.label }}
-            {{ form.housing }}
-        </p>
-
-        <p>
-            {{ form.floor.label }}
-            {{ form.floor }}
-        </p>
-
-        <p>
-            {{ form.domophon.label }}
-            {{ form.domophon }}
-        </p>
-
-        <p>
-            {{ form.flat.label }}
-            {{ form.flat }}
-        </p>
-
-        <p>
-            {{ form.porch.label }}
-            {{ form.porch }}
-        </p>
-
-        <p>
-            {{ form.payments.label }}
-            {{ form.payments }}
-        </p>
-
-        <p>
-            {{ form.comment.label }}
-            {{ form.comment }}
-        </p>
-        <input type="submit" value="Заказать"/>
+        <h5>Обратите внимание! Доставка курьером осуществляется только в пределах МКАД.</h5>
     </div>
     </form>
     </div>
