@@ -2785,7 +2785,7 @@ div.messages li {
     width: 131px;
 }
 
-#inner-tab2 #tech-auto-data{
+#inner-tab2 #tech-auto-data, #inner-tab2 #tech-auto-data2{
     margin-left: 170px;
 }
 
@@ -2807,9 +2807,30 @@ div.messages li {
 #tech-auto-data #id_power,
 #tech-auto-data #id_volume{
     width: 82px;
-    clear: left;
 }
 
+#inner-tab2 #tech-auto-data2{
+    overflow: hidden;
+    margin-bottom: 50px;
+}
+
+
+#inner-tab2 #tech-auto-data2 div{
+    float: left;
+    width: 256px;
+}
+
+#inner-tab2 #tech-auto-data2 div:first-child{
+    width: 226px;
+}
+
+#inner-tab2 #tech-auto-data2 div a{
+    padding-right: 7px;
+}
+
+#inner-tab2 #tech-auto-data2 div a.active{
+    font-size: 25px;
+}
 
 /*Price Slider*/
 #id_price{
