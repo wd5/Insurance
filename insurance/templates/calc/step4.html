@@ -177,85 +177,88 @@
 
     <!-- second tab-->
     <div id="inner-tab2">
-        <p>
-            {{ form.vin.label }}
-            {{ form.vin }}
-        </p>
+        <h5>Основные данные об автомобиле:</h5>
 
-        <p>
-            {{ form.number.label }}
-            {{ form.number }}
-        </p>
+        <table id="tech-auto-data">
+            <tr>
+                <td>
+                    <h5>VIN:</h5>
+                    {{ form.vin }}
+                </td>
+                <td>
+                    <h5>Номерной знак:</h5>
+                    {{ form.number }}
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>Номер кузова:</h5>
 
-        <p>
-            {{ form.body_type.label }}
-            {{ form.body_type }}
-        </p>
+                </td>
+                <td>
+                    <h5>Серия и номер ПТС:</h5>
+                    {{ form.pts_number }}
+                </td>
 
-        <p>
-            {{ form.pts_number.label }}
-            {{ form.pts_number }}
-        </p>
+                <td>
+                    <h5>Дата выдачи ПТС:</h5>
+                    {{ form.pts_date }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>Тип кузова:</h5>
+                    {{ form.body_type }}
+                </td>
+                <td>
+                    <h5>Пробег:</h5>
+                    {{ form.mileage }}
+                </td>
+                <td>
+                    <h5>Мощность:</h5>
+                    {{ form.power }}
 
-        <p>
-            {{ form.pts_date.label }}
-            {{ form.pts_date }}
-        </p>
+                    <h5>Объем двигателя:</h5>
+                    {{ form.volume }}
+                </td>
+            </tr>
+        </table>
 
-        <p>
-            {{ form.power.label }}
-            {{ form.power }}
-        </p>
+        <div id="tech-auto-data2">
+            <div>
+                <h5>Коробка передач:</h5>
+                {{ form.kpp }}
+            </div>
 
-        <p>
-            {{ form.volume.label }}
-            {{ form.volume }}
-        </p>
+            <div>
+                <h5>Двигатель:</h5>
+                {{ form.motor }}
+            </div>
+        </div>
 
-        <p>
-            {{ form.mileage.label }}
-            {{ form.mileage }}
-        </p>
 
-        <p>
-            {{ form.kpp.label }}
-            {{ form.kpp }}
-        </p>
-
-        <p>
-            {{ form.motor.label }}
-            {{ form.motor }}
-        </p>
-
-        <p>
-            {{ form.owner_last_name.label }}
-            {{ form.owner_last_name }}
-        </p>
-
-        <p>
-            {{ form.owner_first_name.label }}
-            {{ form.owner_first_name }}
-        </p>
-
-        <p>
-            {{ form.owner_middle_name.label }}
-            {{ form.owner_middle_name }}
-        </p>
-
-        <p>
-            {{ form.owner_birth_date.label }}
-            {{ form.owner_birth_date }}
-        </p>
-
-        <p>
-            {{ form.first_owner.label }}
-            {{ form.first_owner }}
-        </p>
-
-        <p>
-            {{ form.owner_sex.label }}
-            {{ form.owner_sex }}
-        </p>
+        <div id="auto-owner">
+            <table>
+                <tr>
+                    <td><h5>Владелец автомобиля:</h5></td>
+                    <td>{{ form.owner_first_name }}</td>
+                    <td>{{ form.owner_last_name }}</td>
+                    <td>{{ form.owner_middle_name }}</td>
+                </tr>
+                 <tr>
+                    <td><a href="#" id="copy-data-link2">(Скопировать данные страхователя)</a></td>
+                    <td>
+                        <h5>Дата рождения</h5>
+                        {{ form.owner_birth_date }}
+                    </td>
+                    <td colspan="2">
+                        {{ form.owner_sex }}
+                        {{ form.first_owner }}
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
     <!-- third tab-->
