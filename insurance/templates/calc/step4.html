@@ -177,7 +177,7 @@
 
     <!-- second tab-->
     <div id="inner-tab2">
-        <h5>Основные данные об автомобиле:</h5>
+        <h5 id="head-data">Основные данные об автомобиле:</h5>
 
         <table id="tech-auto-data">
             <tr>
@@ -194,7 +194,7 @@
             <tr>
                 <td>
                     <h5>Номер кузова:</h5>
-
+                    <input type="text" value="" />
                 </td>
                 <td>
                     <h5>Серия и номер ПТС:</h5>
@@ -215,12 +215,15 @@
                     <h5>Пробег:</h5>
                     {{ form.mileage }}
                 </td>
-                <td>
-                    <h5>Мощность:</h5>
-                    {{ form.power }}
-
-                    <h5>Объем двигателя:</h5>
-                    {{ form.volume }}
+                <td class="short-input">
+                    <div>
+                        <h5>Мощность:</h5>
+                        {{ form.power }}
+                    </div>
+                    <div>
+                         <h5>Объем двигателя:</h5>
+                        {{ form.volume }}
+                    </div>
                 </td>
             </tr>
         </table>

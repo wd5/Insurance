@@ -2773,6 +2773,44 @@ div.messages li {
     left: 140px;
 }
 
+/*Calc page Step 4 - second tab*/
+#inner-tab2{
+    position: relative;
+}
+
+#inner-tab2 #head-data{
+    position: absolute;
+    top: 33px;
+    left: 15px;
+    width: 131px;
+}
+
+#inner-tab2 #tech-auto-data{
+    margin-left: 170px;
+}
+
+#inner-tab2 #tech-auto-data td{
+    padding-right: 20px;
+    vertical-align: top;
+}
+
+#tech-auto-data td.short-input div{
+   float: left;
+   margin-left: 10px;
+}
+
+#tech-auto-data td.short-input div:first-child{
+    margin-left: 0;
+}
+
+
+#tech-auto-data #id_power,
+#tech-auto-data #id_volume{
+    width: 82px;
+    clear: left;
+}
+
+
 /*Price Slider*/
 #id_price{
     border: 1px solid #501C07;
