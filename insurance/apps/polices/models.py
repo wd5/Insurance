@@ -84,7 +84,10 @@ class CallRequests(models.Model):
     date = models.DateTimeField(u'Дата заявки', auto_now_add=True)
     phone = models.CharField(u'Телефонный номер', max_length=14)
     comment = models.CharField(u'Комментарий', max_length=255, blank = True, null=True)
-
+    
+    class Meta:
+        verbose_name = u'Заказ звонка'
+        verbose_name_plural = u'Заказы звонка'
 
 class InsurancePolicy(models.Model):
     user = models.ForeignKey(User)

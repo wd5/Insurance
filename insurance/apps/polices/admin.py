@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from models import InsurancePolicy, InsurancePolicyData
+from models import InsurancePolicy, InsurancePolicyData, CallRequests
 
 class InsurancePolicyAdmin(admin.ModelAdmin):
     list_display = ('user', 'type', 'state',)
@@ -10,4 +10,9 @@ class InsurancePolicyAdmin(admin.ModelAdmin):
                        "age1", "experience_driving1", "age2",
                        "experience_driving2", "age3", "experience_driving3"
                       )
+
+class CallRequestsAdmin(admin.ModelAdmin):
+    list_display = ('user', 'phone', 'comment', 'date')
+
+admin.site.register(CallRequests, CallRequestsAdmin)
 admin.site.register(InsurancePolicy, InsurancePolicyAdmin)
