@@ -2711,6 +2711,28 @@ div.messages li {
     background: url(/static/images/radio_active.png) top left no-repeat;
 }
 
+#document-data{
+    margin-bottom: 20px;
+}
+
+#document-data h5{
+    margin-bottom: 7px;
+}
+
+#document-data input{
+    margin-right: 16px;
+}
+
+#document-data #id_passport_series{
+    margin-right: 10px;
+}
+
+#document-data #id_passport_series,
+#document-data #id_passport_number{
+    width: 76px;
+}
+
+
 
 /*Price Slider*/
 #id_price{
