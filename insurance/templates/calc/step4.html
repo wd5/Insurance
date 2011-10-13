@@ -86,143 +86,84 @@
 
     <!-- first tab-->
     <div id="inner-tab1">
-        <p>
-            {{ form.first_name.label }}
-            {{ form.first_name }}
-        </p>
+        <table id="person-info-table">
+            <tr>
+                <td>
+                    <h5>Страхователь:</h5>
+                    {{ form.last_name }}
+                </td>
+                <td>{{ form.first_name }}</td>
+                <td>{{ form.middle_name }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>Дата рождения:</h5>
+                    {{ form.birth_date }}
+                </td>
+                <td>
+                    Категория прав: {{ form.category }}
+                </td>
+                <td>
+                    Пол: {{ form.sex }}
+                </td>
+            </tr>
+        </table>
 
-        <p>
-            {{ form.last_name.label }}
-            {{ form.last_name }}
-        </p>
+        <div id="citizenship">
+            {{ form.citizenship }}
+        </div>
 
-        <p>
-            {{ form.middle_name.label }}
-            {{ form.middle_name }}
-        </p>
+        <div id="document-data">
+            <h5>Паспортные данные:</h5>
+            {{ form.passport_series }}
+            {{ form.passport_number }}
+            {{ form.issued_org }}
+            {{ form.issued_date }}
+        </div>
 
-        <p>
-            {{ form.birth_date.label }}
-            {{ form.birth_date }}
-        </p>
+       <div id="document-address">
+           <h5>Адрес прописки:</h5>
+           <table>
+               <tr>
+                   <td>{{ form.reg_region }}</td>
+                   <td>{{ form.reg_area }}</td>
+                   <td>{{ form.reg_city }}</td>
+               </tr>
+               <tr>
+                   <td>{{ form.reg_street }}</td>
+                   <td>
+                       {{ form.reg_index }}
+                       {{ form.reg_building }}
+                   </td>
+                   <td>
+                       {{ form.reg_housing }}
+                       {{ form.reg_flat }}
+                   </td>
+               </tr>
+           </table>
+       </div>
 
-        <p>
-
-            {{ form.sex.label }}
-            {{ form.sex }}
-        </p>
-
-        <p>
-
-            {{ form.category.label }}
-            {{ form.category }}</p>
-
-        <p>
-
-            {{ form.citizenship.label }}
-            {{ form.citizenship }}</p>
-
-        <p>
-
-            {{ form.passport_series.label }}
-            {{ form.passport_series }}</p>
-
-        <p>
-
-            {{ form.passport_number.label }}
-            {{ form.passport_number }}</p>
-
-        <p>
-
-            {{ form.issued_org.label }}
-            {{ form.issued_org }}</p>
-
-        <p>
-
-            {{ form.issued_date.label }}
-            {{ form.issued_date }}</p>
-
-        <p>
-
-
-            {{ form.reg_region.label }}
-            {{ form.reg_region }}</p>
-
-        <p>
-
-            {{ form.reg_area.label }}
-            {{ form.reg_area }}</p>
-
-        <p>
-
-            {{ form.reg_city.label }}
-            {{ form.reg_city }}</p>
-
-        <p>
-
-            {{ form.reg_index.label }}
-            {{ form.reg_index }}</p>
-
-        <p>
-
-            {{ form.reg_street.label }}
-            {{ form.reg_street }}</p>
-
-        <p>
-
-            {{ form.reg_building.label }}
-            {{ form.reg_building }}</p>
-
-        <p>
-
-            {{ form.reg_housing.label }}
-            {{ form.reg_housing }}</p>
-
-        <p>
-
-            {{ form.reg_flat.label }}
-            {{ form.reg_flat }}</p>
-
-        <p>
-
-
-            {{ form.live_region.label }}
-            {{ form.live_region }}</p>
-
-        <p>
-
-            {{ form.live_area.label }}
-            {{ form.live_area }}</p>
-
-        <p>
-
-            {{ form.live_city.label }}
-            {{ form.live_city }}</p>
-
-        <p>
-
-            {{ form.live_index.label }}
-            {{ form.live_index }}</p>
-
-        <p>
-
-            {{ form.live_street.label }}
-            {{ form.live_street }}</p>
-
-        <p>
-
-            {{ form.live_building.label }}
-            {{ form.live_building }}</p>
-
-        <p>
-
-            {{ form.live_housing.label }}
-            {{ form.live_housing }}</p>
-
-        <p>
-
-            {{ form.live_flat.label }}
-            {{ form.live_flat }}</p>
+       <div id="real-address">
+           <h5>Место проживания:</h5> <a href="#" id="copy-data-link">Скопировать адрес прописки</a>
+           <table>
+               <tr>
+                   <td>{{ form.live_region }}</td>
+                   <td>{{ form.live_area }}</td>
+                   <td>{{ form.live_city }}</td>
+               </tr>
+               <tr>
+                   <td>{{ form.live_street }}</td>
+                   <td>
+                       {{ form.live_index }}
+                       {{ form.live_building }}
+                   </td>
+                   <td>
+                       {{ form.live_housing }}
+                       {{ form.live_flat }}
+                   </td>
+               </tr>
+           </table>
+       </div>
     </div>
 
     <!-- second tab-->

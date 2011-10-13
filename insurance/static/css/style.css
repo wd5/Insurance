@@ -2591,6 +2591,36 @@ div.messages li {
     margin: 10px 0;
 }
 
+
+
+/*Calc Page Step 4*/
+#step4-tabs{
+
+}
+
+#calc-tabs #step4-tabs ul.ui-tabs-nav{
+    padding: 0;
+}
+
+#calc-tabs #step4-tabs ul.ui-tabs-nav li{
+    background: none;
+    margin: 0;
+    padding: 0;
+
+}
+
+#calc-tabs #step4-tabs ul.ui-tabs-nav li a{
+    background: lime;
+    text-transform: none;
+}
+
+
+#calc-tabs #step4-tabs .ui-tabs-panel{
+    border: none;
+    background: none;
+    padding: 30px 15px;
+}
+
 /*Price Slider*/
 #id_price{
     border: 1px solid #501C07;
