@@ -41,6 +41,10 @@
                     $(this).removeClass("inactive");
                 })
 
+                $(this).keypress(function(){
+                    $(this).removeClass("inactive");
+                })
+
                  $(this).blur(function(){
                     if($(this).val() == ""){
                         $(this).addClass("inactive");
