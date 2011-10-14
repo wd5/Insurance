@@ -65,6 +65,25 @@
                 }
             })
 
+            /*Click on copy data link*/
+            $("#copy-data-link").click(function(e){
+                e.preventDefault();
+                var from = $("#document-address input"),
+                    to = $("#real-address input");
+                
+                copyInputValues(from, to);
+
+            })
+
+            $("#copy-data-link2").click(function(e){
+                e.preventDefault();
+                var from = $("#person-info-table input"),
+                    to = $("#auto-owner-table input:text");
+
+                copyInputValues(from, to);
+
+            })
+
            /* $("#step4-tabs form").validate({
                 messages: {
                     first_name: "Please specify your name",

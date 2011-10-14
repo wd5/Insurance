@@ -501,5 +501,17 @@ function selectVisualValue (element) {
         }
         element.addClass("active");
     }
-    
+}
+
+/*Function copy input values - step 4*/
+function copyInputValues(from, to){
+    var valuesArr = [];
+
+    from.each(function(){
+        valuesArr.push($(this).val());
+    })
+
+    to.each(function(e){
+        $(this).val(valuesArr[e]);
+    })
 }
