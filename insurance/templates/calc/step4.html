@@ -38,6 +38,15 @@
                     }
             })
 
+            /*Placeholder for inpust*/
+            $("#step4-tabs input:text").click(function(){
+                var currentValue = $(this).data("currval", $(this).val());
+                $(this).val("");
+            })
+
+            $("#step4-tabs input:text").blur(function(){
+                $(this).val($(this).data("currval"));
+            })
 
            /* $("#step4-tabs form").validate({
                 messages: {
