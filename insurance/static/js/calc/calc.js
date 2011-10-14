@@ -461,6 +461,20 @@ function scrollToItem(list_item) {
     list_item.parent().css("top", -list_item.position().top);
 }
 
+/*Display real values of visual elements*/
+function displaySelectValue(element){
+    var currentval = element.val();
+
+    if(element.attr("type") == "checkbox"){
+        element.parent().find("a:first").addClass("active");
+    }
+
+    if(element.attr("type") == "select-one"){
+        element.parent().find("a[value='"+ currentval +"']").addClass("active");
+    }
+}
+
+
 /*Check select value by clicking on visual element - step 4*/
 function selectVisualValue (element) {
     var text = element.text(),

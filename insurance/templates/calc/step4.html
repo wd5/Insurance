@@ -16,13 +16,18 @@
                 
             })
 
-            $("#id_kpp, #id_motor, #id_payments, #id_citizenship").css("visibility", "hidden");
+            //$("#id_kpp, #id_motor, #id_payments, #id_citizenship").css("visibility", "hidden");
 
             $("#citizenship a, #is-first-owner a, #kpp a, #motor a, #time-deliviry a, #payment-form a").click(function(e){
                 e.preventDefault();
                 selectVisualValue($(this));
             })
-            
+
+            $("#id_citizenship, #id_kpp,  #id_motor, #id_payments, #id_first_owner").each(function(){
+                displaySelectValue($(this));
+            })
+
+
            /* $("#step4-tabs form").validate({
                 messages: {
                     first_name: "Please specify your name",
@@ -253,7 +258,7 @@
 
                         <div id="is-first-owner">
                             <h5>Первый владелец автомобиля:</h5>
-                                <a href="#" class="active">Да</a>
+                                <a href="#">Да</a>
                                 <a href="#">Нет</a>
                             {{ form.first_owner }}
                         </div>
@@ -322,7 +327,7 @@
                 <td>
                     <h5>Время доставки:</h5>
                     <div id="time-deliviry">
-                        <a href="#" class="active">9:30 - 12:00</a>
+                        <a href="#">9:30 - 12:00</a>
                         <a href="#">12:00 - 15:00</a>
                         <a href="#">15:00 - 18:00</a>
                         
