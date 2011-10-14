@@ -2967,6 +2967,7 @@ div.messages li {
     width: 280px;
     height: 93px;
     border: 1px solid #4E1B06;
+    resize: none;
 }
 
 #calc-tabs .form-round-block #deliviry-3 td{
