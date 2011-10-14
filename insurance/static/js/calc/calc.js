@@ -113,7 +113,7 @@ function get_visible_select_data_model(selectId) {
             myclass = "active";
         }
 
-        if (text != "--------") {
+        if (value != "") {
             result += "<span rel='" + value + "' class='" + myclass + "'>" + text + "</span>";
             i++;
         }
