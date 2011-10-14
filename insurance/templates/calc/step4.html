@@ -16,7 +16,7 @@
                 
             })
 
-           // $("#id_kpp, #id_motor").css("visibility", "hidden");
+            $("#id_kpp, #id_motor, #id_payments, #id_citizenship").css("visibility", "hidden");
 
             $("#citizenship a, #is-first-owner a, #kpp a, #motor a, #time-deliviry a, #payment-form a").click(function(e){
                 e.preventDefault();
@@ -97,8 +97,8 @@
         </table>
 
         <div id="citizenship">
-            <a href="#">Гражданин РФ</a>
-            <a href="#">Иностранный гражданин</a>
+            <a value="1" href="#">Гражданин РФ</a>
+            <a value="2" href="#">Иностранный гражданин</a>
             {{ form.citizenship }}
         </div>
 
@@ -213,16 +213,16 @@
         <div id="tech-auto-data2">
             <div id="kpp">
                 <h5>Коробка передач:</h5>
-                <a href="#">Механическая</a>
-                <a href="#">Автомат</a>
+                <a value="1" href="#">Механическая</a>
+                <a value="2" href="#">Автомат</a>
                 {{ form.kpp }}
             </div>
 
             <div id="motor">
                 <h5>Двигатель:</h5>
-                <a href="#">Бензиновый</a>
-                <a href="#">Дизельный</a>
-                <a href="#">Гибридный</a>
+                <a value="1" href="#">Бензиновый</a>
+                <a value="2" href="#">Дизельный</a>
+                <a value="3" href="#">Гибридный</a>
                 {{ form.motor }}
             </div>
         </div>
@@ -332,8 +332,8 @@
                 <td>
                     <h5>Вариант оплаты:</h5>
                     <div id="payment-form">
-                        <a href="#">Наличными</a>
-                        <a href="#">Кредитная карта</a>
+                        <a value="1" href="#">Наличными</a>
+                        <a value="2" href="#">Кредитная карта</a>
                         {{ form.payments }}
                     </div>
                 </td>

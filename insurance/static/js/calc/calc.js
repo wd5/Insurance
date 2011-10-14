@@ -464,11 +464,12 @@ function scrollToItem(list_item) {
 /*Check select value by clicking on visual element - step 4*/
 function selectVisualValue (element) {
     var text = element.text(),
+        val = element.attr("value"),
         field = element.parent().find("select");
 
     if(field.length != 0){
         element.parent().find("a").removeClass("active");
-        field.find("option:contains('"+text +"')").attr("selected", "selected");
+        field.find("option[value='"+ val +"']").attr("selected", "selected");
         field.change();
         element.addClass("active");
     }else{
@@ -481,7 +482,6 @@ function selectVisualValue (element) {
            }else{
                field.attr("checked", "checked");
            }
-
         }else{
             field.val(text);
         }

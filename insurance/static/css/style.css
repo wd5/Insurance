@@ -2992,10 +2992,6 @@ div.messages li {
     background: url(/static/images/radio_active.png) top left no-repeat;
 }
 
-#payment-form select{
-    visibility: hidden;
-}
-
 #inner-tab3 #order-button{
     height: 31px;
     width: 81px;
