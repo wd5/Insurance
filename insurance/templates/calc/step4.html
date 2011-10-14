@@ -10,21 +10,31 @@
         $(document).ready(function() {
             $("#step4-tabs").tabs();
 
+            /*Tab active style*/
             $("li.ui-state-default a").click(function(){
                 $(this).parents("ul").removeClass("active-1").removeClass("active-2").removeClass("active-3");
                 $(this).parents("ul").addClass("active-"+$(this).attr("dataid"));
-                
             })
 
             $("#id_kpp, #id_motor, #id_payments, #id_citizenship").css("visibility", "hidden");
 
+            /*Select visual value*/
             $("#citizenship a, #is-first-owner a, #kpp a, #motor a, #time-deliviry a, #payment-form a").click(function(e){
                 e.preventDefault();
                 selectVisualValue($(this));
             })
 
+            /*Display visual value*/
             $("#id_citizenship, #id_kpp,  #id_motor, #id_payments, #id_first_owner").each(function(){
                 displaySelectValue($(this));
+            })
+
+            /*For input labels*/
+            $("#document-data input").each(function(){
+                $("#document-data label").hide();
+                    if($(this).val() == ""){
+                       $(this).val($(this).parent().find("label").text());
+                    }
             })
 
 
@@ -109,10 +119,25 @@
 
         <div id="document-data">
             <h5>Паспортные данные:</h5>
-            {{ form.passport_series }}
-            {{ form.passport_number }}
-            {{ form.issued_org }}
-            {{ form.issued_date }}
+            <span>
+                {{ form.passport_series }}
+                <label>{{ form.passport_series.label }}</label>
+            </span>
+            
+            <span>
+                 {{ form.passport_number }}
+                <label>{{ form.passport_number.label }}</label>
+            </span>
+
+            <span>
+                {{ form.issued_org }}
+                <label>{{ form.issued_org.label }}</label>
+            </span>
+
+            <span>
+                {{ form.issued_date }}
+                <label>{{ form.issued_date.label }}</label>
+            </span>
         </div>
 
        <div id="document-address">
