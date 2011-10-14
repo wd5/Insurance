@@ -16,8 +16,12 @@
                 
             })
 
-            $("#id_kpp, #id_motor").css("visibility", "hidden");
+           // $("#id_kpp, #id_motor").css("visibility", "hidden");
 
+            $("#citizenship a, #is-first-owner a, #kpp a, #motor a, #time-deliviry a, #payment-form a").click(function(e){
+                e.preventDefault();
+                selectVisualValue($(this));
+            })
             
            /* $("#step4-tabs form").validate({
                 messages: {
@@ -93,7 +97,7 @@
         </table>
 
         <div id="citizenship">
-            <a class="active" href="#">Гражданин РФ</a>
+            <a href="#">Гражданин РФ</a>
             <a href="#">Иностранный гражданин</a>
             {{ form.citizenship }}
         </div>
@@ -207,17 +211,17 @@
         </table>
 
         <div id="tech-auto-data2">
-            <div>
+            <div id="kpp">
                 <h5>Коробка передач:</h5>
                 <a href="#">Механическая</a>
-                <a href="#" class="active">Автомат</a>
+                <a href="#">Автомат</a>
                 {{ form.kpp }}
             </div>
 
-            <div>
+            <div id="motor">
                 <h5>Двигатель:</h5>
                 <a href="#">Бензиновый</a>
-                <a href="#" class="active">Дизельный</a>
+                <a href="#">Дизельный</a>
                 <a href="#">Гибридный</a>
                 {{ form.motor }}
             </div>

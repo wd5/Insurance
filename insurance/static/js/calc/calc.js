@@ -122,9 +122,7 @@ function get_visible_select_data_model(selectId) {
             result += "</div>";
             i = 1;
         }
-
     })
-
     $("#" + selectId).parents("td").find("div").html("").append(result);
 }
 
@@ -463,7 +461,31 @@ function scrollToItem(list_item) {
     list_item.parent().css("top", -list_item.position().top);
 }
 
-/*Show tooltip on map image hover*/
-function showTooltip() {
+/*Check select value by clicking on visual element - step 4*/
+function selectVisualValue (element) {
+    var text = element.text(),
+        field = element.parent().find("select");
 
+    if(field.length != 0){
+        element.parent().find("a").removeClass("active");
+        field.find("option:contains('"+text +"')").attr("selected", "selected");
+        field.change();
+        element.addClass("active");
+    }else{
+        element.parent().find("a").removeClass("active");
+        field = element.parent().find("input");
+
+        if(field.is(':checkbox')){
+           if(field.attr("checked")){
+                field.removeAttr("checked");
+           }else{
+               field.attr("checked", "checked");
+           }
+
+        }else{
+            field.val(text);
+        }
+        element.addClass("active");
+    }
+    
 }
