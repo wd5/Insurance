@@ -36,16 +36,33 @@
                     if($(this).val() == ""){
                        $(this).val($(this).parent().find("label").text());
                     }
+
+                $(this).click(function(){
+                    $(this).removeClass("inactive");
+                })
+
+                 $(this).blur(function(){
+                    if($(this).val() == ""){
+                        $(this).addClass("inactive");
+                    }
+                })
+
             })
 
             /*Placeholder for inpust*/
             $("#step4-tabs input:text").click(function(){
                 var currentValue = $(this).data("currval", $(this).val());
-                $(this).val("");
+                if($(this).val() == $(this).parent().find("label").text()){
+                    $(this).val("");
+                }
+
             })
 
             $("#step4-tabs input:text").blur(function(){
-                $(this).val($(this).data("currval"));
+                var saveValue = $(this).data("currval");
+                if($(this).val() == saveValue || $(this).val() == ""){
+                    $(this).val($(this).data("currval"))
+                }
             })
 
            /* $("#step4-tabs form").validate({
