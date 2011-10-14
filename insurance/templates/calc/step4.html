@@ -30,8 +30,8 @@
             })
 
             /*For input labels*/
-            $("#document-data input").each(function(){
-                $("#document-data label").hide();
+            $("#document-data input, #document-address input, #real-address input").each(function(){
+                $("#document-data label, #document-address label, #real-address label").hide();
                     if($(this).val() == ""){
                        $(this).val($(this).parent().find("label").text());
                     }
@@ -144,19 +144,19 @@
            <h5>Адрес прописки:</h5>
            <table>
                <tr>
-                   <td>{{ form.reg_region }}</td>
-                   <td>{{ form.reg_area }}</td>
-                   <td>{{ form.reg_city }}</td>
+                   <td>{{ form.reg_region }}<label>{{ form.reg_region.label }}</label></td>
+                   <td>{{ form.reg_area }}<label>{{ form.reg_area.label }}</label></td>
+                   <td>{{ form.reg_city }}<label>{{ form.reg_city.label }}</label></td>
                </tr>
                <tr>
-                   <td>{{ form.reg_street }}</td>
+                   <td>{{ form.reg_street }}<label>{{ form.reg_street.label }}</label></td>
                    <td>
-                       {{ form.reg_index }}
-                       {{ form.reg_building }}
+                       <span>{{ form.reg_index }}<label>{{ form.reg_index.label }}</label></span>
+                       <span>{{ form.reg_building }}<label>{{ form.reg_building.label }}</label></span>
                    </td>
                    <td>
-                       {{ form.reg_housing }}
-                       {{ form.reg_flat }}
+                       <span>{{ form.reg_housing }}<label>{{ form.reg_housing.label }}</label></span>
+                       <span>{{ form.reg_flat }}<label>{{ form.reg_flat.label }}</label></span>
                    </td>
                </tr>
            </table>
@@ -166,19 +166,31 @@
            <h5>Место проживания:</h5> <a href="#" id="copy-data-link">Скопировать адрес прописки</a>
            <table>
                <tr>
-                   <td>{{ form.live_region }}</td>
-                   <td>{{ form.live_area }}</td>
-                   <td>{{ form.live_city }}</td>
+                   <td>{{ form.live_region }}<label>{{ form.live_region.label }}</label></td>
+                   <td>{{ form.live_area }}<label>{{ form.live_area.label }}</label></td>
+                   <td>{{ form.live_city }}<label>{{ form.live_city.label }}</label></td>
                </tr>
                <tr>
-                   <td>{{ form.live_street }}</td>
+                   <td>{{ form.live_street }}<label>{{ form.live_street.label }}</label></td>
                    <td>
-                       {{ form.live_index }}
-                       {{ form.live_building }}
+                       <span>
+                           {{ form.live_index }}
+                           <label>{{ form.live_index.label }}</label>
+                       </span>
+                       <span>
+                           {{ form.live_building }}
+                           <label>{{ form.live_building.label }}</label>
+                       </span>
                    </td>
                    <td>
-                       {{ form.live_housing }}
-                       {{ form.live_flat }}
+                       <span>
+                           {{ form.live_housing }}
+                           <label>{{ form.live_housing.label }}</label>
+                       </span>
+                       <span>
+                           {{ form.live_flat }}
+                           <label>{{ form.live_flat.label }}</label>
+                       </span>
                    </td>
                </tr>
            </table>

@@ -2613,10 +2613,16 @@ div.messages li {
 }
 
 #step4-tabs input{
-    width: 203px;
+    width: 195px;
     height: 20px;
     border: 1px solid #4e1b06;
+    padding-left: 8px;
 }
+
+#step4-tabs input.inactive{
+    color: #baa69e;
+}
+
 
 #step4-tabs h5{
     color: #4e1b06;
@@ -2795,7 +2801,7 @@ div.messages li {
 #real-address #id_live_building,
 #real-address #id_live_housing,
 #real-address #id_live_flat{
-    width: 72px;
+    width: 68px;
 }
 
 #real-address{
