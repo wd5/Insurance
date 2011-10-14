@@ -88,6 +88,18 @@
                     }, function() {
                         $("#tooltip").hide();
                     })
+
+                    //Check for green marker
+                    $(".style-checkbox").each(function(){
+                        if($(this).hasClass("on")){
+                            $(this).parent().prev().addClass("active");
+                        }
+                    })
+
+                    //Add green marker
+                    $(".style-checkbox").click(function(){
+                        $(this).parent().prev().toggleClass("active");
+                    })
                 }
         );
     </script>

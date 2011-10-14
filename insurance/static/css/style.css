@@ -2281,6 +2281,9 @@ div.messages li {
     width: 165px;
 }
 
+.form-round-block #sort-parameters td.even.active{
+    background: url("/static/images/select_marker.png") 13px top no-repeat;
+}
 
 #calc-tabs .form-round-block table td{
     padding-bottom: 15px;
