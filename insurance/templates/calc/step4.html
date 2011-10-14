@@ -32,6 +32,7 @@
             /*For input labels*/
             $("#document-data input, #document-address input, #real-address input").each(function(){
                 $("#document-data label, #document-address label, #real-address label").hide();
+                $(this).addClass("inactive");
                     if($(this).val() == ""){
                        $(this).val($(this).parent().find("label").text());
                     }
