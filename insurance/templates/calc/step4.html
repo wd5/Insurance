@@ -88,6 +88,15 @@
 
             })
 
+
+            /*Next link function*/
+            $("#next-link").click(function(){
+                var $tabs = $("#step4-tabs").tabs(),
+                nexttab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide").index();
+                $tabs.tabs('select', nexttab);
+                return false;
+            })
+
            /* $("#step4-tabs form").validate({
                 messages: {
                     first_name: "Please specify your name",
@@ -106,6 +115,7 @@
     <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
 
     <div id="calc-tabs">
+
     <ul>
         <li><a href="#tabs-1">КАСКО</a></li>
         <li><a href="#tabs-2">ОСАГО</a></li>
@@ -119,6 +129,7 @@
     <div class="form-round-block no-back">
 
     <div id="step4-tabs">
+        
     <ul>
         <li><a dataid="1" href="#inner-tab1">Водители</a></li>
         <li><a dataid="2" href="#inner-tab2" >Автомобиль</a></li>
@@ -439,6 +450,9 @@
     </div>
     </form>
     </div>
+    
+    <a id="next-link" href="#">Далее</a>
+
     </div>
     <div id="tabs-2">осаго</div>
     <div id="tabs-3">дмс</div>

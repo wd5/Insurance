@@ -515,3 +515,8 @@ function copyInputValues(from, to){
         $(this).val(valuesArr[e]);
     })
 }
+
+/*Function for Prev and Next buttons on step 4*/
+function nextPrevButtons(){
+    
+}
