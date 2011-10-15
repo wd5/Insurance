@@ -43,6 +43,7 @@
 
                 $(this).keypress(function(){
                     $(this).removeClass("inactive");
+                    $(this).removeClass("empty");
                 })
 
                  $(this).blur(function(){
@@ -55,6 +56,7 @@
 
             /*Placeholder for inpust*/
             $("#step4-tabs input:text").click(function(){
+                $(this).removeClass("empty");
                 var currentValue = $(this).data("currval", $(this).val());
                 if($(this).val() == $(this).parent().find("label").text()){
                     $(this).val("");
@@ -64,7 +66,7 @@
 
             $("#step4-tabs input:text").blur(function(){
                 var saveValue = $(this).data("currval");
-                if($(this).val() == saveValue || $(this).val() == ""){
+                if($(this).val() == ""){
                     $(this).val($(this).data("currval"))
                 }
             })
@@ -93,11 +95,13 @@
             $("#next-link").click(function(){
                 var $tabs = $("#step4-tabs").tabs(),
                 nexttab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide").index();
-                if(nexttab < 3){
+                checkAllINputs();
+                
+               /* if(nexttab < 3){
                     $tabs.tabs('select', nexttab);
                     $("#step4-tabs .ui-tabs-nav").removeClass("active-1").removeClass("active-2").removeClass("active-3");
                     $("#step4-tabs .ui-tabs-nav").addClass("active-" + (nexttab+1));
-                }
+                }*/
 
                 return false;
             })

@@ -516,7 +516,15 @@ function copyInputValues(from, to){
     })
 }
 
-/*Function for Prev and Next buttons on step 4*/
-function nextPrevButtons(){
-    
+/*Check input values on step 4*/
+function checkAllINputs(){
+    var currenttab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide");
+
+    currenttab.find("input:text").each(function(){
+        var placeholder = $(this).parent().find("label").text();
+        if($(this).val() == "" || $(this).val() == placeholder){
+            $(this).addClass("empty");
+        }
+    })
+
 }

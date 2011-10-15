@@ -2623,6 +2623,10 @@ div.messages li {
     color: #baa69e;
 }
 
+#step4-tabs input.empty{
+    border:  1px solid red;
+}
+
 #document-data label, #document-address label, #real-address label{
     display: none;
 }
