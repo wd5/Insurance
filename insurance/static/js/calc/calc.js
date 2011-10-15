@@ -526,6 +526,9 @@ function checkAllINputs(){
         var placeholder = $(this).parent().find("label").text();
         if($(this).val() == "" || $(this).val() == placeholder){
             $(this).addClass("empty");
+            if($(this).attr("id") == "id_time"){
+                $(this).parent().addClass("empty");
+            }
         }
     })
 

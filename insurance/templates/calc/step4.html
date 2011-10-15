@@ -129,6 +129,13 @@
                 return false;
             })
 
+            //Check when submit data
+            $("#step4-tabs form").submit(function(){
+                if(checkAllINputs() == false){
+                    return false;
+                }
+            })
+
            /* $("#step4-tabs form").validate({
                 messages: {
                     first_name: "Please specify your name",
