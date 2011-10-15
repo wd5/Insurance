@@ -89,7 +89,7 @@
             })
 
 
-            /*Next link function*/
+            /*Next link click*/
             $("#next-link").click(function(){
                 var $tabs = $("#step4-tabs").tabs(),
                 nexttab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide").index();
@@ -99,6 +99,18 @@
                     $("#step4-tabs .ui-tabs-nav").addClass("active-" + (nexttab+1));
                 }
 
+                return false;
+            })
+
+            /*Prev link click*/
+            $("#prev-link").click(function(){
+                var $tabs = $("#step4-tabs").tabs(),
+                prevtab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide").index()-2;
+                if(prevtab >= 0 ){
+                    $tabs.tabs('select', prevtab);
+                    $("#step4-tabs .ui-tabs-nav").removeClass("active-1").removeClass("active-2").removeClass("active-3");
+                    $("#step4-tabs .ui-tabs-nav").addClass("active-" + (prevtab+1));
+                }
                 return false;
             })
 
@@ -455,7 +467,8 @@
     </div>
     </form>
     </div>
-    
+
+    <a id="prev-link" href="#">Назад</a>
     <a id="next-link" href="#">Далее</a>
 
     </div>
