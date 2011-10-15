@@ -93,7 +93,12 @@
             $("#next-link").click(function(){
                 var $tabs = $("#step4-tabs").tabs(),
                 nexttab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide").index();
-                $tabs.tabs('select', nexttab);
+                if(nexttab < 3){
+                    $tabs.tabs('select', nexttab);
+                    $("#step4-tabs .ui-tabs-nav").removeClass("active-1").removeClass("active-2").removeClass("active-3");
+                    $("#step4-tabs .ui-tabs-nav").addClass("active-" + (nexttab+1));
+                }
+
                 return false;
             })
 
