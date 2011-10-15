@@ -513,12 +513,14 @@ function copyInputValues(from, to){
 
     to.each(function(e){
         $(this).val(valuesArr[e]);
+        $(this).removeClass("empty");
     })
 }
 
 /*Check input values on step 4*/
 function checkAllINputs(){
-    var currenttab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide");
+    var currenttab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide"),
+        result = false;
 
     currenttab.find("input:text").each(function(){
         var placeholder = $(this).parent().find("label").text();
@@ -527,4 +529,17 @@ function checkAllINputs(){
         }
     })
 
+    currenttab.find("select").each(function(){
+        if($(this).val() == ""){
+            $(this).parent().addClass("empty");
+        }
+    })
+
+    if(currenttab.find(".empty").length > 0 ){
+        result = false;
+    }else{
+        result = true;
+    }
+
+    return result;
 }

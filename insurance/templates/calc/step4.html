@@ -18,14 +18,28 @@
 
             $("#id_kpp, #id_motor, #id_payments, #id_citizenship, #id_category, #id_sex").css("visibility", "hidden");
 
+            /*Remove empty class when user click or input values */
+            $("#step4-tabs input").click(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step4-tabs input").keypress(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step4-tabs select").change(function(){
+                $(this).parent().removeClass("empty");
+            })
+
             /*Select visual value*/
-            $("#citizenship a, #is-first-owner a, #kpp a, #motor a, #time-deliviry a, #payment-form a, #category-drive a, .sex-1 a, #sex-owner a").click(function(e){
+            $("#citizenship a, #is-first-owner a, #kpp a, #motor a, #time-deliviry a, #payment-form a, #category-drive a, #sex-1 a, #sex-owner a").click(function(e){
                 e.preventDefault();
+                $(this).parent().removeClass("empty");
                 selectVisualValue($(this));
             })
 
             /*Display visual value*/
-            $("#id_citizenship, #id_kpp,  #id_motor, #id_payments, #id_first_owner, #id_category, #id_sex, #id_owner_sex").each(function(){
+            $("#id_citizenship, #id_kpp,  #id_motor, #id_payments, #id_first_owner, #id_category, #id_sex, #id_owner_sex, #sex-1").each(function(){
                 displaySelectValue($(this));
             })
 
@@ -95,14 +109,11 @@
             $("#next-link").click(function(){
                 var $tabs = $("#step4-tabs").tabs(),
                 nexttab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide").index();
-                checkAllINputs();
-                
-               /* if(nexttab < 3){
+                if(checkAllINputs() == true && nexttab < 3){
                     $tabs.tabs('select', nexttab);
                     $("#step4-tabs .ui-tabs-nav").removeClass("active-1").removeClass("active-2").removeClass("active-3");
                     $("#step4-tabs .ui-tabs-nav").addClass("active-" + (nexttab+1));
-                }*/
-
+                }
                 return false;
             })
 
@@ -186,11 +197,13 @@
                         {{ form.category }}
                     </div>
                 </td>
-                <td class="sex-1">
-                    <span id="sex-label">Пол:</span>
-                    <a value="ж" id="woman-sex" href="#"></a>
-                    <a value="м" id="man-sex" href="#"></a>
-                    {{ form.sex }}
+                <td>
+                    <div id="sex-1">
+                         <span id="sex-label">Пол:</span>
+                        <a value="ж" id="woman-sex" href="#"></a>
+                        <a value="м" id="man-sex" href="#"></a>
+                        {{ form.sex }}
+                    </div>
                 </td>
             </tr>
         </table>
