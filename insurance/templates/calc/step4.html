@@ -8,12 +8,21 @@
 
     <script>
         $(document).ready(function() {
-            $("#step4-tabs").tabs();
+            $("#step4-tabs").tabs({
+                select: function(){
+                    if(checkAllINputs() == false){
+                         return false;
+                    }
+                }
+            });
 
             /*Tab active style*/
             $("li.ui-state-default a").click(function(){
-                $(this).parents("ul").removeClass("active-1").removeClass("active-2").removeClass("active-3");
+                if($(this).parent().hasClass("ui-state-active")){
+                    $(this).parents("ul").removeClass("active-1").removeClass("active-2").removeClass("active-3");
                 $(this).parents("ul").addClass("active-"+$(this).attr("dataid"));
+                }
+
             })
 
             $("#id_kpp, #id_motor, #id_payments, #id_citizenship, #id_category, #id_sex").css("visibility", "hidden");
