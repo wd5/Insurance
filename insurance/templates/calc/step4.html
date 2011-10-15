@@ -16,16 +16,16 @@
                 $(this).parents("ul").addClass("active-"+$(this).attr("dataid"));
             })
 
-            $("#id_kpp, #id_motor, #id_payments, #id_citizenship").css("visibility", "hidden");
+            $("#id_kpp, #id_motor, #id_payments, #id_citizenship, #id_category, #id_sex").css("visibility", "hidden");
 
             /*Select visual value*/
-            $("#citizenship a, #is-first-owner a, #kpp a, #motor a, #time-deliviry a, #payment-form a").click(function(e){
+            $("#citizenship a, #is-first-owner a, #kpp a, #motor a, #time-deliviry a, #payment-form a, #category-drive a, .sex-1 a, #sex-owner a").click(function(e){
                 e.preventDefault();
                 selectVisualValue($(this));
             })
 
             /*Display visual value*/
-            $("#id_citizenship, #id_kpp,  #id_motor, #id_payments, #id_first_owner").each(function(){
+            $("#id_citizenship, #id_kpp,  #id_motor, #id_payments, #id_first_owner, #id_category, #id_sex, #id_owner_sex").each(function(){
                 displaySelectValue($(this));
             })
 
@@ -145,18 +145,20 @@
                     <h5>Дата рождения:</h5>
                     {{ form.birth_date }}
                 </td>
-                <td class="category-drive">
-                    <!--span>Категория прав:</span>
-                    <a href="#" class="active">B</a>
-                    <a href="#">C</a>
-                    <a href="#">D</a>
-                    {{ form.category }}-->
-                </td>
                 <td>
-                    <!--span id="sex-label">Пол:</span>
-                    <a id="woman-sex" class="active" href="#"></a>
-                    <a id="man-sex" href="#"></a>
-                    {{ form.sex }}-->
+                    <div id="category-drive">
+                        <span>Категория прав:</span>
+                        <a value="1" href="#">B</a>
+                        <a value="2" href="#">C</a>
+                        <a value="3" href="#">D</a>
+                        {{ form.category }}
+                    </div>
+                </td>
+                <td class="sex-1">
+                    <span id="sex-label">Пол:</span>
+                    <a value="ж" id="woman-sex" href="#"></a>
+                    <a value="м" id="man-sex" href="#"></a>
+                    {{ form.sex }}
                 </td>
             </tr>
         </table>
@@ -337,10 +339,10 @@
                     </td>
                     <td colspan="2">
                         <div id="sex-owner">
-                            <!--h5>Пол:</h5>
-                            <a id="woman-sex2" class="active" href="#"></a>
-                            <a id="man-sex2" href="#"></a>
-                            {{ form.owner_sex }}-->
+                            <h5>Пол:</h5>
+                            <a value="ж" id="woman-sex2" href="#"></a>
+                            <a value="м" id="man-sex2" href="#"></a>
+                            {{ form.owner_sex }}
                         </div>
 
                         <div id="is-first-owner">

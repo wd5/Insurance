@@ -2700,7 +2700,7 @@ div.messages li {
     padding: 0 15px 10px 0;
 }
 
-#person-info-table .category-drive a{
+#person-info-table #category-drive a{
     text-transform: uppercase;
     color: #46342c;
     text-decoration: none;
@@ -2708,7 +2708,7 @@ div.messages li {
     font-weight: bolder;
 }
 
-#person-info-table .category-drive a.active{
+#person-info-table #category-drive a.active{
     font-size: 25px;
 }
 
