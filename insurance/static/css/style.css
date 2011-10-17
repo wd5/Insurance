@@ -211,7 +211,7 @@ a:hover {
 #head-buttons #account-link {
     position: absolute;
     right: 0px;
-    background: url(/static/images/account_button.png) top left no-repeat;
+    /*background: url(/static/images/account_button.png) top left no-repeat;*/
     width: 115px;
     height: 47px;
     color: #4f1b06;
@@ -219,11 +219,29 @@ a:hover {
     text-align: center;
 }
 
+#head-buttons #account-link span#login {
+    font-size: 14px;
+    font-weight: bolder;
+    text-decoration: underline;
+    text-align: left;
+    display: block;
+    padding: 15px 0 0 20px;
+    width: 118px;
+    height: 47px;
+    background: url(/static/images/account_button_login.png) top left no-repeat;
+
+}
+
+
 #head-buttons #account-link span {
     font-size: 8px;
     display: block;
     padding-top: 15px;
+    width: 115px;
+    height: 47px;
+    background: url(/static/images/account_button.png) top left no-repeat;
 }
+
 
 /*---------------------
 	content
