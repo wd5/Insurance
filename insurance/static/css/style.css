@@ -2478,7 +2478,6 @@ div.messages li {
 #result-table-step2 .company-data{
     position: relative;
     width: 163px;
-    height: 113px;
 }
 
 #result-table-step2 .company-data img{
@@ -2492,7 +2491,9 @@ div.messages li {
     display: block;
     right: 10px;
     bottom: 0;
-    position: absolute;
+    position: relative;
+    text-align: right;
+    margin-top: 10px;
     color: #501c07;
     font-weight: bolder;
 }
@@ -2502,7 +2503,7 @@ div.messages li {
     display: none;
     position: absolute;
     bottom: 10px;
-    left: -5px;
+    left: 105px;
 }
 
 #result-table-step2 .tooltip span{
@@ -3606,11 +3607,11 @@ div.messages li {
 }
 
 :first-child + html #result-table-step2 .conditions .tooltip{
-    left: -25px;
+    left: 105px;
 }
 
 :first-child + html #result-table-step2 .tooltip img{
-    margin: -2px 0 0 -210px;
+    text-align: left;
 }
 
 
