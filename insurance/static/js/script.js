@@ -80,7 +80,7 @@ $(document).ready(function(){
 		// Setting the function to be run again in 40 seconds (equals to 25 frames per second):
 		setTimeout(function(){rotate(step,total)},40);
 	}
-	
+
 	// Running the animation once at load time (and moving the iPhone into view):
 	rotate(10,360/cnt);
 
@@ -88,13 +88,8 @@ $(document).ready(function(){
 		// 360/cnt lets us distribute the phones evenly in a circle
 	    rotate(-10,360/cnt);
 	});
-	
+
 	$('#phoneCarousel .next').click(function(){
 	    rotate(10,360/cnt);
     });
-
-    $("#stage a").click(function(){
-        console.log("1223");
-    })
-
 });

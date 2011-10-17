@@ -16,9 +16,9 @@
             <div class="next arrow"><img src="{{ STATIC_URL }}images/px.gif" alt=""/></div>
 
             <div id="stage">
-                <a href="#tabs_crug_1"><img class="default" src="{{ STATIC_URL }}images/scroll/scroll_img_1.png" width="226" height="262"/></a>
-                <a href="#tabs_crug_2"><img src="{{ STATIC_URL }}images/scroll/scroll_img_2.png" width="226" height="262"/></a>
-                <a href="#tabs_crug_3"><img src="{{ STATIC_URL }}images/scroll/scroll_img_3.png" width="226" height="262"/></a>
+                <a href="#tabs_crug_1" id="cabinet" rel="#pop_up_2"><img class="default" src="{{ STATIC_URL }}images/scroll/scroll_img_1.png" width="226" height="262"/></a>
+                <a href="#tabs_crug_2" link="{% url ncalc_step1 %}"><img src="{{ STATIC_URL }}images/scroll/scroll_img_2.png" width="226" height="262"/></a>
+                <a href="#tabs_crug_3" link="#"><img src="{{ STATIC_URL }}images/scroll/scroll_img_3.png" width="226" height="262"/></a>
             </div>
         </div>
 
@@ -93,14 +93,12 @@
             var tabContainers = $('div.content_home > .tabs'); // получаем массив контейнеров
             tabContainers.hide().filter(':first').show(); // прячем все, кроме первого
             // далее обрабатывается клик по вкладке
-            $('div#stage a').click(
-                    function () {
-                        tabContainers.hide(); // прячем все табы
-                        tabContainers.filter(this.hash).show(); // показываем содержимое текущего
-                        $('div#stage a').removeClass('selected'); // у всех убираем класс 'selected'
-                        $(this).addClass('selected'); // текушей вкладке добавляем класс 'selected'
-                        return false;
-                    }).filter(':first').click();
+            $('div#stage a').not("#cabinet").click(
+                    function (e) {
+                        e.preventDefault();
+                        window.location = $(this).attr("link");
+                           return false;
+                    });
         });
     </script>
 
