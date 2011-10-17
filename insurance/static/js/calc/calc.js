@@ -299,15 +299,15 @@ function franchiseSlider(selectId) {
         step = "";
 
     sliderVal.find("option").each(function() {
-        values.push($(this).text());
+        values.push($(this).val());
     });
 
-    min = values[0];
-    max = values[(values.length - 1)];
-    step = values[1] - values[0];
-
+    min = parseInt(values[0]);
+    max = parseInt(values[(values.length - 1)]);
+    step = parseInt(values[1] - values[0]);
+    
     selectId.slider({
-        value: sliderVal,
+        value: sliderVal.val(),
         min: min,
         max: max,
         step: step,
