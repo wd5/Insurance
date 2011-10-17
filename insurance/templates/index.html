@@ -50,9 +50,24 @@
         </div>
 
         <div id="carosel-links">
-            <a href="#" rel="#pop_up_2" name="#tabs_crug_1" id="login-url">вход в кабинет</a>
-            <a href="#" name="#tabs_crug_3" id="office-url">офис пользователя</a>
-            <a href="{% url ncalc_step1 %}" name="#tabs_crug_2" id="calc-url">Перейти к расчетам</a>
+            <div name="#tabs_crug_1">
+                <p>
+                    Подробная информация о купленных вами полисах в личном кабинете. Сравнительный анализ ваших полисов.
+                </p>
+                <a href="#" rel="#pop_up_2" id="login-url">вход в кабинет</a>
+            </div>
+
+            <div name="#tabs_crug_3">
+                <p>Получите книжку-помощник, где будут находится все ваши полисы, полезная информация для общения со страховой компанией.</p>
+                <a href="#" id="office-url">офис пользователя</a>
+            </div>
+
+            <div name="#tabs_crug_2">
+                <p>
+                    Посмотри таблицу сравнения цены и условий полисов. Цена всегда дешевле - <strong>мы не берем комиссии!</strong>
+                </p>
+                <a href="{% url ncalc_step1 %}" id="calc-url">Перейти к расчетам</a>
+            </div>
         </div>
 
     </div>
