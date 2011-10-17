@@ -66,8 +66,10 @@ $(document).ready(function(){
 
         var href = images.eq(currentBubble).parent().attr('href');
         $("#carosel-links div").hide();
+        $("#carosel-text div").hide();
         $("#tabsCarosel > .tabs").not(href).hide();
         $("#carosel-links div[name="+ href +"]").show().find("a").show();
+        $("#carosel-text div[name="+ href +"]").show();
 
         $(href).show();
 

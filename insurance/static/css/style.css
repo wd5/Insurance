@@ -925,7 +925,7 @@ input.style_input5 {
 }
 
 .content_home {
-    height: 516px;
+    height: 616px;
     top: 20px;
     position: relative;
     overflow: hidden;
@@ -942,7 +942,7 @@ input.style_input5 {
 .benefits {
     overflow: hidden;
     width: 420px;
-    height: 228px;
+    height: 328px;
     position: absolute;
     top: 320px;
     left: 60px;
@@ -1000,6 +1000,17 @@ input.style_input5 {
 
 #carosel-links div{
    text-align: center;
+}
+
+#carosel-text{
+    
+}
+
+#carosel-text div{
+    display: none;
+    margin: 15px 0;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 
