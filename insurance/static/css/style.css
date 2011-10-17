@@ -1683,13 +1683,13 @@ h4.ui-accordion-header {
     left: 40px;
     position: absolute;
     top: 41px;
-    width: 222px;
+    width: 137px;
     z-index: 500;
 }
 
 #phoneCarousel .arrow img {
     height: 190px;
-    width: 222px;
+    width: 137px;
 }
 
 /*#stage a	{z-index:10; position:relative;}*/
@@ -1697,12 +1697,19 @@ h4.ui-accordion-header {
 
 #phoneCarousel .next {
     height: 190px;
-    left: 295px;
+    left: 357px;
     top: 41px;
-    width: 222px;
+    width: 137px;
     z-index: 500;
     position: absolute;
     display: block;
+}
+
+#stage a{
+    display: block;
+    width: 226px;
+    height: 100px;
+    margin: 0 auto;
 }
 
 /*#phoneCarousel .next img	{height: 105px; width: 104px;}*/
