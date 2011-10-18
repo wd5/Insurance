@@ -237,7 +237,7 @@ def step4(request):
     initial_data['middle_name'] = persona.middle_name
 
     form = Step4Form(initial=initial_data)
-    return direct_to_template(request, 'calc/step4.html', {"form": form})
+    return direct_to_template(request, 'calc/kasko/step4.html', {"form": form})
 
 # ========== Auxilary ==========
 
