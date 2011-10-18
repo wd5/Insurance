@@ -20,9 +20,9 @@ urlpatterns += patterns('newcalc.calcs.kasko',
     url(r'^kasko/step4/$', "step4", name='ncalc_step4_kasko'),
 )
 
-#urlpatterns += patterns('newcalc.calcs.osago',
-#    url(r'^osago/$', "step1", name='ncalc_step1_osago'),
-#    url(r'^osago/step2/$', "step2", name='ncalc_step2_osago'),
-#    url(r'^osago/step3/(\w+)/$', "step3", name='ncalc_step3_osago'),
-#    url(r'^osago/step4/$', "step4", name='ncalc_step4_osago'),
-#)
+urlpatterns += patterns('newcalc.calcs.osago',
+    url(r'^osago/$', "step1", name='ncalc_step1_osago'),
+    url(r'^osago/step2/$', "step2", name='ncalc_step2_osago'),
+    url(r'^osago/step3/(\w+)/$', "step3", name='ncalc_step3_osago'),
+    url(r'^osago/step4/$', "step4", name='ncalc_step4_osago'),
+)

@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+{% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+
+    <script type="text/javascript">
+        $(function() {
+
+                    //Transform standart from elements
+                    $(".long-select").each(function(e) {
+                        $(this).attr("id", "long-" + (e + 1));
+                        transform_select($(this));
+                    })
+
+                    $("#sort-parameters td:even").addClass("even");
+                    $("td:empty").html("&nbsp;");
+
+                    if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2")  //hardcoded no burglar alarm id.
+                    {
+                        $("#id_burglar_alarm_model").html('');
+                        $("#id_burglar_alarm_model").attr("disabled", true);
+                    }
+
+                    $("#id_burglar_alarm_group").change(function() {
+                        $("#id_burglar_alarm_model").html('');
+                        $("#id_burglar_alarm_model").parent().find(".select-text").html("");
+
+
+                        if ($("#id_burglar_alarm_group").val() == "" || $("#id_burglar_alarm_group").val() == "2") {
+                            $("#id_burglar_alarm_model").attr("disabled", true);
+                            $("#id_burglar_alarm_model").parent().hide();
+                        }
+                        else {
+                            $.ajax(
+                                    {
+                                        url:"{% url get_ba_models %}",
+                                        data:{group:$("#id_burglar_alarm_group").val() },
+                                        dataType:"json",
+                                        success:function(data) {
+                                            var options = '';
+                                            options += '<option value="">' + '--------' + '</option>';
+                                            $.each(data, function(index, value) {
+                                                options += '<option value="' + index + '">' + value + '</option>';
+                                            });
+                                            $("#id_burglar_alarm_model").parent().show();
+                                            $("#id_burglar_alarm_model").html(options);
+                                            fillAjaxSelect("id_burglar_alarm_model");
+                                            $("#id_burglar_alarm_model").removeAttr("disabled");
+
+                                        }
+                                    }
+                            );
+                        }
+                    });
+
+                    //Setup franchize slider
+                    franchiseSlider($("#franchize"));
+
+                    //click on sort checkbox
+                    $("#second-submit").click(function(e) {
+                        e.preventDefault();
+                        $("#sorting").submit();
+                    })
+
+                    //tooltip in table
+                    $(".conditions").hover(function() {
+                        $(this).find(".tooltip").fadeIn();
+                    }, function() {
+                        $(this).find(".tooltip").fadeOut();
+                    })
+
+                    //Prevent Default on table conditions href
+                    $(".conditions, #map-table area").click(function(e) {
+                        e.preventDefault();
+                    })
+
+
+                    //Hover on table cells
+                    $("#map-table area").hover(function(e) {
+                        var top = e.pageY,
+                                left = e.pageX,
+                                toolHeight = $("#tooltip").innerHeight();
+                        $("#tooltip span").html($(this).attr("alt"));
+                        $("#tooltip").css({"top": top - toolHeight, "left" : left - 15});
+                        $("#tooltip").show();
+                    }, function() {
+                        $("#tooltip").hide();
+                    })
+
+                    //Check for green marker
+                    $(".style-checkbox").each(function() {
+                        if ($(this).hasClass("on")) {
+                            $(this).parent().prev().addClass("active");
+                        }
+                    })
+
+                    //Add green marker
+                    $(".style-checkbox").click(function() {
+                        $(this).parent().prev().toggleClass("active");
+                    })
+                }
+        );
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div id="tooltip">
+        <span></span>
+        <img src="/static/images/tooltip_angle.png" alt=""/>
+    </div>
+
+    <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
+
+    <div id="calc-tabs">
+        <ul>
+            <li><a href="#tabs-1">КАСКО</a></li>
+            <li><a href="#tabs-2">ОСАГО</a></li>
+            <li><a href="#tabs-3">ДМС</a></li>
+            <li><a href="#tabs-5">HC</a></li>
+            <li><a href="#tabs-6">ВЗР</a></li>
+            <li><a href="#tabs-7">ИФЛ</a></li>
+        </ul>
+
+        <div id="tabs-1">
+            <div class="form-round-block">
+                <h2>Сортировать по:</h2>
+
+                {% if msg %}
+                    <b>Ошибка: {{ msg }}</b>
+                {% else %}
+
+                    <div id="sort-table">
+                        <form action="" method="post" id="sorting">
+                            {% csrf_token %}
+
+                            <table id="sort-parameters">
+                                <tr>
+                                    <td>Цена</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_price }}</div>
+                                    </td>
+                                    <td>Расположение</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_accessibility }}</div>
+                                    </td>
+                                    <td>Быстрота покупки</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_service }}</div>
+                                    </td>
+                                    <td rowspan="2">Качество информационной
+                                        поддержки
+                                    </td>
+                                    <td rowspan="2">
+                                        <div class="style-checkbox">{{ s1_form.factor_qualitysupport }}</div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Условия страхования</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_insuranceterms }}</div>
+                                    </td>
+                                    <td>Популярность компании</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_reputation }}</div>
+                                    </td>
+                                    <td>Простота выплаты</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_easepay }}</div>
+                                    </td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                            <a id="second-submit" href="#"><img src="/static/images/recount_button.png"
+                                                                alt="пересчитать"/></a>
+                    </div>
+                    </div>
+
+                    <div class="form-round-block" id="economy-block">
+                        <h2>Экономия</h2>
+
+                        <p>Стандартная франшиза</p>
+
+
+                        <div id="franchize-container">
+                            <span id="min"></span>
+                            <span id="max"></span>
+
+                            <div id="franchize">
+                                {{ s1_form.franchise }}
+                            </div>
+                        </div>
+
+
+                        <p>Охранная система автомобиля</p>
+
+                        <div class="long-select">
+                            <span class="select-text"></span>
+                            {{ s1_form.burglar_alarm_group }}
+                        </div>
+
+                        <div class="long-select">
+                            <span class="select-text"></span>
+                            {{ s1_form.burglar_alarm_model }}
+                        </div>
+
+
+                        <p><input type="image" src="/static/images/update_button.png" value="Обновить"/></p>
+                    </div>
+                    </form>
+
+                    <div id="result-table-step2">
+                        <!-- Beginning of Client Side Image Map -->
+                        <img id="map-image" src="/static/images/result_table_header.png" usemap="#result_table_header"
+                             border=0>
+
+                        <map id="map-table" name="result_table_header">
+                            <area shape="poly"
+                                  coords="202,164,201,161,203,154,214,141,240,113,267,83,296,50,320,20,330,9,330,5,329,3,329,2,385,2,385,5,385,9,383,13,351,50,306,102,260,155,258,160,258,162,259,164,259,166,203,166,202,164,202,159"
+                                  href="#" alt="{{ header.Evacuator.comment }}" title="">
+                            <area shape="poly"
+                                  coords="320,166,316,163,317,158,321,153,336,135,357,113,381,85,407,54,427,30,442,13,445,7,443,1,387,1,388,4,386,12,369,28,333,73,300,111,276,138,259,156,259,161,261,165,319,165"
+                                  href="#" alt="{{ header.TheEmergencyCommissioner.comment }}" title="">
+                            <area shape="poly"
+                                  coords="321,165,318,162,319,156,434,24,446,10,447,4,443,1,501,1,502,4,500,9,498,11,501,4,502,8,498,14,374,158,374,161,375,165,376,166,319,166"
+                                  href="#" alt="{{ header.PaymentWithoutInquiries.comment }}" title="">
+                            <area shape="poly"
+                                  coords="431,162,433,157,554,17,560,11,561,7,560,4,560,1,504,2,504,4,504,6,503,11,378,155,376,158,376,162,376,165,434,165"
+                                  href="#" alt="{{ header.GatheringOfInquiries.comment }}" title="">
+                            <area shape="poly"
+                                  coords="493,164,491,160,492,154,505,143,552,86,588,45,614,14,617,9,617,4,617,1,562,2,562,6,558,11,443,148,434,157,433,162,433,165,491,165"
+                                  href="#" alt="{{ header.TheTechnicalHelp.comment }}" title="">
+                        </map>
+                        <!-- End of Client Side Image Map -->
+
+                        <div id="autodata-step1">
+                            Вы страхуете:
+                            <span>{{ data.mark }} {{ data.model }}</span>
+                            {{ data.model_year }} года, {{ data.price }} руб.
+                        </div>
+
+                        <table border="1">
+                            {% for comp in result.info %}
+                                <tr>
+                                    <td>
+                                        {{ forloop.counter }}
+                                    </td>
+                                    <td>
+                                        <div class="company-data">
+                                            <img src="/static/images/company_logo/{{ comp.alias|add:".png" }}"
+                                                 alt="{{ comp.full_name }}"/>
+                                            <img src="/static/images/stars_temp.png" alt="" />
+                                            {% if comp.company_comment %}
+                                                <a class="conditions" href="#">
+                                                    Условия
+                                                    <div class="tooltip">
+                                                        <span>{{ comp.company_comment }}</span>
+                                                        <img src="/static/images/tooltip_angle.png" alt=""/>
+                                                    </div>
+                                                </a>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td class="small">
+                                        {% if comp.parameters.Evacuator %}
+                                            <img src="/static/images/check_mark.png" alt="да"/>
+                                        {% endif %}
+                                    </td>
+                                    <td class="small">
+                                        {% if comp.parameters.TheEmergencyCommissioner %}
+                                            <img src="/static/images/check_mark.png" alt="да"/>
+                                        {% endif %}
+                                    </td>
+
+                                    <td class="small">
+                                        {% if comp.parameters.PaymentWithoutInquiries %}
+                                            <img src="/static/images/check_mark.png" alt="да"/>
+                                        {% endif %}
+                                    </td>
+                                    <td class="small">
+                                        {% if comp.parameters.GatheringOfInquiries %}
+                                            <img src="/static/images/check_mark.png" alt="да"/>
+                                        {% endif %}
+                                    </td>
+                                    <td class="small">
+                                        {% if comp.parameters.TheTechnicalHelp %}
+                                            <img src="/static/images/check_mark.png" alt="да"/>
+                                        {% endif %}
+                                    </td>
+
+                                    <td class="final-price">
+                                        <div class="ourscore">{{ comp.ourscore }}</div>
+                                        <div class="score">{{ comp.score }}</div>
+                                        <a class="order-button"
+                                           href="{% url ncalc_step3_kasko comp.alias %}"></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+
+
+                {% endif %}
+
+            <a class="back-button" href="{% url ncalc_step1_kasko %}"><img src="/static/images/back_button.png"
+            alt="назад"/></a><br/>
+        </div>
+
+
+        <div id="tabs-2">осаго</div>
+        <div id="tabs-3">дмс</div>
+        <div id="tabs-5">нс</div>
+        <div id="tabs-6">взр</div>
+        <div id="tabs-7">ифл</div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
+
+    <div id="calc-tabs">
+        <ul>
+            <li><a href="#tabs-1">КАСКО</a></li>
+            <li><a href="#tabs-2">ОСАГО</a></li>
+            <li><a href="#tabs-3">ДМС</a></li>
+            <li><a href="#tabs-5">HC</a></li>
+            <li><a href="#tabs-6">ВЗР</a></li>
+            <li><a href="#tabs-7">ИФЛ</a></li>
+        </ul>
+
+        <div id="tabs-1">
+            <div class="form-round-block clear-float">
+                <form action="" method="post">
+
+                    <table id="step3-data" class="left-float">
+                        <tr>
+                            <td>Тип полиса</td>
+                            <td>{{ data.insurance_type }}</td>
+                        </tr>
+                        <tr>
+                            <td>Марка автомобиля</td>
+                            <td>{{ data.mark }}</td>
+                        </tr>
+                        <tr>
+                            <td>Модель автомобиля</td>
+                            <td>{{ data.model }}</td>
+                        </tr>
+                        <tr>
+                            <td>Год выпуска</td>
+                            <td>{{ data.model_year }}</td>
+                        </tr>
+                        <tr>
+                            <td>Руль</td>
+                            <td>{{ data.wheel }}</td>
+                        </tr>
+                        <tr>
+                            <td>Мощность</td>
+                            <td>{{ data.power }}</td>
+                        </tr>
+                        <tr>
+                            <td>Стоимость</td>
+                            <td>{{ data.price }}</td>
+                        </tr>
+                        <tr>
+                            <td>Кредит</td>
+                            <td>{{ data.credit }}</td>
+                        </tr>
+                        <tr>
+                            <td>Регистрация собственника</td>
+                            <td>{{ data.city }}</td>
+                        </tr>
+                        <tr>
+                            <td>Возраст</td>
+                            <td>{{ data.age }}</td>
+                        </tr>
+                        <tr>
+                            <td>Стаж вождения</td>
+                            <td>{{ data.experience_driving }}</td>
+                        </tr>
+                        <tr>
+                            <td>Число водителей</td>
+                            <td>{{ data.dr_nr }}</td>
+                        </tr>
+                        <tr>
+                            <td>Страховщик</td>
+                            <td>{{ data.company }}</td>
+                        </tr>
+                    </table>
+
+                    {% csrf_token %}
+                    <div id="user-login-data">
+                        <div class="data-block">
+                            <span>Фамилия:</span>
+                            {{ form.last_name }}
+                            {{ form.last_name.errors }}
+                        </div>
+                        <div class="data-block">
+                            <span>Имя:</span>
+                            {{ form.first_name }}
+                            {{ form.first_name.errors }}
+                        </div>
+                        <div class="data-block">
+                            <span>Отчество:</span>
+                            {{ form.middle_name }}
+                            {{ form.middle_name.errors }}
+                        </div>
+                        <div class="data-block">
+                            <span>Телефон:</span>
+                            {{ form.phone }}
+                            {{ form.phone.errors }}
+                        </div>
+                        <div class="data-block">
+                            <span>Адрес эл-почты:</span>
+                            {{ form.email }}
+                            {{ form.email.errors }}
+                        </div>
+                        <div class="data-block">
+                            <span>Пароль:</span>
+                            {{ form.password1 }}
+                            {{ form.password1.errors }}
+                        </div>
+                        <div class="data-block">
+                            <span>Пароль еще раз:</span>
+                            {{ form.password2 }}
+                            {{ form.password2.errors }}
+                        </div>
+                    </div>
+
+                    <div id="step3-captcha">
+                        <span>Введите символы:</span>
+                        {{ form.captcha }}
+                        {{ form.captcha.errors }}
+
+                        <input type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div id="tabs-2">осаго</div>
+        <div id="tabs-3">дмс</div>
+        <div id="tabs-5">нс</div>
+        <div id="tabs-6">взр</div>
+        <div id="tabs-7">ифл</div>
+    </div>
+{% endblock %}

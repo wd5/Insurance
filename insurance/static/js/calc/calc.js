@@ -1,7 +1,16 @@
 $(function() {
     //Tabs
-    $("#calc-tabs").tabs();
-
+    $("#calc-tabs").tabs({
+    select: function(event, ui) {
+        return false;
+        var url = $.data(ui.tab, 'load.tabs');
+        if( url ) {
+            location.href = url;
+            return false;
+        }
+        return true;
+    }
+    });
     $(".style-checkbox input").each(function() {
         if ($(this).attr("checked") == true) {
             $(this).parent().addClass("on");
@@ -260,33 +269,45 @@ function fillAjaxSelect(selectId) {
 }
 
 /*Price Slider on calc step 1*/
-function priceSlider(containerId) {
+function priceSlider(containerId, element, min_value, max_value) {
     $("#current").live("change", function() {
         $("#id_price").val($(this).val());
     })
 
+    if (min_value == undefined) {
+        var min_value = 0;
+    }
+
+    if (max_value == undefined) {
+        var max_value = 10000000;
+    }
+
+    if (element == undefined) {
+        var element = "#id_price";
+    }
+
     containerId.slider({
-        value:  $("#id_price").val(),
-        min: 0,
-        max: 10000000,
+        value:  $(element).val(),
+        min: min_value,
+        max: max_value,
         step: 10,
 
         animate: true,
 
         create: function() {
-            $("#id_price").css("visibility", "hidden");
+            $(element).css("visibility", "hidden");
             containerId.find("a.ui-slider-handle").append("<input type='text' value='0' id='current' />");
-            containerId.find("#current").val($("#id_price").val());
+            containerId.find("#current").val($(element).val());
         },
 
         slide: function(event, ui) {
             $("#current").val(ui.value);
-            $("#id_price").val(ui.value);
+            $(element).val(ui.value);
         }
     });
 
-    containerId.parent().find("#min").html(0);
-    containerId.parent().find("#max").html(10000000);
+    containerId.parent().find("#min").html(min_value);
+    containerId.parent().find("#max").html(max_value);
 }
 
 
