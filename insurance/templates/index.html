@@ -3,7 +3,7 @@
 {% block extra_head %}
     <script type="text/javascript">
         $(document).ready(function(){
-            
+
         })
     </script>
 {% endblock %}
@@ -17,7 +17,7 @@
 
             <div id="stage">
                 <a href="#tabs_crug_1" id="cabinet" rel="#pop_up_2"><img class="default" src="{{ STATIC_URL }}images/scroll/scroll_img_1.png" width="226" height="262"/></a>
-                <a href="#tabs_crug_2" link="{% url ncalc_step1 %}"><img src="{{ STATIC_URL }}images/scroll/scroll_img_2.png" width="226" height="262"/></a>
+                <a href="#tabs_crug_2" link="{% url ncalc_step1_kasko %}"><img src="{{ STATIC_URL }}images/scroll/scroll_img_2.png" width="226" height="262"/></a>
                 <a href="#tabs_crug_3" link="#"><img src="{{ STATIC_URL }}images/scroll/scroll_img_3.png" width="226" height="262"/></a>
             </div>
         </div>
@@ -56,7 +56,7 @@
                 <span class="main-word">Ответственность</span>
                 <span class="main-word">Надежность</span>
                 <span class="main-word">Сервис</span>
-                
+
                 <span id="slogan">Больше чем просто страховая компания</span>
             </div>
         </div>
@@ -80,7 +80,7 @@
                 <p>
                     Посмотри таблицу сравнения цены и условий полисов. Цена всегда дешевле - <strong>мы не берем комиссии!</strong>
                 </p>
-                <a href="{% url ncalc_step1 %}" id="calc-url">Перейти к расчетам</a>
+                <a href="{% url ncalc_step1_kasko %}" id="calc-url">Перейти к расчетам</a>
             </div>
         </div>
 

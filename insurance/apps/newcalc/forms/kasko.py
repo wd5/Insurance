@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.models import User
-from models import Mark, City, ModelYear, Power, Model, BurglarAlarm
+from newcalc.models import Mark, City, ModelYear, Power, Model, BurglarAlarm
 from profile.models import Persona
 from polices.models import BODY_TYPE_CHOICES, SEX_CHOICES, InsurancePolicyData
 from email_login.forms import PhoneNumberField

@@ -294,7 +294,7 @@
                                         <div class="ourscore">{{ comp.ourscore }}</div>
                                         <div class="score">{{ comp.score }}</div>
                                         <a class="order-button"
-                                           href="{% url ncalc_step3 comp.alias %}"></a>
+                                           href="{% url ncalc_step3_kasko comp.alias %}"></a>
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -304,8 +304,8 @@
 
                 {% endif %}
 
-            <a class="back-button" href="{% url ncalc_step1 %}"><img src="/static/images/back_button.png"
-                                                                     alt="назад"/></a><br/>
+            <a class="back-button" href="{% url ncalc_step1_kasko %}"><img src="/static/images/back_button.png"
+            alt="назад"/></a><br/>
         </div>
 
 

@@ -391,7 +391,115 @@
     <a href="{% url cleansession %}">очистить введенные данные</a>
     </div>
 
-    <div id="tabs-2">осаго</div>
+    <div id="tabs-2">
+
+    <form action="" method="post" id="form-osago-step1">
+    {% csrf_token %}
+
+    {% if s1_form.non_field_errors %}
+        <div>
+            <h2>Ошибки заполнения формы:</h2>
+            {{ s1_form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <div class="form-round-block" id="optional-block-1">
+        <table id="info-main-driver">
+            <tr>
+                <td class="label">
+                    {{ s1_form.age.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <input type="text" maxlength="2" value=""/>
+                        {{ s1_form.age }}
+                    </div>
+                    {{ s1_form.age.errors }}
+                </td>
+                <td class="label">
+                    {{ s1_form.experience_driving.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <input type="text" maxlength="2" value=""/>
+                        {{ s1_form.experience_driving }}
+                    </div>
+                    {{ s1_form.experience_driving.errors }}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="form-round-block hide" id="require-block-1">
+        <table id="require-auto-data-first">
+            <tr>
+                <td>
+                    {{ s1_form.country.label }}
+                    <span class="table-error">{{ s1_form.country.errors }}</span>
+                </td>
+                <td class="visible-data second">
+                    <div class="visual wheel"></div>
+                    {{ s1_form.country }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ s1_form.city.label }}
+                    <span class="table-error">{{ s1_form.city.errors }}</span>
+                </td>
+                <td class="visible-data second">
+                    <div class="visual"></div>
+                    {{ s1_form.city }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ s1_form.dsago.label }}
+                    <span class="table-error">{{ s1_form.dsago.errors }}</span>
+                </td>
+                <td class="second">
+                    {{ s1_form.dsago }}
+                    <div id="price-slider-container">
+                        <span id="min"></span>
+                        <span id="max"></span>
+
+                        <div id="price-slider"></div>
+                    </div>
+                    <span id="stoim"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ s1_form.violations.label }}
+                    <span class="table-error">{{ s1_form.violations.errors }}</span>
+                </td>
+                <td class="visible-data second">
+                    <div class="visual wheel"></div>
+                    {{ s1_form.violations }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ s1_form.power.label }}
+                    <span class="table-error">{{ s1_form.power.errors }}</span>
+                </td>
+                <td class="visible-data second">
+                    <div class="visual"></div>
+                    <span class="ajax-select">{{ s1_form.power }}</span>
+                </td>
+            </tr>
+
+        </table>
+    </div>
+
+
+    <input id="calculate-button" type="image" value="" src="/static/images/calculate_button.png"/>
+    </form>
+
+
+    </div>
     <div id="tabs-3">дмс</div>
     <div id="tabs-5">нс</div>
     <div id="tabs-6">взр</div>
