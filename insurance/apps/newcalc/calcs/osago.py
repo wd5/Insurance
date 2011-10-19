@@ -22,7 +22,10 @@ from profile.models import Persona
 from polices.models import InsurancePolicy #, CallRequests
 from email_login.backends import RegistrationBackend
 from newcalc.servlet import servlet_request
-from newcalc.calcs import _build_servlet_request_data, _parse_servlet_response
+from newcalc.calcs import _parse_servlet_response
+
+
+socket.setdefaulttimeout(settings.SERVLET_TIMEOUT)
 
 
 # ========== General views ==========
@@ -47,7 +50,7 @@ def step1(request):
         else:
             initial_data['dago'] = 250000
         form = Step1Form(form_extra_data=form_extra_data, initial=initial_data)
-    return direct_to_template(request, 'calc/osago/step1.html', {"s1_form": form, })
+    return direct_to_template(request, 'calc/osago/step1.html', {"s1_form": form, 'tab': 2})
 
 
 def step2(request):
@@ -70,15 +73,11 @@ def step2(request):
     if result is None:
         err_text = "Превышен лимит ожидания. Не получен ответ сервлета в "\
                    "течение %d сек." % settings.SERVLET_TIMEOUT
-        return direct_to_template(request, "calc/error.html", {"err_text": err_text,})
+        return direct_to_template(request, "calc/error.html", {"err_text": err_text, 'tab': 2})
 
     result, msg = _parse_servlet_response(result)
 
     data = {}
-    data["mark"] = Mark.objects.get(pk=s1_data["mark"]).mark_name
-    data["model"] = Model.objects.get(pk=s1_data["model"]).model_name
-    data["model_year"] = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
-    data["price"] = s1_data["price"]
 
     if request.method == "POST":
         form = Step2Form(request.POST, form_extra_data={})
@@ -88,15 +87,15 @@ def step2(request):
     else:
         form_extra_data, initial_data = _s2_read_form_data(s2_data)
         form = Step2Form(form_extra_data=form_extra_data, initial=initial_data)
-    table = KackoParameters.objects.filter(is_active=True)
+#    table = KackoParameters.objects.filter(is_active=True)
     header = dict()
-    for t in table:
-        header[t.kparameter_alias] = {'name':t.kparameter_name, 'comment':t.kparameter_comment}
+#    for t in table:
+#        header[t.kparameter_alias] = {'name':t.kparameter_name, 'comment':t.kparameter_comment}
     return direct_to_template(request, 'calc/osago/step2.html', {"msg": msg,
                                                                  "s1_form": form,
                                                                  "result": result,
                                                                  "header":header,
-                                                                 "data": data})
+                                                                 "data": data, 'tab': 2})
 
 
 def step3(request, alias):
@@ -105,35 +104,22 @@ def step3(request, alias):
     if not s1_data:
         return redirect(reverse('ncalc_step1_osago'))
     data = {}
-    data["insurance_type"] = "КАСКО"
-    data["mark"] = Mark.objects.get(pk=s1_data["mark"]).mark_name
-    data["model"] = Model.objects.get(pk=s1_data["model"]).model_name
-    data["model_year"] = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
-    if s1_data["wheel"] == "left":
-        data["wheel"] = "левый"
+    data["insurance_type"] = "ОСАГО"
+    if str(s1_data["violations"]) == "1":
+        data["violations"] = "не было"
     else:
-        data["wheel"] = "правый"
+        data["violations"] = "были"
     data["power"] = Power.objects.get(pk=s1_data["power"]).power_name
-    data["price"] = s1_data["price"]
-    if s1_data["credit"]:
-        data["credit"] = "да"
-    else:
-        data["credit"] = "нет"
+    data["dago"] = s1_data["dago"]
     data["city"] = City.objects.get(pk=s1_data["city"]).city_name
+    data["country"] = City.objects.get(pk=s1_data["country"]).city_name   # FIXME
+
     data["age"] = s1_data["age"]
     data["experience_driving"] = s1_data["experience_driving"]
+
     data["company"] = Company.objects.get(company_alias=alias).company_name
-    if s1_data["unlimited_drivers"]:
-        data["dr_nr"] = "не ограничено"
-    else:
-        if s1_data.has_key("age3"):
-            data["dr_nr"] = "4"
-        elif s1_data.has_key("age2"):
-            data["dr_nr"] = "3"
-        elif s1_data.has_key("age1"):
-            data["dr_nr"] = "2"
-        else:
-            data["dr_nr"] = "1"
+    data["dr_nr"] = "1"
+
     if request.method == "POST":
         if request.user.is_authenticated():
             form = Step3FormReg(request.POST)
@@ -211,9 +197,9 @@ def step3(request, alias):
         else:
             form = Step3FormNoReg()
     if request.user.is_authenticated():
-        return direct_to_template(request, 'calc/step3reg.html', {"data": data, "form": form, "call_form":call_form})
+        return direct_to_template(request, 'calc/osago/step3reg.html', {"data": data, "form": form, "call_form":call_form, 'tab': 2})
     else:
-        return direct_to_template(request, 'calc/step3noreg.html', {"data": data, "form": form, "call_form":call_form})
+        return direct_to_template(request, 'calc/osago/step3noreg.html', {"data": data, "form": form, "call_form":call_form, 'tab': 2})
 
 def step4(request):
     policy_id = request.session.get('policy')
@@ -238,7 +224,7 @@ def step4(request):
     initial_data['middle_name'] = persona.middle_name
 
     form = Step4Form(initial=initial_data)
-    return direct_to_template(request, 'calc/step4.html', {"form": form})
+    return direct_to_template(request, 'calc/osago/step4.html', {"form": form, 'tab': 2})
 
 # ========== Auxilary ==========
 
@@ -311,6 +297,7 @@ def _s1_read_form_data(s1_data):
 
     return form_extra_data, initial_data
 
+
 def _s2_read_data(cd):
     s2_data = {}
     for key in cd:
@@ -348,3 +335,20 @@ def _s2_read_form_data(s2_data):
                     burglar_alarm.burglar_alarm_parent
     return form_extra_data, initial_data
 
+
+def _build_servlet_request_data(s1_data, s2_data):
+
+    servlet_request_data = {"insurance_type": 2,
+                            "power": s1_data["power"],
+                            "infringement": s1_data["violations"],
+                            "city": s1_data["city"],
+                            "age_0": s1_data["age"],
+                            "experience_driving_0": s1_data["experience_driving"],
+                            }
+    if s2_data:
+        for key in s2_data:
+            if s2_data[key] == True:
+                servlet_request_data[key] = "on"
+            else:
+                servlet_request_data[key] = s2_data[key]
+    return servlet_request_data

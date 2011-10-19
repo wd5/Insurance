@@ -30,7 +30,7 @@ class Step1Form(forms.Form):
                                   empty_label="--------")
     dago = forms.IntegerField(label="ДАГО", min_value=250000, max_value=25000000)
     violations = forms.ChoiceField(label="Грубые нарушения",
-                                   choices=(("no", "не было"), ("yes", "были")))
+                                   choices=(("1", "не было"), ("1.5", "были")))
     power = forms.ModelChoiceField(label="Мощность",
                                    queryset=Power.objects.none(),
                                    empty_label="--------")
