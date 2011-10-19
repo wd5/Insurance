@@ -6,13 +6,13 @@ from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
 
 STATE_CHOICES = (
-    ('init', 'Initializing'),
-    ('process', 'Being worked on'),
-    ('active', 'Active'),
-    ('ended', 'Ended'),
+    ('init', 'Заявка'),
+    ('process', 'В оформлении'),
+    ('active', 'Действителен'),
+    ('ended', 'Срок действия истек'),
     )
 
-PAYMENT_CHOICES = (
+STATUS_PAYMENT_CHOICES = (
     ('payed', 'Оплачено'),
     ('unpayed', 'Не оплачено'),
     )
@@ -84,7 +84,7 @@ class CallRequests(models.Model):
     date = models.DateTimeField(u'Дата заявки', auto_now_add=True)
     phone = models.CharField(u'Телефонный номер', max_length=14)
     comment = models.CharField(u'Комментарий', max_length=255, blank = True, null=True)
-    
+
     class Meta:
         verbose_name = u'Заказ звонка'
         verbose_name_plural = u'Заказы звонка'
@@ -94,7 +94,7 @@ class InsurancePolicy(models.Model):
     type = models.SmallIntegerField("Тип полиса", choices=TYPE_CHOICES,
                                     default=1)
     payment = models.CharField("Оплата", max_length=10, default="unpayed",
-                               choices=PAYMENT_CHOICES)
+                               choices=STATUS_PAYMENT_CHOICES)
     state = models.CharField("Статус полиса", max_length=10, default="init",
                              choices=STATE_CHOICES)
     company = models.CharField("Страховая компания", max_length=100)
@@ -161,7 +161,7 @@ class InsurancePolicyData(models.Model):
     passport_number = models.CharField(u'Номер паспорта', max_length=30,null=True, blank=True)
     issued_org = models.CharField(u'Кем выдан', max_length=255, null=True, blank=True)
     issued_date = models.DateField(u'Дата выдачи', null=True, blank=True)
-    
+
     reg_region = models.CharField(u'Область, край', max_length=255, null=True, blank=True)
     reg_area = models.CharField(u'Район', max_length=255, null=True, blank=True)
     reg_city = models.CharField(u'Населенный пункт', max_length=255,null=True, blank=True)
@@ -170,7 +170,7 @@ class InsurancePolicyData(models.Model):
     reg_building = models.CharField(u'Дом', max_length=16, null=True, blank=True)
     reg_housing = models.CharField(u'Корпус', max_length=6, null=True, blank=True)
     reg_flat = models.CharField(u'Квартира', max_length=6, null=True, blank=True)
-    
+
     live_region = models.CharField(u'Область, край', max_length=255, null=True, blank=True)
     live_area = models.CharField(u'Район', max_length=255, null=True, blank=True)
     live_city = models.CharField(u'Населенный пункт', max_length=255,null=True, blank=True)
