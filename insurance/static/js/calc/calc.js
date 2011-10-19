@@ -1,6 +1,6 @@
 $(function() {
     //Tabs
-    $("#calc-tabs").tabs({
+/*    $("#calc-tabs").tabs({
     select: function(event, ui) {
         return false;
         var url = $.data(ui.tab, 'load.tabs');
@@ -10,7 +10,9 @@ $(function() {
         }
         return true;
     }
-    });
+    }); */
+    $("#calc-tabs ul li a").hover(function() {$(this).parent().toggleClass("ui-state-hover")});
+
     $(".style-checkbox input").each(function() {
         if ($(this).attr("checked") == true) {
             $(this).parent().addClass("on");

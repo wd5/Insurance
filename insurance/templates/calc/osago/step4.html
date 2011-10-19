@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "calc/calc.html" %}
 {% block extra_head %}
     <script type="text/javascript" src="/static/js/calc/calc.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
@@ -99,7 +99,7 @@
                 e.preventDefault();
                 var from = $("#document-address input"),
                     to = $("#real-address input");
-                
+
                 copyInputValues(from, to);
 
             })
@@ -159,25 +159,11 @@
 {% endblock %}
 
 
-{% block content %}
-    <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
-
-    <div id="calc-tabs">
-
-    <ul>
-        <li><a href="#tabs-1">КАСКО</a></li>
-        <li><a href="#tabs-2">ОСАГО</a></li>
-        <li><a href="#tabs-3">ДМС</a></li>
-        <li><a href="#tabs-5">HC</a></li>
-        <li><a href="#tabs-6">ВЗР</a></li>
-        <li><a href="#tabs-7">ИФЛ</a></li>
-    </ul>
-
-    <div id="tabs-1">
+{% block tab_content %}
     <div class="form-round-block no-back">
 
     <div id="step4-tabs">
-        
+
     <ul>
         <li><a dataid="1" href="#inner-tab1">Водители</a></li>
         <li><a dataid="2" href="#inner-tab2" >Автомобиль</a></li>
@@ -236,7 +222,7 @@
                 {{ form.passport_series }}
                 <label>{{ form.passport_series.label }}</label>
             </span>
-            
+
             <span>
                  {{ form.passport_number }}
                 <label>{{ form.passport_number.label }}</label>
@@ -386,7 +372,7 @@
         <div id="auto-owner">
             <h5 id="owner-label">Владелец автомобиля:</h5>
             <a href="#" id="copy-data-link2">(Скопировать данные страхователя)</a>
-            
+
             <table id="auto-owner-table">
                 <tr>
                     <td>{{ form.owner_first_name }}</td>
@@ -480,7 +466,7 @@
                         <a href="#">9:30 - 12:00</a>
                         <a href="#">12:00 - 15:00</a>
                         <a href="#">15:00 - 18:00</a>
-                        
+
                         {{ form.time }}
                     </div>
                 </td>
@@ -504,14 +490,8 @@
     <p style="margin:  15px 0;">
         <a id="prev-link" href="#">Назад</a>
         <a id="next-link" href="#">Далее</a>
-        
+
     </p>
 
-    </div>
-    <div id="tabs-2">осаго</div>
-    <div id="tabs-3">дмс</div>
-    <div id="tabs-5">нс</div>
-    <div id="tabs-6">взр</div>
-    <div id="tabs-7">ифл</div>
-    </div>
+</div>
 {% endblock %}

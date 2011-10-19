@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div id="tooltip">
+        <span></span>
+        <img src="/static/images/tooltip_angle.png" alt=""/>
+    </div>
+
+    <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
+
+    <div id="calc-tabs">
+    <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+        <li class="ui-state-default ui-corner-top{% ifequal tab 1 %} ui-tabs-selected ui-state-active{% endifequal %}">
+            <a href="{% url ncalc_step1_kasko %}">КАСКО</a>
+        </li>
+        <li class="ui-state-default ui-corner-top{% ifequal tab 2 %} ui-tabs-selected ui-state-active{% endifequal %}">
+            <a href="{% url ncalc_step1_osago %}">ОСАГО</a>
+        </li>
+        <li class="ui-state-default ui-corner-top"><a href="#">ДМС</a></li>
+        <li class="ui-state-default ui-corner-top"><a href="#">HC</a></li>
+        <li class="ui-state-default ui-corner-top"><a href="#">ВЗР</a></li>
+        <li class="ui-state-default ui-corner-top"><a href="#">ИФЛ</a></li>
+    </ul>
+
+    <div class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+        {% block tab_content %}
+        {% endblock tab_content %}
+    </div>
+
+{% endblock %}

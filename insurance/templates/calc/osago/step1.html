@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "calc/calc.html" %}
 {% block extra_head %}
     <script type="text/javascript" src="/static/js/calc/calc.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
@@ -52,9 +52,6 @@
                 }
             })
 
-            //Draw all select values in frist block
-//            get_visible_select_data_model($("#require-block-1 #id_model").attr("id"));
-
             $("#require-block-1 select").each(function() {
                 var id = $(this).attr("id");
                 get_visible_select_data(id);
@@ -96,20 +93,7 @@
     </script>
 {% endblock %}
 
-{% block content %}
-    <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
-
-    <div id="calc-tabs">
-    <ul>
-        <li><a href="#tabs-1" title="Kasko">КАСКО</a></li>
-        <li><a href="{% url ncalc_step1_osago %}" titla="Osago">ОСАГО</a></li>
-        <li><a href="#tabs-3">ДМС</a></li>
-        <li><a href="#tabs-5">HC</a></li>
-        <li><a href="#tabs-6">ВЗР</a></li>
-        <li><a href="#tabs-7">ИФЛ</a></li>
-    </ul>
-
-    <div id="tabs-2">
+{% block tab_content %}
     <form action="" method="post" id="form-step1">
     {% csrf_token %}
 
@@ -156,12 +140,11 @@
                     <span class="table-error">{{ s1_form.country.errors }}</span>
                 </td>
                 <td class="visible-data second">
-                    <div class="visual">
+                    <div class="visual"></div>
                     <select id="id_country" name="country">
                         <option value="">--------</option>
                         <option selected="selected" value="1">Российская Федерация</option>
                     </select>
-                    </div>
                 </td>
             </tr>
             <tr>
@@ -221,8 +204,7 @@
     <br/>
 
     <a href="{% url cleansession %}">очистить введенные данные</a>
-    </div>
-</div>
+
 {% endblock %}
 
 

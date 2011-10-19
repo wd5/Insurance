@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "calc/calc.html" %}
 {% block extra_head %}
     <script type="text/javascript" src="/static/js/calc/calc.js"></script>
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
@@ -105,25 +105,8 @@
     </script>
 {% endblock %}
 
-{% block content %}
-    <div id="tooltip">
-        <span></span>
-        <img src="/static/images/tooltip_angle.png" alt=""/>
-    </div>
+{% block tab_content %}
 
-    <div id="overlay"><img src="/static/images/preloader.gif" alt=""/></div>
-
-    <div id="calc-tabs">
-        <ul>
-            <li><a href="#tabs-1">КАСКО</a></li>
-            <li><a href="#tabs-2">ОСАГО</a></li>
-            <li><a href="#tabs-3">ДМС</a></li>
-            <li><a href="#tabs-5">HC</a></li>
-            <li><a href="#tabs-6">ВЗР</a></li>
-            <li><a href="#tabs-7">ИФЛ</a></li>
-        </ul>
-
-        <div id="tabs-1">
             <div class="form-round-block">
                 <h2>Сортировать по:</h2>
 
@@ -306,14 +289,6 @@
 
             <a class="back-button" href="{% url ncalc_step1_kasko %}"><img src="/static/images/back_button.png"
             alt="назад"/></a><br/>
-        </div>
 
-
-        <div id="tabs-2">осаго</div>
-        <div id="tabs-3">дмс</div>
-        <div id="tabs-5">нс</div>
-        <div id="tabs-6">взр</div>
-        <div id="tabs-7">ифл</div>
-    </div>
 
 {% endblock %}
