@@ -2,23 +2,60 @@
 
 {% block content %}
 
-<div id="policy-navigation">
-  <ul>
-    {% for type_id, type_name in policy_types.items %}
-    <li><a href="{% url userprofile_policylist_type type_id %}">{{ type_name }}</a></li>
-    {% if not forloop.last  %}
-    <li class="separator"> | </li>
-    {% endif %}
-    {% endfor %}
-  </ul>
+    <div class="content">
+        <div class="tabs_box">
+            <ul class="tabs">
+                <li><a href="{% url userprofile_edit %}">МОИ ДАННЫЕ</a></li>
+                <li><a class="active" href="{% url userprofile_policylist %}">МОИ ПОЛИСЫ</a></li>
+                <li><a href="{% url notification_notices %}">УВЕДОМЛЕНИЯ {% if notice_unseen_count %}({{ notice_unseen_count }}){% endif %}</a></li>
+                <li><a href="#">FAQ</a></li>
+            </ul>
+
+            <div id="tabs_cont_1" class="bg_tabs_f">
+                <div class="bg_tabs_t">
+                    <div class="bg_tabs_b">
+                        <div class="tabs2">
+                            <ul class="tab5">
+                                    {% for type_id, type_name in policy_types.items %}
+                                    <li>
+                                        <a {% if type_id|stringformat:"s" == policy_type %}class="active"{% endif %}
+                                            href="{% url userprofile_policylist_type type_id %}">{{ type_name }}</a>
+                                    </li>
+                                    {% endfor %}
+                            </ul>
+                            <div id="tabs_cont3_1" class="bg_tabs3_box">
+                                <div class="bg_tabs2_f">
+
+<table class="policy-list">
+    {% ifequal policy_type "1" %}
+      <thead><th>Страховая компания</th><th>Страхователь</th><th>Собственник ТС</th>
+      <th>Транспортное средство</th><th>Водители</th><th>Текущий статус</th></thead>
+      <tbody>
+      {% for  policy in policy_list %}
+        <tr>
+          <td>{{ policy.company }}</td>
+          <td>{{ policy.policy_data.first_name }} {{ policy.policy_data.middle_name }} {{ policy.policy_data.last_name }}</td>
+          <td>{{ policy.policy_data.owner_first_name }} {{ policy.policy_data.owner_middle_name }} {{ policy.policy_data.owner_last_name }}</td>
+          <td>{{ policy.vehicle }}</td>
+          <td> N/A </td>
+          <td>{{ policy.state }}</td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="6">Полисов пока нет.</td></tr>
+      {% endfor %}
+      </tbody>
+    {% else %}
+      {# temporary hack till there are no other policies #}
+      <tr><td>Полисов пока нет.</td></tr>
+    {% endifequal %}
+</table>
 </div>
+</div>
+</div>
+            </div>
+                        </div>
+                    </div>
+                </div>
 
-<br/>
-{% for policy in policy_list %}
-<p> Дата покупки | Дата окочания | Платежи | Текущий статус</p>
-<p>{{ policy.buy_date }}|{{ policy.end_date }}|{{ policy.payment }}|{{ policy.state }}</p>
-{% empty %}
-Полисов пока нет.
-{% endfor %}
-
+            </div>
 {% endblock %}

@@ -3765,3 +3765,19 @@ div.messages li {
     background: url(/static/images/scroll_hor_down.png) 1px 0px no-repeat;
 }
 
+.policy-list {
+    width: 100%;
+    font-size: 1.1em;
+    border-collapse: collapse;
+}
+
+.policy-list th {
+    text-align: left;
+}
+
+.policy-list th, .policy-list tr td {
+    height: 1.5em;
+    border: 1px solid gray;
+    padding: 0 5px;
+    vertical-align: middle;
+}
