@@ -2,7 +2,7 @@
 from django.views.generic.simple import direct_to_template
 from django.utils import simplejson
 from django.views.decorators.http import require_GET
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import redirect
 from django.core.urlresolvers import reverse
@@ -31,11 +31,37 @@ S1_REQUIRED_KEYS = (
     "age", "experience_driving")
 
 
-def step1(request):
+def step1(request, prev=0):
+    if prev != 0:
+        prev_int = int(prev)
+        pr_data =  request.session.get("s1_data_kasko%d" % prev_int)
+        curr_data =  request.session.get("s1_data_kasko")
+        if pr_data is None:
+            raise Http404
+        if prev_int == 1:
+            request.session["s1_data_kasko1"] = curr_data
+            request.session["s1_data_kasko"] = pr_data
+        else:  # 2.
+            k1 =  request.session.get("s1_data_kasko1")
+            request.session["s1_data_kasko2"] = k1
+            request.session["s1_data_kasko1"] = curr_data
+            request.session["s1_data_kasko"] = pr_data
+        return redirect(reverse('ncalc_step1_kasko'))
     if request.method == "POST":
         form = Step1Form(request.POST, form_extra_data={})
         if form.is_valid():
-            request.session["s1_data_kasko"] = _s1_read_data(form.cleaned_data)
+            new_data = _s1_read_data(form.cleaned_data)
+            k1 =  request.session.get("s1_data_kasko1")
+            k0 =  request.session.get("s1_data_kasko")
+            # Избегаем дублирования.
+            if k0 and not (new_data["mark"]==k0["mark"] and
+                           new_data["model"]==k0["model"] and
+                           new_data["model_year"]==k0["model_year"]
+                           and new_data["price"]==k0["price"]):
+                if k1:
+                    request.session["s1_data_kasko2"] = k1
+                request.session["s1_data_kasko1"] = k0
+            request.session["s1_data_kasko"] = new_data
             return redirect(reverse('ncalc_step2_kasko'))
     else:
         initial_data = {}
@@ -46,7 +72,23 @@ def step1(request):
         else:
             initial_data['price'] = 0
         form = Step1Form(form_extra_data=form_extra_data, initial=initial_data)
-    return direct_to_template(request, 'calc/kasko/step1.html', {"s1_form": form, })
+    k1 =  request.session.get("s1_data_kasko1")
+    k2 =  request.session.get("s1_data_kasko2")
+    prev_data = []
+    if k1:
+        mark = Mark.objects.get(pk=k1["mark"]).mark_name
+        model = Model.objects.get(pk=k1["model"]).model_name
+        model_year = Mym.objects.get(pk=k1["model_year"]).mym_y.model_year_year
+        price = k1["price"]
+        prev_data.append("%s/%s/%s/%s" % (mark, model, model_year, price))
+    if k2:
+        mark = Mark.objects.get(pk=k2["mark"]).mark_name
+        model = Model.objects.get(pk=k2["model"]).model_name
+        model_year = Mym.objects.get(pk=k2["model_year"]).mym_y.model_year_year
+        price = k2["price"]
+        prev_data.append("%s/%s/%s/%s" % (mark, model, model_year, price))
+    return direct_to_template(request, 'calc/kasko/step1.html', {"s1_form": form,
+                                                         "prev_data": prev_data})
 
 
 def step2(request):

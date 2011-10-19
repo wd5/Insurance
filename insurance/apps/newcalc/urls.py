@@ -15,6 +15,7 @@ urlpatterns = patterns('newcalc.views',
 
 urlpatterns += patterns('newcalc.calcs.kasko',
     url(r'^kasko/$', "step1", name='ncalc_step1_kasko'),
+    url(r'^kasko/([12])/$', "step1", name='ncalc_step1_kasko_pr'),
     url(r'^kasko/step2/$', "step2", name='ncalc_step2_kasko'),
     url(r'^kasko/step3/(\w+)/$', "step3", name='ncalc_step3_kasko'),
     url(r'^kasko/step4/$', "step4", name='ncalc_step4_kasko'),

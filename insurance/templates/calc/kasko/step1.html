@@ -387,7 +387,14 @@
     </form>
 
     <br/>
-
+    {% if prev_data %}
+        <h2>Предыдущие расчеты:</h2>
+        {% for pd in prev_data %}
+            <a href="{% url ncalc_step1_kasko %}{{ forloop.counter }}/">{{ pd }}руб.</a>
+            <br />
+        {% endfor %}
+        <br /><br />
+    {% endif %}
     <a href="{% url cleansession %}">очистить введенные данные</a>
     </div>
 
