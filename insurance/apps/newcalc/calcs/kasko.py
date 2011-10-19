@@ -10,6 +10,8 @@ from django.conf import settings
 from django.contrib.auth.models import User, Group
 from django.template.loader import render_to_string
 
+import socket
+
 from newcalc.models import Mark, Model, Mym, Power, City,\
     BurglarAlarm, Company, CompanyCondition, InsuranceType, \
     KackoParameters
@@ -20,7 +22,7 @@ from profile.models import Persona
 from polices.models import InsurancePolicy #, CallRequests
 from email_login.backends import RegistrationBackend
 from newcalc.servlet import servlet_request
-from newcalc.calcs import _build_servlet_request_data, _parse_servlet_response
+from newcalc.calcs import _parse_servlet_response
 
 
 # ========== General views ==========
@@ -88,7 +90,7 @@ def step1(request, prev=0):
         price = k2["price"]
         prev_data.append("%s/%s/%s/%s" % (mark, model, model_year, price))
     return direct_to_template(request, 'calc/kasko/step1.html', {"s1_form": form,
-                                                         "prev_data": prev_data})
+                                                         "prev_data": prev_data, 'tab': 1})
 
 
 def step2(request):
@@ -111,7 +113,7 @@ def step2(request):
     if result is None:
         err_text = "Превышен лимит ожидания. Не получен ответ сервлета в "\
                    "течение %d сек." % settings.SERVLET_TIMEOUT
-        return direct_to_template(request, "calc/error.html", {"err_text": err_text,})
+        return direct_to_template(request, "calc/error.html", {"err_text": err_text, 'tab': 1})
 
     result, msg = _parse_servlet_response(result)
 
@@ -133,7 +135,7 @@ def step2(request):
     header = dict()
     for t in table:
         header[t.kparameter_alias] = {'name':t.kparameter_name, 'comment':t.kparameter_comment}
-    return direct_to_template(request, 'calc/kasko/step2.html', {"msg": msg,
+    return direct_to_template(request, 'calc/kasko/step2.html', {"msg": msg, 'tab': 1,
                                                                  "s1_form": form,
                                                                  "result": result,
                                                                  "header":header,
@@ -252,9 +254,9 @@ def step3(request, alias):
         else:
             form = Step3FormNoReg()
     if request.user.is_authenticated():
-        return direct_to_template(request, 'calc/kasko/step3reg.html', {"data": data, "form": form, "call_form":call_form})
+        return direct_to_template(request, 'calc/kasko/step3reg.html', {"data": data, "form": form, "call_form":call_form, 'tab': 1})
     else:
-        return direct_to_template(request, 'calc/kasko/step3noreg.html', {"data": data, "form": form, "call_form":call_form})
+        return direct_to_template(request, 'calc/kasko/step3noreg.html', {"data": data, "form": form, "call_form":call_form, 'tab': 1})
 
 def step4(request):
     policy_id = request.session.get('policy')
@@ -279,7 +281,7 @@ def step4(request):
     initial_data['middle_name'] = persona.middle_name
 
     form = Step4Form(initial=initial_data)
-    return direct_to_template(request, 'calc/kasko/step4.html', {"form": form})
+    return direct_to_template(request, 'calc/kasko/step4.html', {"form": form, 'tab': 1})
 
 # ========== Auxilary ==========
 
@@ -463,3 +465,51 @@ def _s2_read_form_data(s2_data):
                     burglar_alarm.burglar_alarm_parent
     return form_extra_data, initial_data
 
+
+socket.setdefaulttimeout(settings.SERVLET_TIMEOUT)
+
+
+def _build_servlet_request_data(s1_data, s2_data):
+    if s1_data["credit"]:
+        credit_str = "on"
+    else:
+        credit_str = ""
+    unlimited_drivers = s1_data.get("unlimited_drivers")
+    if unlimited_drivers is None:
+        unlimited_drivers = 0
+
+#TODO: insurance_type!!!
+
+    servlet_request_data = {"insurance_type": 1,
+                            "mark": s1_data["mark"],
+                            "model": s1_data["model"],
+                            "model_year": s1_data["model_year"],
+                            "power": s1_data["power"],
+                            "price": s1_data["price"],
+                            "wheel": s1_data["wheel"],
+                            "city": s1_data["city"],
+                            "credit": credit_str,
+                            "age_0": s1_data["age"],
+                            "experience_driving_0": s1_data[
+                                                    "experience_driving"],
+                            "unlimited_drivers": unlimited_drivers,
+                            }
+    if s1_data.has_key("age1"):
+        servlet_request_data["age_1"] = s1_data["age1"]
+        servlet_request_data["experience_driving_1"] =\
+            s1_data["experience_driving1"]
+    if s1_data.has_key("age2"):
+        servlet_request_data["age_2"] = s1_data["age2"]
+        servlet_request_data["experience_driving_2"] =\
+            s1_data["experience_driving2"]
+    if s1_data.has_key("age3"):
+        servlet_request_data["age_3"] = s1_data["age3"]
+        servlet_request_data["experience_driving_3"] =\
+            s1_data["experience_driving3"]
+    if s2_data:
+        for key in s2_data:
+            if s2_data[key] == True:
+                servlet_request_data[key] = "on"
+            else:
+                servlet_request_data[key] = s2_data[key]
+    return servlet_request_data
