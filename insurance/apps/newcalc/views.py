@@ -12,7 +12,7 @@ from django.template.loader import render_to_string
 
 import socket
 
-from models import Mark, Model, Mym, Power, City,\
+from models import Mark, Model, Mym, ModelYear, Power, City,\
     BurglarAlarm, Company, CompanyCondition, InsuranceType, \
     KackoParameters
 from polices.forms import CallRequestForm
@@ -58,16 +58,17 @@ def get_models(request):
 
 @require_GET
 def get_years(request):
-    response_dict = {}
-    if request.is_ajax() and request.GET.has_key("model"):
-        try:
-            mym = Mym.objects.filter(mym_m=request.GET["model"])
-        except ObjectDoesNotExist, e:
-            print e
-        else:
-            years = [m.mym_y for m in mym]
-            for year in years:
-                response_dict[year.year_id] = year.model_year_year
+    years = ModelYear.objects.order_by("model_year_year")
+    response_dict = dict([(x.year_id, x.model_year_year) for x in years])
+#    if request.is_ajax() and request.GET.has_key("model"):
+#        try:
+#            mym = Mym.objects.filter(mym_m=request.GET["model"])
+#        except ObjectDoesNotExist, e:
+#            print e
+#        else:
+#            years = [m.mym_y for m in mym]
+#            for year in years:
+#                response_dict[year.year_id] = year.model_year_year
     response = simplejson.dumps(response_dict)
     return HttpResponse(response, mimetype='application/javascript')
 

@@ -38,7 +38,7 @@
                 $("#require-auto-data-first tr").not(":first").hide();
                 get_visible_select_data_model($("#require-block-1 #id_model").attr("id"));
 
-                $(".ajax-select select").not(":first").each(function() {
+                $(".ajax-select select").not("#id_model").each(function() {
                     $(this).val("");
                     get_visible_select_data($(this).attr("id"));
                 });
@@ -47,7 +47,7 @@
                     $("#require-block-1").slideDown();
                     $.ajax(
                             {
-                                url: model,
+                                url: model_year,
                                 data: {mark: $(this).val()},
                                 dataType:"json",
                                 success:function(data) {
@@ -56,8 +56,8 @@
                                     $.each(data, function(index, value) {
                                         options += '<option value="' + index + '">' + value + '</option>';
                                     });
-                                    $("#id_model").html(options);
-                                    get_visible_select_data_model("id_model");
+                                    $("#id_model_year").html(options);
+                                    get_visible_select_data("id_model_year");
                                 }
                             }
                     );
@@ -99,7 +99,7 @@
             //Draw all select values in frist block
             get_visible_select_data_model($("#require-block-1 #id_model").attr("id"));
 
-            $("#require-block-1 select").not(":first").each(function() {
+            $("#require-block-1 select").not("#id_model").each(function() {
                 var id = $(this).attr("id");
                 get_visible_select_data(id);
             })
@@ -183,16 +183,6 @@
         <table id="require-auto-data-first">
             <tr>
                 <td>
-                    {{ s1_form.model.label }}
-                    <span class="table-error">{{ s1_form.model.errors }}</span>
-                </td>
-                <td class="visible-data second">
-                    <div class="visual"></div>
-                    <span class="ajax-select">{{ s1_form.model }}</span>
-                </td>
-            </tr>
-            <tr>
-                <td>
                     {{ s1_form.model_year.label }}
                     <span class="table-error">{{ s1_form.model_year.errors }}</span>
                 </td>
@@ -201,7 +191,18 @@
                     <div class="visual"></div>
                     <span class="ajax-select">{{ s1_form.model_year }}</span>
                 </td>
+            </tr>          
+            <tr>
+                <td>
+                    {{ s1_form.model.label }}
+                    <span class="table-error">{{ s1_form.model.errors }}</span>
+                </td>
+                <td class="visible-data second">
+                    <div class="visual"></div>
+                    <span class="ajax-select">{{ s1_form.model }}</span>
+                </td>
             </tr>
+
 
             <tr>
                 <td>
