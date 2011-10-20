@@ -22,7 +22,6 @@ from profile.models import Persona
 from polices.models import InsurancePolicy #, CallRequests
 from email_login.backends import RegistrationBackend
 from newcalc.servlet import servlet_request
-from newcalc.calcs import _parse_servlet_response
 
 
 # ========== General views ==========
@@ -513,3 +512,24 @@ def _build_servlet_request_data(s1_data, s2_data):
             else:
                 servlet_request_data[key] = s2_data[key]
     return servlet_request_data
+def _parse_servlet_response(result):
+    msg = None  # Some error message.
+    if result is None:
+        msg = "Не удалось получить данные от сервлета"
+    else:
+        try:
+            result = simplejson.loads(result)
+        except ValueError:
+            msg = "Сервлет выдал в ответе не json, а фиг знает что"
+        else:
+            if result["status"] != "OK":
+                msg = "Сервлет сообщил об ошибке"
+            else:
+                for company in result['info']:
+                    company_id = Company.objects.get(company_alias = company['alias']).company_id
+                    comment = CompanyCondition.objects.filter(company_condition_company = company_id)[:1]
+                    if comment:
+                        company['company_comment'] = comment[0].company_condition_comment
+                    else:
+                        company['company_comment'] = ''
+    return result, msg
