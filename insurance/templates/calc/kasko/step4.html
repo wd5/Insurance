@@ -25,7 +25,7 @@
 
             })
 
-            $("#id_kpp, #id_motor, #id_payments, #id_citizenship, #id_category, #id_sex").css("visibility", "hidden");
+            $("#id_kpp, #id_motor, #id_payments, #id_citizenship, #id_category, #id_sex, #id_time").css("visibility", "hidden");
 
             /*Remove empty class when user click or input values */
             $("#step4-tabs input").click(function(){
@@ -464,9 +464,9 @@
                 <td>
                     <h5>Время доставки:</h5>
                     <div id="time-deliviry">
-                        <a href="#">9:30 - 12:00</a>
-                        <a href="#">12:00 - 15:00</a>
-                        <a href="#">15:00 - 18:00</a>
+                        <a href="#" value="9:30:00">9:30 - 12:00</a>
+                        <a href="#" value="12:00:00">12:00 - 15:00</a>
+                        <a href="#" value="15:00:00">15:00 - 18:00</a>
 
                         {{ form.time }}
                     </div>
