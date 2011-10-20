@@ -16,18 +16,62 @@
             $("#info-main-driver td:odd").addClass("second");
             $("#info-main-driver tr.hide").css("display", "none");
 
+            transform_firstSelect($("#first-select"));
+
             $(".short-select").each(function(e) {
                 $(this).attr("id", "short-" + (e + 1));
                 transform_select($(this));
             })
 
             //price slider
-            priceSlider($("#price-slider"), "#id_dago", 250000, 2500000);
+            priceSlider($("#price-slider"), "#id_dago", 0, 2500000);
+
+            //first select with auto mark
+            if ($("#id_mark").val() != "") {
+                $("#require-block-1").show();
+            } else {
+                $("#require-block-1").hide();
+            }
+
+            $("#id_mark").change(function() {
+                //Hide all table data, except first one
+                $("#require-auto-data-first tr").not(":first").hide();
+                get_visible_select_data_model($("#require-block-1 #id_model").attr("id"));
+
+                $(".ajax-select select").not(":first").each(function() {
+                    $(this).val("");
+                    get_visible_select_data($(this).attr("id"));
+                });
+
+                if ($("#id_mark").val() != "") {
+                    $("#require-block-1").slideDown();
+                    $.ajax(
+                            {
+                                url: model,
+                                data: {mark: $(this).val()},
+                                dataType:"json",
+                                success:function(data) {
+                                    var options = '';
+                                    options += '<option value="">' + '--------' + '</option>';
+                                    $.each(data, function(index, value) {
+                                        options += '<option value="' + index + '">' + value + '</option>';
+                                    });
+                                    $("#id_model").html(options);
+                                    get_visible_select_data_model("id_model");
+                                }
+                            }
+                    );
+                } else {
+                    $("#require-block-1 select").val("");
+                    $("#require-block-1 select").html("");
+                    $("#require-block-1").slideUp();
+                }
+            })
 
             //Change other ajax-selects
-/*            $(".ajax-select select").change(function() {
+            $(".ajax-select select").not("[name=power]").change(function() {
                 get_auto_data($(this).attr("name"));
-            }) */
+            })
 
             //Click on visible data elements
             $(".visible-data .visual span").live('click', function() {
@@ -39,7 +83,7 @@
                 if (parent.attr("class") == "container") {
                     parent = $(this).parent().parent();
                 }
-//                nextRows.hide();
+                nextRows.hide();
                 parent.find("span").removeClass("active");
                 $(this).addClass("active");
                 nextSelect.val($(this).attr("rel"));
@@ -52,9 +96,32 @@
                 }
             })
 
-            $("#require-block-1 select").each(function() {
+            //Draw all select values in frist block
+            get_visible_select_data_model($("#require-block-1 #id_model").attr("id"));
+
+            $("#require-block-1 select").not(":first").each(function() {
                 var id = $(this).attr("id");
                 get_visible_select_data(id);
+            })
+
+            //Click on add driver button
+            $("#add-driver-button").click(function(e) {
+                e.preventDefault();
+                var newRow = $("#info-main-driver").find("tr.hide:first");
+                newRow.find("select").val("");
+                newRow.find(".select-text").html(newRow.find("select option[selected]").text());
+                newRow.removeClass("hide").addClass("show").show();
+                $("#delete-driver-button").removeClass("hide").show();
+            })
+
+            //Click on delete driver button
+            $("#delete-driver-button").click(function(e) {
+                e.preventDefault();
+                var lastRow = $("#info-main-driver").find("tr.show:last");
+                if ($("#info-main-driver tr").not(".hide").length == 2) {
+                    $("#delete-driver-button").hide();
+                }
+                lastRow.removeClass("show").addClass("hide").hide();
             })
 
             //Type into input element inside select
@@ -94,6 +161,7 @@
 {% endblock %}
 
 {% block tab_content %}
+
     <form action="" method="post" id="form-step1">
     {% csrf_token %}
 
@@ -103,48 +171,56 @@
             {{ s1_form.non_field_errors }}
         </div>
     {% endif %}
-    <div class="form-round-block" id="optional-block-1">
-        <table id="info-main-driver">
-            <tr>
-                <td class="label">
-                    {{ s1_form.age.label }}
-                    <small>(полных лет)</small>
-                </td>
-                <td>
-                    <div class="short-select">
-                        <input type="text" maxlength="2" value=""/>
-                        {{ s1_form.age }}
-                    </div>
-                    {{ s1_form.age.errors }}
-                </td>
-                <td class="label">
-                    {{ s1_form.experience_driving.label }}
-                    <small>(полных лет)</small>
-                </td>
-                <td>
-                    <div class="short-select">
-                        <input type="text" maxlength="2" value=""/>
-                        {{ s1_form.experience_driving }}
-                    </div>
-                    {{ s1_form.experience_driving.errors }}
-                </td>
-            </tr>
-        </table>
+
+
+    <div id="first-select" class="long-select">
+        <input type="text" value=""/>
+        {{ s1_form.mark }}
+        <span class="form-error">{{ s1_form.mark.errors }}</span>
     </div>
 
-    <div class="form-round-block" id="require-block-1">
+    <div class="form-round-block hide" id="require-block-1">
         <table id="require-auto-data-first">
             <tr>
                 <td>
-                    {{ s1_form.country.label }}
-                    <span class="table-error">{{ s1_form.country.errors }}</span>
+                    {{ s1_form.model.label }}
+                    <span class="table-error">{{ s1_form.model.errors }}</span>
                 </td>
                 <td class="visible-data second">
                     <div class="visual"></div>
-                    <select id="id_country" name="country">
-                        <option value="">--------</option>
-                        <option selected="selected" value="1">Российская Федерация</option>
-                    </select>
+                    <span class="ajax-select">{{ s1_form.model }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{ s1_form.model_year.label }}
+                    <span class="table-error">{{ s1_form.model_year.errors }}</span>
+                </td>
+
+                <td class="visible-data second">
+                    <div class="visual"></div>
+                    <span class="ajax-select">{{ s1_form.model_year }}</span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    {{ s1_form.power.label }}
+                    <span class="table-error">{{ s1_form.power.errors }}</span>
+                </td>
+                <td class="visible-data second">
+                    <div class="visual"></div>
+                    <span class="ajax-select">{{ s1_form.power }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Регистрация ТС
+                </td>
+                <td class="visible-data second">
+                    <div class="visual">
+                        <span class="active" rel="1">Российская Федерация</span>
+                    </div>
                 </td>
             </tr>
             <tr>
@@ -183,27 +259,141 @@
                     {{ s1_form.violations }}
                 </td>
             </tr>
-            <tr>
-                <td>
-                    {{ s1_form.power.label }}
-                    <span class="table-error">{{ s1_form.power.errors }}</span>
-                </td>
-                <td class="visible-data second">
-                    <div class="visual"></div>
-                    <span class="ajax-select">{{ s1_form.power }}</span>
-                </td>
-            </tr>
         </table>
     </div>
 
+    <div id="unlimited-drivers" class="style-checkbox">
+        {{ s1_form.unlimited_drivers }}
+        <span class="label">{{ s1_form.unlimited_drivers.label }}</span>
+        <span class="form-error">{{ s1_form.unlimited_drivers.errors }}</span>
+    </div>
 
+    <div class="form-round-block" id="optional-block-1">
+        <table id="info-main-driver">
+            <tr>
+                <td class="label">
+                    {{ s1_form.age.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <input type="text" maxlength="2" value=""/>
+                        {{ s1_form.age }}
+                    </div>
+                    {{ s1_form.age.errors }}
+                </td>
+                <td class="label">
+                    {{ s1_form.experience_driving.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <input type="text" maxlength="2" value=""/>
+                        {{ s1_form.experience_driving }}
+                    </div>
+                    {{ s1_form.experience_driving.errors }}
+                </td>
+            </tr>
+
+            <tr class="hide">
+                <td class="label">
+                    {{ s1_form.age1.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <input type="text" maxlength="2" value=""/>
+                        {{ s1_form.age1 }}
+                    </div>
+                    {{ s1_form.age1.errors }}
+                </td>
+                <td class="label">
+                    {{ s1_form.experience_driving1.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <input type="text" maxlength="2" value=""/>
+                        {{ s1_form.experience_driving1 }}
+                    </div>
+
+                    {{ s1_form.experience_driving1.errors }}
+                </td>
+            </tr>
+
+            <tr class="hide">
+                <td class="label">
+                    {{ s1_form.age2.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <input type="text" maxlength="2" value=""/>
+                        {{ s1_form.age2 }}
+                    </div>
+
+                    {{ s1_form.age2.errors }}
+                </td>
+
+                <td class="label">
+                    {{ s1_form.experience_driving2.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <input type="text" maxlength="2" value=""/>
+                        {{ s1_form.experience_driving2 }}
+                    </div>
+
+                    {{ s1_form.experience_driving2.errors }}
+                </td>
+            </tr>
+
+            <tr class="hide">
+                <td class="label">
+                    {{ s1_form.age3.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <input type="text" maxlength="2" value=""/>
+                        {{ s1_form.age3 }}
+                    </div>
+                    {{ s1_form.age3.errors }}
+                </td>
+                <td class="label">
+                    {{ s1_form.experience_driving3.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td>
+                    <div class="short-select">
+                        <input type="text" maxlength="2" value=""/>
+                        {{ s1_form.experience_driving3 }}
+                    </div>
+                    {{ s1_form.experience_driving3.errors }}
+                </td>
+            </tr>
+        </table>
+
+        <a id="delete-driver-button" class="hide" href="#"></a>
+        <a id="add-driver-button" href="#"></a>
+
+    </div>
 
     <input id="calculate-button" type="image" value="" src="/static/images/calculate_button.png"/>
     </form>
 
     <br/>
-
+    {% if prev_data %}
+        <h2>Предыдущие расчеты:</h2>
+        {% for pd in prev_data %}
+            <a href="{% url ncalc_step1_kasko %}{{ forloop.counter }}/">{{ pd }}руб.</a>
+            <br />
+        {% endfor %}
+        <br /><br />
+    {% endif %}
     <a href="{% url cleansession %}">очистить введенные данные</a>
+    </div>
 
 {% endblock %}
 

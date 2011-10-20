@@ -2300,10 +2300,22 @@ div.messages li {
     float: right;
 }
 
+.form-round-block #sort-parameters-osago{
+   font-size: 16px;
+   font-weight: bolder;
+   width: 100%;
+}
+
 .form-round-block #sort-parameters{
    font-size: 16px;
    font-weight: bolder;
    width: 120%;
+}
+
+.form-round-block #sort-parameters.osago{
+   font-size: 16px;
+   font-weight: bolder;
+   width: 100%;
 }
 
 .form-round-block#economy-block{
@@ -2480,7 +2492,12 @@ div.messages li {
     width: 163px;
 }
 
-#result-table-step2 .company-data img{
+#result-table-step2 .company-data-osago{
+    position: relative;
+    width: 279px;
+}
+
+#result-table-step2 .company-data img, #result-table-step2 .company-data-osago img{
     display: block;
     margin: 0 auto;
     padding-top: 10px;

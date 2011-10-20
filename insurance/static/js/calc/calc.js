@@ -272,10 +272,6 @@ function fillAjaxSelect(selectId) {
 
 /*Price Slider on calc step 1*/
 function priceSlider(containerId, element, min_value, max_value) {
-    $("#current").live("change", function() {
-        $("#id_price").val($(this).val());
-    })
-
     if (min_value == undefined) {
         var min_value = 0;
     }
@@ -287,6 +283,9 @@ function priceSlider(containerId, element, min_value, max_value) {
     if (element == undefined) {
         var element = "#id_price";
     }
+    $("#current").live("change", function() {
+        $(element).val($(this).val());
+    })
 
     containerId.slider({
         value:  $(element).val(),

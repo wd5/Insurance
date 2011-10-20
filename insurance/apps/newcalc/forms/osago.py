@@ -22,13 +22,19 @@ FRANCHISE_CHOICE = (
     )
 attrs_dict = {'class': 'required'}
 class Step1Form(forms.Form):
-    country = forms.ModelChoiceField(label="Регистрация ТС",
-                                     queryset=City.objects.all(),
-                                     empty_label="--------")
+    mark = forms.ModelChoiceField(label="Марка автомобиля",
+                                  queryset=Mark.objects.all(),
+                                  empty_label="Выберите марку автомобиля")
+    model = forms.ModelChoiceField(label="Модель автомобиля",
+                                   queryset=Model.objects.none(),
+                                   empty_label="Выберите модель автомобиля")
+    model_year = forms.ModelChoiceField(label="Год выпуска",
+                                        queryset=ModelYear.objects.none(),
+                                        empty_label="--------")
     city = forms.ModelChoiceField(label="Территория использования ТС",
                                   queryset=City.objects.all(),
                                   empty_label="--------")
-    dago = forms.IntegerField(label="ДАГО", min_value=250000, max_value=25000000)
+    dago = forms.IntegerField(label="Гражданская ответственность", max_value=25000000)
     violations = forms.ChoiceField(label="Грубые нарушения",
                                    choices=(("1", "не было"), ("1.5", "были")))
     power = forms.ModelChoiceField(label="Мощность",
@@ -37,14 +43,94 @@ class Step1Form(forms.Form):
     age = forms.ChoiceField(label="Возраст", choices=AGE_CHOISES)
     experience_driving = forms.ChoiceField(label="Стаж вождения",
                                            choices=EXPERIENCE_CHOISES)
+    unlimited_drivers = forms.BooleanField(
+        label="Неограниченное число водителей",
+        required=False)
+    age1 = forms.ChoiceField(label="Возраст второго водителя",
+                             choices=AGE_CHOISES,
+                             required=False)
+    experience_driving1 = forms.ChoiceField(
+        label="Стаж вождения второго водителя",
+        choices=EXPERIENCE_CHOISES,
+        required=False)
+    age2 = forms.ChoiceField(label="Возраст третьего водителя",
+                             choices=AGE_CHOISES, required=False)
+    experience_driving2 = forms.ChoiceField(label="Стаж вождения третьего "\
+                                                  "водителя",
+                                            choices=EXPERIENCE_CHOISES,
+                                            required=False)
+    age3 = forms.ChoiceField(label="Возраст четвертого водителя",
+                             choices=AGE_CHOISES, required=False)
+    experience_driving3 = forms.ChoiceField(label="Стаж вождения четвертого "\
+                                                  "водителя",
+                                            choices=EXPERIENCE_CHOISES,
+                                            required=False)
 
     def __init__(self, *args, **kwargs):
         form_extra_data = kwargs.pop("form_extra_data")
         super(Step1Form, self).__init__(*args, **kwargs)
+        if form_extra_data.has_key("mark"):
+            self.fields['model'].queryset = form_extra_data[
+                                            "mark"].model_set.filter(model_active=1)
+            if form_extra_data.has_key("model"):
+                # COMMENT: временное упрощение
+                # self.fields['model_year'].queryset =\
+                # form_extra_data["model"].modelyear_set.all()
+                self.fields['model_year'].queryset = ModelYear.objects.all()
+                if form_extra_data.has_key("model_year"):
+                    # COMMENT: временное упрощение
+                    # mym = Mym.objects.get(mym_y=form_extra_data["model_year"],
+                    #                       mym_m=form_extra_data["model"])
+                    # self.fields['power'].queryset = mym.power_set.all()
+                    self.fields['power'].queryset = Power.objects.all()
+
+    def clean_mark(self):
+        mark = self.cleaned_data['mark']
+        self.fields['model'].queryset = mark.model_set.all()  # My hack :)
+        return mark
+
+    def clean_model(self):
+        model = self.cleaned_data['model']
+        self.fields['model_year'].queryset = ModelYear.objects.all()
+        return model
+
+    def clean_model_year(self):
+        model_year = self.cleaned_data['model_year']
+        # model = self.cleaned_data['model']
+        # mym = Mym.objects.get(mym_y=model_year, mym_m=model)
+        # self.fields['power'].queryset = mym.power_set.all()
         self.fields['power'].queryset = Power.objects.all()
+        return model_year
 
     def clean(self):
         cd = self.cleaned_data
+        unlimited_drivers = cd["unlimited_drivers"]
+        age1 = cd.get("age1")
+        age2 = cd.get("age2")
+        age3 = cd.get("age3")
+        experience_driving1 = cd.get("experience_driving1")
+        experience_driving2 = cd.get("experience_driving2")
+        experience_driving3 = cd.get("experience_driving3")
+        if not unlimited_drivers:
+            if (age1 and not experience_driving1) or (experience_driving1 and
+                                                      not age1):
+                raise forms.ValidationError("Не полностью заполнены данные "\
+                                            "по второму водителю.")
+            if (age2 and not experience_driving2) or (experience_driving2 and
+                                                      not age2):
+                raise forms.ValidationError("Не полностью заполнены данные по "\
+                                            "третьему водителю.")
+            if (age3 and not experience_driving3) or (experience_driving3 and
+                                                      not age3):
+                raise forms.ValidationError("Не полностью заполнены данные по "\
+                                            "четвертому водителю.")
+                # На случай отключенного js.
+            if age2 and not age1:
+                raise forms.ValidationError("Нужно заполнить данные по "\
+                                            "второму водителю, прежде, чем заполнять по третьему.")
+            if age3 and not age2:
+                raise forms.ValidationError("Нужно заполнить данные по "\
+                                            "третьему водителю, прежде, чем заполнять по четвертому.")
         return cd
 
     # COMMENT: временное упрощение
@@ -66,10 +152,35 @@ class Step1Form(forms.Form):
                                         "от возраста, меньшего 18.")
         return self.cleaned_data["experience_driving"]
 
+    def clean_experience_driving1(self):
+        age1 = self.cleaned_data.get("age1")
+        experience_driving1 = self.cleaned_data.get("experience_driving1")
+        if age1 and experience_driving1:
+            if int(age1) - int(experience_driving1) < 18:
+                raise forms.ValidationError("Опыт вождения не может "\
+                                            "отсчитываться от возраста, меньшего 18.")
+        return experience_driving1
+
+    def clean_experience_driving2(self):
+        age2 = self.cleaned_data.get("age2")
+        experience_driving2 = self.cleaned_data.get("experience_driving2")
+        if age2 and experience_driving2:
+            if int(age2) - int(experience_driving2) < 18:
+                raise forms.ValidationError("Опыт вождения не может "\
+                                            "отсчитываться от возраста, меньшего 18.")
+        return experience_driving2
+
+    def clean_experience_driving3(self):
+        age3 = self.cleaned_data.get("age3")
+        experience_driving3 = self.cleaned_data.get("experience_driving3")
+        if age3 and experience_driving3:
+            if int(age3) - int(experience_driving3) < 18:
+                raise forms.ValidationError("Опыт вождения не может "\
+                                            "отсчитываться от возраста, меньшего 18.")
+        return experience_driving3
+
 
 class Step2Form(forms.Form):
-    factor_price = forms.BooleanField(label="Сортировка по цене",
-                                      required=False)
     factor_easepay = forms.BooleanField(label="Сортировка по простоте выплаты",
                                         required=False)
     factor_insuranceterms = forms.BooleanField(label="Сортировка по условиям "\
@@ -85,35 +196,9 @@ class Step2Form(forms.Form):
                                               required=False)
     factor_service = forms.BooleanField(label="Сортировка по быстроте покупки",
                                         required=False)
-    franchise = forms.ChoiceField(label="Франшиза",
-                                  choices=FRANCHISE_CHOICE,
-                                  required=False)
-    burglar_alarm_group = forms.ModelChoiceField(label="Сигнализация",
-                                                 queryset=BurglarAlarm.objects.filter(
-                                                     pk__gt=0,
-                                                     burglar_alarm_parent=0).order_by("burglar_alarm_name"),
-                                                 empty_label="--------",
-                                                 required=False)
-    burglar_alarm_model = forms.ModelChoiceField(label="Модель сигнализации",
-                                                 queryset=BurglarAlarm.objects.none()
-                                                 , empty_label="--------",
-                                                 required=False)
 
     def __init__(self, *args, **kwargs):
-        form_extra_data = kwargs.pop("form_extra_data")
         super(Step2Form, self).__init__(*args, **kwargs)
-        if form_extra_data.has_key("burglar_alarm_group"):
-            self.fields['burglar_alarm_model'].queryset = form_extra_data[
-                                                          "burglar_alarm_group"].models.order_by("burglar_alarm_name")
-
-    def clean_burglar_alarm_group(self):
-        burglar_alarm_group = self.cleaned_data['burglar_alarm_group']
-        if (burglar_alarm_group is not None and
-            burglar_alarm_group.models.all().count()):
-            self.fields[
-            'burglar_alarm_model'].queryset = burglar_alarm_group.models.order_by("burglar_alarm_name")
-            self.fields['burglar_alarm_model'].required = True
-        return burglar_alarm_group
 
 
 class Step3FormReg(forms.Form):
