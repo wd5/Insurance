@@ -402,8 +402,20 @@ def _build_servlet_request_data(s1_data, s2_data):
                             "city": s1_data["city"],
                             "age_0": s1_data["age"],
                             "experience_driving_0": s1_data["experience_driving"],
-                            "unlimited_drivers": unlimited_drivers,
+#                            "unlimited_drivers": unlimited_drivers,
                             }
+    if s1_data.has_key("age1"):
+        servlet_request_data["age_1"] = s1_data["age1"]
+        servlet_request_data["experience_driving_1"] =\
+            s1_data["experience_driving1"]
+    if s1_data.has_key("age2"):
+        servlet_request_data["age_2"] = s1_data["age2"]
+        servlet_request_data["experience_driving_2"] =\
+            s1_data["experience_driving2"]
+    if s1_data.has_key("age3"):
+        servlet_request_data["age_3"] = s1_data["age3"]
+        servlet_request_data["experience_driving_3"] =\
+            s1_data["experience_driving3"]
     if s2_data:
         for key in s2_data:
             if s2_data[key] == True:
