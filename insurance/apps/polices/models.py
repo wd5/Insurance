@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 from django.db import models
 from django.core.validators import MaxValueValidator
 from django.core.validators import MinValueValidator
@@ -38,17 +39,17 @@ WHEEL_CHOICES = (
     )
 
 BODY_TYPE_CHOICES = (
-    ("Седан", "Седан"),
-    ("Хетчбэк 3дв", "Хетчбэк 3дв"),
-    ("Хетчбэк 5дв", "Хетчбэк 5дв"),
-    ("Универсал", "Универсал"),
-    ("Кабриолет", "Кабриолет"),
-    ("Пикап", "Пикап"),
-    ("Фургон", "Фургон"),
-    ("Купе", "Купе"),
-    ("Лимузин", "Лимузин"),
-    ("Внедорожник", "Внедорожник"),
-    ("Иное", "Иное"),
+    (u"Седан", u"Седан"),
+    (u"Хетчбэк 3дв", u"Хетчбэк 3дв"),
+    (u"Хетчбэк 5дв", u"Хетчбэк 5дв"),
+    (u"Универсал", u"Универсал"),
+    (u"Кабриолет", u"Кабриолет"),
+    (u"Пикап", u"Пикап"),
+    (u"Фургон", u"Фургон"),
+    (u"Купе", u"Купе"),
+    (u"Лимузин", u"Лимузин"),
+    (u"Внедорожник", u"Внедорожник"),
+    (u"Иное", u"Иное"),
 )
 
 SEX_CHOICES = (
@@ -77,6 +78,11 @@ MOTOR_CHOICES = (
 PAYMENT_CHOICES = (
     (1, 'Наличными'),
     (2, 'Картой')
+)
+TIME_CHOICES = (
+    (datetime.time(9, 30), u"9:30 - 12:00"),
+    (datetime.time(12, 0), u"12:00 - 15:00"),
+    (datetime.time(15, 0), u"15:00 - 18:00")
 )
 
 class CallRequests(models.Model):
@@ -201,7 +207,7 @@ class InsurancePolicyData(models.Model):
     owner_sex = models.CharField("Пол владельца", max_length=1, choices=SEX_CHOICES)
 #STEP 4-3
     date = models.DateField("Дата доставки", null=True, blank=True)
-    time = models.TimeField("Время доставки", null=True, blank=True)
+    time = models.TimeField("Время доставки", null=True, blank=True, choices=TIME_CHOICES)
     street = models.CharField(u'Улица доставки', max_length=255, null=True, blank=True)
     building = models.CharField(u'Дом доставки', max_length=16, null=True, blank=True)
     structure = models.CharField(u'Строение доставки', max_length=16, null=True, blank=True)
