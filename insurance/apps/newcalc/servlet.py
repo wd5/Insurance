@@ -53,13 +53,17 @@ FAKE_RESPONSE = {'status': 'OK', 'info':
 }
 
 
-def servlet_request(data):
+def servlet_request(data, servlet_type="kasko"):
+    if servlet_type not in settings.SERVLET_URL:
+        raise Exception("Unknown servlet type")
+    url = settings.SERVLET_URL[servlet_type]
     result = None
     if not settings.SERVLET_FAKE:
         encoded_data = urllib.urlencode(data)
         if settings.DEBUG:
             print "REQUEST:", encoded_data
-        req = urllib2.Request(settings.SERVLET_URL, encoded_data)
+        print "URL:", url
+        req = urllib2.Request(url, encoded_data)
         try:
             result = urllib2.urlopen(req).read()
             if settings.DEBUG:
