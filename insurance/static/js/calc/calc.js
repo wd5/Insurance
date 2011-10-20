@@ -270,6 +270,12 @@ function fillAjaxSelect(selectId) {
     parentContainer.find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true})
 }
 
+function priceFormat(val, unit) {
+        var t_str = val.toString().split("").reverse().join(""); // reverse string
+        t_str = t_str.replace(/(.{3})/g, "$1 "); // put space into every fourth place
+        return t_str.split("").reverse().join("") + " " + unit; // reverse back and append unit mark
+};
+
 /*Price Slider on calc step 1*/
 function priceSlider(containerId, element, min_value, max_value) {
     if (min_value == undefined) {
@@ -307,8 +313,8 @@ function priceSlider(containerId, element, min_value, max_value) {
         }
     });
 
-    containerId.parent().find("#min").html(min_value);
-    containerId.parent().find("#max").html(max_value);
+    containerId.parent().find("#min").html(priceFormat(min_value, "р."));
+    containerId.parent().find("#max").html(priceFormat(max_value, "р."));
 }
 
 
@@ -348,8 +354,8 @@ function franchiseSlider(selectId) {
         }
     })
 
-    selectId.parent().find("#min").html(min);
-    selectId.parent().find("#max").html(max);
+    selectId.parent().find("#min").html(priceFormat(min, "р."));
+    selectId.parent().find("#max").html(priceFormat(max, "р."));
 }
 
 //Show Preloader function when submit data on server

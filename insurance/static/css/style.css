@@ -3122,7 +3122,7 @@ div.messages li {
 #franchize-container #min, #price-slider-container #min{
     position: absolute;
     top: -20px;
-    font-size: 14px;
+    font-size: 12px;
     left: 0;
 }
 
@@ -3130,7 +3130,7 @@ div.messages li {
     position: absolute;
     top: -20px;
     right: 0;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 #franchize-container #current{
