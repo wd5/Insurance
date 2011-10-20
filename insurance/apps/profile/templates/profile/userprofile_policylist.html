@@ -25,9 +25,8 @@
                             </ul>
                             <div id="tabs_cont3_1" class="bg_tabs3_box">
                                 <div class="bg_tabs2_f">
-
 <table class="policy-list">
-    {% ifequal policy_type "1" %}
+    {% if policy_type in "12" %}
       <thead><th>Страховая компания</th><th>Страхователь</th><th>Собственник ТС</th>
       <th>Транспортное средство</th><th>Водители</th><th>Текущий статус</th></thead>
       <tbody>
@@ -44,10 +43,7 @@
         <tr><td colspan="6">Полисов пока нет.</td></tr>
       {% endfor %}
       </tbody>
-    {% else %}
-      {# temporary hack till there are no other policies #}
-      <tr><td>Полисов пока нет.</td></tr>
-    {% endifequal %}
+    {% endif %}
 </table>
 </div>
 </div>
