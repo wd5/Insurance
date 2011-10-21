@@ -83,7 +83,7 @@
                 if (parent.attr("class") == "container") {
                     parent = $(this).parent().parent();
                 }
-                nextRows.hide();
+//                nextRows.hide();
                 parent.find("span").removeClass("active");
                 $(this).addClass("active");
                 nextSelect.val($(this).attr("rel"));
@@ -191,7 +191,7 @@
                     <div class="visual"></div>
                     <span class="ajax-select">{{ s1_form.model_year }}</span>
                 </td>
-            </tr>          
+            </tr>
             <tr>
                 <td>
                     {{ s1_form.model.label }}
