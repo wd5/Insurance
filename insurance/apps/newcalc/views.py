@@ -37,9 +37,6 @@ def cleansession(request):
     request.session.clear()
     return redirect(reverse('ncalc_index'))
 
-def success(request):
-    return direct_to_template(request, 'calc/success.html')
-
 # ========== AJAX ==========
 
 

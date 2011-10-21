@@ -29,6 +29,12 @@ socket.setdefaulttimeout(settings.SERVLET_TIMEOUT)
 
 # ========== General views ==========
 
+
+def success(request):
+    request.session['policy_osago'] = None
+    return direct_to_template(request, 'calc/success.html', {'tab': 2})
+
+
 S1_REQUIRED_KEYS = (
     "mark", "model", "model_year", "power", "dago",
     "violations", "city", "age", "experience_driving")
@@ -167,7 +173,7 @@ def step3(request, alias):
                         ip.age3 = s1_data["age3"]
                         ip.experience_driving3 = s1_data["experience_driving3"]
                 policy = ip.save()
-                request.session['policy'] = ip.pk
+                request.session['policy_osago'] = ip.pk
 
                 return redirect(reverse('ncalc_step4_osago'))
         else:
@@ -202,7 +208,7 @@ def step3(request, alias):
                         ip.age3 = s1_data["age3"]
                         ip.experience_driving3 = s1_data["experience_driving3"]
                 policy = ip.save()
-                request.session['policy'] = ip.pk
+                request.session['policy_osago'] = ip.pk
                 request.session["company_alias"] = alias
                 return redirect(reverse('ncalc_step4_osago'))
     else:
@@ -215,12 +221,13 @@ def step3(request, alias):
     else:
         return direct_to_template(request, 'calc/osago/step3noreg.html', {"data": data, "form": form, "call_form":call_form, 'tab': 2})
 
+
 def step4(request):
-    policy_id = request.session.get('policy')
+    policy_id = request.session.get('policy_osago')
     if not policy_id:
-        #policy_id = 1 #для показа
         return redirect(reverse('ncalc_step1_osago')) #, args=[request.session.get('company_alias')]))
     policy = InsurancePolicy.objects.get(pk=policy_id)
+    policy_data = InsurancePolicy.objects.values().get(pk=policy_id)
     if request.method == 'POST':
         form = Step4Form(request.POST)
         if form.is_valid():
@@ -230,24 +237,28 @@ def step4(request):
                     setattr(policy, k, cd[k])
             policy.save()
             return redirect(reverse('ncalc_step5_osago'))
-    initial_data = {}
-
-    # TODO: возможно несколько персон у одного юзера - учесть это
-    persona = Persona.objects.get(user=policy.user, me=True)
-    initial_data['first_name'] = persona.first_name
-    initial_data['last_name'] = persona.last_name
-    initial_data['middle_name'] = persona.middle_name
-
-    form = Step4Form(initial=initial_data)
-    # use kasko template while it's similar to osago
+    else:
+        initial_data = {}
+        #TODO: сделать возможность добавления данных по др. водителям.
+        #TODO: здесь расширить список данных, получаемых из персоны.
+        persona = Persona.objects.get(user=policy.user, me=True)
+        if not policy.first_name or not policy.last_name or not policy.middle_name:
+            initial_data['first_name'] = persona.first_name
+            initial_data['last_name'] = persona.last_name
+            initial_data['middle_name'] = persona.middle_name
+            form = Step4Form(initial=initial_data)
+        else:
+            form = Step4Form(initial=policy_data)
     return direct_to_template(request, 'calc/kasko/step4.html', {"form": form, 'tab': 2})
 
 
 def step5(request):
-    policy_id = request.session.get('policy')
+    policy_id = request.session.get('policy_osago')
     if not policy_id:
         return redirect(reverse('ncalc_step1_osago')) #, args=[request.session.get('company_alias')]))
     policy = InsurancePolicy.objects.get(pk=policy_id)
+    policy_data = InsurancePolicy.objects.values().get(pk=policy_id)
+
     if request.method == 'POST':
         form = Step5Form(request.POST)
         if form.is_valid():
@@ -258,16 +269,24 @@ def step5(request):
             policy.save()
             return redirect(reverse('ncalc_step6_osago'))
     else:
-        form = Step5Form(initial={"first_owner": True,})
-    # use KASKO template
-    return direct_to_template(request, 'calc/kasko/step5.html', {"form": form, 'tab': 2})
+        form = Step5Form(initial=policy_data)
 
+    copy = {"first_name": policy.first_name,
+            "middle_name": policy.middle_name,
+            "last_name": policy.last_name,
+            "birth_date": policy.birth_date.strftime("%d.%m.%Y"),
+            "sex": policy.sex}
+    return direct_to_template(request, 'calc/kasko/step5.html', {"form": form, "tab": 2,
+                                                                 "copy": copy,
+                                                                 "back": reverse("ncalc_step4_osago")})
 
 def step6(request):
-    policy_id = request.session.get('policy')
+    policy_id = request.session.get('policy_osago')
     if not policy_id:
         return redirect(reverse('ncalc_step1_osago')) #, args=[request.session.get('company_alias')]))
     policy = InsurancePolicy.objects.get(pk=policy_id)
+    policy_data = InsurancePolicy.objects.values().get(pk=policy_id)
+
     if request.method == 'POST':
         form = Step6Form(request.POST)
         if form.is_valid():
@@ -276,11 +295,11 @@ def step6(request):
                 if cd[k]:
                     setattr(policy, k, cd[k])
             policy.save()
-            return redirect(reverse('ncalc_success'))
+            return redirect(reverse('ncalc_success_osago'))
     else:
-        form = Step6Form()
-    # Use KASKO template
-    return direct_to_template(request, 'calc/kasko/step6.html', {"form": form, 'tab': 2})
+        form = Step6Form(initial=policy_data)
+    return direct_to_template(request, 'calc/kasko/step6.html', {"form": form, 'tab': 2,
+                                                                 "back": reverse("ncalc_step5_osago")})
 
 # ========== Auxilary ==========
 

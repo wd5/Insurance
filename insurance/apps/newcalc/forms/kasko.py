@@ -278,7 +278,7 @@ class Step3FormNoReg(forms.Form):
 #        model = InsurancePolicyData
 #        exclude = ('polisy',)
 
-        
+
 class Step4Form(forms.Form):
     first_name = forms.CharField(label="Имя страхователя", max_length=30)
     last_name = forms.CharField(label="Фамилия страхователя", max_length=30)
@@ -292,7 +292,7 @@ class Step4Form(forms.Form):
     issued_org = forms.CharField(label="Кем выдан", max_length=255)
     issued_date = forms.DateField(label="Дата выдачи")
     reg_region = forms.CharField(label="Область, край", max_length=255)
-    reg_area = forms.CharField(label="Район", max_length=255)
+    reg_area = forms.CharField(label="Район", max_length=255, required=False)
     reg_city = forms.CharField(label="Населенный пункт", max_length=255)
     reg_street = forms.CharField(label="Улица", max_length=255)
     reg_index = forms.CharField(label="Индекс", max_length=6)
@@ -300,7 +300,7 @@ class Step4Form(forms.Form):
     reg_housing = forms.CharField(label="Корпус", max_length=6, required=False)
     reg_flat = forms.CharField(label="Квартира", max_length=6)
     live_region = forms.CharField(label="Область, край", max_length=255)
-    live_area = forms.CharField(label="Район", max_length=255)
+    live_area = forms.CharField(label="Район", max_length=255, required=False)
     live_city = forms.CharField(label="Населенный пункт", max_length=255)
     live_street = forms.CharField(label="Улица", max_length=255)
     live_index = forms.CharField(label="Индекс", max_length=6)
@@ -316,8 +316,8 @@ class Step5Form(forms.Form):
     body_type = forms.ChoiceField(label="Тип кузова", choices=BODY_TYPE_CHOICES)
     pts_number = forms.CharField(label="Серия и номер ПТС", max_length=10)
     pts_date = forms.DateField(label="Дата выдачи ПТС")
-    power = forms.IntegerField(label="Мощность", min_value=0)
-    volume = forms.IntegerField(label="Объем двигателя", min_value=0)
+    power = forms.IntegerField(label="Мощность", min_value=0, max_value=9999)
+    volume = forms.IntegerField(label="Объем двигателя", min_value=0, max_value=9999)
     mileage = forms.IntegerField(label="Пробег", min_value=0)
     kpp = forms.ChoiceField(label="Коробка передач", choices=KPP_CHOICES)
     motor = forms.ChoiceField(label="Двигатель", choices=MOTOR_CHOICES)
@@ -338,8 +338,9 @@ class Step6Form(forms.Form):
                                 required=False)
     housing = forms.CharField(label="Корпус доставки", max_length=6, required=False)
     floor = forms.CharField(label="Этаж доставки", max_length=6, required=False)
-    domophone = forms.CharField(label="Домофон", max_length=6, required=False)
+    domophone = forms.CharField(label="Код домофона", max_length=12, required=False)
     flat = forms.CharField(label="Квартира доставки", max_length=6, required=False)
+    porch = forms.CharField(label="Подъезд доставки", max_length=6, required=False)
     payments = forms.ChoiceField(label="Вариант оплаты", choices=PAYMENT_CHOICES)
     comment = forms.CharField(label="Комментарий", required=False,
                               widget=forms.Textarea)
