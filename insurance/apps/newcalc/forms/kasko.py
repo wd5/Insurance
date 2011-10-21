@@ -3,7 +3,9 @@ from django import forms
 from django.contrib.auth.models import User
 from newcalc.models import Mark, City, ModelYear, Power, Model, BurglarAlarm
 from profile.models import Persona
-from polices.models import BODY_TYPE_CHOICES, SEX_CHOICES, InsurancePolicyData
+from polices.models import SEX_CHOICES, CATEGORY_CHOICES, CITIZEN_CHOICES
+from polices.models import BODY_TYPE_CHOICES, KPP_CHOICES, MOTOR_CHOICES
+from polices.models import SEX_CHOICES, TIME_CHOICES, PAYMENT_CHOICES
 from email_login.forms import PhoneNumberField
 from captcha.fields import CaptchaField
 from django.forms import ModelForm
@@ -271,7 +273,73 @@ class Step3FormNoReg(forms.Form):
         return self.cleaned_data['phone']
 
 
-class Step4Form(ModelForm):
-    class Meta:
-        model = InsurancePolicyData
-        exclude = ('polisy',)
+#class Step4Form_old(ModelForm):
+#    class Meta:
+#        model = InsurancePolicyData
+#        exclude = ('polisy',)
+
+        
+class Step4Form(forms.Form):
+    first_name = forms.CharField(label="Имя страхователя", max_length=30)
+    last_name = forms.CharField(label="Фамилия страхователя", max_length=30)
+    middle_name = forms.CharField(label="Отчество страхователя", max_length=30)
+    birth_date = forms.DateField(label="Дата рождения страхователя")
+    sex = forms.ChoiceField(label="Пол", choices=SEX_CHOICES)
+    category = forms.ChoiceField(label="Категория прав", choices=CATEGORY_CHOICES)
+    citizenship = forms.ChoiceField(label="Гражданство", choices=CITIZEN_CHOICES)
+    passport_series = forms.CharField(label="Серия паспорта", max_length=16)
+    passport_number = forms.CharField(label="Номер паспорта", max_length=16)
+    issued_org = forms.CharField(label="Кем выдан", max_length=255)
+    issued_date = forms.DateField(label="Дата выдачи")
+    reg_region = forms.CharField(label="Область, край", max_length=255)
+    reg_area = forms.CharField(label="Район", max_length=255)
+    reg_city = forms.CharField(label="Населенный пункт", max_length=255)
+    reg_street = forms.CharField(label="Улица", max_length=255)
+    reg_index = forms.CharField(label="Индекс", max_length=6)
+    reg_building = forms.CharField(label="Дом", max_length=16)
+    reg_housing = forms.CharField(label="Корпус", max_length=6, required=False)
+    reg_flat = forms.CharField(label="Квартира", max_length=6)
+    live_region = forms.CharField(label="Область, край", max_length=255)
+    live_area = forms.CharField(label="Район", max_length=255)
+    live_city = forms.CharField(label="Населенный пункт", max_length=255)
+    live_street = forms.CharField(label="Улица", max_length=255)
+    live_index = forms.CharField(label="Индекс", max_length=6)
+    live_building = forms.CharField(label="Дом", max_length=16)
+    live_housing = forms.CharField(label="Корпус", max_length=6, required=False)
+    live_flat = forms.CharField(label="Квартира", max_length=6)
+
+
+class Step5Form(forms.Form):
+    vin = forms.CharField(label="VIN", max_length=17)
+    number = forms.CharField(label="Гос. номер", max_length=10)
+    body_number = forms.CharField(label="Номер кузова", max_length=10)
+    body_type = forms.ChoiceField(label="Тип кузова", choices=BODY_TYPE_CHOICES)
+    pts_number = forms.CharField(label="Серия и номер ПТС", max_length=10)
+    pts_date = forms.DateField(label="Дата выдачи ПТС")
+    power = forms.IntegerField(label="Мощность", min_value=0)
+    volume = forms.IntegerField(label="Объем двигателя", min_value=0)
+    mileage = forms.IntegerField(label="Пробег", min_value=0)
+    kpp = forms.ChoiceField(label="Коробка передач", choices=KPP_CHOICES)
+    motor = forms.ChoiceField(label="Двигатель", choices=MOTOR_CHOICES)
+    owner_last_name = forms.CharField(label="Фамилия", max_length=30)
+    owner_first_name = forms.CharField(label="Имя", max_length=30)
+    owner_middle_name = forms.CharField(label="Отчество", max_length=30)
+    owner_birth_date = forms.DateField(label="Дата рождения")
+    first_owner = forms.BooleanField(label="Первый владелец авто", required=False)
+    owner_sex = forms.ChoiceField(label="Пол владельца", choices=SEX_CHOICES)
+
+
+class Step6Form(forms.Form):
+    date = forms.DateField(label="Дата доставки")
+    time = forms.ChoiceField(label="Время доставки", choices=TIME_CHOICES)
+    street = forms.CharField(label="Улица доставки", max_length=255)
+    building = forms.CharField(label="Дом доставки", max_length=16)
+    structure = forms.CharField(label="Строение доставки", max_length=16,
+                                required=False)
+    housing = forms.CharField(label="Корпус доставки", max_length=6, required=False)
+    floor = forms.CharField(label="Этаж доставки", max_length=6, required=False)
+    domophone = forms.CharField(label="Домофон", max_length=6, required=False)
+    flat = forms.CharField(label="Квартира доставки", max_length=6, required=False)
+    payments = forms.ChoiceField(label="Вариант оплаты", choices=PAYMENT_CHOICES)
+    comment = forms.CharField(label="Комментарий", required=False,
+                              widget=forms.Textarea)

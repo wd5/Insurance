@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from models import InsurancePolicy, InsurancePolicyData, CallRequests
+from models import InsurancePolicy, CallRequests
 
 class InsurancePolicyAdmin(admin.ModelAdmin):
     list_display = ('user', 'type', 'state',)

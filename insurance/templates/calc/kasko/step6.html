@@ -1,0 +1,52 @@
+{% extends "calc/calc.html" %}
+{% block extra_head %}
+{% endblock %}
+
+
+{% block tab_content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <p><label for="id_date">Дата
+            доставки:</label> {{ form.date }} {{ form.date.errors }}</p>
+
+        <p><label for="id_time">Время
+            доставки:</label> {{ form.time }} {{ form.time.errors }}</p>
+
+        <p><label for="id_street">Улица
+            доставки:</label> {{ form.street }} {{ form.street.errors }}
+        </p>
+
+        <p><label for="id_building">Дом
+            доставки:</label> {{ form.building }} {{ form.building.errors }}
+        </p>
+
+        <p><label for="id_structure">Строение
+            доставки:</label> {{ form.structure }} {{ form.structure.errors }}
+        </p>
+
+        <p><label for="id_housing">Корпус
+            доставки:</label> {{ form.housing }} {{ form.housing.errors }}</p>
+
+        <p><label for="id_floor">Этаж
+            доставки:</label> {{ form.floor }} {{ form.floor.errors }}
+        </p>
+
+        <p><label for="id_domophone">Этаж
+            доставки:</label> {{ form.domophone }} {{ form.domophone.errors }}
+        </p>
+
+        <p><label for="id_flat">Квартира
+            доставки:</label> {{ form.flat }} {{ form.flat.errors }}
+        </p>
+
+        <p><label for="id_payments">Вариант
+            оплаты:</label> {{ form.payments }} {{ form.payments.errors }}</p>
+
+        <p><label
+                for="id_comment">Комментарий:</label> {{ form.comment }} {{ form.comment.errors }}
+        </p>
+        <input type="submit" value="Дальше"/>
+    </form>
+
+{% endblock %}

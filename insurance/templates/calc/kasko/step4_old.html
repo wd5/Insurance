@@ -1,0 +1,499 @@
+{% extends "calc/calc.html" %}
+{% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $("#step4-tabs").tabs({
+                select: function(){
+                    if(checkAllINputs() == false){
+                         return false;
+                    }
+                }
+            });
+
+            /*Tab active style*/
+            $("li.ui-state-default a").click(function(){
+                if($(this).parent().hasClass("ui-state-active")){
+                    $(this).parents("ul").removeClass("active-1").removeClass("active-2").removeClass("active-3");
+                $(this).parents("ul").addClass("active-"+$(this).attr("dataid"));
+                }
+
+            })
+
+            $("#id_kpp, #id_motor, #id_payments, #id_citizenship, #id_category, #id_sex, #id_time").css("visibility", "hidden");
+
+            /*Remove empty class when user click or input values */
+            $("#step4-tabs input").click(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step4-tabs input").keypress(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step4-tabs select").change(function(){
+                $(this).parent().removeClass("empty");
+            })
+
+            /*Select visual value*/
+            $("#citizenship a, #is-first-owner a, #kpp a, #motor a, #time-deliviry a, #payment-form a, #category-drive a, #sex-1 a, #sex-owner a").click(function(e){
+                e.preventDefault();
+                $(this).parent().removeClass("empty");
+                selectVisualValue($(this));
+            })
+
+            /*Display visual value*/
+            $("#id_citizenship, #id_kpp,  #id_motor, #id_payments, #id_first_owner, #id_category, #id_sex, #id_owner_sex, #sex-1").each(function(){
+                displaySelectValue($(this));
+            })
+
+            /*For input labels*/
+            $("#document-data input, #document-address input, #real-address input").each(function(){
+                $("#document-data label, #document-address label, #real-address label").hide();
+                $(this).addClass("inactive");
+                    if($(this).val() == ""){
+                       $(this).val($(this).parent().find("label").text());
+                    }
+
+                $(this).click(function(){
+                    $(this).removeClass("inactive");
+                })
+
+                $(this).keypress(function(){
+                    $(this).removeClass("inactive");
+                    $(this).removeClass("empty");
+                })
+
+                 $(this).blur(function(){
+                    if($(this).val() == ""){
+                        $(this).addClass("inactive");
+                    }
+                })
+
+            })
+
+            /*Placeholder for inpust*/
+            $("#step4-tabs input:text").click(function(){
+                $(this).removeClass("empty");
+                var currentValue = $(this).data("currval", $(this).val());
+                if($(this).val() == $(this).parent().find("label").text()){
+                    $(this).val("");
+                }
+
+            })
+
+            $("#step4-tabs input:text").blur(function(){
+                var saveValue = $(this).data("currval");
+                if($(this).val() == ""){
+                    $(this).val($(this).data("currval"))
+                }
+            })
+
+            /*Click on copy data link*/
+            $("#copy-data-link").click(function(e){
+                e.preventDefault();
+                var from = $("#document-address input"),
+                    to = $("#real-address input");
+
+                copyInputValues(from, to);
+
+            })
+
+            $("#copy-data-link2").click(function(e){
+                e.preventDefault();
+                var from = $("#person-info-table input"),
+                    to = $("#auto-owner-table input:text");
+
+                copyInputValues(from, to);
+
+            })
+
+
+            /*Next link click*/
+            $("#next-link").click(function(){
+                var $tabs = $("#step4-tabs").tabs(),
+                nexttab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide").index();
+                if(checkAllINputs() == true && nexttab < 3){
+                    $tabs.tabs('select', nexttab);
+                    $("#step4-tabs .ui-tabs-nav").removeClass("active-1").removeClass("active-2").removeClass("active-3");
+                    $("#step4-tabs .ui-tabs-nav").addClass("active-" + (nexttab+1));
+                }
+                return false;
+            })
+
+            /*Prev link click*/
+            $("#prev-link").click(function(){
+                var $tabs = $("#step4-tabs").tabs(),
+                prevtab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide").index()-2;
+                if(prevtab >= 0 ){
+                    $tabs.tabs('select', prevtab);
+                    $("#step4-tabs .ui-tabs-nav").removeClass("active-1").removeClass("active-2").removeClass("active-3");
+                    $("#step4-tabs .ui-tabs-nav").addClass("active-" + (prevtab+1));
+                }
+                return false;
+            })
+
+            //Check when submit data
+            $("#step4-tabs form").submit(function(){
+                if(checkAllINputs() == false){
+                    return false;
+                }
+            })
+
+           /* $("#step4-tabs form").validate({
+                messages: {
+                    first_name: "Please specify your name",
+                    email: {
+                        required: "We need your email address to contact you",
+                        email: "Your email address must be in the format of name@domain.com"
+                    }
+                }
+            });*/
+        });
+    </script>
+{% endblock %}
+
+
+{% block tab_content %}
+
+    <div class="form-round-block no-back">
+
+    <div id="step4-tabs">
+
+    <ul>
+        <li><a dataid="1" href="#inner-tab1">Водители</a></li>
+        <li><a dataid="2" href="#inner-tab2" >Автомобиль</a></li>
+        <li><a dataid="3" href="#inner-tab3">Доставка</a></li>
+    </ul>
+
+    <form action="" id="test" method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+
+    <!-- first tab-->
+    <div id="inner-tab1">
+        <table id="person-info-table">
+            <tr>
+                <td>
+                    <h5>Страхователь:</h5>
+                    {{ form.last_name }}
+                </td>
+                <td>{{ form.first_name }}</td>
+                <td>{{ form.middle_name }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>Дата рождения:</h5>
+                    {{ form.birth_date }}
+                </td>
+                <td>
+                    <div id="category-drive">
+                        <span>Категория прав:</span>
+                        <a value="1" href="#">B</a>
+                        <a value="2" href="#">C</a>
+                        <a value="3" href="#">D</a>
+                        {{ form.category }}
+                    </div>
+                </td>
+                <td>
+                    <div id="sex-1">
+                         <span id="sex-label">Пол:</span>
+                        <a value="ж" id="woman-sex" href="#"></a>
+                        <a value="м" id="man-sex" href="#"></a>
+                        {{ form.sex }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div id="citizenship">
+            <a value="1" href="#">Гражданин РФ</a>
+            <a value="2" href="#">Иностранный гражданин</a>
+            {{ form.citizenship }}
+        </div>
+
+        <div id="document-data">
+            <h5>Паспортные данные:</h5>
+            <span>
+                {{ form.passport_series }}
+                <label>{{ form.passport_series.label }}</label>
+            </span>
+
+            <span>
+                 {{ form.passport_number }}
+                <label>{{ form.passport_number.label }}</label>
+            </span>
+
+            <span>
+                {{ form.issued_org }}
+                <label>{{ form.issued_org.label }}</label>
+            </span>
+
+            <span>
+                {{ form.issued_date }}
+                <label>{{ form.issued_date.label }}</label>
+            </span>
+        </div>
+
+       <div id="document-address">
+           <h5>Адрес прописки:</h5>
+           <table>
+               <tr>
+                   <td>{{ form.reg_region }}<label>{{ form.reg_region.label }}</label></td>
+                   <td>{{ form.reg_area }}<label>{{ form.reg_area.label }}</label></td>
+                   <td>{{ form.reg_city }}<label>{{ form.reg_city.label }}</label></td>
+               </tr>
+               <tr>
+                   <td>{{ form.reg_street }}<label>{{ form.reg_street.label }}</label></td>
+                   <td>
+                       <span>{{ form.reg_index }}<label>{{ form.reg_index.label }}</label></span>
+                       <span>{{ form.reg_building }}<label>{{ form.reg_building.label }}</label></span>
+                   </td>
+                   <td>
+                       <span>{{ form.reg_housing }}<label>{{ form.reg_housing.label }}</label></span>
+                       <span>{{ form.reg_flat }}<label>{{ form.reg_flat.label }}</label></span>
+                   </td>
+               </tr>
+           </table>
+       </div>
+
+       <div id="real-address">
+           <h5>Место проживания:</h5> <a href="#" id="copy-data-link">Скопировать адрес прописки</a>
+           <table>
+               <tr>
+                   <td>{{ form.live_region }}<label>{{ form.live_region.label }}</label></td>
+                   <td>{{ form.live_area }}<label>{{ form.live_area.label }}</label></td>
+                   <td>{{ form.live_city }}<label>{{ form.live_city.label }}</label></td>
+               </tr>
+               <tr>
+                   <td>{{ form.live_street }}<label>{{ form.live_street.label }}</label></td>
+                   <td>
+                       <span>
+                           {{ form.live_index }}
+                           <label>{{ form.live_index.label }}</label>
+                       </span>
+                       <span>
+                           {{ form.live_building }}
+                           <label>{{ form.live_building.label }}</label>
+                       </span>
+                   </td>
+                   <td>
+                       <span>
+                           {{ form.live_housing }}
+                           <label>{{ form.live_housing.label }}</label>
+                       </span>
+                       <span>
+                           {{ form.live_flat }}
+                           <label>{{ form.live_flat.label }}</label>
+                       </span>
+                   </td>
+               </tr>
+           </table>
+       </div>
+    </div>
+
+    <!-- second tab-->
+    <div id="inner-tab2">
+        <h5 id="head-data">Основные данные об автомобиле:</h5>
+
+        <table id="tech-auto-data">
+            <tr>
+                <td>
+                    <h5>VIN:</h5>
+                    {{ form.vin }}
+                </td>
+                <td>
+                    <h5>Номерной знак:</h5>
+                    {{ form.number }}
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>Номер кузова:</h5>
+                    <!-- Этот инпут заменить на настоящий -->
+                    <input type="text" value="" />
+                    <!-- Этот инпут заменить на настоящий -->
+                </td>
+                <td>
+                    <h5>Серия и номер ПТС:</h5>
+                    {{ form.pts_number }}
+                </td>
+
+                <td>
+                    <h5>Дата выдачи ПТС:</h5>
+                    {{ form.pts_date }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>Тип кузова:</h5>
+                    {{ form.body_type }}
+                </td>
+                <td>
+                    <h5>Пробег:</h5>
+                    {{ form.mileage }}
+                </td>
+                <td class="short-input">
+                    <div>
+                        <h5>Мощность:</h5>
+                        {{ form.power }}
+                    </div>
+                    <div>
+                         <h5>Объем двигателя:</h5>
+                        {{ form.volume }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div id="tech-auto-data2">
+            <div id="kpp">
+                <h5>Коробка передач:</h5>
+                <a value="1" href="#">Механическая</a>
+                <a value="2" href="#">Автомат</a>
+                {{ form.kpp }}
+            </div>
+
+            <div id="motor">
+                <h5>Двигатель:</h5>
+                <a value="1" href="#">Бензиновый</a>
+                <a value="2" href="#">Дизельный</a>
+                <a value="3" href="#">Гибридный</a>
+                {{ form.motor }}
+            </div>
+        </div>
+
+
+        <div id="auto-owner">
+            <h5 id="owner-label">Владелец автомобиля:</h5>
+            <a href="#" id="copy-data-link2">(Скопировать данные страхователя)</a>
+
+            <table id="auto-owner-table">
+                <tr>
+                    <td>{{ form.owner_first_name }}</td>
+                    <td>{{ form.owner_last_name }}</td>
+                    <td>{{ form.owner_middle_name }}</td>
+                </tr>
+                 <tr>
+                    <td>
+                        <h5>Дата рождения</h5>
+                        {{ form.owner_birth_date }}
+                    </td>
+                    <td colspan="2">
+                        <div id="sex-owner">
+                            <h5>Пол:</h5>
+                            <a value="ж" id="woman-sex2" href="#"></a>
+                            <a value="м" id="man-sex2" href="#"></a>
+                            {{ form.owner_sex }}
+                        </div>
+
+                        <div id="is-first-owner">
+                            <h5>Первый владелец автомобиля:</h5>
+                                <a href="#">Да</a>
+                                <a href="#">Нет</a>
+                            {{ form.first_owner }}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- third tab-->
+    <div id="inner-tab3">
+        <h5>Укажите максимально подробно адрес и условия доставки:</h5>
+
+        <table id="deliviry-1">
+            <tr>
+                <td>
+                    <h5>Точный адрес доставки:</h5>
+                    {{ form.street }}
+                </td>
+                <td>
+                    <h5>Дом:</h5>
+                    {{ form.building }}
+                </td>
+                <td>
+                    <h5>Строение:</h5>
+                    {{ form.structure }}
+                </td>
+                <td>
+                    <h5>Корпус:</h5>
+                    {{ form.housing }}
+                </td>
+            </tr>
+        </table>
+
+        <table id="deliviry-2">
+            <tr>
+                <td>
+                    <h5>Подьезд:</h5>
+                    {{ form.porch }}
+                </td>
+                <td>
+                    <h5>Домофон:</h5>
+                    {{ form.domophone }}
+                </td>
+                <td>
+                    <h5>Этаж:</h5>
+                    {{ form.floor }}
+                </td>
+                <td>
+                    <h5>Квартира:</h5>
+                    {{ form.flat }}
+                </td>
+            </tr>
+        </table>
+
+         <table id="deliviry-3">
+            <tr>
+                <td>
+                    <h5>Комментарии к доставке:</h5>
+                    {{ form.comment }}
+                </td>
+                <td>
+                    <h5>Дата доставки:</h5>
+                    {{ form.date }}
+                </td>
+                <td>
+                    <h5>Время доставки:</h5>
+                    <div id="time-deliviry">
+                        <a href="#" value="9:30:00">9:30 - 12:00</a>
+                        <a href="#" value="12:00:00">12:00 - 15:00</a>
+                        <a href="#" value="15:00:00">15:00 - 18:00</a>
+
+                        {{ form.time }}
+                    </div>
+                </td>
+                <td>
+                    <h5>Вариант оплаты:</h5>
+                    <div id="payment-form">
+                        <a value="1" href="#">Наличными</a>
+                        <a value="2" href="#">Кредитная карта</a>
+                        {{ form.payments }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <input id="order-button" type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
+
+        <h5>Обратите внимание! Доставка курьером осуществляется только в пределах МКАД.</h5>
+    </div>
+    </form>
+    </div>
+
+    <p style="margin:  15px 0;">
+        <a id="prev-link" href="#">Назад</a>
+        <a id="next-link" href="#">Далее</a>
+
+    </p>
+
+    </div>
+
+{% endblock %}

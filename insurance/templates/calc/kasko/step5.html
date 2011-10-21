@@ -1,0 +1,76 @@
+{% extends "calc/calc.html" %}
+{% block extra_head %}
+{% endblock %}
+
+
+{% block tab_content %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+        <p><label for="id_vin">VIN:</label> {{ form.vin }} {{ form.vin.errors }}
+        </p>
+
+        <p><label for="id_number">Гос.
+            номер:</label> {{ form.number }} {{ form.number.errors }}
+        </p>
+
+        <p><label for="id_body_number">Номер
+            кузова:</label> {{ form.body_number }} {{ form.body_number.errors }}
+        </p>
+
+        <p><label for="id_body_type">Тип
+            кузова:</label> {{ form.body_type }} {{ form.body_type.errors }}</p>
+
+        <p><label for="id_pts_number">Серия и номер
+            ПТС:</label> {{ form.pts_number }} {{ form.pts_number.errors }}</p>
+
+        <p><label for="id_pts_date">Дата выдачи
+            ПТС:</label> {{ form.pts_date }} {{ form.pts_date.errors }}
+        </p>
+
+        <p><label
+                for="id_power">Мощность:</label> {{ form.power }} {{ form.power.errors }}
+        </p>
+
+        <p><label for="id_volume">Объем
+            двигателя:</label> {{ form.volume }} {{ form.volume.errors }}
+        </p>
+
+        <p><label
+                for="id_mileage">Пробег:</label> {{ form.mileage }} {{ form.mileage.errors }}
+        </p>
+
+        <p><label for="id_kpp">Коробка
+            передач:</label> {{ form.kpp }} {{ form.kpp.errors }}</p>
+
+        <p><label
+                for="id_motor">Двигатель:</label> {{ form.motor }} {{ form.motor.errors }}
+        </p>
+
+        <p><label
+                for="id_owner_last_name">Фамилия:</label> {{ form.owner_last_name }} {{ form.owner_last_name.errors }}
+        </p>
+
+        <p><label
+                for="id_owner_first_name">Имя:</label> {{ form.owner_first_name }} {{ form.owner_first_name.errors }}
+        </p>
+
+        <p><label
+                for="id_owner_middle_name">Отчество:</label> {{ form.owner_middle_name }} {{ form.owner_middle_name.errors }}
+        </p>
+
+        <p><label for="id_owner_birth_date">Дата
+            рождения:</label> {{ form.owner_birth_date }} {{ form.owner_birth_date.errors }}
+        </p>
+
+        <p><label for="id_first_owner">Первый владелец
+            авто:</label> {{ form.first_owner }} {{ form.first_owner.errors }}
+        </p>
+
+        <p><label for="id_owner_sex">Пол
+            владельца:</label> {{ form.owner_sex }} {{ form.owner_sex.errors }}
+        </p>
+        <input type="submit" value="Дальше"/>
+    </form>
+
+{% endblock %}
