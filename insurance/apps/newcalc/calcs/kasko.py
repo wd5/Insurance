@@ -280,7 +280,7 @@ def step4(request):
         initial_data['last_name'] = persona.last_name
         initial_data['middle_name'] = persona.middle_name
         form = Step4Form(initial=initial_data)
-    return direct_to_template(request, 'calc/kasko/step4.html', {"form": form,})
+    return direct_to_template(request, 'calc/kasko/step4.html', {"form": form, 'tab': 1})
 
 
 def step5(request):
@@ -299,7 +299,7 @@ def step5(request):
             return redirect(reverse('ncalc_step6_kasko'))
     else:
         form = Step5Form(initial={"first_owner": True,})
-    return direct_to_template(request, 'calc/kasko/step5.html', {"form": form,})
+    return direct_to_template(request, 'calc/kasko/step5.html', {"form": form, 'tab': 1})
 
 
 def step6(request):
@@ -318,7 +318,7 @@ def step6(request):
             return redirect(reverse('ncalc_success'))
     else:
         form = Step6Form()
-    return direct_to_template(request, 'calc/kasko/step6.html', {"form": form,})
+    return direct_to_template(request, 'calc/kasko/step6.html', {"form": form, 'tab': 1})
 
 # ========== Auxilary ==========
 
@@ -571,4 +571,10 @@ def _parse_servlet_response(result):
                         company['company_comment'] = comment[0].company_condition_comment
                     else:
                         company['company_comment'] = ''
+                    try:
+                        rating = int(float(company["raiting"]))
+                        company["rating_stars"] = [True for x in xrange(0, rating)] + \
+                            [False for x in xrange(0, 5 - rating)]
+                    except ValueError:
+                        company["rating_stars"] = 0
     return result, msg
