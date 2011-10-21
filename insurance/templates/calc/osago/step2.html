@@ -178,6 +178,7 @@
                             <span>{{ data.mark }} {{ data.model }}</span>
                             {{ data.model_year }} года
                         </div>
+                        {% load stars %}
 
                         <table border="1">
                             {% for comp in result.info %}
@@ -190,13 +191,7 @@
                                             <img src="/static/images/company_logo/{{ comp.alias|add:".png" }}"
                                                  alt="{{ comp.full_name }}"/>
                                                  <div class="company-rating">
-                                                      {% for r in comp.rating_stars %}
-                                                      {% if r %}
-                                                        <img src="/static/images/star.png" alt="" title="Рейтинг {{ comp.raiting }}"/>
-                                                      {% else %}
-                                                        <img src="/static/images/nostar.png" alt="" title="Рейтинг {{ comp.raiting }}"/>
-                                                      {% endif %}
-                                                      {% endfor %}
+                                                    {% show_stars comp.rating_stars of 5 round to quarter with comp.raiting %}
                                                  </div>
                                                 {% if comp.company_comment %}
                                                 <a class="conditions" href="#">
