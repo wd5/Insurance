@@ -2492,6 +2492,17 @@ div.messages li {
     width: 163px;
 }
 
+#result-table-step2 .company-rating {
+    height: 20px;
+    text-align: center;
+}
+
+#result-table-step2 .company-rating img {
+    display: inline !important;
+    width: 20px;
+    padding-top: 0px !important;
+}
+
 #result-table-step2 .company-data-osago{
     position: relative;
     width: 279px;
@@ -3111,7 +3122,7 @@ div.messages li {
 #franchize-container #min, #price-slider-container #min{
     position: absolute;
     top: -20px;
-    font-size: 14px;
+    font-size: 12px;
     left: 0;
 }
 
@@ -3119,7 +3130,7 @@ div.messages li {
     position: absolute;
     top: -20px;
     right: 0;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 #franchize-container #current{

@@ -56,7 +56,8 @@ function get_auto_data(currentname) {
     } else {
         var next = $("select[name='" + currentname + "']").parents("tr").next("tr").find("select").attr("name");
         var nextID = $("select[name='" + next + "']").attr("id");
-        if (currentname == "model_year") {
+        if (currentname == "model_year" || currentname == "model") {
+            data['mark'] = $("#id_mark").val();
             data['model'] = $("#id_model").val();
             data['year'] = $("#id_model_year").val();
         } else {
@@ -75,7 +76,11 @@ function get_auto_data(currentname) {
                         options += '<option value="' + index + '">' + value + '</option>';
                     });
                     $("select[name='" + next + "']").html(options);
-                    get_visible_select_data(nextID);
+                    if (nextID == "id_model") {
+                        get_visible_select_data_model(nextID);
+                    } else {
+                        get_visible_select_data(nextID);   
+                    }
                 }
             }
         );
@@ -270,6 +275,12 @@ function fillAjaxSelect(selectId) {
     parentContainer.find("ul").jScrollPane({scrollbarWidth: 14, showArrows: true})
 }
 
+function priceFormat(val, unit) {
+        var t_str = val.toString().split("").reverse().join(""); // reverse string
+        t_str = t_str.replace(/(.{3})/g, "$1 "); // put space into every fourth place
+        return t_str.split("").reverse().join("") + " " + unit; // reverse back and append unit mark
+};
+
 /*Price Slider on calc step 1*/
 function priceSlider(containerId, element, min_value, max_value) {
     if (min_value == undefined) {
@@ -307,8 +318,8 @@ function priceSlider(containerId, element, min_value, max_value) {
         }
     });
 
-    containerId.parent().find("#min").html(min_value);
-    containerId.parent().find("#max").html(max_value);
+    containerId.parent().find("#min").html(priceFormat(min_value, "р."));
+    containerId.parent().find("#max").html(priceFormat(max_value, "р."));
 }
 
 
@@ -348,8 +359,8 @@ function franchiseSlider(selectId) {
         }
     })
 
-    selectId.parent().find("#min").html(min);
-    selectId.parent().find("#max").html(max);
+    selectId.parent().find("#min").html(priceFormat(min, "р."));
+    selectId.parent().find("#max").html(priceFormat(max, "р."));
 }
 
 //Show Preloader function when submit data on server

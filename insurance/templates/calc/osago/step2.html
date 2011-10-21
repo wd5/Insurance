@@ -189,8 +189,16 @@
                                         <div class="company-data-osago">
                                             <img src="/static/images/company_logo/{{ comp.alias|add:".png" }}"
                                                  alt="{{ comp.full_name }}"/>
-                                            <img src="/static/images/stars_temp.png" alt="" />
-                                            {% if comp.company_comment %}
+                                                 <div class="company-rating">
+                                                      {% for r in comp.rating_stars %}
+                                                      {% if r %}
+                                                        <img src="/static/images/star.png" alt="" />
+                                                      {% else %}
+                                                        <img src="/static/images/nostar.png" alt="" />
+                                                      {% endif %}
+                                                      {% endfor %}
+                                                 </div>
+                                                {% if comp.company_comment %}
                                                 <a class="conditions" href="#">
                                                     Условия
                                                     <div class="tooltip">

@@ -445,4 +445,11 @@ def _parse_servlet_response(result):
                         company['company_comment'] = comment[0].company_condition_comment
                     else:
                         company['company_comment'] = ''
+                    try:
+                        rating = int(float(company["raiting"]))
+                        company["rating_stars"] = [True for x in xrange(0, rating)] + \
+                            [False for x in xrange(0, 5 - rating)]
+                    except ValueError:
+                        company["rating_stars"] = 0
+                                                          
     return result, msg
