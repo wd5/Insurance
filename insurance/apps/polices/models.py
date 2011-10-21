@@ -189,9 +189,9 @@ class InsurancePolicy(models.Model):
     structure = models.CharField(u'Строение доставки', max_length=16, null=True, blank=True)
     housing = models.CharField(u'Корпус доставки', max_length=6, null=True, blank=True)
     floor = models.CharField(u'Этаж доставки', max_length=6, null=True, blank=True)
-    domophone = models.CharField(u'Этаж доставки', max_length=6, null=True, blank=True)
+    domophone = models.CharField(u'Код домофона', max_length=12, null=True, blank=True)
     flat = models.CharField(u'Квартира доставки', max_length=6, null=True, blank=True)
-#    porch = models.CharField(u'Квартира доставки', max_length=6, null=True, blank=True)
+    porch = models.CharField(u'Подъезд доставки', max_length=6, null=True, blank=True)
     payments = models.PositiveSmallIntegerField(u'Вариант оплаты', null=True, blank=True, choices=PAYMENT_CHOICES, default=1)
     comment = models.TextField(u'Комментарий', null=True, blank=True)
 
