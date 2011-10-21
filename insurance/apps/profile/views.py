@@ -10,7 +10,7 @@ from django.template import RequestContext
 from django.views.generic.list_detail import object_list
 from django.views.generic.simple import direct_to_template
 
-from polices.models import InsurancePolicy, InsurancePolicyData
+from polices.models import InsurancePolicy
 from polices.models import TYPE_CHOICES, STATUS_PAYMENT_CHOICES, STATE_CHOICES
 from ins_notification.forms import QuestionForm
 from ins_notification.models import Question
@@ -114,8 +114,6 @@ def policy_list(request, policy_type=None):
     #print personas
     query = InsurancePolicy.objects.filter(user=user, type=policy_type)
     for q in query:
-        policy_data = q.insurancepolicydata_set.all()
-        q.policy_data = policy_data and policy_data[0] or {}
         q.state = dict(STATE_CHOICES)[q.state]
         q.vehicle = u"%s %s (%s г.)" % (q.mark, q.model, q.model_year)
 

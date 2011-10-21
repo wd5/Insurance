@@ -33,8 +33,8 @@
       {% for  policy in policy_list %}
         <tr>
           <td>{{ policy.company }}</td>
-          <td>{{ policy.policy_data.first_name }} {{ policy.policy_data.middle_name }} {{ policy.policy_data.last_name }}</td>
-          <td>{{ policy.policy_data.owner_first_name }} {{ policy.policy_data.owner_middle_name }} {{ policy.policy_data.owner_last_name }}</td>
+          <td>{{ policy.first_name }} {{ policy.middle_name }} {{ policy.last_name }}</td>
+          <td>{{ policy.owner_first_name }} {{ policy.owner_middle_name }} {{ policy.owner_last_name }}</td>
           <td>{{ policy.vehicle }}</td>
           <td> N/A </td>
           <td>{{ policy.state }}</td>
