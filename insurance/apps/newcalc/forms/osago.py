@@ -242,7 +242,9 @@ class Step3FormNoReg(forms.Form):
         return self.cleaned_data['phone']
 
 
-class Step4Form(ModelForm):
-    class Meta:
-        model = InsurancePolicyData
-        exclude = ('polisy',)
+#class Step4Form(ModelForm):
+#    class Meta:
+#        model = InsurancePolicyData
+#        exclude = ('polisy',)
+
+from kasko import Step4Form, Step5Form, Step6Form

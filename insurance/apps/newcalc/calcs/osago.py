@@ -16,7 +16,7 @@ from newcalc.models import Mark, Model, Mym, Power, City,\
     BurglarAlarm, Company, CompanyCondition, InsuranceType, \
     KackoParameters
 from newcalc.forms.osago import Step1Form, Step2Form, Step3FormReg, Step3FormNoReg
-from newcalc.forms.osago import Step4Form
+from newcalc.forms.osago import Step4Form, Step5Form, Step6Form
 from polices.forms import CallRequestForm
 from profile.models import Persona
 from polices.models import InsurancePolicy #, CallRequests
@@ -148,7 +148,7 @@ def step3(request, alias):
                 ip.mark = Mark.objects.get(pk=s1_data["mark"]).mark_name
                 ip.model = Model.objects.get(pk=s1_data["model"]).model_name
                 ip.model_year = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
-                ip.power = Power.objects.get(pk=s1_data["power"]).power_name
+                ip.power_str = Power.objects.get(pk=s1_data["power"]).power_name
                 ip.city = City.objects.get(pk=s1_data["city"]).city_name
                 ip.price = 0  # N/A
                 ip.age = s1_data["age"]
@@ -183,7 +183,7 @@ def step3(request, alias):
                 ip.mark = Mark.objects.get(pk=s1_data["mark"]).mark_name
                 ip.model = Model.objects.get(pk=s1_data["model"]).model_name
                 ip.model_year = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
-                ip.power = Power.objects.get(pk=s1_data["power"]).power_name
+                ip.power_str = Power.objects.get(pk=s1_data["power"]).power_name
                 ip.city = City.objects.get(pk=s1_data["city"]).city_name
                 ip.price = 0  # N/A
                 ip.age = s1_data["age"]
@@ -224,22 +224,63 @@ def step4(request):
     if request.method == 'POST':
         form = Step4Form(request.POST)
         if form.is_valid():
-            policy_data = form.save(commit=False)
-            policy_data.polisy = policy
-            policy_data.save()
-            #return redirect(reverse('ncalc_success'))
-
+            cd = form.cleaned_data
+            for k in cd.keys():
+                if cd[k]:
+                    setattr(policy, k, cd[k])
+            policy.save()
+            return redirect(reverse('ncalc_step5_osago'))
     initial_data = {}
-#    if request.user.is_authenticated() or policy:
-#TODO: возможно несколько персон у одного юзера - учесть это
-    persona = Persona.objects.filter(user=policy.user)[0]
-    #initial_data['power'] = policy.power
+
+    # TODO: возможно несколько персон у одного юзера - учесть это
+    persona = Persona.objects.get(user=policy.user, me=True)
     initial_data['first_name'] = persona.first_name
     initial_data['last_name'] = persona.last_name
     initial_data['middle_name'] = persona.middle_name
 
     form = Step4Form(initial=initial_data)
-    return direct_to_template(request, 'calc/osago/step4.html', {"form": form, 'tab': 2})
+    # use kasko template while it's similar to osago
+    return direct_to_template(request, 'calc/kasko/step4.html', {"form": form, 'tab': 2})
+
+
+def step5(request):
+    policy_id = request.session.get('policy')
+    if not policy_id:
+        return redirect(reverse('ncalc_step1_osago')) #, args=[request.session.get('company_alias')]))
+    policy = InsurancePolicy.objects.get(pk=policy_id)
+    if request.method == 'POST':
+        form = Step5Form(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            for k in cd.keys():
+                if cd[k]:
+                    setattr(policy, k, cd[k])
+            policy.save()
+            return redirect(reverse('ncalc_step6_osago'))
+    else:
+        form = Step5Form(initial={"first_owner": True,})
+    # use KASKO template
+    return direct_to_template(request, 'calc/kasko/step5.html', {"form": form, 'tab': 2})
+
+
+def step6(request):
+    policy_id = request.session.get('policy')
+    if not policy_id:
+        return redirect(reverse('ncalc_step1_osago')) #, args=[request.session.get('company_alias')]))
+    policy = InsurancePolicy.objects.get(pk=policy_id)
+    if request.method == 'POST':
+        form = Step6Form(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            for k in cd.keys():
+                if cd[k]:
+                    setattr(policy, k, cd[k])
+            policy.save()
+            return redirect(reverse('ncalc_success'))
+    else:
+        form = Step6Form()
+    # Use KASKO template
+    return direct_to_template(request, 'calc/kasko/step6.html', {"form": form, 'tab': 2})
 
 # ========== Auxilary ==========
 
@@ -451,5 +492,5 @@ def _parse_servlet_response(result):
                             [False for x in xrange(0, 5 - rating)]
                     except ValueError:
                         company["rating_stars"] = 0
-                                                          
+
     return result, msg

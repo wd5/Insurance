@@ -32,4 +32,6 @@ urlpatterns += patterns('newcalc.calcs.osago',
     url(r'^osago/step2/$', "step2", name='ncalc_step2_osago'),
     url(r'^osago/step3/(\w+)/$', "step3", name='ncalc_step3_osago'),
     url(r'^osago/step4/$', "step4", name='ncalc_step4_osago'),
+    url(r'^osago/step5/$', "step5", name='ncalc_step5_osago'),
+    url(r'^osago/step6/$', "step6", name='ncalc_step6_osago'),
 )
