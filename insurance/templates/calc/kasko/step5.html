@@ -1,76 +1,209 @@
 {% extends "calc/calc.html" %}
 {% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            $("#id_kpp, #id_motor, #id_owner_sex, #id_first_owner").css("visibility", "hidden");
+
+            /*Remove empty class when user click or input values */
+            $("#step input").click(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step input").keypress(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step select").change(function(){
+                $(this).parent().removeClass("empty");
+            })
+
+            /*Select visual value*/
+            $("#is-first-owner a, #kpp a, #motor a, #sex-owner a").click(function(e){
+                e.preventDefault();
+                $(this).parent().removeClass("empty");
+                selectVisualValue($(this));
+            })
+
+            /*Display visual value*/
+            $("#id_kpp,  #id_motor, #id_first_owner, #id_owner_sex").each(function(){
+                displaySelectValue($(this));
+            })
+
+            /*Placeholder for inpust*/
+            $("#step input:text").click(function(){
+                $(this).removeClass("empty");
+                var currentValue = $(this).data("currval", $(this).val());
+                if($(this).val() == $(this).parent().find("label").text()){
+                    $(this).val("");
+                }
+
+            })
+
+            $("#step input:text").blur(function(){
+                var saveValue = $(this).data("currval");
+                if($(this).val() == ""){
+                    $(this).val($(this).data("currval"))
+                }
+            })
+
+            $("#copy-data-link2").click(function(e){
+                e.preventDefault();
+                var from = new Array("{{copy.last_name}}", "{{copy.first_name}}", "{{copy.middle_name}}",
+                                     "{{copy.birth_date}}", "{{copy.sex}}"),
+                    to = $("#auto-owner-table input:text");
+
+                to.each(function(e){
+                   $(this).val(from[e]);
+                   $(this).removeClass("empty");
+                })
+            })
+
+            $(".backward-button").click(function() {
+                location.href = "{{ back }}";
+            });
+
+            $("form#step").submit(function(){
+                if(checkAllINputs() == false){
+                    return false;
+                }
+            })
+            });
+    </script>
 {% endblock %}
 
 
 {% block tab_content %}
 
-    <form action="" method="post">
+    {{ form.non_field_errors }}
+    <form action="" method="post" id="step" style="position: relative">
         {% csrf_token %}
-        <p><label for="id_vin">VIN:</label> {{ form.vin }} {{ form.vin.errors }}
-        </p>
+        <h5 id="head-data">Основные данные об автомобиле:</h5>
 
-        <p><label for="id_number">Гос.
-            номер:</label> {{ form.number }} {{ form.number.errors }}
-        </p>
+        <table id="tech-auto-data">
+            <tr>
+                <td>
+                    <h5>VIN:</h5>
+                    {{ form.vin }}
+                    {{ form.vin.errors }}
+                </td>
+                <td>
+                    <h5>Номерной знак:</h5>
+                    {{ form.number }}
+                    {{ form.number.errors }}
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>Номер кузова:</h5>
+                    {{ form.body_number }}
+                    {{ form.body_number.errors }}
+                </td>
+                <td>
+                    <h5>Серия и номер ПТС:</h5>
+                    {{ form.pts_number }}
+                    {{ form.pts_number.errors }}
+                </td>
 
-        <p><label for="id_body_number">Номер
-            кузова:</label> {{ form.body_number }} {{ form.body_number.errors }}
-        </p>
+                <td>
+                    <h5>Дата выдачи ПТС:</h5>
+                    {{ form.pts_date }}
+                    {{ form.pts_date.errors }}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <h5>Тип кузова:</h5>
+                    {{ form.body_type }}
+                    {{ form.body_type.errors }}
+                </td>
+                <td>
+                    <h5>Пробег:</h5>
+                    {{ form.mileage }}
+                    {{ form.mileage.errors }}
+                </td>
+                <td class="short-input">
+                    <div>
+                        <h5>Мощность:</h5>
+                        {{ form.power }}
+                        {{ form.power.errors }}
+                    </div>
+                    <div>
+                         <h5>Объем двигателя:</h5>
+                        {{ form.volume }}
+                        {{ form.volume.errors }}
+                    </div>
+                </td>
+            </tr>
+        </table>
 
-        <p><label for="id_body_type">Тип
-            кузова:</label> {{ form.body_type }} {{ form.body_type.errors }}</p>
+        <div id="tech-auto-data2">
+            <div id="kpp">
+                <h5>Коробка передач:</h5>
+                <a value="1" href="#">Механическая</a><br/>
+                <a value="2" href="#">Автомат</a>
+                {{ form.kpp }}
+                {{ form.kpp.errors }}
+            </div>
 
-        <p><label for="id_pts_number">Серия и номер
-            ПТС:</label> {{ form.pts_number }} {{ form.pts_number.errors }}</p>
+            <div id="motor">
+                <h5>Двигатель:</h5>
+                <a value="1" href="#">Бензиновый</a>
+                <a value="2" href="#">Дизельный</a>
+                <a value="3" href="#">Гибридный</a>
+                {{ form.motor }}
+                {{ form.motor.errors }}
+            </div>
+        </div>
 
-        <p><label for="id_pts_date">Дата выдачи
-            ПТС:</label> {{ form.pts_date }} {{ form.pts_date.errors }}
-        </p>
 
-        <p><label
-                for="id_power">Мощность:</label> {{ form.power }} {{ form.power.errors }}
-        </p>
+        <div id="auto-owner">
+            <h5 id="owner-label">Владелец автомобиля:</h5>
+            <a href="#" id="copy-data-link2">(Скопировать данные страхователя)</a>
 
-        <p><label for="id_volume">Объем
-            двигателя:</label> {{ form.volume }} {{ form.volume.errors }}
-        </p>
+            <table id="auto-owner-table">
+                <tr>
+                    <td>{{ form.owner_first_name }}
+                    {{ form.owner_first_name.errors }}</td>
+                    <td>{{ form.owner_last_name }}
+                    {{ form.owner_last_name.errors }}</td>
+                    <td>{{ form.owner_middle_name }}
+                    {{ form.owner_middle_name.errors }}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <h5>Дата рождения</h5>
+                        {{ form.owner_birth_date }}
+                        {{ form.owner_birth_date.errors }}
+                    </td>
+                    <td colspan="2">
+                        <div id="sex-owner">
+                            <h5>Пол:</h5>
+                            <a value="ж" id="woman-sex2" href="#"></a>
+                            <a value="м" id="man-sex2" href="#"></a>
+                            {{ form.owner_sex }}
+                            {{ form.owner_sex.errors }}
+                        </div>
 
-        <p><label
-                for="id_mileage">Пробег:</label> {{ form.mileage }} {{ form.mileage.errors }}
-        </p>
-
-        <p><label for="id_kpp">Коробка
-            передач:</label> {{ form.kpp }} {{ form.kpp.errors }}</p>
-
-        <p><label
-                for="id_motor">Двигатель:</label> {{ form.motor }} {{ form.motor.errors }}
-        </p>
-
-        <p><label
-                for="id_owner_last_name">Фамилия:</label> {{ form.owner_last_name }} {{ form.owner_last_name.errors }}
-        </p>
-
-        <p><label
-                for="id_owner_first_name">Имя:</label> {{ form.owner_first_name }} {{ form.owner_first_name.errors }}
-        </p>
-
-        <p><label
-                for="id_owner_middle_name">Отчество:</label> {{ form.owner_middle_name }} {{ form.owner_middle_name.errors }}
-        </p>
-
-        <p><label for="id_owner_birth_date">Дата
-            рождения:</label> {{ form.owner_birth_date }} {{ form.owner_birth_date.errors }}
-        </p>
-
-        <p><label for="id_first_owner">Первый владелец
-            авто:</label> {{ form.first_owner }} {{ form.first_owner.errors }}
-        </p>
-
-        <p><label for="id_owner_sex">Пол
-            владельца:</label> {{ form.owner_sex }} {{ form.owner_sex.errors }}
-        </p>
-        <input type="submit" value="Дальше"/>
+                        <div id="is-first-owner">
+                            <h5>Первый владелец автомобиля:</h5>
+                                <a href="#">Да</a>
+                                <a href="#">Нет</a>
+                            {{ form.first_owner }}
+                            {{ form.first_owner.errors }}
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <input type="button" class="backward-button" value="Назад"/>
+        <input type="submit" class="forward-button" value="Дальше"/>
     </form>
 
 {% endblock %}

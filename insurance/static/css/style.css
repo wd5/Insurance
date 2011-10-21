@@ -2680,25 +2680,52 @@ div.messages li {
     padding-bottom: 0;
 }
 
-#step4-tabs a{
+#step a{
     color: #4e1b06;
     text-decoration: none;
     font-size: 13px;
     font-weight: bold;
 }
 
-#step4-tabs input{
+#step input{
     width: 195px;
     height: 20px;
     border: 1px solid #4e1b06;
     padding-left: 8px;
 }
 
-#step4-tabs input.inactive{
+#step input[type=submit], #step input[type=button] {
+    margin-top: 30px;
+    width: 100px;
+    height: 30px;
+}
+
+#step .errorlist {
+    padding: 0px;
+    list-style-type: none;
+    width: 130px;
+}
+
+#step .errorlist li {
+    padding-left: 7%;
+    background: url('/static/images/error.png') 0% 0% no-repeat;
+}
+
+.forward-button {
+    padding-right: 15px;
+    background: url('/static/images/forward.png') 95% 50% no-repeat;
+}
+
+.backward-button {
+    padding-left: 25px;
+    background: url('/static/images/backward.png') 5% 50% no-repeat;
+}
+
+#step input.inactive{
     color: #baa69e;
 }
 
-#step4-tabs input.empty{
+#step input.empty{
     border:  1px solid red;
 }
 
@@ -2711,13 +2738,13 @@ div.messages li {
 }
 
 
-#step4-tabs h5{
+#step h5{
     color: #4e1b06;
     font-size: 13px;
     margin-bottom: 5px;
 }
 
-#calc-tabs #step4-tabs ul.ui-tabs-nav{
+/* #calc-tabs #step4-tabs ul.ui-tabs-nav{
     padding: 0;
     background: url(/static/images/second_tabs_back1.png) top left no-repeat;
     height: 35px;
@@ -2764,21 +2791,21 @@ div.messages li {
     padding: 30px 15px;
     min-height: 300px;
 }
-
+*/
 
 /*Calc page Step 4 - first tab*/
-#step4-tabs #person-info-table{
+#step #person-info-table{
     margin-bottom: 20px;
 }
 
-#step4-tabs #person-info-table span{
+#step #person-info-table span{
     color: #4e1b06;
     font-size: 13px;
     font-weight: bolder;
     padding-right: 10px;
 }
 
-#step4-tabs #person-info-table td{
+#step #person-info-table td{
     vertical-align: bottom;
     padding: 0 15px 10px 0;
 }
@@ -2906,18 +2933,18 @@ div.messages li {
     position: relative;
 }
 
-#inner-tab2 #head-data{
+#head-data{
     position: absolute;
     top: 33px;
     left: 15px;
     width: 131px;
 }
 
-#inner-tab2 #tech-auto-data, #inner-tab2 #tech-auto-data2{
+#tech-auto-data, #inner-tab2 #tech-auto-data2{
     margin-left: 170px;
 }
 
-#inner-tab2 #tech-auto-data td{
+#tech-auto-data td{
     padding-right: 20px;
     vertical-align: top;
 }
@@ -2937,26 +2964,26 @@ div.messages li {
     width: 82px;
 }
 
-#inner-tab2 #tech-auto-data2{
+#tech-auto-data2{
     overflow: hidden;
-    margin-bottom: 50px;
+    margin-bottom: 25px;
 }
 
 
-#inner-tab2 #tech-auto-data2 div{
+#tech-auto-data2 div{
     float: left;
     width: 256px;
 }
 
-#inner-tab2 #tech-auto-data2 div:first-child{
+#tech-auto-data2 div:first-child{
     width: 226px;
 }
 
-#inner-tab2 #tech-auto-data2 div a{
+#tech-auto-data2 div a{
     padding-right: 7px;
 }
 
-#inner-tab2 #tech-auto-data2 div a.active{
+#tech-auto-data2 div a.active{
     font-size: 25px;
 }
 
@@ -2990,7 +3017,7 @@ div.messages li {
     margin-left: 140px;
 }
 
-#calc-tabs .form-round-block #auto-owner table td{
+#auto-owner table td{
     padding: 0 20px 10px 0;
     vertical-align: top;
 }
@@ -3030,66 +3057,66 @@ div.messages li {
 }
 
 /*Calc page Step 4 - third tab*/
-#deliviry-1{
+#delivery-1{
     margin-top: 20px;
 }
 
-#calc-tabs .form-round-block #deliviry-1 td,
-#calc-tabs .form-round-block #deliviry-2 td
+#delivery-1 td,
+#delivery-2 td
 {
     padding: 0 20px 5px 0;
 }
 
-#inner-tab3 #id_building,
-#inner-tab3 #id_structure,
-#inner-tab3 #id_housing,
-#inner-tab3 #id_porch,
-#inner-tab3 #id_domophone,
-#inner-tab3 #id_floor,
-#inner-tab3 #id_flat,
-#inner-tab3 #id_date{
+#id_building,
+#id_structure,
+#id_housing,
+#id_porch,
+#id_domophone,
+#id_floor,
+#id_flat,
+#id_date{
     width: 102px;
 }
 
-#deliviry-3{
+#delivery-3{
     margin-top: 10px;
 }
 
 
-#deliviry-3 textarea{
+#delivery-3 textarea{
     width: 280px;
     height: 93px;
     border: 1px solid #4E1B06;
     resize: none;
 }
 
-#calc-tabs .form-round-block #deliviry-3 td{
+#delivery-3 td{
     padding: 0 40px 5px 0;
 }
 
-#time-deliviry{
+#time-delivery{
     width: 117px;
 }
 
-#time-deliviry input{
+#time-delivery input{
     visibility: hidden;
 }
 
-#time-deliviry a, #payment-form a{
+#time-delivery a, #payment-form a{
     display: block;
     background: url(/static/images/radio.png) top left no-repeat;
     padding: 3px 0 3px 35px;
 }
 
-#time-deliviry a.active, #payment-form a.active{
+#time-delivery a.active, #payment-form a.active{
     background: url(/static/images/radio_active.png) top left no-repeat;
 }
 
-#inner-tab3 #order-button{
-    height: 31px;
-    width: 81px;
-    border: none;
-    margin-bottom: 15px;
+#order-button{
+    height: 31px !important;
+    width: 81px !important;
+    border: none !important;
+    margin-bottom: 15px !important;
 }
 
 

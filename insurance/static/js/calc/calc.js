@@ -552,12 +552,12 @@ function copyInputValues(from, to){
 
 /*Check input values on step 4*/
 function checkAllINputs(){
-    var currenttab = $("#step4-tabs .ui-tabs-panel").not(".ui-tabs-hide"),
+    var currenttab = $("form#step"),
         result = false;
 
     currenttab.find("input:text").each(function(){
         var placeholder = $(this).parent().find("label").text();
-        if($(this).val() == "" || $(this).val() == placeholder){
+        if($.trim($(this).val()) == "" || $(this).val() == placeholder){
             $(this).addClass("empty");
             if($(this).attr("id") == "id_time"){
                 $(this).parent().addClass("empty");
