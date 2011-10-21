@@ -237,9 +237,9 @@
                                                  <div class="company-rating">
                                                       {% for r in comp.rating_stars %}
                                                       {% if r %}
-                                                        <img src="/static/images/star.png" alt="" />
+                                                        <img src="/static/images/star.png" alt="" title="Рейтинг {{ comp.raiting }}"/>
                                                       {% else %}
-                                                        <img src="/static/images/nostar.png" alt="" />
+                                                        <img src="/static/images/nostar.png" alt="" title="Рейтинг {{ comp.raiting }}"/>
                                                       {% endif %}
                                                       {% endfor %}
                                                  </div>

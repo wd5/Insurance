@@ -592,9 +592,10 @@ def _parse_servlet_response(result):
                     else:
                         company['company_comment'] = ''
                     try:
-                        rating = int(float(company["raiting"]))
-                        company["rating_stars"] = [True for x in xrange(0, rating)] + \
+                        rating = int((float(company["raiting"]) + 2) / 2)
+                        rating_stars = [True for x in xrange(0, rating)] + \
                             [False for x in xrange(0, 5 - rating)]
+                        company["rating_stars"] = rating_stars[:5]
                     except ValueError:
                         company["rating_stars"] = 0
     return result, msg
