@@ -21,8 +21,10 @@ $(function() {
 
     $(".style-checkbox input").click(function() {
         $(this).parent().toggleClass("on");
-        if ($(this).attr("id") == "id_unlimited_drivers")
+        if ($(this).attr("id") == "id_unlimited_drivers") {        
             $("#add-driver-button").toggleClass("hide");
+            $("#delete-driver-button").toggleClass("hide"); //.toggle();
+        }            
         $("#info-main-driver tr").not(":first").val("").hide();
     })
 
@@ -169,13 +171,14 @@ function transform_select(selectContainer) {
     //base events
     $(selectContainer).click(function() {
         $(this).find("ul").show();
-        $(this).find(".jScrollPaneContainer").css("visibility", "visible");
+        $(this).find(".jScrollPaneContainer").css("visibility", "visible").show();
+//                                 console.log($(this).find(".jScrollPaneContainer"));
     })
 
 
     $(selectContainer).bind("mouseleave", function() {
         if ($(this).find("input").length == 0) {
-            $(this).find(".jScrollPaneContainer").css("visibility", "hidden");
+            $(this).find(".jScrollPaneContainer").css("visibility", "hidden").hide();
         }
 
     })

@@ -14,11 +14,19 @@
         $(function() {
             //Add class to table cell's
             $("#info-main-driver td:odd").addClass("second");
+
+            $("#info-main-driver td.second select").each(function() {
+               if ($(this).val() != "") {
+                  $(this).parents("tr").removeClass("hide").addClass("show");
+                  $("#delete-driver-button").removeClass("hide").show();
+               }
+            });
+
             $("#info-main-driver tr.hide").css("display", "none");
 
             transform_firstSelect($("#first-select"));
 
-            $(".short-select").each(function(e) {
+            $(".short-select:visible").each(function(e) {
                 $(this).attr("id", "short-" + (e + 1));
                 transform_select($(this));
             })
@@ -112,6 +120,14 @@
                 newRow.find(".select-text").html(newRow.find("select option[selected]").text());
                 newRow.removeClass("hide").addClass("show").show();
                 $("#delete-driver-button").removeClass("hide").show();
+
+                var cnt = $(".short-select:visible").length;
+                $(".short-select", newRow).each(function(e) {
+                  if ($(this).attr("id") == "") {
+                    $(this).attr("id", "short-" + (e + 1 + cnt));
+                    transform_select($(this));
+                  }
+                });
             })
 
             //Click on delete driver button
@@ -122,6 +138,9 @@
                     $("#delete-driver-button").hide();
                 }
                 lastRow.removeClass("show").addClass("hide").hide();
+                $("select", lastRow).each(function() {
+                   $(this).val("");
+                });
             })
 
             //Type into input element inside select
@@ -129,7 +148,7 @@
                 userTypeInputFirst($(this));
             })
 
-            $(".short-select input").keyup(function(e) {
+            $(".short-select input").live("keyup", function(e) {
                 if (e.keyCode == 8) {
                     $(this).val("");
                 }
@@ -137,7 +156,7 @@
             })
 
             //Save value in input on click button
-            $(".short-select input").keypress(function(e) {
+            $(".short-select input").live("keypress", function(e) {
                 if (e.keyCode == 13) {
                     e.preventDefault();
                     saveValue($(this));
@@ -145,12 +164,12 @@
                 }
             })
 
-            $(".short-select input").change(function() {
+            $(".short-select input").live("change", function() {
                 saveValue($(this));
             })
 
 
-            $(".short-select input, .long-select input").click(function() {
+            $(".short-select input, .long-select input").live("click", function() {
                 $(this).select();
             })
 
