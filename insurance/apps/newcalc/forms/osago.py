@@ -220,7 +220,7 @@ class Step3FormNoReg(forms.Form):
         widget=forms.PasswordInput(attrs=attrs_dict),
         label="Password (again)")
 
-    #captcha = CaptchaField()
+    captcha = CaptchaField()
 
     def clean(self):
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:

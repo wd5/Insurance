@@ -251,7 +251,7 @@ class Step3FormNoReg(forms.Form):
         widget=forms.PasswordInput(attrs=attrs_dict),
         label="Password (again)")
 
-    #captcha = CaptchaField()
+    captcha = CaptchaField()
 
     def clean(self):
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
@@ -277,7 +277,6 @@ class Step3FormNoReg(forms.Form):
 #    class Meta:
 #        model = InsurancePolicyData
 #        exclude = ('polisy',)
-
 
 class Step4Form(forms.Form):
     first_name = forms.CharField(label="Имя страхователя", max_length=20)
@@ -311,7 +310,7 @@ class Step4Form(forms.Form):
 
 class Step5Form(forms.Form):
     vin = forms.CharField(label="VIN", max_length=17)
-    number = forms.CharField(label="Гос. номер", max_length=10)
+    number = forms.CharField(label="Гос. номер", max_length=9)
     body_number = forms.CharField(label="Номер кузова", max_length=10)
     body_type = forms.ChoiceField(label="Тип кузова", choices=BODY_TYPE_CHOICES)
     pts_number = forms.CharField(label="Серия и номер ПТС", max_length=10)
