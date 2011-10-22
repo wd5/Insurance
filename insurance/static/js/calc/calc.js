@@ -23,8 +23,12 @@ $(function() {
         $(this).parent().toggleClass("on");
         if ($(this).attr("id") == "id_unlimited_drivers") {        
             $("#add-driver-button").toggleClass("hide");
-            $("#delete-driver-button").toggleClass("hide"); //.toggle();
-        }            
+            if ((!$(this).parent().hasClass("on")) && $(".short-select:visible").length > 2) {                
+                $("#delete-driver-button").addClass("hide").show();
+            } else {                
+                $("#delete-driver-button").removeClass("hide").hide();
+            };
+        };       
         $("#info-main-driver tr").not(":first").val("").hide();
     })
 
