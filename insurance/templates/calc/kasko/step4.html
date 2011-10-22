@@ -5,6 +5,10 @@
     <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
     <script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ui.datepicker.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ui.datepicker-ru.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL}}css/jquery.ui.theme.css"></link>
+    <link rel="stylesheet" href="/static/css/jquery.ui.datepicker.css"></link>
     <script>
         $(document).ready(function() {
 
@@ -34,6 +38,12 @@
             $("#id_citizenship, #id_category, #id_sex,  #sex-1").each(function(){
                 displaySelectValue($(this));
             })
+
+            $("#id_birth_date").datepicker({
+               changeMonth: true,
+               changeYear: true,
+               yearRange: "1950:2012"
+            });
 
             /*For input labels*/
             $("#document-data input, #document-address input, #real-address input").each(function(){
@@ -92,6 +102,7 @@
                     return false;
                 }
             })
+
             });
     </script>
 {% endblock %}
@@ -125,7 +136,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="interior">
                     <h5>Дата рождения:</h5>
                     {{ form.birth_date }}
                     {{ form.birth_date.errors }}

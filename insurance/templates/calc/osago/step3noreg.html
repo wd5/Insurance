@@ -29,23 +29,15 @@
                             <td>{{ data.model_year }}</td>
                         </tr>
                         <tr>
-                            <td>Руль</td>
-                            <td>{{ data.wheel }}</td>
-                        </tr>
-                        <tr>
                             <td>Мощность</td>
                             <td>{{ data.power }}</td>
                         </tr>
                         <tr>
-                            <td>Стоимость</td>
-                            <td>{{ data.price }}</td>
-                        </tr>
-                        <tr>
-                            <td>Кредит</td>
-                            <td>{{ data.credit }}</td>
-                        </tr>
-                        <tr>
                             <td>Регистрация собственника</td>
+                            <td>Российская Федерация</td>
+                        </tr>
+                        <tr>
+                            <td>Территория использования ТС</td>
                             <td>{{ data.city }}</td>
                         </tr>
                         <tr>
@@ -109,7 +101,9 @@
                         <span>Введите символы:</span>
                         {{ form.captcha }}
                         {{ form.captcha.errors }}
+                    </div>
 
+                    <div style="clear:both">
                         <input type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
                     </div>
                 </form>

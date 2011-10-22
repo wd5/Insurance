@@ -2232,7 +2232,8 @@ div.messages li {
     margin-right: -15px;
     float: left;
     text-align: center;
-
+    background: none;
+    border-width: 0px;
 }
 
 #calc-tabs ul.ui-tabs-nav li a {
@@ -2778,19 +2779,18 @@ ul.step-ui-tabs-nav li{
 
 }
 
-ul.step-ui-tabs-nav li a{
+ul.step-ui-tabs-nav li a,
+ul.step-ui-tabs-nav li a:hover,
+ul.step-ui-tabs-nav li.ui-state-hover{
     text-transform: none;
     height: 35px;
     width: 238px;
     display: block;
     background: none;
     text-decoration: none;
-    color: #fff;
     position: relative;
-}
-
-ul.step-ui-tabs-nav li a:hover{
-    background: none;
+    color: #fff !important;
+    border-width: 0px;
 }
 
 
@@ -3844,4 +3844,23 @@ ul.step-ui-tabs-nav li a:hover{
     border: 1px solid gray;
     padding: 0 5px;
     vertical-align: middle;
+}
+
+#user-login-data .errorlist {
+    padding: 0px;
+    list-style-type: none;
+    width: 180px;
+}
+
+#user-login-data .errorlist li {
+    padding-left: 7%;
+    background: url('/static/images/error.png') 0% 0% no-repeat;
+}
+
+#ui-datepicker-div {
+    font-size: 87%;
+}
+
+#calc-tabs .ui-widget-header {
+    border-width: 0px !important;
 }

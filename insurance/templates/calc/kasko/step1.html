@@ -16,7 +16,7 @@
             $("#info-main-driver td:odd").addClass("second");
 
             $("#info-main-driver td.second select").each(function() {
-               if ($(this).val() != "") {
+               if ($(this).val() != "" && (!$(this).parents("tr").hasClass("first"))) {
                  $(this).parents("tr").removeClass("hide").addClass("show");
                  $("#delete-driver-button").removeClass("hide").show();
                };
@@ -286,7 +286,7 @@
 
     <div class="form-round-block" id="optional-block-1">
         <table id="info-main-driver">
-            <tr>
+            <tr class="first">
                 <td class="label">
                     {{ s1_form.age.label }}
                     <small>(полных лет)</small>

@@ -5,6 +5,10 @@
     <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
     <script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ui.datepicker.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ui.datepicker-ru.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL}}css/jquery.ui.theme.css"></link>
+    <link rel="stylesheet" href="/static/css/jquery.ui.datepicker.css"></link>
     <script>
         $(document).ready(function() {
 
@@ -61,6 +65,12 @@
                     return false;
                 }
             })
+
+            $("#id_date").datepicker({
+               changeMonth: true,
+               changeYear: true,
+               yearRange: "1950:2012"
+            });
             });
     </script>
 {% endblock %}
