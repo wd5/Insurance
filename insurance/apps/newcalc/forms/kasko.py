@@ -237,7 +237,7 @@ class Step3FormReg(forms.Form):
 
 
 class Step3FormNoReg(forms.Form):
-    first_name = forms.CharField(max_length=30)
+    first_name = forms.CharField(max_length=20)
     last_name = forms.CharField(max_length=30)
     middle_name = forms.CharField(max_length=30)
     phone = PhoneNumberField()
@@ -280,15 +280,15 @@ class Step3FormNoReg(forms.Form):
 
 
 class Step4Form(forms.Form):
-    first_name = forms.CharField(label="Имя страхователя", max_length=30)
+    first_name = forms.CharField(label="Имя страхователя", max_length=20)
     last_name = forms.CharField(label="Фамилия страхователя", max_length=30)
     middle_name = forms.CharField(label="Отчество страхователя", max_length=30)
     birth_date = forms.DateField(label="Дата рождения страхователя")
     sex = forms.ChoiceField(label="Пол", choices=SEX_CHOICES)
     category = forms.ChoiceField(label="Категория прав", choices=CATEGORY_CHOICES)
     citizenship = forms.ChoiceField(label="Гражданство", choices=CITIZEN_CHOICES)
-    passport_series = forms.CharField(label="Серия паспорта", max_length=16)
-    passport_number = forms.CharField(label="Номер паспорта", max_length=16)
+    passport_series = forms.CharField(label="Серия паспорта", max_length=4)
+    passport_number = forms.CharField(label="Номер паспорта", max_length=6)
     issued_org = forms.CharField(label="Кем выдан", max_length=255)
     issued_date = forms.DateField(label="Дата выдачи")
     reg_region = forms.CharField(label="Область, край", max_length=255)
@@ -296,17 +296,17 @@ class Step4Form(forms.Form):
     reg_city = forms.CharField(label="Населенный пункт", max_length=255)
     reg_street = forms.CharField(label="Улица", max_length=255)
     reg_index = forms.CharField(label="Индекс", max_length=6)
-    reg_building = forms.CharField(label="Дом", max_length=16)
+    reg_building = forms.CharField(label="Дом", max_length=4)
     reg_housing = forms.CharField(label="Корпус", max_length=6, required=False)
-    reg_flat = forms.CharField(label="Квартира", max_length=6)
+    reg_flat = forms.CharField(label="Квартира", max_length=4)
     live_region = forms.CharField(label="Область, край", max_length=255)
     live_area = forms.CharField(label="Район", max_length=255, required=False)
     live_city = forms.CharField(label="Населенный пункт", max_length=255)
     live_street = forms.CharField(label="Улица", max_length=255)
     live_index = forms.CharField(label="Индекс", max_length=6)
-    live_building = forms.CharField(label="Дом", max_length=16)
+    live_building = forms.CharField(label="Дом", max_length=4)
     live_housing = forms.CharField(label="Корпус", max_length=6, required=False)
-    live_flat = forms.CharField(label="Квартира", max_length=6)
+    live_flat = forms.CharField(label="Квартира", max_length=4)
 
 
 class Step5Form(forms.Form):
@@ -322,7 +322,7 @@ class Step5Form(forms.Form):
     kpp = forms.ChoiceField(label="Коробка передач", choices=KPP_CHOICES)
     motor = forms.ChoiceField(label="Двигатель", choices=MOTOR_CHOICES)
     owner_last_name = forms.CharField(label="Фамилия", max_length=30)
-    owner_first_name = forms.CharField(label="Имя", max_length=30)
+    owner_first_name = forms.CharField(label="Имя", max_length=20)
     owner_middle_name = forms.CharField(label="Отчество", max_length=30)
     owner_birth_date = forms.DateField(label="Дата рождения")
     first_owner = forms.BooleanField(label="Первый владелец авто", required=False)
@@ -333,14 +333,14 @@ class Step6Form(forms.Form):
     date = forms.DateField(label="Дата доставки")
     time = forms.ChoiceField(label="Время доставки", choices=TIME_CHOICES)
     street = forms.CharField(label="Улица доставки", max_length=255)
-    building = forms.CharField(label="Дом доставки", max_length=16)
-    structure = forms.CharField(label="Строение доставки", max_length=16,
+    building = forms.CharField(label="Дом доставки", max_length=4)
+    structure = forms.CharField(label="Строение доставки", max_length=4,
                                 required=False)
     housing = forms.CharField(label="Корпус доставки", max_length=6, required=False)
-    floor = forms.CharField(label="Этаж доставки", max_length=6, required=False)
+    floor = forms.CharField(label="Этаж доставки", max_length=3, required=False)
     domophone = forms.CharField(label="Код домофона", max_length=12, required=False)
-    flat = forms.CharField(label="Квартира доставки", max_length=6, required=False)
-    porch = forms.CharField(label="Подъезд доставки", max_length=6, required=False)
+    flat = forms.CharField(label="Квартира доставки", max_length=4, required=False)
+    porch = forms.CharField(label="Подъезд доставки", max_length=3, required=False)
     payments = forms.ChoiceField(label="Вариант оплаты", choices=PAYMENT_CHOICES)
     comment = forms.CharField(label="Комментарий", required=False,
                               widget=forms.Textarea)

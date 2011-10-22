@@ -156,7 +156,7 @@ def step3(request, alias):
                 ip.model_year = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
                 ip.power_str = Power.objects.get(pk=s1_data["power"]).power_name
                 ip.city = City.objects.get(pk=s1_data["city"]).city_name
-                ip.price = 0  # N/A
+                ip.price = s1_data["dago"]
                 ip.age = s1_data["age"]
                 ip.experience_driving = s1_data["experience_driving"]
                 if s1_data["unlimited_drivers"]:
@@ -191,7 +191,7 @@ def step3(request, alias):
                 ip.model_year = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
                 ip.power_str = Power.objects.get(pk=s1_data["power"]).power_name
                 ip.city = City.objects.get(pk=s1_data["city"]).city_name
-                ip.price = 0  # N/A
+                ip.price = s1_data["dago"]
                 ip.age = s1_data["age"]
                 ip.experience_driving = s1_data["experience_driving"]
                 if s1_data["unlimited_drivers"]:
