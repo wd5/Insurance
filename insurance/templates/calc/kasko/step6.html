@@ -67,7 +67,11 @@
 
 
 {% block tab_content %}
-
+    <ul class="step-ui-tabs-nav active-3">
+        <li><a>Водители</a></li>
+        <li><a>Автомобиль</a></li>
+        <li><a>Доставка</a></li>
+    </ul>
     <form action="" method="post" id="step">
         {% csrf_token %}
         <h5>Укажите максимально подробно адрес и условия доставки:</h5>

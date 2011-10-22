@@ -2744,48 +2744,57 @@ div.messages li {
     margin-bottom: 5px;
 }
 
-/* #calc-tabs #step4-tabs ul.ui-tabs-nav{
+ul.step-ui-tabs-nav{
     padding: 0;
     background: url(/static/images/second_tabs_back1.png) top left no-repeat;
     height: 35px;
     overflow: hidden;
 }
 
-#calc-tabs #step4-tabs ul.ui-tabs-nav.active-1{
+ul.step-ui-tabs-nav.active-1{
    background: url(/static/images/second_tabs_back1.png) top left no-repeat;
 }
 
-#calc-tabs #step4-tabs ul.ui-tabs-nav.active-2{
+ul.step-ui-tabs-nav.active-2{
     background: url(/static/images/second_tabs_back2.png) top left no-repeat;
 }
 
-#calc-tabs #step4-tabs ul.ui-tabs-nav.active-3{
+ul.step-ui-tabs-nav.active-3{
    background: url(/static/images/second_tabs_back3.png) top left no-repeat;
 }
 
-#calc-tabs #step4-tabs ul.ui-tabs-nav li{
+ul.step-ui-tabs-nav li{
     background: none;
     margin: 0;
     padding: 0;
     height: 35px;
     line-height: 30px;
     width: 238px;
+    list-style: none;
+    font-size: 16px;
+    margin-right: -15px;
+    float: left;
+    text-align: center;
+
 }
 
-#calc-tabs #step4-tabs ul.ui-tabs-nav li a{
+ul.step-ui-tabs-nav li a{
     text-transform: none;
     height: 35px;
     width: 238px;
     display: block;
     background: none;
+    text-decoration: none;
+    color: #fff;
+    position: relative;
 }
 
-#calc-tabs #step4-tabs ul.ui-tabs-nav li a:hover{
+ul.step-ui-tabs-nav li a:hover{
     background: none;
 }
 
 
-#calc-tabs #step4-tabs .ui-tabs-panel{
+/*#calc-tabs #step4-tabs .ui-tabs-panel{
     border: none;
     background: none;
     padding: 30px 15px;
