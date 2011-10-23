@@ -83,6 +83,11 @@
                     return false;
                 }
             })
+
+            $("#id_vin").keyup(function() {
+               $("#id_body_number").val($(this).val());
+            });
+
             });
     </script>
 {% endblock %}

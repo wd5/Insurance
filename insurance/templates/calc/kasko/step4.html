@@ -39,7 +39,7 @@
                 displaySelectValue($(this));
             })
 
-            $("#id_birth_date").datepicker({
+            $("#id_birth_date, #id_issued_date").datepicker({
                changeMonth: true,
                changeYear: true,
                yearRange: "1950:2012"
@@ -102,6 +102,10 @@
                     return false;
                 }
             })
+
+            $("label").each(function() {
+                $(this).parents("span, td").attr("title", $(this).text());
+            });
 
             });
     </script>
@@ -172,47 +176,55 @@
 
         <div id="document-data">
             <h5>Паспортные данные:</h5>
-            <span>
-                {{ form.passport_series }}
-                {{ form.passport_series.errors }}
-                <label>{{ form.passport_series.label }}</label>
-            </span>
+            <table>
+                <tr>
+                <td title="{{ form.passport_series.label }}">
+                    {{ form.passport_series }}
+                    {{ form.passport_series.errors }}
+                    <label>{{ form.passport_series.label }}</label>
+                </td>
+                <td title="{{ form.passport_number.label }}">
+                    {{ form.passport_number }}
+                    {{ form.passport_number.errors }}
+                    <label>{{ form.passport_number.label }}</label>
+                </td>
+            </tr>
+            <tr>
+                <td title="{{ form.issued_org.label }}">
+                    {{ form.issued_org }}
+                    {{ form.issued_org.errors }}
+                    <label>{{ form.issued_org.label }}</label>
+                </td>
 
-            <span>
-                 {{ form.passport_number }}
-                 {{ form.passport_number.errors }}
-                <label>{{ form.passport_number.label }}</label>
-            </span>
-
-            <span>
-                {{ form.issued_org }}
-                {{ form.issued_org.errors }}
-                <label>{{ form.issued_org.label }}</label>
-            </span>
-
-            <span>
-                {{ form.issued_date }}
-                {{ form.issued_date.errors }}
-                <label>{{ form.issued_date.label }}</label>
-            </span>
+                <td title="{{ form.issued_date.label }}">
+                    {{ form.issued_date }}
+                    {{ form.issued_date.errors }}
+                    <label>{{ form.issued_date.label }}</label>
+                </td>
+            </tr>
+            </table>
         </div>
 
        <div id="document-address">
            <h5>Адрес прописки:</h5>
            <table>
                <tr>
-                   <td>{{ form.reg_region }}{{ form.reg_region.errors }}<label>{{ form.reg_region.label }}</label></td>
-                   <td>{{ form.reg_area }}{{ form.reg_area.errors }}<label>{{ form.reg_area.label }}</label></td>
-                   <td>{{ form.reg_city }}{{ form.reg_city.errors }}<label>{{ form.reg_city.label }}</label></td>
+                   <td>{{ form.reg_region }}{{ form.reg_region.errors }}
+                   <label>{{ form.reg_region.label }}</label></td>
+                   <td class="blank">{{ form.reg_area }}{{ form.reg_area.errors }}
+                   <label>{{ form.reg_area.label }}</label></td>
+                   <td>{{ form.reg_city }}{{ form.reg_city.errors }}
+                   <label>{{ form.reg_city.label }}</label></td>
                </tr>
                <tr>
-                   <td>{{ form.reg_street }}{{ form.reg_street.errors }}<label>{{ form.reg_street.label }}</label></td>
+                   <td>{{ form.reg_street }}{{ form.reg_street.errors }}
+                   <label>{{ form.reg_street.label }}</label></td>
                    <td>
                        <span>{{ form.reg_index }}{{ form.reg_index.errors }}<label>{{ form.reg_index.label }}</label></span>
                        <span>{{ form.reg_building }}{{ form.reg_building.errors }}<label>{{ form.reg_building.label }}</label></span>
                    </td>
                    <td>
-                       <span>{{ form.reg_housing }}{{ form.reg_housing.errors }}<label>{{ form.reg_housing.label }}</label></span>
+                       <span class="blank">{{ form.reg_housing }}{{ form.reg_housing.errors }}<label>{{ form.reg_housing.label }}</label></span>
                        <span>{{ form.reg_flat }}{{ form.reg_flat.errors }}<label>{{ form.reg_flat.label }}</label></span>
                    </td>
                </tr>
@@ -224,7 +236,7 @@
            <table>
                <tr>
                    <td>{{ form.live_region }}{{ form.live_region.errors }}<label>{{ form.live_region.label }}</label></td>
-                   <td>{{ form.live_area }}{{ form.live_area.errors }}<label>{{ form.live_area.label }}</label></td>
+                   <td class="blank">{{ form.live_area }}{{ form.live_area.errors }}<label>{{ form.live_area.label }}</label></td>
                    <td>{{ form.live_city }}{{ form.live_city.errors }}<label>{{ form.live_city.label }}</label></td>
                </tr>
                <tr>
@@ -242,7 +254,7 @@
                        </span>
                    </td>
                    <td>
-                       <span>
+                       <span class="blank">
                            {{ form.live_housing }}
                            {{ form.live_housing.errors }}
                            <label>{{ form.live_housing.label }}</label>

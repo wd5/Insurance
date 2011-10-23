@@ -563,6 +563,8 @@ function checkAllINputs(){
         result = false;
 
     currenttab.find("input:text").each(function(){
+        if ($(this).parents("span, td").hasClass("blank"))
+            return true;
         var placeholder = $(this).parent().find("label").text();
         if($.trim($(this).val()) == "" || $(this).val() == placeholder){
             $(this).addClass("empty");

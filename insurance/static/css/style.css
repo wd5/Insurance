@@ -2715,11 +2715,13 @@ div.messages li {
 .forward-button {
     padding-right: 15px;
     background: url('/static/images/forward.png') 95% 50% no-repeat;
+    margin-bottom: 1em;
 }
 
 .backward-button {
     padding-left: 25px;
     background: url('/static/images/backward.png') 5% 50% no-repeat;
+    margin-bottom: 1em;
 }
 
 #step input.inactive{
@@ -2899,7 +2901,7 @@ ul.step-ui-tabs-nav li.ui-state-hover{
 
 #document-data #id_passport_series,
 #document-data #id_passport_number{
-    width: 76px;
+    width: 126px;
 }
 
 #document-address{
