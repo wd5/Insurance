@@ -164,7 +164,7 @@ class InsurancePolicy(models.Model):
 #STEP 4-2
     vin = models.CharField("VIN", max_length=17, null=True, blank=True)
     number = models.CharField("Гос. номер", null=True, blank=True, max_length=10)
-    body_number = models.CharField("Номер кузова", null=True, blank=True, max_length=10)
+    body_number = models.CharField("Номер кузова", null=True, blank=True, max_length=17)
     body_type = models.CharField("Тип кузова", max_length=15, choices=BODY_TYPE_CHOICES, null=True, blank=True)
 
     pts_number = models.CharField(u"Серия и номер ПТС", max_length=10, null=True, blank=True)
