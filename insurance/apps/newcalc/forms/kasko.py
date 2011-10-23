@@ -317,7 +317,7 @@ class Step5Form(forms.Form):
     pts_date = forms.DateField(label="Дата выдачи ПТС")
     power = forms.IntegerField(label="Мощность", min_value=10, max_value=600)
     volume = forms.IntegerField(label="Объем двигателя", min_value=50, max_value=9999)
-    mileage = forms.IntegerField(label="Пробег", min_value=10)
+    mileage = forms.IntegerField(label="Пробег", min_value=10, max_value=1000000)
     kpp = forms.ChoiceField(label="Коробка передач", choices=KPP_CHOICES)
     motor = forms.ChoiceField(label="Двигатель", choices=MOTOR_CHOICES)
     owner_last_name = forms.CharField(label="Фамилия", min_length=2, max_length=30)
