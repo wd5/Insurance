@@ -19,7 +19,9 @@
         <li class="ui-state-default ui-corner-top"><a href="#">ДМС</a></li>
         <li class="ui-state-default ui-corner-top"><a href="#">HC</a></li>
         <li class="ui-state-default ui-corner-top"><a href="#">ВЗР</a></li>
-        <li class="ui-state-default ui-corner-top"><a href="#">ИФЛ</a></li>
+        <li class="ui-state-default ui-corner-top{% ifequal tab 6 %} ui-tabs-selected ui-state-active{% endifequal %}">
+            <a href="{% url ncalc_step1_ifl %}">ИФЛ</a>
+        </li>
     </ul>
 
     <div class="ui-tabs-panel ui-widget-content ui-corner-bottom">

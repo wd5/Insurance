@@ -1,0 +1,66 @@
+{% extends "calc/calc.html" %}
+{% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+{% endblock %}
+
+{% block tab_content %}
+{% load intspace %}
+            <div class="form-round-block">
+                <form action="" method="post">
+
+                   <table id="step3-data">
+                        <tr>
+                            <td>Тип полиса</td>
+                            <td>{{ data.insurance_type }}</td>
+                        </tr>
+                        <tr>
+                            <td>Имущество</td>
+                            <td>{{ data.property }}</td>
+                        </tr>
+                        <tr>
+                            <td>Стоимость имущества</td>
+                            <td>{{ data.property_sum|intspace }} руб.</td>
+                        </tr>
+                        {% if data.interior_sum %}
+                        <tr>
+                            <td>Стоимость отделки</td>
+                            <td>{{ data.interior_sum|intspace }} руб.</td>
+                        </tr>
+                        {% endif %}
+                        {% if data.environment_sum %}
+                        <tr>
+                            <td>Стоимость оборудования</td>
+                            <td>{{ data.environment_sum|intspace }} руб.</td>
+                        </tr>
+                        {% endif %}
+                        {% if data.household_sum %}
+                        <tr>
+                            <td>Стоимость домашнего имущества</td>
+                            <td>{{ data.household_sum|intspace }} руб.</td>
+                        </tr>
+                        {% endif %}
+                        {% if data.civil_sum %}
+                        <tr>
+                            <td>Сумма гражданской ответственности</td>
+                            <td>{{ data.civil_sum|intspace }} руб.</td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td>Местонахождение</td>
+                            <td>{{ data.city }}</td>
+                        </tr>
+                        <tr>
+                            <td>Страховщик</td>
+                            <td>{{ data.company }}</td>
+                        </tr>
+                        {% csrf_token %}
+                    </table>
+
+                    <input type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
+                </form>
+            </div>
+
+{% endblock %}

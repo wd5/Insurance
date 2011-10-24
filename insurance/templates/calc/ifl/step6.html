@@ -1,0 +1,179 @@
+{% extends "calc/calc.html" %}
+{% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ui.datepicker.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ui.datepicker-ru.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL}}css/jquery.ui.theme.css"></link>
+    <link rel="stylesheet" href="/static/css/jquery.ui.datepicker.css"></link>
+    <script>
+        $(document).ready(function() {
+
+            $("#id_time, #id_payments").css("visibility", "hidden");
+
+            /*Remove empty class when user click or input values */
+            $("#step input").click(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step input").keypress(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step select").change(function(){
+                $(this).parent().removeClass("empty");
+            })
+
+            /*Select visual value*/
+            $("#time-delivery a, #payment-form a").click(function(e){
+                e.preventDefault();
+                $(this).parent().removeClass("empty");
+                selectVisualValue($(this));
+            })
+
+            /*Display visual value*/
+            $("#id_time, #id_payments").each(function(){
+                displaySelectValue($(this));
+            })
+
+            /*Placeholder for inpust*/
+            $("#step input:text").click(function(){
+                $(this).removeClass("empty");
+                var currentValue = $(this).data("currval", $(this).val());
+                if($(this).val() == $(this).parent().find("label").text()){
+                    $(this).val("");
+                }
+
+            })
+
+            $("#step input:text").blur(function(){
+                var saveValue = $(this).data("currval");
+                if($(this).val() == ""){
+                    $(this).val($(this).data("currval"))
+                }
+            })
+
+            $(".backward-button").click(function() {
+                location.href = "{{ back }}";
+            });
+
+/*            $("form#step").submit(function(){
+                if(checkAllINputs() == false){
+                    return false;
+                }
+            })
+            */
+
+            $("#id_date").datepicker({
+               changeMonth: true,
+               changeYear: true,
+               yearRange: "1950:2012"
+            });
+            });
+    </script>
+{% endblock %}
+
+
+{% block tab_content %}
+    <ul class="step-ui-tabs-nav active-3">
+        <li><a>Страхователь</a></li>
+        <li><a>Имущество</a></li>
+        <li><a>Доставка</a></li>
+    </ul>
+    <form action="" method="post" id="step">
+        {% csrf_token %}
+        <h5>Укажите максимально подробно адрес и условия доставки:</h5>
+
+        <table id="delivery-1">
+            <tr>
+                <td>
+                    <h5>Улица:</h5>
+                    {{ form.street }}
+                    {{ form.street.errors }}
+                </td>
+                <td>
+                    <h5>Дом:</h5>
+                    {{ form.building }}
+                    {{ form.building.errors }}
+                </td>
+                <td>
+                    <h5>Строение:</h5>
+                    {{ form.structure }}
+                    {{ form.structure.errors }}
+                </td>
+                <td>
+                    <h5>Корпус:</h5>
+                    {{ form.housing }}
+                    {{ form.housing.errors }}
+                </td>
+            </tr>
+        </table>
+
+        <table id="delivery-2">
+            <tr>
+                <td>
+                    <h5>Подьезд:</h5>
+                    {{ form.porch }}
+                    {{ form.porch.errors }}
+                </td>
+                <td>
+                    <h5>Код домофона:</h5>
+                    {{ form.domophone }}
+                    {{ form.domophone.errors }}
+                </td>
+                <td>
+                    <h5>Этаж:</h5>
+                    {{ form.floor }}
+                    {{ form.floor.errors }}
+                </td>
+                <td>
+                    <h5>Квартира:</h5>
+                    {{ form.flat }}
+                    {{ form.flat.errors }}
+                </td>
+            </tr>
+        </table>
+
+         <table id="delivery-3">
+            <tr>
+                <td>
+                    <h5>Комментарии к доставке:</h5>
+                    {{ form.comment }}
+                    {{ form.comment.errors }}
+                </td>
+                <td>
+                    <h5>Дата доставки:</h5>
+                    {{ form.date }}
+                    {{ form.date.errors }}
+                </td>
+                <td>
+                    <h5>Время доставки:</h5>
+                    <div id="time-delivery">
+                        <a href="#" value="9:30:00">9:30 - 12:00</a>
+                        <a href="#" value="12:00:00">12:00 - 15:00</a>
+                        <a href="#" value="15:00:00">15:00 - 18:00</a>
+
+                        {{ form.time }}
+                        {{ form.time.errors }}
+                    </div>
+                </td>
+                <td>
+                    <h5>Вариант оплаты:</h5>
+                    <div id="payment-form">
+                        <a value="1" href="#">Наличными</a>
+                        <a value="2" href="#">Кредитная карта</a>
+                        {{ form.payments }}
+                        {{ form.payments.errors }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <input id="order-button" type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
+
+        <h5>Обратите внимание! Доставка курьером осуществляется только в пределах МКАД.</h5>
+    </form>
+
+{% endblock %}

@@ -3196,13 +3196,24 @@ ul.step-ui-tabs-nav li.ui-state-hover{
     visibility: hidden;
 }
 
-#franchize, #price-slider{
+#require-data-first td.label {
+    vertical-align: bottom;
+    width: 200px;
+    }
+
+#franchize, #price-slider, #price-slider-property,
+#price-slider-env, #price-slider-household, #price-slider-civil,
+#price-slider-interior {
     position: relative;
     width: 100px;
     height: 22px;
 }
 
-#franchize .ui-slider-handle, #price-slider .ui-slider-handle{
+#franchize .ui-slider-handle, #price-slider .ui-slider-handle,
+#price-slider-env .ui-slider-handle, #price-slider-property .ui-slider-handle,
+#price-slider-household .ui-slider-handle, #price-slider-civil .ui-slider-handle,
+#price-slider-interior .ui-slider-handle
+{
     width: 73px;
     height: 20px;
     background: url(/static/images/franchize_slider_stick.png) top left no-repeat;
@@ -3661,6 +3672,36 @@ ul.step-ui-tabs-nav li.ui-state-hover{
 }
 
 :first-child + html #price-slider .ui-slider-handle{
+    bottom: 0;
+    margin-top: 16px;
+    text-decoration: none;
+}
+
+:first-child + html #price-slider-interior .ui-slider-handle{
+    bottom: 0;
+    margin-top: 16px;
+    text-decoration: none;
+}
+
+:first-child + html #price-slider-civil .ui-slider-handle{
+    bottom: 0;
+    margin-top: 16px;
+    text-decoration: none;
+}
+
+:first-child + html #price-slider-household .ui-slider-handle{
+    bottom: 0;
+    margin-top: 16px;
+    text-decoration: none;
+}
+
+:first-child + html #price-slider-property .ui-slider-handle{
+    bottom: 0;
+    margin-top: 16px;
+    text-decoration: none;
+}
+
+:first-child + html #price-slider-env .ui-slider-handle{
     bottom: 0;
     margin-top: 16px;
     text-decoration: none;

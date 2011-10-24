@@ -262,3 +262,14 @@ class KackoParameters(models.Model):
 #    user_lastvisit = models.DateTimeField()
 #    class Meta:
 #        db_table = u'users'
+
+class Property(models.Model):
+    property_id = models.IntegerField(primary_key=True)
+    property_name = models.CharField(max_length=50)
+    property_comment = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = u'property'
+
+    def __unicode__(self):
+        return self.property_name

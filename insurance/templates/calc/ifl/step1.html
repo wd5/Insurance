@@ -1,0 +1,256 @@
+{% extends "calc/calc.html" %}
+{% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.ifl.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+
+    <script type="text/javascript">
+
+        $(function() {
+            //price sliders
+            priceSlider($("#price-slider-property"), "#id_property_sum", 0, 50000000);
+            priceSlider($("#price-slider-env"), "#id_environment_summ", 0, 50000000);
+            priceSlider($("#price-slider-household"), "#id_household_effects_summ", 0, 50000000);
+            priceSlider($("#price-slider-interior"), "#id_interior_decoration_summ", 0, 50000000);
+            priceSlider($("#price-slider-civil"), "#id_civil_liability_summ", 0, 50000000);
+
+            $("#require-block-1 tr").not(":first").hide();
+            //first select with auto mark
+            if ($("#id_property").val() != "") {
+                $("#require-block-1 tr").not(".hide").show();
+            }
+
+            $("#id_property").change(function() {
+                $(".ajax-select select").not(":first").each(function() {
+                    $(this).val("");
+                    get_visible_select_data($(this).attr("id"));
+                });
+
+                var nextRows = $(this).parents("tr").not(".hide");
+
+                if ($("#id_property").val() != "") {
+                    nextRows.show();
+                } else {
+                    $("select", nextRows).val("");
+//                    $("select", nextRows).html("");
+                    nextRows.hide();
+                }
+            });
+
+            $(".visible-data .visual span").live('click', function() {
+                var nextSelect = $(this).parents("td").find("select"),
+                        nextRow = $(this).parents("tr").next(),
+                        nextRows = $(this).parents("tr").nextAll(),
+                        parent = $(this).parent();
+
+                if (parent.attr("class") == "container") {
+                    parent = $(this).parent().parent();
+                }
+                nextRows.find(":odd").removeClass("hide").show();
+                parent.find("span").removeClass("active");
+                $(this).addClass("active");
+                nextSelect.val($(this).attr("rel"));
+                nextSelect.change();
+            })
+
+            //Change other ajax-selects
+/*            $(".ajax-select select").change(function() {
+                get_auto_data($(this).attr("name"));
+                console.log($(this).attr("name"));
+            }) */
+
+            //Draw all select values in frist block
+            $(".ajax-select select").each(function() {
+                var id = $(this).attr("id");
+                get_visible_select_data(id);
+            })
+
+            $("#id_property, #id_city").parent().hide();
+        })
+    </script>
+{% endblock %}
+
+{% block tab_content %}
+
+    <form action="" method="post" id="form-step1">
+    {% csrf_token %}
+
+    {% if s1_form.non_field_errors %}
+        <div>
+            <h2>Ошибки заполнения формы:</h2>
+            {{ s1_form.non_field_errors }}
+        </div>
+    {% endif %}
+
+
+    <div class="form-round-block" id="require-block-1">
+        <table id="require-data-first">
+            <tr>
+                <td class="label">
+                    {{ s1_form.property.label }}
+                    <span class="table-error">{{ s1_form.property.errors }}</span>
+                </td>
+
+                <td class="visible-data second">
+                    <div class="visual"></div>
+                    <span class="ajax-select">{{ s1_form.property }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    {{ s1_form.property_sum.label }}
+                    <span class="table-error">{{ s1_form.property_sum.errors }}</span>
+                </td>
+                <td class="second">
+                    {{ s1_form.property_sum }}
+                    <div id="price-slider-container">
+                        <span id="min"></span>
+                        <span id="max"></span>
+
+                        <div id="price-slider-property"></div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label">
+                    {{ s1_form.interior_decoration.label }}
+                    <span class="table-error">{{ s1_form.interior_decoration.errors }}</span>
+                </td>
+                <td class="second">
+                    <div id="interior-decoration" class="style-checkbox">
+                        {{ s1_form.interior_decoration }}
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="hide">
+                <td class="label">
+                    {{ s1_form.interior_decoration_summ.label }}
+                    <span class="table-error">{{ s1_form.interior_decoration_summ.errors }}</span>
+                </td>
+                <td class="second">
+                    {{ s1_form.interior_decoration_summ }}
+                    <div id="price-slider-container">
+                        <span id="min"></span>
+                        <span id="max"></span>
+
+                        <div id="price-slider-interior"></div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label">
+                    {{ s1_form.environment.label }}
+                    <span class="table-error">{{ s1_form.environment.errors }}</span>
+                </td>
+                <td class="second">
+                    <div id="environment" class="style-checkbox">
+                        {{ s1_form.environment }}
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="hide">
+                <td class="label">
+                    {{ s1_form.environment_summ.label }}
+                    <span class="table-error">{{ s1_form.environment_summ.errors }}</span>
+                </td>
+                <td class="second">
+                    {{ s1_form.environment_summ }}
+                    <div id="price-slider-container">
+                        <span id="min"></span>
+                        <span id="max"></span>
+
+                        <div id="price-slider-env"></div>
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label">
+                    {{ s1_form.household_effects.label }}
+                    <span class="table-error">{{ s1_form.household_effects.errors }}</span>
+                </td>
+                <td class="second">
+                    <div id="household" class="style-checkbox">
+                        {{ s1_form.household_effects }}
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="hide">
+                <td class="label">
+                    {{ s1_form.household_effects_summ.label }}
+                    <span class="table-error">{{ s1_form.household_effects_summ.errors }}</span>
+                </td>
+                <td class="second">
+                    {{ s1_form.household_effects_summ }}
+                    <div id="price-slider-container">
+                        <span id="min"></span>
+                        <span id="max"></span>
+
+                        <div id="price-slider-household"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    {{ s1_form.city.label }}
+                    <span class="table-error">{{ s1_form.city.errors }}</span>
+                </td>
+                <td class="visible-data second">
+                    <div class="visual"></div>
+                    <span class="ajax-select">{{ s1_form.city }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    {{ s1_form.civil_liability.label }}
+                    <span class="table-error">{{ s1_form.civil_liability.errors }}</span>
+                </td>
+                <td class="second">
+                    <div id="civil" class="style-checkbox">
+                        {{ s1_form.civil_liability }}
+                    </div>
+                </td>
+            </tr>
+
+            <tr class="hide">
+                <td class="label">
+                    {{ s1_form.civil_liability_summ.label }}
+                    <span class="table-error">{{ s1_form.civil_liability_summ.errors }}</span>
+                </td>
+                <td class="second">
+                    {{ s1_form.civil_liability_summ }}
+                    <div id="price-slider-container">
+                        <span id="min"></span>
+                        <span id="max"></span>
+
+                        <div id="price-slider-civil"></div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <input id="calculate-button" type="image" value="" src="/static/images/calculate_button.png"/>
+    </form>
+
+    <br/>
+    {% if prev_data %}
+        <h2>Предыдущие расчеты:</h2>
+        {% for pd in prev_data %}
+            <a href="{% url ncalc_step1_ifl %}{{ forloop.counter }}/">{{ pd }}руб.</a>
+            <br />
+        {% endfor %}
+        <br /><br />
+    {% endif %}
+    <a href="{% url cleansession %}">очистить введенные данные</a>
+    </div>
+
+{% endblock %}
+
+

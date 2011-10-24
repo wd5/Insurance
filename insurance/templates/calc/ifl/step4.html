@@ -1,0 +1,265 @@
+{% extends "calc/calc.html" %}
+{% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.ifl.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ui.datepicker.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ui.datepicker-ru.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL}}css/jquery.ui.theme.css"></link>
+    <link rel="stylesheet" href="/static/css/jquery.ui.datepicker.css"></link>
+    <script>
+        $(document).ready(function() {
+
+            $("#id_citizenship, #id_sex").css("visibility", "hidden");
+
+            /*Remove empty class when user click or input values */
+            $("#step input").click(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step input").keypress(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step select").change(function(){
+                $(this).parent().removeClass("empty");
+            })
+
+            /*Select visual value*/
+            $("#citizenship a, #sex-1 a").click(function(e){
+                e.preventDefault();
+                $(this).parent().removeClass("empty");
+                selectVisualValue($(this));
+            })
+
+            /*Display visual value*/
+            $("#id_citizenship, #id_category, #id_sex,  #sex-1").each(function(){
+                displaySelectValue($(this));
+            })
+
+            $("#id_birth_date, #id_issued_date").datepicker({
+               changeMonth: true,
+               changeYear: true,
+               yearRange: "1950:2012"
+            });
+
+            /*For input labels*/
+            $("#document-data input, #document-address input, #real-address input").each(function(){
+                $("#document-data label, #document-address label, #real-address label").hide();
+                $(this).addClass("inactive");
+                    if($(this).val() == ""){
+                       $(this).val($(this).parent().find("label").text());
+                    }
+
+                $(this).click(function(){
+                    $(this).removeClass("inactive");
+                })
+
+                $(this).keypress(function(){
+                    $(this).removeClass("inactive");
+                    $(this).removeClass("empty");
+                })
+
+                 $(this).blur(function(){
+                    if($(this).val() == ""){
+                        $(this).addClass("inactive");
+                    }
+                })
+
+            })
+
+            /*Placeholder for inpust*/
+            $("#step input:text").click(function(){
+                $(this).removeClass("empty");
+                var currentValue = $(this).data("currval", $(this).val());
+                if($(this).val() == $(this).parent().find("label").text()){
+                    $(this).val("");
+                }
+
+            })
+
+            $("#step input:text").blur(function(){
+                var saveValue = $(this).data("currval");
+                if($(this).val() == ""){
+                    $(this).val($(this).data("currval"))
+                }
+            })
+
+            /*Click on copy data link*/
+            $("#copy-data-link").click(function(e){
+                e.preventDefault();
+                var from = $("#document-address input"),
+                    to = $("#real-address input");
+
+                copyInputValues(from, to);
+
+            })
+
+            $("form#step").submit(function(){
+                if(checkAllINputs() == false){
+                    return false;
+                }
+            })
+
+            $("label").each(function() {
+                $(this).parents("span, td").attr("title", $(this).text());
+            });
+
+            });
+    </script>
+{% endblock %}
+
+
+{% block tab_content %}
+
+    <ul class="step-ui-tabs-nav active-1">
+        <li><a>Страхователь</a></li>
+        <li><a>Имущество</a></li>
+        <li><a>Доставка</a></li>
+    </ul>
+
+    <form action="" method="post" id="step">
+        {{ form.non_field_errors }}
+        {% csrf_token %}
+
+
+        <table id="person-info-table">
+            <tr>
+                <td>
+                    <h5>Страхователь:</h5>
+                    {{ form.last_name }}
+                    {{ form.last_name.errors }}
+                </td>
+                <td>{{ form.first_name }}
+                {{ form.first_name.errors }}
+                </td>
+                <td>{{ form.middle_name }}
+                {{ form.middle_name.errors }}
+                </td>
+            </tr>
+            <tr>
+                <td class="interior">
+                    <h5>Дата рождения:</h5>
+                    {{ form.birth_date }}
+                    {{ form.birth_date.errors }}
+                </td>
+                <td>
+                    <div id="sex-1">
+                         <span id="sex-label">Пол:</span>
+                        <a value="ж" id="woman-sex" href="#"></a>
+                        <a value="м" id="man-sex" href="#"></a>
+                        {{ form.sex }}
+                        {{ form.sex.errors }}
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <div id="citizenship">
+            <a value="1" href="#">Гражданин РФ</a>
+            <a value="2" href="#">Иностранный гражданин</a>
+            {{ form.citizenship }}
+            {{ form.citizenship.errors }}
+        </div>
+
+        <div id="document-data">
+            <h5>Паспортные данные:</h5>
+            <table>
+                <tr>
+                <td title="{{ form.passport_series.label }}">
+                    {{ form.passport_series }}
+                    {{ form.passport_series.errors }}
+                    <label>{{ form.passport_series.label }}</label>
+                </td>
+                <td title="{{ form.passport_number.label }}">
+                    {{ form.passport_number }}
+                    {{ form.passport_number.errors }}
+                    <label>{{ form.passport_number.label }}</label>
+                </td>
+            </tr>
+            <tr>
+                <td title="{{ form.issued_org.label }}">
+                    {{ form.issued_org }}
+                    {{ form.issued_org.errors }}
+                    <label>{{ form.issued_org.label }}</label>
+                </td>
+
+                <td title="{{ form.issued_date.label }}">
+                    {{ form.issued_date }}
+                    {{ form.issued_date.errors }}
+                    <label>{{ form.issued_date.label }}</label>
+                </td>
+            </tr>
+            </table>
+        </div>
+
+       <div id="document-address">
+           <h5>Адрес прописки:</h5>
+           <table>
+               <tr>
+                   <td>{{ form.reg_region }}{{ form.reg_region.errors }}
+                   <label>{{ form.reg_region.label }}</label></td>
+                   <td class="blank">{{ form.reg_area }}{{ form.reg_area.errors }}
+                   <label>{{ form.reg_area.label }}</label></td>
+                   <td>{{ form.reg_city }}{{ form.reg_city.errors }}
+                   <label>{{ form.reg_city.label }}</label></td>
+               </tr>
+               <tr>
+                   <td>{{ form.reg_street }}{{ form.reg_street.errors }}
+                   <label>{{ form.reg_street.label }}</label></td>
+                   <td>
+                       <span>{{ form.reg_index }}{{ form.reg_index.errors }}<label>{{ form.reg_index.label }}</label></span>
+                       <span>{{ form.reg_building }}{{ form.reg_building.errors }}<label>{{ form.reg_building.label }}</label></span>
+                   </td>
+                   <td>
+                       <span class="blank">{{ form.reg_housing }}{{ form.reg_housing.errors }}<label>{{ form.reg_housing.label }}</label></span>
+                       <span>{{ form.reg_flat }}{{ form.reg_flat.errors }}<label>{{ form.reg_flat.label }}</label></span>
+                   </td>
+               </tr>
+           </table>
+       </div>
+
+       <div id="real-address">
+           <h5>Место проживания:</h5> <a href="#" id="copy-data-link">Скопировать адрес прописки</a>
+           <table>
+               <tr>
+                   <td>{{ form.live_region }}{{ form.live_region.errors }}<label>{{ form.live_region.label }}</label></td>
+                   <td class="blank">{{ form.live_area }}{{ form.live_area.errors }}<label>{{ form.live_area.label }}</label></td>
+                   <td>{{ form.live_city }}{{ form.live_city.errors }}<label>{{ form.live_city.label }}</label></td>
+               </tr>
+               <tr>
+                   <td>{{ form.live_street }}{{ form.live_street.errors }}<label>{{ form.live_street.label }}</label></td>
+                   <td>
+                       <span>
+                           {{ form.live_index }}
+                           {{ form.live_index.errors }}
+                           <label>{{ form.live_index.label }}</label>
+                       </span>
+                       <span>
+                           {{ form.live_building }}
+                           {{ form.live_building.errors }}
+                           <label>{{ form.live_building.label }}</label>
+                       </span>
+                   </td>
+                   <td>
+                       <span class="blank">
+                           {{ form.live_housing }}
+                           {{ form.live_housing.errors }}
+                           <label>{{ form.live_housing.label }}</label>
+                       </span>
+                       <span>
+                           {{ form.live_flat }}
+                           {{ form.live_flat.errors }}
+                           <label>{{ form.live_flat.label }}</label>
+                       </span>
+                   </td>
+               </tr>
+           </table>
+       </div>
+
+        <input type="submit" class="forward-button" value="Дальше"/>
+    </form>
+
+{% endblock %}
