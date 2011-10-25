@@ -201,7 +201,7 @@
     <div class="form-round-block hide" id="require-block-1">
         <table id="require-auto-data-first">
             <tr>
-                <td>
+                <td class="label">
                     {{ s1_form.model_year.label }}
                     <span class="table-error">{{ s1_form.model_year.errors }}</span>
                 </td>
@@ -212,7 +212,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="label">
                     {{ s1_form.model.label }}
                     <span class="table-error">{{ s1_form.model.errors }}</span>
                 </td>
@@ -222,7 +222,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="label">
                     {{ s1_form.power.label }}
                     <span class="table-error">{{ s1_form.power.errors }}</span>
                 </td>
@@ -232,7 +232,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="label">
                     Регистрация ТС
                 </td>
                 <td class="visible-data second">
@@ -242,7 +242,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="label">
                     {{ s1_form.city.label }}
                     <span class="table-error">{{ s1_form.city.errors }}</span>
                 </td>
@@ -252,7 +252,7 @@
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="label">
                     {{ s1_form.dago.label }}
                     <span class="table-error">{{ s1_form.dago.errors }}</span>
                 </td>
@@ -265,16 +265,6 @@
                         <div id="price-slider"></div>
                     </div>
                     <span id="stoim"></span>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{ s1_form.violations.label }}
-                    <span class="table-error">{{ s1_form.violations.errors }}</span>
-                </td>
-                <td class="visible-data second">
-                    <div class="visual"></div>
-                    {{ s1_form.violations }}
                 </td>
             </tr>
         </table>

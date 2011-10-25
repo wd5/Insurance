@@ -36,7 +36,7 @@ class Step1Form(forms.Form):
                                   empty_label="--------")
     dago = forms.IntegerField(label="Гражданская ответственность", max_value=25000000)
     violations = forms.ChoiceField(label="Грубые нарушения",
-                                   choices=(("1", "не было"), ("1.5", "были")))
+                                   choices=(("1", "не было"), ("1.5", "были")), required=False)
     power = forms.ModelChoiceField(label="Мощность",
                                    queryset=Power.objects.none(),
                                    empty_label="--------")
@@ -181,6 +181,8 @@ class Step1Form(forms.Form):
 
 
 class Step2Form(forms.Form):
+    factor_price = forms.BooleanField(label="Сортировка по цене",
+                                      required=False)
     factor_easepay = forms.BooleanField(label="Сортировка по простоте выплаты",
                                         required=False)
     factor_insuranceterms = forms.BooleanField(label="Сортировка по условиям "\

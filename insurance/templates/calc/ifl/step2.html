@@ -73,6 +73,7 @@
 {% endblock %}
 
 {% block tab_content %}
+{% load intspace %}
             <div class="form-round-block">
                 <h2>Сортировать по:</h2>
 
@@ -149,7 +150,7 @@
                         <div id="autodata-step1">
                             Вы страхуете:
                             <span>{{ data.property }}</span>
-                             {{ data.property_sum }} руб.
+                             {{ data.property_sum|intspace }} руб.
                         </div>
                         {% load stars %}
 

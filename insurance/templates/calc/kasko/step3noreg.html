@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block tab_content %}
-
+{% load intspace %}
             <div class="form-round-block clear-float">
                 <form action="" method="post">
 
@@ -38,7 +38,7 @@
                         </tr>
                         <tr>
                             <td>Стоимость</td>
-                            <td>{{ data.price }}</td>
+                            <td>{{ data.price|intspace }} руб.</td>
                         </tr>
                         <tr>
                             <td>Кредит</td>
@@ -109,7 +109,9 @@
                         <span>Введите символы:</span>
                         {{ form.captcha }}
                         {{ form.captcha.errors }}
+                    </div>
 
+                    <div style="clear:both">
                         <input type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
                     </div>
                 </form>

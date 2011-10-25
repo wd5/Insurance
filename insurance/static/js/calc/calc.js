@@ -54,7 +54,7 @@ function get_auto_data(currentname) {
                         $("#stoim").html("");
                     }
                     else {
-                        $("#stoim").html("Стоимость должна быть " + data);
+                        $("#stoim").html("Стоимость должна быть " + data + " руб.");
                     }
                 }
             }
@@ -184,8 +184,12 @@ function transform_select(selectContainer) {
         if ($(this).find("input").length == 0) {
             $(this).find(".jScrollPaneContainer").css("visibility", "hidden").hide();
         }
-
-    })
+    });
+  
+    $(selectContainer).find(".jScrollPaneContainer")
+        .bind("mouseleave", function() {
+                  $(this).css("visibility", "hidden").hide();
+              });
 
     $(selectContainer).find("ul li").live('click', function() {
         $(selectContainer).find(".select-text").html($(this).text());
@@ -309,18 +313,21 @@ function priceSlider(containerId, element, min_value, max_value) {
         value:  $(element).val(),
         min: min_value,
         max: max_value,
-        step: 10,
+        step: 1000,
 
         animate: true,
 
         create: function() {
             $(element).css("visibility", "hidden");
-            containerId.find("a.ui-slider-handle").append("<input type='text' value='0' id='current' />");
-            containerId.find("#current").val($(element).val());
+//            containerId.find("a.ui-slider-handle").append("<input type='text' value='0' id='current'/>");
+//            containerId.find("#current").val($(element).val());
+            containerId.find("a.ui-slider-handle").append("<span id='current'>" + priceFormat($(element).val(), "") + "</span>");
+            
         },
 
         slide: function(event, ui) {
-            $("#current").val(ui.value);
+//            $("#current").val(ui.value);
+            $("#current").html(priceFormat(ui.value, ""));
             $(element).val(ui.value);
         }
     });
@@ -360,7 +367,7 @@ function franchiseSlider(selectId) {
         },
 
         slide: function(event, ui) {
-            $("#current").html(ui.value);
+            $("#current").html(priceFormat(ui.value, ""));
             selectId.find("select").val(ui.value);
             selectId.find("select").change();
         }

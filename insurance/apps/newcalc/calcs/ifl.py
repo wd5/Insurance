@@ -111,7 +111,7 @@ def step2(request):
     if result is None:
         err_text = "Превышен лимит ожидания. Не получен ответ сервлета в "\
                    "течение %d сек." % settings.SERVLET_TIMEOUT
-        return direct_to_template(request, "calc/error.html", {"err_text": err_text, 'tab': 1})
+        return direct_to_template(request, "calc/error.html", {"err_text": err_text, 'tab': 6})
 
     result, msg = _parse_servlet_response(result)
 

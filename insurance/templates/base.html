@@ -14,10 +14,10 @@
     <script src="{{ STATIC_URL }}js/jquery.ui.widget.js"></script>
     <script src="{{ STATIC_URL }}js/jquery.ui.mouse.js"></script>
     <script src="{{ STATIC_URL }}js/jquery.ui.slider.js"></script>
-   
+
    <script>
-   	$(document).ready(function() {
-   		$("a[rel]").overlay({
+    $(document).ready(function() {
+        $("a[rel]").overlay({
             // some mask tweaks suitable for modal dialogs
             mask: {
                 color: '#ebecff',
@@ -26,7 +26,7 @@
             },
             closeOnClick: true
            });
-   	});
+    });
    </script>
 
     {% endblock %}
@@ -47,8 +47,8 @@
       {% include "includes/popup_authorize.html" %}
       {% include "includes/popup_pass_recover.html" %}
       {% include "includes/popup_questions.html" %}
-      
+
     </div>
-    
+
   </body>
 </html>

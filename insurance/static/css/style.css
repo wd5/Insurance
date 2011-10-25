@@ -3138,7 +3138,7 @@ ul.step-ui-tabs-nav li.ui-state-hover{
     display: block;
     height: 20px;
     padding: 0px 0 0 5px;
-    width: 125px;
+    width: 132px;
     font-size: 14px;
 }
 
@@ -3153,7 +3153,7 @@ ul.step-ui-tabs-nav li.ui-state-hover{
 
 #price-slider-container{
     background: url(/static/images/franchize_slider_back.png) top left no-repeat;
-    width: 175px;
+    width: 182px;
     position: relative;
 }
 
@@ -3185,11 +3185,12 @@ ul.step-ui-tabs-nav li.ui-state-hover{
     left: 13px;
     font-size: 11px;
     color: #fff;
-    width: 48px;
+    width: 55px;
     padding-top: 2px;
     overflow: hidden;
     background: none;
     border:  none;
+    text-align: right;
 }
 
 #franchize select{
@@ -3205,7 +3206,7 @@ ul.step-ui-tabs-nav li.ui-state-hover{
 #price-slider-env, #price-slider-household, #price-slider-civil,
 #price-slider-interior {
     position: relative;
-    width: 100px;
+    width: 105px;
     height: 22px;
 }
 
@@ -3214,7 +3215,7 @@ ul.step-ui-tabs-nav li.ui-state-hover{
 #price-slider-household .ui-slider-handle, #price-slider-civil .ui-slider-handle,
 #price-slider-interior .ui-slider-handle
 {
-    width: 73px;
+    width: 80px;
     height: 20px;
     background: url(/static/images/franchize_slider_stick.png) top left no-repeat;
     display: block;
@@ -3889,13 +3890,14 @@ ul.step-ui-tabs-nav li.ui-state-hover{
     vertical-align: middle;
 }
 
-#user-login-data .errorlist {
+#user-login-data .errorlist, #step3-captcha .errorlist {
     padding: 0px;
     list-style-type: none;
     width: 180px;
+    display: inline;
 }
 
-#user-login-data .errorlist li {
+#user-login-data .errorlist li, #step3-captcha .errorlist li {
     padding-left: 7%;
     background: url('/static/images/error.png') 0% 0% no-repeat;
 }

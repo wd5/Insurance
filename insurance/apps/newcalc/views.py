@@ -98,6 +98,7 @@ def get_powers(request):
 @require_GET
 def get_price(request):
     response = ""
+    from templatetags.intspace import intspace
     if request.is_ajax() and request.GET.has_key("power"):
         # COMMENT: временное упрощение
         # try:
@@ -111,7 +112,7 @@ def get_price(request):
         #         pass
         #     else:
         #         response = "от %d до %d" % (price.price_min, price.price_max)
-        response = "от %d до %d" % (0, 1000000)
+        response = u"от %s до %s" % (intspace(u"0"), intspace(u"10000000"))
     return HttpResponse(response, mimetype='text/plain')
 
 

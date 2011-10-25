@@ -37,7 +37,7 @@ def success(request):
 
 S1_REQUIRED_KEYS = (
     "mark", "model", "model_year", "power", "dago",
-    "violations", "city", "age", "experience_driving")
+    "city", "age", "experience_driving")
 
 
 def step1(request):
@@ -114,10 +114,10 @@ def step3(request, alias):
 
     data = {}
     data["insurance_type"] = "ОСАГО"
-    if str(s1_data["violations"]) == "1":
-        data["violations"] = "не было"
-    else:
-        data["violations"] = "были"
+#    if str(s1_data["violations"]) == "1":
+#        data["violations"] = "не было"
+#    else:
+#        data["violations"] = "были"
     data["mark"] = Mark.objects.get(pk=s1_data["mark"]).mark_name
     data["model"] = Model.objects.get(pk=s1_data["model"]).model_name
     data["model_year"] = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
@@ -312,7 +312,7 @@ def _s1_read_data(cd):
                                             mym_m=cd["model"]).mym_id
     s1_data["power"] = cd["power"].pk
     s1_data["dago"] = cd["dago"]
-    s1_data["violations"] = cd["violations"]  # String.
+#    s1_data["violations"] = cd["violations"]  # String.
     s1_data["city"] = cd["city"].pk
     s1_data["age"] = int(cd["age"])
     s1_data["experience_driving"] = int(cd["experience_driving"])
@@ -375,12 +375,12 @@ def _s1_read_form_data(s1_data):
         except (ObjectDoesNotExist, KeyError):
             ok = False
 
-    if ok:
-        try:
-            wheel = s1_data["violations"]
-            initial_data["violations"] = wheel
-        except (ObjectDoesNotExist, KeyError):
-            ok = False
+#    if ok:
+#        try:
+#            wheel = s1_data["violations"]
+#            initial_data["violations"] = wheel
+#        except (ObjectDoesNotExist, KeyError):
+#            ok = False
 
     if ok:
         try:
@@ -458,7 +458,7 @@ def _build_servlet_request_data(s1_data, s2_data):
         unlimited_drivers = 0
 
     servlet_request_data = {"power": s1_data["power"],
-                            "infringement": s1_data["violations"],
+#                            "infringement": s1_data["violations"],
                             "city": s1_data["city"],
                             "age_0": s1_data["age"],
                             "experience_driving_0": s1_data["experience_driving"],
