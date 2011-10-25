@@ -90,6 +90,38 @@
 
             $("#id_volume, #id_power").attr("maxlength", 4);
 
+            transform_select2("#fake-select");
+
+                if(navigator.userAgent.match(/MSIE \d\.\d+/))
+    {
+        /*
+        ** For each div with class menu (i.e.,
+        ** the thing we want to be on top),
+        */
+        $("#fake-select ul").parents().each(function() {
+            var p = $(this);
+            var pos = p.css("position");
+
+            // If it's positioned,
+            if(pos == "relative" ||
+               pos == "absolute" ||
+               pos == "fixed")
+            {
+                /*
+                ** Add the "on-top" class name when the
+                ** mouse is hovering over it, and remove
+                ** it when the mouse leaves.
+                */
+                p.hover(function() {
+                        $(this).addClass("on-top");
+                    },
+                    function() {
+                        $(this).removeClass("on-top");
+                    });
+            }
+        });
+    }
+
             });
     </script>
 {% endblock %}
@@ -141,7 +173,11 @@
             <tr>
                 <td>
                     <h5>Тип кузова:</h5>
-                    {{ form.body_type }}
+                    <div id="fake-select">
+                        <input name="body_type" class="fake"/>
+                        <span class="select-text"/>
+                        {{ form.body_type }}
+                    </div>
                     {{ form.body_type.errors }}
                 </td>
                 <td>

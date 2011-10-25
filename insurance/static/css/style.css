@@ -3557,6 +3557,24 @@ ul.step-ui-tabs-nav li.ui-state-hover{
     background: url(/static/images/select_square_2.png) top left no-repeat;
 }
 
+#fake-select {
+    width: 203px;
+    height: 24px;
+    position: relative;
+    background: url(/static/images/select3.jpg) top left no-repeat;
+}
+
+#fake-select .select-text {
+    width: 140px;
+    position: absolute;
+    top: 4px;
+    left: 12px;
+}
+
+#fake-select input.fake {
+    display: none;
+}
+    
 .short-select input{
     border: none;
     position: absolute;
@@ -3584,6 +3602,23 @@ ul.step-ui-tabs-nav li.ui-state-hover{
     padding-bottom: 10px;
 }
 
+.on-top {
+    z-index: 10000;
+}
+
+#fake-select ul{
+    position: absolute;
+    top: 23px !important;
+    left: 0px;
+    width: 200px;
+    height: auto;
+    background: #fff;
+    border: 1px solid #895843;
+    z-index: 60;
+    padding-bottom: 5px;
+    padding-right: 0px !important;
+}
+
 .short-select ul li{
     list-style: none;
     padding: 3px 0 3px 16px;
@@ -3593,8 +3628,22 @@ ul.step-ui-tabs-nav li.ui-state-hover{
     cursor: pointer;
 }
 
-.short-select ul li:hover, .short-select ul li.selected{
+#fake-select ul li{
+    list-style: none;
+    padding: 3px 0 3px 12px;
+    color: #333;
+    font-size: 1em;
+/*    background: url(/static/images/back_ul_select.png) bottom left no-repeat; */
+    cursor: pointer;
+}
+
+.short-select ul li:hover, .short-select ul li.selected {
     background: #5c2f1b;
+}
+
+#fake-select ul li:hover, #fake-select ul li.selected {
+    background: #fe5900;
+    color: #fff;
 }
 
 .short-select .select-text{

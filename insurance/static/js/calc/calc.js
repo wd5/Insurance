@@ -148,6 +148,39 @@ function get_visible_select_data_model(selectId) {
     $("#" + selectId).parents("td").find("div").html("").append(result);
 }
 
+function transform_select2(selectContainer) {
+    var sel = $(selectContainer).find("select");
+    sel.hide();
+
+    var result = "";
+    $("option", sel)
+        .each(function() {
+                  var text = ($(this).text());
+                  var value = ($(this).val());
+                  result += "<li rel='" + value + "' text='" + text + "'>" + text + "</li>";                  
+              });
+    
+    $(selectContainer).find("input").val(sel.find("option[selected]").text());
+    $(selectContainer).find(".select-text").html(sel.find("option[selected]").text());
+    $("<ul>" + result + "</ul>").appendTo(selectContainer).hide();
+
+    $(selectContainer).click(function() {
+        $(this).find("ul").show();
+    });
+
+    $(selectContainer).find("ul li").live('click', function() {
+        $(selectContainer).find(".select-text").html($(this).text());
+        $(selectContainer).find("input").val($(this).text());
+        sel.val($(this).attr("rel"));
+        sel.change();
+        $(this).parent().hide();
+    });
+
+    $(selectContainer)
+        .bind("mouseleave", function() {
+                  $("ul", $(this)).hide();
+              }); 
+}
 
 //Transform Selects into custom selects
 function transform_select(selectContainer) {
