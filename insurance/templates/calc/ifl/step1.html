@@ -4,6 +4,7 @@
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.meio.mask.min.js"></script>
 
     <script type="text/javascript">
 
@@ -67,6 +68,20 @@
             })
 
             $("#id_property, #id_city").parent().hide();
+
+            $("#form-step1").submit(function() {
+              props = ["#id_property_sum", "#id_interior_decoration_summ",
+                       "#id_environment_summ", "#id_household_effects_summ",
+                       "#id_civil_liability"];
+
+              $.each(props, function(i, id) {
+                var v = $(id).val();
+                v = v.replace(/ /g, "");
+                $(id).val(v);
+              });
+
+              return true;
+            });
         })
     </script>
 {% endblock %}

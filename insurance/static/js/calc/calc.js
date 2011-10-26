@@ -338,9 +338,10 @@ function priceSlider(containerId, element, min_value, max_value) {
     if (element == undefined) {
         var element = "#id_price";
     }
-    $("#current").live("change", function() {
+
+/*    $("#current").live("change", function() {
         $(element).val($(this).val());
-    })
+    }) */
 
     containerId.slider({
         value:  $(element).val(),
@@ -352,15 +353,19 @@ function priceSlider(containerId, element, min_value, max_value) {
 
         create: function() {
             $(element).css("visibility", "hidden");
-//            containerId.find("a.ui-slider-handle").append("<input type='text' value='0' id='current'/>");
-//            containerId.find("#current").val($(element).val());
-            containerId.find("a.ui-slider-handle").append("<span id='current'>" + priceFormat($(element).val(), "") + "</span>");
+            $("<input type='text' value='0' id='current' maxlength='8' alt='msk'/>")
+                .appendTo(containerId.find("a.ui-slider-handle"))
+                .change(function() {
+                           $(element).val($(this).val());
+                       });
+            containerId.find("#current").val(priceFormat($(element).val().toString(), ""));
+//            containerId.find("a.ui-slider-handle").append("<span id='current'>" + priceFormat($(element).val(), "") + "</span>");
             
         },
 
         slide: function(event, ui) {
-//            $("#current").val(ui.value);
-            $("#current").html(priceFormat(ui.value, ""));
+            $("#current").val(priceFormat(ui.value.toString(), ""));
+//            $("#current").html(priceFormat(ui.value, ""));
             $(element).val(ui.value);
         }
     });

@@ -4,6 +4,7 @@
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.meio.mask.min.js"></script>
 
     <script type="text/javascript">
         var model = "{% url get_models %}",
@@ -180,6 +181,17 @@
               $("#add-driver-button").addClass("hide");
               $("#delete-driver-button").addClass("hide").hide();
             }
+
+            $.mask.masks.msk = {mask: "999 999 999", type: "reverse"}
+            $("#current").setMask();
+
+            $("#form-step1").submit(function() {
+              var v = $("#id_price").val();
+              v = v.replace(/ /g, "");
+              $("#id_price").val(v);
+
+              return true;
+            });
         })
     </script>
 {% endblock %}

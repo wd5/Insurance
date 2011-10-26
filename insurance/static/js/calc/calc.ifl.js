@@ -8,6 +8,8 @@ $(function() {
         }
     });
 
+    $.mask.masks.msk = {mask: "999 999 999", type: "reverse"};
+
     $(".style-checkbox input").click(function() {
         $(this).parent().toggleClass("on");
         if ($(this).parent().hasClass("on")) {
@@ -196,26 +198,31 @@ function priceSlider(containerId, element, min_value, max_value) {
     if (element == undefined) {
         var element = "#id_price";
     }
-    $("#current").live("change", function() {
+/*    $("#current").live("change", function() {
         $(element).val($(this).val());
     })
-
+*/
     containerId.slider({
         value:  $(element).val(),
         min: min_value,
         max: max_value,
-        step: 10,
+        step: 1000,
 
         animate: true,
 
         create: function() {
             $(element).css("visibility", "hidden");
-            containerId.find("a.ui-slider-handle").append("<input type='text' value='0' id='current' />");
-            containerId.find("#current").val($(element).val());
+            $("<input type='text' value='0' id='current' alt='msk' maxlength='8'/>")
+                .appendTo(containerId.find("a.ui-slider-handle"))
+                .change(function() {
+                           $(element).val($(this).val());
+                       })
+                .setMask();
+            containerId.find("#current").val(priceFormat($(element).val().toString(), ""));
         },
 
         slide: function(event, ui) {
-            containerId.find("#current").val(ui.value);
+            containerId.find("#current").val(priceFormat(ui.value.toString(), ""));
             $(element).val(ui.value);
         }
     });
