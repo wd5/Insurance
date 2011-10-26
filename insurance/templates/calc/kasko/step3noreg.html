@@ -43,6 +43,14 @@
             width: 640,
             modal: true
           });
+
+          $("#regform form").submit(function() {
+            if (!$("#id_personal").parent().hasClass("on")) {
+               return false;
+            } else {
+               return true;
+            }
+          });
         });
     </script>
     {% endif %}
