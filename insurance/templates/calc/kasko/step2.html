@@ -276,8 +276,8 @@
                                     </td>
 
                                     <td class="final-price">
-                                        <div class="ourscore">{{ comp.ourscore }}</div>
-                                        <div class="score">{{ comp.score }}</div>
+                                        <div class="ourscore">{{ comp.ourscore|intspace }}</div>
+                                        <div class="score">{{ comp.score|intspace }}</div>
                                         <a class="order-button"
                                            href="{% url ncalc_step3_kasko comp.alias %}"></a>
                                     </td>

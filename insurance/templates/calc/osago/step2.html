@@ -106,6 +106,7 @@
 {% endblock %}
 
 {% block tab_content %}
+{% load intspace %}
             <div class="form-round-block">
                 <h2>Сортировать по:</h2>
 
@@ -227,8 +228,8 @@
                                     </td>
 
                                     <td class="final-price">
-                                        <div class="ourscore">{{ comp.ourscore }}</div>
-                                        <div class="score">{{ comp.score }}</div>
+                                        <div class="ourscore">{{ comp.ourscore|intspace }}</div>
+                                        <div class="score">{{ comp.score|intspace }}</div>
                                         <a class="order-button"
                                            href="{% url ncalc_step3_osago comp.alias %}"></a>
                                     </td>
