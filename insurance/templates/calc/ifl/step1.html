@@ -27,7 +27,7 @@
                     get_visible_select_data($(this).attr("id"));
                 });
 
-                var nextRows = $(this).parents("tr").not(".hide");
+                var nextRows = $(this).parents("tr").nextAll().not(".hide");
 
                 if ($("#id_property").val() != "") {
                     nextRows.show();

@@ -13,7 +13,7 @@ from django.template.loader import render_to_string
 import socket
 
 from newcalc.models import City, Company, CompanyCondition, InsuranceType, \
-    KackoParameters, Property
+    PropertyParameters, Property
 from newcalc.forms.ifl import Step1Form, Step2Form, Step3FormReg, Step3FormNoReg
 from newcalc.forms.ifl import Step4Form, Step5Form, Step6Form
 from polices.forms import CallRequestForm
@@ -127,10 +127,10 @@ def step2(request):
     else:
         form_extra_data, initial_data = _s2_read_form_data(s2_data)
         form = Step2Form(initial=initial_data)
-    table = KackoParameters.objects.filter(is_active=True)
+    table = PropertyParameters.objects.filter(pparameter_active=True)
     header = dict()
     for t in table:
-        header[t.kparameter_alias] = {'name':t.kparameter_name, 'comment':t.kparameter_comment}
+        header[t.pparameter_alias] = {'name':t.pparameter_name, 'comment':t.pparameter_comment}
     return direct_to_template(request, 'calc/ifl/step2.html', {"msg": msg, 'tab': 6,
                                                                "s1_form": form,
                                                                "result": result,
@@ -468,7 +468,7 @@ def _parse_servlet_response(result):
                 for company in result['info']:
                     company_id = Company.objects.get(company_alias = company['alias']).company_id
                     comment = CompanyCondition.objects.filter(company_condition_company = company_id,
-                                                              company_condition_insurance = 6)
+                                                              company_condition_insurance = 4)
                     if comment:
                         company['company_comment'] = comment[0].company_condition_comment
                     else:

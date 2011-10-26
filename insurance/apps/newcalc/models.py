@@ -273,3 +273,14 @@ class Property(models.Model):
 
     def __unicode__(self):
         return self.property_name
+
+
+class PropertyParameters(models.Model):
+    pparameter_id = models.IntegerField(primary_key=True)
+    pparameter_name = models.CharField(max_length=255, blank=True)
+    pparameter_alias = models.CharField(max_length=255)
+    pparameter_comment = models.CharField(max_length=1000)
+    pparameter_active = models.BooleanField(default=True)
+    class Meta:
+        db_table = u'property_parameters'
+        managed = False
