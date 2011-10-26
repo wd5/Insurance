@@ -4,13 +4,54 @@
     <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
     <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
     <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ui.dialog.min.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL}}css/jquery.ui.theme.css"></link>
+    <link rel="stylesheet" href="{{ STATIC_URL}}css/jquery.ui.dialog.custom.css"></link>
+
+    {% if not data.registered %}
+    <script>
+        $(function() {
+          $(".data-block").each(function() {
+            var span = $("span", $(this));
+            var ph = span.text();
+            span.hide();
+            $("input:first", $(this)).attr("placeholder", ph);
+            $(this).attr("title", ph);
+          });
+
+          $("#id_personal").click(function() {
+            if ($(this).parent().hasClass("on")) {
+              $(".style-order").show();
+              $(this).attr("checked", true);
+            } else {
+              $(".style-order").hide();
+              $(this).attr("checked", false);
+            }
+          });
+
+          $("#id_login").click(function() {
+            if ($(this).parent().hasClass("on")) {
+              $("#regform").hide();
+              $("#user-login").show();
+            } else {
+              $("#regform").show();
+              $("#user-login").hide();
+            }
+          });
+
+          $("#modal").dialog({
+            width: 640,
+            modal: true
+          });
+        });
+    </script>
+    {% endif %}
 {% endblock %}
 
 {% block tab_content %}
 {% load intspace %}
 <div class="step3-header">Данные полиса</div>
             <div class="form-round-block clear-float">
-                <form action="" method="post">
 
                     <table id="step3-data" class="left-float">
                         <tr>
@@ -67,33 +108,86 @@
                         </tr>
                     </table>
 
-                    {% csrf_token %}
+                    {% if not data.registered %}
+                    <div id="modal" style="display: none">
+                        <h2>Конфиденциальность личной информации</h2>
+                        <div class="text-dialog">
+                            Для оформления полиса вы будете вводить личные данные. Чтобы в дальнешем обеспечить к ним безопасный доступ, мы создадим логин и пароль. Пожалуйста, укажите ваш адрес электронный почты и номер мобильного телефона. Ваши логин и пароль будут отправлены в виде электронного письма.
+                        </div>
+                        <div class="login-checkbox">
+                            <div class="style-checkbox"><input type="checkbox" id="id_login"/>
+                            У меня есть логин и пароль
+                            </div>
+                        </div>
+
+                    {% endif %}
+
+                    {% if not data.registered %}
+                    <div id="user-login" style="display:none;clear:both">
+                        <form action="{% url auth_login %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.path }}"/>
+                        <table>
+                            <tr>
+                                <td class="data-block">
+                                    <span>Адрес эл-почты</span>
+                                    <input type="text" id="id_username" name="username">
+                                        {% if form.username.errors %}
+                                        <p class="message_error">*Неправильный адрес эл.почты</p>
+                                        {% endif %}
+                                </td>
+                                <td class="data-block">
+                                    <span>Пароль</span>
+                                    <input type="password" id="id_password" name="password">
+                                        {% if form.password.errors %}
+                                        <p class="message_error">*Неправильный пароль</p>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <input name="" type="submit" value="Войти" class="button_style" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
+
+                    <div id="regform">
+                    <form action="" method="post">
+                        {% csrf_token %}
                     <div id="user-login-data">
-                        <div class="data-block">
-                            <span>Фамилия:</span>
+                    <table>
+                        <tr>
+                        <td class="data-block">
+                            <span>Фамилия</span>
                             {{ form.last_name }}
                             {{ form.last_name.errors }}
-                        </div>
-                        <div class="data-block">
-                            <span>Имя:</span>
+                        </td>
+                        <td class="data-block">
+                            <span>Имя</span>
                             {{ form.first_name }}
                             {{ form.first_name.errors }}
-                        </div>
-                        <div class="data-block">
-                            <span>Отчество:</span>
+                        </td>
+                        <td class="data-block">
+                            <span>Отчество</span>
                             {{ form.middle_name }}
                             {{ form.middle_name.errors }}
-                        </div>
-                        <div class="data-block">
-                            <span>Телефон:</span>
+                        </td>
+                        </tr>
+                        <tr>
+                        <td class="data-block">
+                            <span>Телефон</span>
                             {{ form.phone }}
                             {{ form.phone.errors }}
-                        </div>
-                        <div class="data-block">
-                            <span>Адрес эл-почты:</span>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td class="data-block">
+                            <span>Адрес эл-почты</span>
                             {{ form.email }}
                             {{ form.email.errors }}
-                        </div>
+                        </td>
+                        </tr>
+                    </table>
+                        <!--
                         <div class="data-block">
                             <span>Пароль:</span>
                             {{ form.password1 }}
@@ -103,18 +197,32 @@
                             <span>Пароль еще раз:</span>
                             {{ form.password2 }}
                             {{ form.password2.errors }}
-                        </div>
+                        </div>-->
                     </div>
-
+<!--
                     <div id="step3-captcha">
                         <span>Введите символы:</span>
                         {{ form.captcha }}
                         {{ form.captcha.errors }}
-                    </div>
+                    </div> -->
 
-                    <div style="clear:both">
+                    <div style="clear:both;margin-top: 10px">
+                        <div class="style-checkbox"><input type="checkbox" id="id_personal"/>
+                        Выражаю согласие на обработку персональных данных
+                        </div>
+                        <div class="style-order" style="display: none">
+                            <input type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
+                        </div>
+                    </div>
+                    </form> </div>
+                    {% else %}
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                    <div style="clear:both;margin-top: 10px">
                         <input type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
                     </div>
-                </form>
+                    </form>
+                    {% endif %}
+                    </div>
             </div>
 {% endblock %}

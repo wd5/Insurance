@@ -17,7 +17,7 @@ $(function() {
         if ($(this).attr("checked") == true) {
             $(this).parent().addClass("on");
         }
-    })
+    });
 
     $(".style-checkbox input").click(function() {
         $(this).parent().toggleClass("on");

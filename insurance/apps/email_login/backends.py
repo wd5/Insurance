@@ -13,18 +13,21 @@ class RegistrationBackend(DefaultBackend):
     """
     Does not require the user to pick a username. Sets the username to a random
     string behind the scenes.
-    
+
     """
-    
+
     def register(self, request, **kwargs):
-        email, password = kwargs['email'], kwargs['password1']
-        
+        email, password = kwargs['email'], kwargs.get('password1', None)
+
+        if password is None:
+            password = User.objects.make_random_password(length=8)
+
         if Site._meta.installed:
             site = Site.objects.get_current()
         else:
             site = RequestSite(request)
 
-        new_user = RegistrationProfile.objects.create_inactive_user(uuid4().get_hex()[:10], 
+        new_user = RegistrationProfile.objects.create_inactive_user(uuid4().get_hex()[:10],
                                                                     email, password, site)
         if kwargs.get('first_name'):
             new_user.first_name = kwargs.get('first_name')
@@ -51,7 +54,7 @@ class RegistrationBackend(DefaultBackend):
     def get_form_class(self, request):
         """
         Return the default form class used for user registration.
-        
+
         """
         return RegistrationForm
 
@@ -61,7 +64,7 @@ class RegistrationBackend(DefaultBackend):
 #    r"(^[-!#$%&'*+/=?^_`{}|~0-9A-Z]+(\.[-!#$%&'*+/=?^_`{}|~0-9A-Z]+)*"  # dot-atom
 #    r'|^"([\001-\010\013\014\016-\037!#-\[\]-\177]|\\[\001-\011\013\014\016-\177])*"' # quoted-string
 #    r')@(?:[A-Z0-9-]+\.)+[A-Z]{2,6}$', re.IGNORECASE)  # domain
-            
+
 class AuthBackend(ModelBackend):
    def authenticate(self, username=None, password=None, **kwargs):
         try:
