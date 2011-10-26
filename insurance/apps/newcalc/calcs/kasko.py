@@ -151,6 +151,7 @@ def step3(request, alias):
     if not s1_data:
         return redirect(reverse('ncalc_step1_kasko'))
     data = {}
+    data["alias"] = alias
     data["insurance_type"] = "КАСКО"
     data["mark"] = Mark.objects.get(pk=s1_data["mark"]).mark_name
     data["model"] = Model.objects.get(pk=s1_data["model"]).model_name
@@ -180,13 +181,22 @@ def step3(request, alias):
             data["dr_nr"] = "2"
         else:
             data["dr_nr"] = "1"
+
+    data["registered"] = request.session.has_key("new_user")
+
     if request.method == "POST":
-        if request.user.is_authenticated():
+        if request.user.is_authenticated() or request.session.has_key("new_user"):
             form = Step3FormReg(request.POST)
             if form.is_valid():
+
+                if request.session.has_key("new_user"):
+                    user = User.objects.get(pk=request.session["new_user"])
+                else:
+                    user = request.user
+
                 request.session["company_alias"] = alias
                 ip = InsurancePolicy()
-                ip.user = request.user
+                ip.user = user
                 ip.company = Company.objects.get(company_alias=alias).company_full_name
                 ip.mark = Mark.objects.get(pk=s1_data["mark"]).mark_name
                 ip.model = Model.objects.get(pk=s1_data["model"]).model_name
@@ -221,36 +231,37 @@ def step3(request, alias):
                 new_user = RegistrationBackend().register(request,
                                                           **form.cleaned_data)
                 request.session["new_user"] = new_user.pk
-                ip = InsurancePolicy()
-                ip.user = new_user
-                ip.company = Company.objects.get(company_alias=alias).company_full_name
-                ip.mark = Mark.objects.get(pk=s1_data["mark"]).mark_name
-                ip.model = Model.objects.get(pk=s1_data["model"]).model_name
-                ip.model_year = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
-                ip.power_str = Power.objects.get(pk=s1_data["power"]).power_name
-                ip.price = s1_data["price"]
-                ip.wheel = s1_data["wheel"]
-                ip.city = City.objects.get(pk=s1_data["city"]).city_name
-                ip.credit = bool(s1_data["credit"])
-                ip.age = s1_data["age"]
-                ip.experience_driving = s1_data["experience_driving"]
-                if s1_data["unlimited_drivers"]:
-                    ip.unlimited_users = True
-                else:
-                    ip.unlimited_users = False
-                    if s1_data.has_key("age1"):
-                        ip.age1 = s1_data["age1"]
-                        ip.experience_driving1 = s1_data["experience_driving1"]
-                    if s1_data.has_key("age2"):
-                        ip.age2 = s1_data["age2"]
-                        ip.experience_driving2 = s1_data["experience_driving2"]
-                    if s1_data.has_key("age3"):
-                        ip.age3 = s1_data["age3"]
-                        ip.experience_driving3 = s1_data["experience_driving3"]
-                policy = ip.save()
-                request.session['policy_kasko'] = ip.pk
-                request.session["company_alias"] = alias
-                return redirect(reverse('ncalc_step4_kasko'))
+#                ip = InsurancePolicy()
+#                ip.user = new_user
+#                ip.company = Company.objects.get(company_alias=alias).company_full_name
+#                ip.mark = Mark.objects.get(pk=s1_data["mark"]).mark_name
+#                ip.model = Model.objects.get(pk=s1_data["model"]).model_name
+#                ip.model_year = Mym.objects.get(pk=s1_data["model_year"]).mym_y.model_year_year
+#                ip.power_str = Power.objects.get(pk=s1_data["power"]).power_name
+#                ip.price = s1_data["price"]
+#                ip.wheel = s1_data["wheel"]
+#                ip.city = City.objects.get(pk=s1_data["city"]).city_name
+#                ip.credit = bool(s1_data["credit"])
+#                ip.age = s1_data["age"]
+#                ip.experience_driving = s1_data["experience_driving"]
+#                if s1_data["unlimited_drivers"]:
+#                    ip.unlimited_users = True
+#                else:
+#                    ip.unlimited_users = False
+#                    if s1_data.has_key("age1"):
+#                        ip.age1 = s1_data["age1"]
+#                        ip.experience_driving1 = s1_data["experience_driving1"]
+#                    if s1_data.has_key("age2"):
+#                        ip.age2 = s1_data["age2"]
+#                        ip.experience_driving2 = s1_data["experience_driving2"]
+#                    if s1_data.has_key("age3"):
+##                        ip.age3 = s1_data["age3"]
+#                        ip.experience_driving3 = s1_data["experience_driving3"]
+#                policy = ip.save()
+#                request.session['policy_kasko'] = ip.pk
+#                request.session["company_alias"] = alias
+
+                return redirect(reverse('ncalc_step3_kasko', args=[alias, ]))
     else:
         if request.user.is_authenticated():
             form = Step3FormReg()

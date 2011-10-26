@@ -137,15 +137,16 @@ class Step1Form(forms.Form):
         return cd
 
     # COMMENT: временное упрощение
-    # def clean_price(self):
-    #     price = self.cleaned_data['price']
-    #     power = self.cleaned_data['power']
+#    def clean_price(self):
+#        price = self.cleaned_data['price']
+        #  power = self.cleaned_data['power']
     #     price_obj = Price.objects.get(price_power=power)
     #     if not price_obj.price_min < price < price_obj.price_max:
     #         raise forms.ValidationError(
     #             "Стоимость должна быть от %d до %d." % (price_obj.price_min,
     #                                                     price_obj.price_max))
-    #     return price
+
+#        return price
 
     def clean_experience_driving(self):
         age = int(self.cleaned_data["age"])
@@ -240,24 +241,24 @@ class Step3FormNoReg(forms.Form):
     first_name = forms.CharField(max_length=20)
     last_name = forms.CharField(max_length=30)
     middle_name = forms.CharField(max_length=30)
-    phone = PhoneNumberField()
+    phone = forms.CharField(max_length=14)
     email = forms.EmailField(widget=forms.TextInput(attrs=dict(attrs_dict,
                                                                maxlength=75)),
                              label="Email address")
-    password1 = forms.CharField(
-        widget=forms.PasswordInput(attrs=attrs_dict),
-        label="Password")
-    password2 = forms.CharField(
-        widget=forms.PasswordInput(attrs=attrs_dict),
-        label="Password (again)")
+#    password1 = forms.CharField(
+#        widget=forms.PasswordInput(attrs=attrs_dict),
+#        label="Password")
+#    password2 = forms.CharField(
+#        widget=forms.PasswordInput(attrs=attrs_dict),
+#        label="Password (again)")
 
-    captcha = CaptchaField()
+#    captcha = CaptchaField()
 
     def clean(self):
-        if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
-            if self.cleaned_data['password1'] != self.cleaned_data['password2']:
-                raise forms.ValidationError(
-                    "The two password fields didn't match.")
+#        if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
+#            if self.cleaned_data['password1'] != self.cleaned_data['password2']:
+#                raise forms.ValidationError(
+#                    "The two password fields didn't match.")
         return self.cleaned_data
 
     def clean_email(self):
