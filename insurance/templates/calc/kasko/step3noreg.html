@@ -127,7 +127,7 @@
                         <form action="{% url auth_login %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="next" value="{{ request.path }}"/>
-                        <table>
+                        <table id="user-login-data">
                             <tr>
                                 <td class="data-block">
                                     <span>Адрес эл-почты</span>
