@@ -21,7 +21,7 @@ from profile.models import Persona
 from polices.models import InsurancePolicyIFL #, CallRequests
 from email_login.backends import RegistrationBackend
 from newcalc.servlet import servlet_request
-
+from newcalc.templatetags.intspace import intspace
 
 # ========== General views ==========
 
@@ -82,11 +82,11 @@ def step1(request, prev=0):
     if k1:
         ptype = Property.objects.get(pk=k1["property"]).property_name
         price = k1["property_sum"]
-        prev_data.append("%s/%s" % (ptype, price))
+        prev_data.append("%s / %s" % (ptype, intspace(price)))
     if k2:
         ptype = Property.objects.get(pk=k1["property"]).property_name
         price = k2["property_sum"]
-        prev_data.append("%s/%s" % (ptype, price))
+        prev_data.append("%s / %s" % (ptype, intspace(price)))
     return direct_to_template(request, 'calc/ifl/step1.html', {"s1_form": form,
                                                                "prev_data": prev_data, 'tab': 6})
 

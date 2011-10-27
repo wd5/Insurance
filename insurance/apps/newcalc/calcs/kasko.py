@@ -22,7 +22,7 @@ from profile.models import Persona
 from polices.models import InsurancePolicy #, CallRequests
 from email_login.backends import RegistrationBackend
 from newcalc.servlet import servlet_request
-
+from newcalc.templatetags.intspace import intspace
 
 # ========== General views ==========
 
@@ -85,15 +85,15 @@ def step1(request, prev=0):
         model = Model.objects.get(pk=k1["model"]).model_name
         model_year = Mym.objects.get(pk=k1["model_year"]).mym_y.model_year_year
         price = k1["price"]
-        prev_data.append("%s/%s/%s/%s" % (mark, model, model_year, price))
+        prev_data.append(u"%s / %s / %s г. / %s" % (mark, model, model_year, intspace(price)))
     if k2:
         mark = Mark.objects.get(pk=k2["mark"]).mark_name
         model = Model.objects.get(pk=k2["model"]).model_name
         model_year = Mym.objects.get(pk=k2["model_year"]).mym_y.model_year_year
         price = k2["price"]
-        prev_data.append("%s/%s/%s/%s" % (mark, model, model_year, price))
+        prev_data.append(u"%s / %s / %s г. / %s" % (mark, model, model_year, intspace(price)))
     return direct_to_template(request, 'calc/kasko/step1.html', {"s1_form": form,
-                                                         "prev_data": prev_data, 'tab': 1})
+                                                                 "prev_data": prev_data, 'tab': 1})
 
 
 def step2(request):
