@@ -40,11 +40,36 @@ S1_REQUIRED_KEYS = (
     "city", "age", "experience_driving")
 
 
-def step1(request):
+def step1(request, prev=0):
+    if prev != 0:
+        prev_int = int(prev)
+        pr_data =  request.session.get("s1_data_osago%d" % prev_int)
+        curr_data =  request.session.get("s1_data_osago")
+        if pr_data is None:
+            raise Http404
+        if prev_int == 1:
+            request.session["s1_data_osago1"] = curr_data
+            request.session["s1_data_osago"] = pr_data
+        else:  # 2.
+            k1 =  request.session.get("s1_data_osago1")
+            request.session["s1_data_osago2"] = k1
+            request.session["s1_data_osago1"] = curr_data
+            request.session["s1_data_osago"] = pr_data
+        return redirect(reverse('ncalc_step1_osago'))
     if request.method == "POST":
         form = Step1Form(request.POST, form_extra_data={})
         if form.is_valid():
-            request.session["s1_data_osago"] = _s1_read_data(form.cleaned_data)
+            new_data = _s1_read_data(form.cleaned_data)
+            k1 =  request.session.get("s1_data_osago1")
+            k0 =  request.session.get("s1_data_osago")
+            # Избегаем дублирования.
+            if k0 and not (new_data["mark"]==k0["mark"] and
+                           new_data["model"]==k0["model"] and
+                           new_data["model_year"]==k0["model_year"]):
+                if k1:
+                    request.session["s1_data_osago2"] = k1
+                request.session["s1_data_osago1"] = k0
+            request.session["s1_data_osago"] = new_data
             return redirect(reverse('ncalc_step2_osago'))
     else:
         initial_data = {}
@@ -55,7 +80,23 @@ def step1(request):
         else:
             initial_data['dago'] = 0
         form = Step1Form(form_extra_data=form_extra_data, initial=initial_data)
-    return direct_to_template(request, 'calc/osago/step1.html', {"s1_form": form, 'tab': 2})
+    k1 =  request.session.get("s1_data_osago1")
+    k2 =  request.session.get("s1_data_osago2")
+    prev_data = []
+    if k1:
+        mark = Mark.objects.get(pk=k1["mark"]).mark_name
+        model = Model.objects.get(pk=k1["model"]).model_name
+        model_year = Mym.objects.get(pk=k1["model_year"]).mym_y.model_year_year
+
+        prev_data.append(u"%s / %s / %s г." % (mark, model, model_year))
+    if k2:
+        mark = Mark.objects.get(pk=k2["mark"]).mark_name
+        model = Model.objects.get(pk=k2["model"]).model_name
+        model_year = Mym.objects.get(pk=k2["model_year"]).mym_y.model_year_year
+
+        prev_data.append(u"%s / %s / %s г." % (mark, model, model_year))
+    return direct_to_template(request, 'calc/osago/step1.html', {"s1_form": form,
+                                                                 "prev_data": prev_data, 'tab': 2})
 
 
 def step2(request):
@@ -73,7 +114,7 @@ def step2(request):
             return redirect(reverse('ncalc_step1_osago'))
     if not s2_data:
         s2_data = dict()
-        s2_data['factor_reputation'] = True #Если нет данных => только перешли ко 2 шагу - сортируем по репутации
+        s2_data['factor_price'] = True #Если нет данных => только перешли ко 2 шагу - сортируем по цене
     result = servlet_request(_build_servlet_request_data(s1_data, s2_data), servlet_type="osago")
     if result is None:
         err_text = "Превышен лимит ожидания. Не получен ответ сервлета в "\

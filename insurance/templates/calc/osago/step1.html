@@ -401,7 +401,7 @@
     {% if prev_data %}
         <h2>Предыдущие расчеты:</h2>
         {% for pd in prev_data %}
-            <a href="{% url ncalc_step1_kasko %}{{ forloop.counter }}/">{{ pd }}руб.</a>
+            <a href="{% url ncalc_step1_osago %}{{ forloop.counter }}/">{{ pd }}</a>
             <br />
         {% endfor %}
         <br /><br />
