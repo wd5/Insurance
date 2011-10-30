@@ -2243,7 +2243,7 @@ div.messages li {
     height: 47px;
     text-decoration: none;
     color: #fff;
-    text-transform: uppercase;
+/*    text-transform: uppercase; */
     position: relative;
 }
 
