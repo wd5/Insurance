@@ -8,7 +8,7 @@ $(function() {
         }
     });
 
-    $.mask.masks.msk = {mask: "999 999 999", type: "reverse"};
+    $.mask.masks.msk = {mask: "999 999 99", type: "reverse"};
 
     $(".style-checkbox input").click(function() {
         $(this).parent().toggleClass("on");

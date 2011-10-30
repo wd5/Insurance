@@ -23,7 +23,7 @@ class Step1Form(forms.Form):
     property = forms.ModelChoiceField(label="Что страхуем",
                                   queryset=Property.objects.all(),
                                   empty_label="--------")
-    property_sum = forms.IntegerField(label="Стоимость", max_value=50000000)
+    property_sum = forms.IntegerField(label="Стоимость", max_value=13000000)
     interior_decoration = forms.BooleanField(label="Отделка", required=False)
     interior_decoration_summ = forms.IntegerField(label="Стоимость отделки", max_value=50000000)
     environment = forms.BooleanField(label="Оборудование", required=False)
