@@ -4,34 +4,42 @@
 <title>{{ flatpage.title }}</title>
 {% endblock %} <!-- title -->
 
-{% block inner_content %}
+{% block content %}
+    <div class="content">
+        <div id="calc-tabs">
+            <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                <li class="ui-state-default ui-corner-top"><a href="{% url userprofile_edit %}">Мои данные</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="{% url userprofile_policylist %}">Мои полисы</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="{% url notification_notices %}">Уведомления {% if notice_unseen_count %}({{ notice_unseen_count }}){% endif %}</a></li>
+                <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="{% url userprofile_faq %}">FAQ</a></li>
+            </ul>
+            <div  class="ui-tabs-panel ui-widget-content ui-corner-bottom">
 
-{{ flatpage.content|safe }}
+                {{ flatpage.content|safe }}
 
-<div id="ins_notification_question">
-  <h3>Задать вопрос</h3>
+                <div id="ins_notification_question">
+                    <h2>Задать вопрос:</h2>
 
+                    <div  id="notification_question_form">
+                        {% if sent %}
 
-<div  id="notification_question_form">
-{% if sent %}
+                        <p>Ваш вопрос успешно отослан</p>
 
-<p>Ваш вопрос успешно отослан</p>
+                        {% else %}
 
-{% else %}
-
-<form action="" method="post">{% csrf_token %}
-<table width="" cellspacing="" cellpadding="" border="">
-  {{ question_form.as_table }}
-
-  <tr>
-    <td></td>
-    <td><input type="submit" value="Отправить" /></td>
-  </tr>
-</table>
-</form>
-
+                        <form action="" method="post">{% csrf_token %}
+                        <table class="faq" width="" cellspacing="" cellpadding="" border="">
+                            <tr><td>
+                            {{ question_form.body }}
+                            {{ question_form.body.errors }}
+                            </td></tr>
+                            <tr>
+                                <td><input type="submit" value="Отправить" /></td>
+                            </tr>
+                        </table>
+                        </form>
 </div>
 {% endif %}
-
+                    </div></div>
 
 {% endblock %}

@@ -3977,3 +3977,15 @@ ul.step-ui-tabs-nav li.ui-state-hover{
 .shrink-tabs {
     width: 100% !important;
     }
+
+.faq td {
+    vertical-align: top;
+    }
+
+.faq {
+    padding: 0;
+    }
+
+#ins_notification_question {
+    margin-top: 2em;
+    }
