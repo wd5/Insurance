@@ -1,6 +1,6 @@
 <form action="{{ action_url }}" method="post">
     {% csrf_token %}
-    <div class="bg_tabs2_f">
+    <div class="form-round-block low-tabs">
         <div class="box_textarea">
             <div class="box_textarea_header">Дополнительная информация:</div>
             {{ persona_form.comment }}
@@ -93,16 +93,14 @@
             </tr>
         </table>
         <div class="clear"></div>
-        <div class="box_button_seva">
-            <p><input name="" type="submit" value="СОХРАНИТЬ" class="style_button"/></p>
-        </div>
+        <div class="box_button_seva" style="height: 30px; clear:both">
+            <input name="" type="submit" value="СОХРАНИТЬ" class="style_button" style="float:left"/>
         {% if persona %}
             {% ifnotequal main_persona.id persona.id %}
-                <div class="box_button_seva">
-                    <p><a class="style_button" href="{% url userprofile_deletepersona persona.id %}">УДАЛИТЬ</a></p>
-                </div>
+                <a class="style_button" href="{% url userprofile_deletepersona persona.id %}" style="float:right">УДАЛИТЬ</a>
             {% endifnotequal %}
         {% endif %}
+        </div>
     </div>
 </form>
 

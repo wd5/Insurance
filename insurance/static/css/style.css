@@ -852,7 +852,7 @@ input.style_input5 {
 }
 
 .style_input8a {
-    width: 42px;
+    width: 42px !important;
     margin: 0 8px 0 0;
     border: 1px solid #501c06;
     background: #fff;
@@ -873,9 +873,10 @@ input.style_input5 {
 
 .phone_code {
     display: block;
-    width: 22px;
-    margin: 0 0 0 -22px;
+    width: 18px;
+    margin: 2px 0 0 -18px;
     float: left;
+    font-size: 13px;
 }
 
 .adres_text {
@@ -899,7 +900,7 @@ input.style_input5 {
 }
 
 .box_textarea textarea {
-    width: 355px;
+    width: 385px;
     border: 1px solid #501c06;
     height: 203px;
     background: #fff;
@@ -915,7 +916,7 @@ input.style_input5 {
 }
 
 .box_button_seva {
-    padding: 12px 42px 0 0;
+    padding: 12px 0px 0 0;
 }
 
 .cont_text {
@@ -3968,3 +3969,11 @@ ul.step-ui-tabs-nav li.ui-state-hover{
     text-align: center;
     font-size: 1.25em;
 }
+
+.low-tabs {
+    margin-top: 0px !important;
+    }
+
+.shrink-tabs {
+    width: 100% !important;
+    }

@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="content">
-  <div class="tabs_box">
+  <div class="calc-tabs">
     <ul class="tabs">
       <li><a class="active" href="{% url userprofile_edit %}">МОИ ДАННЫЕ</a></li>
       <li><a href="{% url userprofile_policylist %}">МОИ ПОЛИСЫ</a></li>
@@ -30,7 +30,7 @@
                 </div>
               </div>{% block persona_form %}
               {% include "profile/forms/persona_form.html" with profile_form=profile_form persona=persona_me password_form=password_form %}
-				{% endblock %}
+                {% endblock %}
             </div>
           </div>
         </div>
