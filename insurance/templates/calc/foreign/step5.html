@@ -1,0 +1,109 @@
+{% extends "calc/calc.html" %}
+{% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ui.datepicker.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.ui.datepicker-ru.js"></script>
+    <link rel="stylesheet" href="{{ STATIC_URL}}css/jquery.ui.theme.css"></link>
+    <link rel="stylesheet" href="/static/css/jquery.ui.datepicker.css"></link>
+    <script>
+        $(document).ready(function() {
+
+            $("#id_kpp, #id_motor, #id_owner_sex, #id_first_owner").css("visibility", "hidden");
+
+            /*Remove empty class when user click or input values */
+            $("#step input").click(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step input").keypress(function(){
+                $(this).removeClass("empty");
+            })
+
+            $("#step select").change(function(){
+                $(this).parent().removeClass("empty");
+            })
+
+            /*Select visual value*/
+            $("#is-first-owner a, #kpp a, #motor a, #sex-owner a").click(function(e){
+                e.preventDefault();
+                $(this).parent().removeClass("empty");
+                selectVisualValue($(this));
+            })
+
+            /*Display visual value*/
+            $("#id_kpp,  #id_motor, #id_first_owner, #id_owner_sex").each(function(){
+                displaySelectValue($(this));
+            })
+
+            /*Placeholder for inpust*/
+            $("#step input:text").click(function(){
+                $(this).removeClass("empty");
+                var currentValue = $(this).data("currval", $(this).val());
+                if($(this).val() == $(this).parent().find("label").text()){
+                    $(this).val("");
+                }
+
+            })
+
+            $("#step input:text").blur(function(){
+                var saveValue = $(this).data("currval");
+                if($(this).val() == ""){
+                    $(this).val($(this).data("currval"))
+                }
+            })
+
+            $("#id_owner_birth_date, #id_pts_date").datepicker({
+               changeMonth: true,
+               changeYear: true,
+               yearRange: "1950:2012"
+            });
+
+            $("#copy-data-link2").click(function(e){
+                e.preventDefault();
+                var from = new Array("{{copy.last_name}}", "{{copy.first_name}}", "{{copy.middle_name}}",
+                                     "{{copy.birth_date}}", "{{copy.sex}}"),
+                    to = $("#auto-owner-table input:text");
+
+                to.each(function(e){
+                   $(this).val(from[e]);
+                   $(this).removeClass("empty");
+                })
+            })
+
+            $(".backward-button").click(function() {
+                location.href = "{{ back }}";
+            });
+
+            $("form#step").submit(function(){
+                if(checkAllINputs() == false){
+                    return false;
+                }
+            })
+
+            $("#id_vin").keyup(function() {
+               $("#id_body_number").val($(this).val());
+            });
+
+            });
+    </script>
+{% endblock %}
+
+
+{% block tab_content %}
+    <ul class="step-ui-tabs-nav active-2">
+        <li><a>Страхователь</a></li>
+        <li><a>Поездка</a></li>
+        <li><a>Доставка</a></li>
+    </ul>
+    {{ form.non_field_errors }}
+    <form action="" method="post" id="step" style="position: relative">
+        {% csrf_token %}
+        <input type="button" class="backward-button" value="Назад"/>
+        <input type="submit" class="forward-button" value="Дальше"/>
+    </form>
+
+{% endblock %}

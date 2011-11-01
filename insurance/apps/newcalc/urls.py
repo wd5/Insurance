@@ -49,3 +49,15 @@ urlpatterns += patterns('newcalc.calcs.ifl',
     url(r'^ifl/step5/$', "step5", name='ncalc_step5_ifl'),
     url(r'^ifl/step6/$', "step6", name='ncalc_step6_ifl'),
 )
+
+# ВЗР.
+urlpatterns += patterns('newcalc.calcs.foreign',
+    url(r'^foreign/success/$', "success", name='ncalc_success_foreign'),
+    url(r'^foreign/$', "step1", name='ncalc_step1_foreign'),
+    url(r'^foreign/([12])/$', "step1", name='ncalc_step1_foreign_pr'),
+    url(r'^foreign/step2/$', "step2", name='ncalc_step2_foreign'),
+    url(r'^foreign/step3/(\w+)/$', "step3", name='ncalc_step3_foreign'),
+    url(r'^foreign/step4/$', "step4", name='ncalc_step4_foreign'),
+    url(r'^foreign/step5/$', "step5", name='ncalc_step5_foreign'),
+    url(r'^foreign/step6/$', "step6", name='ncalc_step6_foreign'),
+)

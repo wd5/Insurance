@@ -284,3 +284,27 @@ class PropertyParameters(models.Model):
     class Meta:
         db_table = u'property_parameters'
         managed = False
+
+
+class TripType(models.Model):
+    trip_type_id = models.IntegerField(primary_key=True)
+    trip_type_name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.trip_type_name
+
+    class Meta:
+        db_table = u'trip_type'
+        managed = False
+
+
+class TripPurpose(models.Model):
+    trip_purpose_id = models.IntegerField(primary_key=True)
+    trip_purpose_name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.trip_purpose_name
+
+    class Meta:
+        db_table = u'trip_purpose'
+        managed = False

@@ -1,0 +1,55 @@
+{% extends "calc/calc.html" %}
+{% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+{% endblock %}
+
+{% block tab_content %}
+{% load intspace %}
+<div class="step3-header">Данные полиса</div>
+            <div class="form-round-block">
+                <form action="" method="post">
+
+                   <table id="step3-data">
+                        <tr>
+                            <td>Тип полиса</td>
+                            <td>{{ data.insurance_type }}</td>
+                        </tr>
+                        <tr>
+                            <td>Тип поездки</td>
+                            <td>{{ data.trip_type }}</td>
+                        </tr>
+                        <tr>
+                            <td>Территория действия договора</td>
+                            <td>все страны мира, за исключением США, Канады, Японии, Австралии, стран Карибского бассейна и страны постоянного проживания</td>
+                        </tr>
+                        <tr>
+                            <td>Страны действия договора</td>
+                            <td>{{ data.countries }}</td>
+                        </tr>
+                        <tr>
+                            <td>Цель поездки</td>
+                            <td>{{ data.trip_purpose }}</td>
+                        </tr>
+                        <tr>
+                            <td>Сумма страхования</td>
+                            <td>${{ data.insurance_summ|intspace }}</td>
+                        </tr>
+                        <tr>
+                            <td>Возраст страхователя</td>
+                            <td>{{ data.age }}</td>
+                        </tr>
+                        <tr>
+                            <td>Страховщик</td>
+                            <td>{{ data.company }}</td>
+                        </tr>
+                        {% csrf_token %}
+                    </table>
+
+                    <input type="image" src="/static/images/order_button_step3.png" value="Заказать"/>
+                </form>
+            </div>
+
+{% endblock %}

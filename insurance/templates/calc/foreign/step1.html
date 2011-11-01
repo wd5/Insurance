@@ -1,0 +1,198 @@
+{% extends "calc/calc.html" %}
+{% block extra_head %}
+    <script type="text/javascript" src="/static/js/calc/calc.js"></script>
+    <script type="text/javascript" src="/static/js/jquery-ui-1.8.16.custom.min.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.mousewheel.js"></script>
+    <script type="text/javascript" src="/static/js/calc/jscrollpane.js"></script>
+    <script type="text/javascript" src="/static/js/jquery.meio.mask.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(function() {
+            //price sliders
+            priceSlider($("#price-slider"), "#id_insurance_summ", 0, 50000, "$");
+            $(".short-select:visible").each(function(e) {
+                $(this).attr("id", "short-" + (e + 1));
+                transform_select($(this));
+            })
+
+
+            $(".visible-data .visual span").live('click', function() {
+                var nextSelect = $(this).parents("td").find("select"),
+                        nextRow = $(this).parents("tr").next(),
+                        nextRows = $(this).parents("tr").nextAll(),
+                        parent = $(this).parent();
+
+                if (parent.attr("class") == "container") {
+                    parent = $(this).parent().parent();
+                }
+
+                parent.find("span").removeClass("active");
+                $(this).addClass("active");
+                nextSelect.val($(this).attr("rel"));
+                nextSelect.change();
+            })
+
+            $(".short-select input").live("keyup", function(e) {
+                if (e.keyCode == 8) {
+                    $(this).val("");
+                }
+                userTypeInput($(this));
+            })
+
+            //Save value in input on click button
+            $(".short-select input").live("keypress", function(e) {
+                if (e.keyCode == 13) {
+                    e.preventDefault();
+                    saveValue($(this));
+                    return false;
+                }
+            })
+
+            $(".short-select input").live("change", function() {
+                saveValue($(this));
+            })
+
+
+            $(".short-select input, .long-select input").live("click", function() {
+                $(this).select();
+            })
+
+
+            //Change other ajax-selects
+/*            $(".ajax-select select").change(function() {
+                get_auto_data($(this).attr("name"));
+                console.log($(this).attr("name"));
+            }) */
+
+            //Draw all select values in frist block
+            $(".ajax-select select").each(function() {
+                var id = $(this).attr("id");
+                get_visible_select_data(id);
+            })
+
+            $("#id_countries, #id_trip_type, #id_trip_purpose").parent().hide();
+
+            $("#form-step1").submit(function() {
+              props = ["#id_insurance_summ"];
+
+              $.each(props, function(i, id) {
+                var v = $(id).val();
+                v = v.replace(/ /g, "");
+                $(id).val(v);
+              });
+
+              return true;
+            });
+        })
+    </script>
+{% endblock %}
+
+{% block tab_content %}
+
+    <form action="" method="post" id="form-step1">
+    {% csrf_token %}
+
+    {% if s1_form.non_field_errors %}
+        <div>
+            <h2>Ошибки заполнения формы:</h2>
+            {{ s1_form.non_field_errors }}
+        </div>
+    {% endif %}
+
+
+    <div class="form-round-block" id="require-block-1">
+        <table id="require-data-first">
+            <tr>
+                <td class="label">
+                    {{ s1_form.trip_type.label }}
+                    <span class="table-error">{{ s1_form.trip_type.errors }}</span>
+                </td>
+
+                <td class="visible-data second">
+                    <div class="visual"></div>
+                    <span class="ajax-select">{{ s1_form.trip_type }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label" style="vertical-align: top">
+                    Территория действия договора страхования
+                    <span class="table-error"></span>
+                </td>
+                <td class="visible-data second">
+                    <div class="visual">
+                        <span class="active" rel="1">все страны мира,</span> за исключением США, Канады, Японии, Австралии, стран Карибского бассейна и страны постоянного проживания
+                    </div>
+                    <span class="ajax-select"></span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    {{ s1_form.countries.label }}
+                    <span class="table-error">{{ s1_form.countries.errors }}</span>
+                </td>
+                <td class="visible-data second">
+                    <div class="visual"></div>
+                    <span class="ajax-select">{{ s1_form.countries }}</span>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    {{ s1_form.insurance_summ.label }}
+                    <span class="table-error">{{ s1_form.insurance_summ.errors }}</span>
+                </td>
+                <td class="second">
+                    {{ s1_form.insurance_summ }}
+                    <div id="price-slider-container">
+                        <span id="min"></span>
+                        <span id="max"></span>
+
+                        <div id="price-slider"></div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    {{ s1_form.trip_purpose.label }}
+                    <span class="table-error">{{ s1_form.trip_purpose.errors }}</span>
+                </td>
+                <td class="visible-data second">
+                    <div class="visual"></div>
+                    <span class="ajax-select">{{ s1_form.trip_purpose }}</span>
+                </td>
+            </tr>
+            <tr class="hide">
+                <td class="label">
+                    {{ s1_form.age.label }}
+                    <small>(полных лет)</small>
+                </td>
+                <td class="second">
+                    <div class="short-select">
+                        <input type="text" maxlength="2" value=""/>
+                        {{ s1_form.age }}
+                    </div>
+
+                    {{ s1_form.age.errors }}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <input id="calculate-button" type="image" value="" src="/static/images/calculate_button.png"/>
+    </form>
+
+    <br/>
+    {% if prev_data %}
+        <h2>Предыдущие расчеты:</h2>
+        {% for pd in prev_data %}
+            <a href="{% url ncalc_step1_foreign %}{{ forloop.counter }}/">{{ pd }}руб.</a>
+            <br />
+        {% endfor %}
+        <br /><br />
+    {% endif %}
+    <a href="{% url cleansession %}">очистить введенные данные</a>
+    </div>
+
+{% endblock %}
+
+

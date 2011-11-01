@@ -333,3 +333,64 @@ class InsurancePolicyIFL(models.Model):
     payments = models.PositiveSmallIntegerField(u'Вариант оплаты', null=True,
                                 blank=True, choices=PAYMENT_CHOICES, default=1)
     comment = models.TextField(u'Комментарий', null=True, blank=True)
+
+
+class InsurancePolicyForeign(models.Model):
+    user = models.ForeignKey(User)
+    type = models.SmallIntegerField("Тип полиса", choices=TYPE_CHOICES,
+                                    default=5)
+    payment = models.CharField("Оплата", max_length=10, default="unpayed",
+                               choices=STATUS_PAYMENT_CHOICES)
+    state = models.CharField("Статус полиса", max_length=10, default="init",
+                             choices=STATE_CHOICES)
+    company = models.CharField("Страховая компания", max_length=100)
+
+    age = models.PositiveSmallIntegerField("Возраст страхователя")
+    trip_type = models.CharField("Тип поездки", max_length=30)
+    insurance_summ = models.PositiveIntegerField("Сумма страхования")
+    countries = models.CharField("Страны действия", max_length=30)
+    trip_purpose = models.CharField("Цель поездки", max_length=30)
+
+    # extra data
+    first_name = models.CharField("Имя страхователя", max_length=30, null=True, blank=True)
+    last_name = models.CharField("Фамилия страхователя", max_length=30, null=True, blank=True)
+    middle_name = models.CharField("Отчество страхователя", max_length=30, null=True, blank=True)
+    birth_date = models.DateField("Дата рождения страхователя", null=True, blank=True)
+    sex = models.CharField("Пол", max_length=1, choices=SEX_CHOICES)
+    citizenship = models.PositiveIntegerField(u'Гражданство', choices=CITIZEN_CHOICES, null=True, blank=True )
+    passport_series = models.CharField(u'Серия паспорта', max_length=30, null=True, blank=True)
+    passport_number = models.CharField(u'Номер паспорта', max_length=30,null=True, blank=True)
+    issued_org = models.CharField(u'Кем выдан', max_length=255, null=True, blank=True)
+    issued_date = models.DateField(u'Дата выдачи', null=True, blank=True)
+
+    reg_region = models.CharField(u'Область, край', max_length=255, null=True, blank=True)
+    reg_area = models.CharField(u'Район', max_length=255, null=True, blank=True)
+    reg_city = models.CharField(u'Населенный пункт', max_length=255,null=True, blank=True)
+    reg_street = models.CharField(u'Улица', max_length=255, null=True, blank=True)
+    reg_index = models.CharField(u'Индекс', max_length=16, null=True, blank=True)
+    reg_building = models.CharField(u'Дом', max_length=16, null=True, blank=True)
+    reg_housing = models.CharField(u'Корпус', max_length=6, null=True, blank=True)
+    reg_flat = models.CharField(u'Квартира', max_length=6, null=True, blank=True)
+
+    live_region = models.CharField(u'Область, край', max_length=255, null=True, blank=True)
+    live_area = models.CharField(u'Район', max_length=255, null=True, blank=True)
+    live_city = models.CharField(u'Населенный пункт', max_length=255,null=True, blank=True)
+    live_street = models.CharField(u'Улица', max_length=255, null=True, blank=True)
+    live_index = models.CharField(u'Индекс', max_length=16, null=True, blank=True)
+    live_building = models.CharField(u'Дом', max_length=16, null=True, blank=True)
+    live_housing = models.CharField(u'Корпус', max_length=6, null=True, blank=True)
+    live_flat = models.CharField(u'Квартира', max_length=6, null=True, blank=True)
+#STEP 4-3
+    date = models.DateField("Дата доставки", null=True, blank=True)
+    time = models.TimeField("Время доставки", null=True, blank=True, choices=TIME_CHOICES)
+    street = models.CharField(u'Улица доставки', max_length=255, null=True, blank=True)
+    building = models.CharField(u'Дом доставки', max_length=16, null=True, blank=True)
+    structure = models.CharField(u'Строение доставки', max_length=16, null=True, blank=True)
+    housing = models.CharField(u'Корпус доставки', max_length=6, null=True, blank=True)
+    floor = models.CharField(u'Этаж доставки', max_length=6, null=True, blank=True)
+    domophone = models.CharField(u'Код домофона', max_length=12, null=True, blank=True)
+    flat = models.CharField(u'Квартира доставки', max_length=6, null=True, blank=True)
+    porch = models.CharField(u'Подъезд доставки', max_length=6, null=True, blank=True)
+    payments = models.PositiveSmallIntegerField(u'Вариант оплаты', null=True,
+                                blank=True, choices=PAYMENT_CHOICES, default=1)
+    comment = models.TextField(u'Комментарий', null=True, blank=True)

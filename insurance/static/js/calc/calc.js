@@ -322,11 +322,15 @@ function fillAjaxSelect(selectId) {
 function priceFormat(val, unit) {
         var t_str = val.toString().split("").reverse().join(""); // reverse string
         t_str = t_str.replace(/(.{3})/g, "$1 "); // put space into every fourth place
-        return t_str.split("").reverse().join("") + " " + unit; // reverse back and append unit mark
+        if (unit != "$") {
+            return t_str.split("").reverse().join("") + " " + unit; // reverse back and append unit mark              
+        } else {
+            return unit + t_str.split("").reverse().join(""); // reverse back and append unit mark              
+        }
 };
 
 /*Price Slider on calc step 1*/
-function priceSlider(containerId, element, min_value, max_value) {
+function priceSlider(containerId, element, min_value, max_value, currency) {
     if (min_value == undefined) {
         var min_value = 0;
     }
@@ -337,6 +341,10 @@ function priceSlider(containerId, element, min_value, max_value) {
 
     if (element == undefined) {
         var element = "#id_price";
+    }
+
+    if (currency == undefined) {
+        var currency = "р.";
     }
 
 /*    $("#current").live("change", function() {
@@ -370,8 +378,8 @@ function priceSlider(containerId, element, min_value, max_value) {
         }
     });
 
-    containerId.parent().find("#min").html(priceFormat(min_value, "р."));
-    containerId.parent().find("#max").html(priceFormat(max_value, "р."));
+    containerId.parent().find("#min").html(priceFormat(min_value, currency));
+    containerId.parent().find("#max").html(priceFormat(max_value, currency));
 }
 
 
