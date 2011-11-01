@@ -27,9 +27,12 @@ def profile(request):
     user = request.user
     try:
         main_persona = Persona.objects.get(user=user, me=True)
+        main_persona.full_name = u"%s %s" % (main_persona.first_name, main_persona.last_name)
     except ObjectDoesNotExist:
         main_persona = None
     personas = Persona.objects.filter(user=user, me=False)
+    for p in personas:
+        p.full_name = u"%s %s" % (p.first_name, p.last_name)
 #    password_form = PasswordChangeForm(user)
     password_form = PassChangeForm(user)
 
@@ -54,9 +57,12 @@ def edit_persona(request, persona_id):
     user = request.user
     personas = Persona.objects.filter(user=user, me=False)
     persona = get_object_or_404(Persona, pk=persona_id)
+    for p in personas:
+        p.full_name = u"%s %s" % (p.first_name, p.last_name)
     main_persona = Persona.objects.get(user=user, me=True)
     if persona == main_persona:
         return HttpResponseRedirect(reverse('userprofile_edit'))
+    main_persona.full_name = u"%s %s" % (main_persona.first_name, main_persona.last_name)
     if request.method == 'POST':
         form = PersonaForm(request.POST, instance=persona)
         if form.is_valid():
@@ -77,7 +83,10 @@ def edit_persona(request, persona_id):
 def add_persona(request):
     user = request.user
     personas = Persona.objects.filter(user=user, me=False)
+    for p in personas:
+        p.full_name = u"%s %s" % (p.first_name, p.last_name)
     main_persona = Persona.objects.get(user=user, me=True)
+    main_persona.full_name = u"%s %s" % (main_persona.first_name, main_persona.last_name)
     if request.method == 'POST':
         form = PersonaForm(request.POST)
         if form.is_valid():
