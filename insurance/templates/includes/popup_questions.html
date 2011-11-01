@@ -21,15 +21,21 @@
         <textarea name="body" id="id_body"></textarea>
         </p>
       </div>
+      <table width="100%"><tr>
        {% if not user.is_authenticated %}
-      <div class="fonsize_11">
-        <p>Введите код указанный на картинке.</p>
-        {{ question_form.captcha }}
-      </div>
-      {% endif %}
-      <div class="pop_up_button_send">
-        <input type="submit" value="Отправить" class="style_input_button" />
-      </div>
+       <td>
+       <div class="fonsize_11">
+           <p>Введите код указанный на картинке.</p>
+           {{ question_form.captcha }}
+       </div>
+       </td>
+       {% endif %}
+       <td style="vertical-align:bottom">
+           <div class="pop_up_button_send">
+               <input type="submit" value="Отправить" class="style_input_button" />
+           </div>
+       </td>
+   </tr></table>
     </form>
       </div>
       <div class="pop_up_questions_r">

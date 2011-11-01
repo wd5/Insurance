@@ -1,17 +1,17 @@
 <div class="pop_up pop_up_password_recovery" id="pop_up_3">
    <div class="pop_up_header">
-	           <div class="close"></div>
-			Восстановление пароля
-		</div>
-		<div class="pop_up_cont"><div class="pop_up_cont_in">
-			<div class="pop_up_header2">
-				Что же  делать, если вы забыли пароль?
-			</div>
-			<p>В форму ниже введите свой электронный адрес, указанный при регестрации.
-	Через несколько минут на ваш Адрес эл,почты придет письмо с паролем,</p>
-			<div class="form_email">
-				<p>*Адрес эл.почты:</p>
-				<div class="form_email_input">
+               <div class="close"></div>
+            Восстановление пароля
+        </div>
+        <div class="pop_up_cont"><div class="pop_up_cont_in">
+            <div class="pop_up_header2">
+                Что же делать, если вы забыли пароль?
+            </div>
+            <p>В форму ниже введите свой электронный адрес, указанный при регистрации и
+            через несколько минут на ваш адрес электронной почты придет письмо с паролем.</p>
+            <div class="form_email">
+                <p>*Адрес эл.почты:</p>
+                <div class="form_email_input">
                 <form action="{% url auth_password_reset %}" method="post">
                     {% csrf_token %}
                     {{ question_form.email }}
@@ -21,8 +21,8 @@
             </div>
         </div>
        <div class="pop_up_contacs">
-				Если при восстонавлении пароля у вас возникли сложности, свяжитесь с нами:<br />
-	+7 (495) 345 43 N\A , skype: polisbook.support.
-			</div>
-		</div></div>
+                Если при восстановлении пароля у вас возникли сложности, свяжитесь с нами:<br />
+    +7 (495) 345 43 N/A, skype: polisbook.support.
+            </div>
+        </div></div>
 </div>

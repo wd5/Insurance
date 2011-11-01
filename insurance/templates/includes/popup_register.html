@@ -4,9 +4,8 @@
         <div class="close"></div>
         Регистрация нового пользователя
     </div>
-<div class="pop_up_cont">
-    <div class="pop_up_cont_in">
-		<div class="center_reg">
+<div class="pop_up_cont_in">
+        <div class="center_reg">
         <form action="{% url registration_register %}" method="post">
             {% csrf_token %}
             <table cellspacing="0" cellpadding="0" class="table_user_form">
@@ -74,7 +73,7 @@
             <div class="pop_up_button">
                 <input name="" type="submit" value="Зарегистрироваться"/>
             </div>
-            </td>
+            </td></tr>
             </table>
             {% if form.non_field_errors %}
                 <br/><br/><br/>
@@ -84,7 +83,6 @@
                 </div>
             {% endif %}
         </form>
-    </div>
     </div></div>
 </div>
 

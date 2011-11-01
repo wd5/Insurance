@@ -1,7 +1,7 @@
  <script>
         $(document).ready(function(){
             $("#account-link").click(function(){
-                $(this).find(".setup_user").slideToggle("slow");
+                $(this).find(".setup_user").slideToggle();
             })
         });
   </script>
@@ -28,7 +28,7 @@
         <div id="account-link">
            {% if user.is_authenticated %}
               <span>{{ user.email|upper }}</span>
-                 <div class="setup_user" style="display:none">
+                 <div class="setup_user" id="setup-logged" style="display:none">
                     <a href="{% url auth_logout %}">Выход</a>
                     <a href="#" rel="#pop_up_4">Вопрос</a>
                  </div>
@@ -37,7 +37,7 @@
                  <div class="setup_user" style="display:none">
                     <a href="#" rel="#pop_up_1">Регистрация</a>
                     <a href="#" rel="#pop_up_2">Вход</a>
-                    <a href="#" rel="#pop_up_3">Пароль</a>
+                    <a href="#" rel="#pop_up_3">Забыли пароль?</a>
                     <a href="#" rel="#pop_up_4">Вопрос</a>
                   </div>
            {% endif %}
