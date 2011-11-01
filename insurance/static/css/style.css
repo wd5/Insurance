@@ -2219,14 +2219,14 @@ div.messages li {
     overflow: hidden;
 }
 
-#calc-tabs ul.ui-tabs-nav {
+#calc-tabs ul.ui-tabs-nav, #calc-tabs ul.ui-tabs-nav2 {
     overflow: hidden;
     margin: 0;
     padding: 0 0 0 28px;
     background: none;
 }
 
-#calc-tabs ul.ui-tabs-nav li {
+#calc-tabs ul.ui-tabs-nav li, #calc-tabs ul.ui-tabs-nav2 li  {
     list-style: none;
     font-size: 16px;
     line-height: 47px;
@@ -2237,7 +2237,11 @@ div.messages li {
     border-width: 0px;
 }
 
-#calc-tabs ul.ui-tabs-nav li a {
+#calc-tabs ul.ui-tabs-nav2 li  {
+    line-height: 38px !important;
+}
+
+#calc-tabs ul.ui-tabs-nav li a, #calc-tabs ul.ui-tabs-nav2 li a{
     display: block;
     background: url(/static/images/tabs_link2.png) top left no-repeat;
     width: 126px;
@@ -2248,8 +2252,34 @@ div.messages li {
     position: relative;
 }
 
-#calc-tabs ul.ui-tabs-nav li.ui-state-active a, #calc-tabs ul.ui-tabs-nav li a:hover {
+#long-tab a {
+    background: url(/static/images/tabs_link_long.png) top left no-repeat !important;
+    width: 150px !important;
+}
+
+#long-tab.ui-state-active a,
+#long-tab.ui-state-hover a,
+#long-tab a:hover {
+    background: url(/static/images/tabs_link_long_active.png) top left no-repeat !important;
+}
+
+#calc-tabs ul.ui-tabs-nav2 li a {
+    background: url(/static/images/tabs_link3.png) top left no-repeat;
+    width: 137px;
+    height: 38px;
+}
+
+#calc-tabs ul.ui-tabs-nav li.ui-state-active a,
+#calc-tabs ul.ui-tabs-nav li a:hover
+{
     background: url(/static/images/tabs_link2_active.png) top left no-repeat;
+    z-index: 50;
+}
+
+#calc-tabs ul.ui-tabs-nav2 li.ui-state-active a,
+#calc-tabs ul.ui-tabs-nav2 li a:hover
+{
+    background: url(/static/images/tabs_link3_active.png) top left no-repeat;
     z-index: 50;
 }
 
@@ -2279,6 +2309,11 @@ div.messages li {
     border-radius: 10px;
     font-size: 14px;
     color: #501c07;
+}
+
+.no-background {
+    background-image: none !important;
+    padding-bottom: 10px !important;
 }
 
 .form-round-block h2{

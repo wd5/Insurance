@@ -7,25 +7,26 @@
             <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
                 <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a href="{% url userprofile_edit %}">Мои данные</a></li>
                 <li class="ui-state-default ui-corner-top"><a href="{% url userprofile_policylist %}">Мои полисы</a></li>
-                <li class="ui-state-default ui-corner-top"><a href="{% url notification_notices %}">Уведомления {% if notice_unseen_count %}({{ notice_unseen_count }}){% endif %}</a></li>
+                <li id="long-tab" class="ui-state-default ui-corner-top"><a href="{% url notification_notices %}">Уведомления {% if notice_unseen_count %}({{ notice_unseen_count }}){% endif %}</a></li>
                 <li class="ui-state-default ui-corner-top"><a href="{% url userprofile_faq %}">FAQ</a></li>
             </ul>
             <!--- Первая закладка --->
-            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom no-background">
                 <div >
                     <div >
 
                             <div id="calc-tabs" class="low-tabs shrink-tabs">
-                            <ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
-                                <li class="ui-state-default ui-corner-top"><a href="{% url userprofile_edit %}">
+                            <ul class="ui-tabs-nav2 ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                                <li class="ui-state-default ui-corner-top"><a href="{% url userprofile_edit %}" title="{{ main_persona.full_name }}">
                                     {% if main_persona %}
-                                        {{ main_persona.last_name }} {{ main_persona.first_name }}
+                                       {{ main_persona.full_name|slice:"11" }}{% if main_persona.full_name|length > 11 %}…{% endif %}
                                     {% else %}
                                         Вы
                                     {% endif %}</a></li>
                                 {% for pers in personas %}
                                     <li class="ui-state-default ui-corner-top"><a
-                                            href="{% url userprofile_editpersona pers.id %}">{{ pers.last_name }} {{ pers.first_name }}</a>
+                                            href="{% url userprofile_editpersona pers.id %}" title="{{ pers.full_name }}">
+                                       {{ pers.full_name|slice:"11" }}{% if pers.full_name|length > 11 %}…{% endif %}</a>
                                     </li>
                                 {% endfor %}
                                 <li class="ui-state-default ui-corner-top ui-tabs-selected ui-state-active"><a
