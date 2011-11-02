@@ -46,6 +46,8 @@ class Step1Form(forms.Form):
 
 
 class Step2Form(forms.Form):
+    factor_price = forms.BooleanField(label="Сортировка по цене",
+                                        required=False)
     factor_easepay = forms.BooleanField(label="Сортировка по простоте выплаты",
                                         required=False)
     factor_insuranceterms = forms.BooleanField(label="Сортировка по условиям "\

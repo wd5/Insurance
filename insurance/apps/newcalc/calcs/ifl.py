@@ -106,7 +106,7 @@ def step2(request):
             return redirect(reverse('ncalc_step1_ifl'))
     if not s2_data:
         s2_data = dict()
-        s2_data['factor_reputation'] = True #Если нет данных => только перешли ко 2 шагу - сортируем по репутации
+        s2_data['factor_price'] = True #Если нет данных => только перешли ко 2 шагу - сортируем по репутации
     result = servlet_request(_build_servlet_request_data(s1_data, s2_data), servlet_type="ifl")
     if result is None:
         err_text = "Превышен лимит ожидания. Не получен ответ сервлета в "\

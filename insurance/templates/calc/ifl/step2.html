@@ -85,8 +85,12 @@
                         <form action="" method="post" id="sorting">
                             {% csrf_token %}
 
-                            <table id="sort-parameters" class="osago">
+                            <table id="sort-parameters">
                                 <tr>
+                                    <td>Цена</td>
+                                    <td>
+                                        <div class="style-checkbox">{{ s1_form.factor_price }}</div>
+                                    </td>
                                     <td>Расположение</td>
                                     <td>
                                         <div class="style-checkbox">{{ s1_form.factor_accessibility }}</div>
@@ -95,10 +99,10 @@
                                     <td>
                                         <div class="style-checkbox">{{ s1_form.factor_service }}</div>
                                     </td>
-                                    <td>Качество инф.
+                                    <td rowspan="2">Качество информационной
                                         поддержки
                                     </td>
-                                    <td>
+                                    <td rowspan="2">
                                         <div class="style-checkbox">{{ s1_form.factor_qualitysupport }}</div>
                                     </td>
                                 </tr>
@@ -115,6 +119,8 @@
                                     <td>
                                         <div class="style-checkbox">{{ s1_form.factor_easepay }}</div>
                                     </td>
+                                    <td></td>
+                                    <td></td>
                                 </tr>
                             </table>
                             <a id="second-submit" href="#"><img src="/static/images/recount_button.png"
