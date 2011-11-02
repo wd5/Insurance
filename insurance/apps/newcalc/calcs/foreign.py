@@ -13,9 +13,9 @@ from django.template.loader import render_to_string
 import socket
 
 from newcalc.models import TripType, TripPurpose, Company, CompanyCondition, InsuranceType, \
-    KackoParameters
+    KackoParameters, TripCountries, TripTerritory
 from newcalc.forms.foreign import Step1Form, Step2Form, Step3FormReg, Step3FormNoReg
-from newcalc.forms.foreign import Step4Form, Step5Form, Step6Form, COUNTRIES_CHOICE
+from newcalc.forms.foreign import Step4Form, Step5Form, Step6Form
 from polices.forms import CallRequestForm
 from profile.models import Persona
 from polices.models import InsurancePolicyForeign #, CallRequests
@@ -31,7 +31,7 @@ def success(request):
 
 
 S1_REQUIRED_KEYS = (
-    "trip_type", "insurance_summ", "trip_purpose", "countries", "age")
+    "trip_type", "insurance_summ", "trip_purpose", "countries", "age", "territory")
 
 
 def step1(request, prev=0):
@@ -74,19 +74,20 @@ def step1(request, prev=0):
             form_extra_data, initial_data = _s1_read_form_data(s1_data)
         else:
             initial_data['insurance_summ'] = 0
+            initial_data["territory"] = 1
         form = Step1Form(initial=initial_data)
     k1 =  request.session.get("s1_data_foreign1")
     k2 =  request.session.get("s1_data_foreign2")
     prev_data = []
     if k1:
         ttype = TripType.objects.get(pk=k1["trip_type"]).trip_type_name
-        countries = dict(COUNTRIES_CHOICE)[k1["countries"]]
+        countries = TripCountries.objects.get(pk=k1["countries"]).vzr_countries_name
         price = k1["insurance_summ"]
         purp = TripPurpose.objects.get(pk=k1["trip_purpose"]).trip_purpose_name
         prev_data.append(u"%s / %s / %s / $%s" % (ttype, countries, purp, intspace(price)))
     if k2:
         ttype = TripType.objects.get(pk=k2["trip_type"]).trip_type_name
-        countries = dict(COUNTRIES_CHOICE)[k2["countries"]]
+        countries = TripCountries.objects.get(pk=k2["countries"]).vzr_countries_name
         price = k2["insurance_summ"]
         purp = TripPurpose.objects.get(pk=k2["trip_purpose"]).trip_purpose_name
         prev_data.append(u"%s / %s / %s / $%s" % (ttype, countries, purp, intspace(price)))
@@ -110,7 +111,7 @@ def step2(request):
             return redirect(reverse('ncalc_step1_foreign'))
     if not s2_data:
         s2_data = dict()
-        s2_data['factor_reputation'] = True #Если нет данных => только перешли ко 2 шагу - сортируем по цене
+        s2_data['factor_price'] = True #Если нет данных => только перешли ко 2 шагу - сортируем по цене
     result = servlet_request(_build_servlet_request_data(s1_data, s2_data), servlet_type="foreign")
     if result is None:
         err_text = "Превышен лимит ожидания. Не получен ответ сервлета в "\
@@ -124,7 +125,7 @@ def step2(request):
     # small hack for better display
     if data["trip_type"] == u"Краткосрочная":
         data["trip_type"] = u"Краткосрочная поездка"
-    data["countries"] = dict(COUNTRIES_CHOICE)[s1_data["countries"]]
+    data["countries"] = TripCountries.objects.get(pk=s1_data["countries"]).vzr_countries_name
     data["price"] = s1_data["insurance_summ"]
 
     if request.method == "POST":
@@ -157,8 +158,8 @@ def step3(request, alias):
 
     data["trip_type"] = TripType.objects.get(pk=s1_data["trip_type"]).trip_type_name
     data["trip_purpose"] = TripPurpose.objects.get(pk=s1_data["trip_purpose"]).trip_purpose_name
-
-    data["countries"] = dict(COUNTRIES_CHOICE)[s1_data["countries"]]
+    data["territory"] = TripTerritory.objects.get(pk=s1_data["territory"]).vzr_territory_name
+    data["countries"] = TripCountries.objects.get(pk=s1_data["countries"]).vzr_countries_name
     data["insurance_summ"] = s1_data["insurance_summ"]
     data["age"] = s1_data["age"]
 
@@ -183,7 +184,8 @@ def step3(request, alias):
                 ip.trip_type = TripType.objects.get(pk=s1_data["trip_type"]).trip_type_name
                 ip.trip_purpose = TripPurpose.objects.get(pk=s1_data["trip_purpose"]).trip_purpose_name
                 ip.insurance_summ = s1_data["insurance_summ"]
-                ip.countries = dict(COUNTRIES_CHOICE)[s1_data["countries"]]
+                ip.territory = TripTerritory.objects.get(pk=s1_data["territory"]).vzr_territory_name
+                ip.countries = TripCountries.objects.get(pk=s1_data["countries"]).vzr_countries_name
                 ip.age = s1_data["age"]
                 policy = ip.save()
                 request.session['policy_foreign'] = ip.pk
@@ -294,7 +296,8 @@ def _s1_read_data(cd):
     s1_data["trip_purpose"] = cd["trip_purpose"].pk
     s1_data["age"] = cd["age"]
     s1_data["insurance_summ"] = cd["insurance_summ"]
-    s1_data["countries"] = cd["countries"]  # String.
+    s1_data["countries"] = cd["countries"].pk
+    s1_data["territory"] = cd["territory"].pk
     return s1_data
 
 
@@ -326,8 +329,15 @@ def _s1_read_form_data(s1_data):
 
     if ok:
         try:
-            countries = s1_data.get("countries", 1)
-            initial_data["wheel"] = countries
+            countries = TripCountries.objects.get(pk=s1_data.get("countries"))
+            initial_data["countries"] = countries
+        except (ObjectDoesNotExist, KeyError):
+            ok = False
+
+    if ok:
+        try:
+            territory = TripCountries.objects.get(pk=s1_data.get("territory"))
+            initial_data["territory"] = territory
         except (ObjectDoesNotExist, KeyError):
             ok = False
 
@@ -372,6 +382,7 @@ def _build_servlet_request_data(s1_data, s2_data):
                             "countries": s1_data["countries"],
                             "insurance_summ": s1_data["insurance_summ"],
                             "target_trip": s1_data["trip_purpose"],
+                            "territory": s1_data["territory"],
                             "age": s1_data["age"]}
     if s2_data:
         for key in s2_data:

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.contrib.auth.models import User
-from newcalc.models import TripType, TripPurpose
+from newcalc.models import TripType, TripPurpose, TripTerritory, TripCountries
 from profile.models import Persona
 from polices.models import SEX_CHOICES, CATEGORY_CHOICES, CITIZEN_CHOICES
 from polices.models import BODY_TYPE_CHOICES, KPP_CHOICES, MOTOR_CHOICES
@@ -32,9 +32,13 @@ class Step1Form(forms.Form):
     trip_type = forms.ModelChoiceField(label="Тип поездки",
                                   queryset=TripType.objects.all(),
                                   empty_label="--------")
+    territory = forms.ModelChoiceField(label="Территория действия договора страхования",
+                                  queryset=TripTerritory.objects.all(),
+                                  empty_label="--------")
     insurance_summ = forms.IntegerField(label="Сумма страхования", max_value=13000000)
-    countries = forms.ChoiceField(label="Страны действия договора страхования",
-                                   choices=COUNTRIES_CHOICE)
+    countries = forms.ModelChoiceField(label="Страны действия договора страхования",
+                                  queryset=TripCountries.objects.all(),
+                                  empty_label="--------")
     trip_purpose = forms.ModelChoiceField(label="Цель поездки",
                                   queryset=TripPurpose.objects.all(),
                                   empty_label="--------")
@@ -51,6 +55,8 @@ class Step1Form(forms.Form):
 
 
 class Step2Form(forms.Form):
+    factor_price = forms.BooleanField(label="Сортировка по цене",
+                                        required=False)
     factor_easepay = forms.BooleanField(label="Сортировка по простоте выплаты",
                                         required=False)
     factor_insuranceterms = forms.BooleanField(label="Сортировка по условиям "\

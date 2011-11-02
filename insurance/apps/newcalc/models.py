@@ -308,3 +308,27 @@ class TripPurpose(models.Model):
     class Meta:
         db_table = u'trip_purpose'
         managed = False
+
+
+class TripTerritory(models.Model):
+    vzr_territory_id = models.IntegerField(primary_key=True)
+    vzr_territory_name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.vzr_territory_name
+
+    class Meta:
+        db_table = u'vzr_territory'
+        managed = False
+
+
+class TripCountries(models.Model):
+    vzr_countries_id = models.IntegerField(primary_key=True)
+    vzr_countries_name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.vzr_countries_name
+
+    class Meta:
+        db_table = u'vzr_countries'
+        managed = False
