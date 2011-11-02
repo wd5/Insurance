@@ -2883,6 +2883,10 @@ ul.step-ui-tabs-nav li.ui-state-hover{
     font-size: 25px;
 }
 
+#building_type a.active {
+    font-size: 25px;
+    }
+
 #person-info-table #sex-label{
     display: block;
     float: left;
@@ -3010,6 +3014,10 @@ ul.step-ui-tabs-nav li.ui-state-hover{
     vertical-align: top;
 }
 
+#tech-auto-data td.short-input2 {
+    width: 85px;
+    }
+
 #tech-auto-data td.short-input div{
    float: left;
    margin-left: 10px;
@@ -3021,7 +3029,7 @@ ul.step-ui-tabs-nav li.ui-state-hover{
 
 
 #tech-auto-data #id_power,
-#tech-auto-data #id_volume{
+#tech-auto-data #id_volume {
     width: 82px;
 }
 
@@ -3606,6 +3614,19 @@ ul.step-ui-tabs-nav li.ui-state-hover{
     position: relative;
     background: url(/static/images/select_square_2.png) top left no-repeat;
 }
+
+#policy-start {
+    margin-top: 20px;
+    }
+
+.discreet {
+    color: #4e1b06;
+    font-size: 0.8em;
+    }
+
+#policy-start .discreet {
+    width: 400px;
+    }
 
 #fake-select {
     width: 203px;

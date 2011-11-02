@@ -162,7 +162,8 @@ function transform_select2(selectContainer) {
     
     $(selectContainer).find("input").val(sel.find("option[selected]").text());
     $(selectContainer).find(".select-text").html(sel.find("option[selected]").text());
-    $("<ul>" + result + "</ul>").appendTo(selectContainer).hide();
+    $("<ul>" + result + "</ul>").css({"overflow-y": "scroll", "height": "230px"})
+        .appendTo(selectContainer).hide();
 
     $(selectContainer).click(function() {
         $(this).find("ul").show();

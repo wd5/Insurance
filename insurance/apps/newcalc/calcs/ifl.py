@@ -261,11 +261,12 @@ def step5(request):
     else:
         form = Step5Form(initial=policy_data)
 
-    copy = {"first_name": policy.first_name,
-            "middle_name": policy.middle_name,
-            "last_name": policy.last_name,
-            "birth_date": policy.birth_date.strftime("%d.%m.%Y"),
-            "sex": policy.sex}
+    copy = {"city": policy.live_city,
+            "index": policy.live_index,
+            "street": policy.live_street,
+            "housing": policy.live_housing,
+            "building": policy.live_building,
+            "flat": policy.live_flat}
     return direct_to_template(request, 'calc/ifl/step5.html', {"form": form, "tab": 6,
                                                                "copy": copy,
                                                                "back": reverse("ncalc_step4_ifl")})

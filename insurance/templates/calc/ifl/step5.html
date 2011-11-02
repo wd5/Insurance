@@ -12,7 +12,8 @@
     <script>
         $(document).ready(function() {
 
-            $("#id_kpp, #id_motor, #id_owner_sex, #id_first_owner").css("visibility", "hidden");
+            $("#id_last_repair, #id_building_type, #id_object_overhaul_year, \
+            #id_object_build_year").css("visibility", "hidden");
 
             /*Remove empty class when user click or input values */
             $("#step input").click(function(){
@@ -28,15 +29,39 @@
             })
 
             /*Select visual value*/
-            $("#is-first-owner a, #kpp a, #motor a, #sex-owner a").click(function(e){
+            $("#is-first-owner a, #kpp a, #building_type a, #sex-owner a").click(function(e){
                 e.preventDefault();
                 $(this).parent().removeClass("empty");
                 selectVisualValue($(this));
             })
 
             /*Display visual value*/
-            $("#id_kpp,  #id_motor, #id_first_owner, #id_owner_sex").each(function(){
+            $("#id_kpp,  #id_building_type, #id_first_owner, #id_owner_sex").each(function(){
                 displaySelectValue($(this));
+            })
+
+            $("#document-data input, #document-address input, #real-address input").each(function(){
+                $("#document-data label, #document-address label, #real-address label").hide();
+                $(this).addClass("inactive");
+                    if($(this).val() == ""){
+                       $(this).val($(this).parent().find("label").text());
+                    }
+
+                $(this).click(function(){
+                    $(this).removeClass("inactive");
+                })
+
+                $(this).keypress(function(){
+                    $(this).removeClass("inactive");
+                    $(this).removeClass("empty");
+                })
+
+                 $(this).blur(function(){
+                    if($(this).val() == ""){
+                        $(this).addClass("inactive");
+                    }
+                })
+
             })
 
             /*Placeholder for inpust*/
@@ -56,16 +81,16 @@
                 }
             })
 
-            $("#id_owner_birth_date, #id_pts_date").datepicker({
+            $("#id_policy_start").datepicker({
                changeMonth: true,
-               changeYear: true,
-               yearRange: "1950:2012"
+               minDate: -1,
+               yearRange: "2011:2012"
             });
 
             $("#copy-data-link2").click(function(e){
                 e.preventDefault();
-                var from = new Array("{{copy.last_name}}", "{{copy.first_name}}", "{{copy.middle_name}}",
-                                     "{{copy.birth_date}}", "{{copy.sex}}"),
+                var from = new Array("{{copy.city}}", "{{copy.index}}", "{{copy.street}}",
+                                     "{{copy.building}}", "{{copy.housing}}", "{{copy.flat}}"),
                     to = $("#auto-owner-table input:text");
 
                 to.each(function(e){
@@ -84,10 +109,47 @@
                 }
             })
 
-            $("#id_vin").keyup(function() {
-               $("#id_body_number").val($(this).val());
+            $("#id_object_size, #id_power").attr("maxlength", 3);
+            $("#id_object_floor").attr("maxlength", 2);
+
+
+                if(navigator.userAgent.match(/MSIE \d\.\d+/))
+    {
+        /*
+        ** For each div with class menu (i.e.,
+        ** the thing we want to be on top),
+        */
+        $("#fake-select ul").parents().each(function() {
+            var p = $(this);
+            var pos = p.css("position");
+
+            // If it's positioned,
+            if(pos == "relative" ||
+               pos == "absolute" ||
+               pos == "fixed")
+            {
+                /*
+                ** Add the "on-top" class name when the
+                ** mouse is hovering over it, and remove
+                ** it when the mouse leaves.
+                */
+                p.hover(function() {
+                        $(this).addClass("on-top");
+                    },
+                    function() {
+                        $(this).removeClass("on-top");
+                    });
+            }
+        });
+    };
+
+            $("label").each(function() {
+                $(this).parents("span, td").attr("title", $(this).text());
             });
 
+            transform_select2("#fake-select.built");
+            transform_select2("#fake-select.overhaul");
+            transform_select2("#fake-select.repair");
             });
     </script>
 {% endblock %}
@@ -102,6 +164,99 @@
     {{ form.non_field_errors }}
     <form action="" method="post" id="step" style="position: relative">
         {% csrf_token %}
+
+        <div id="auto-owner">
+            <h5>Адрес объекта:</h5>
+            <a href="#" id="copy-data-link2">(Скопировать данные места жительства страхователя)</a>
+        <div id="document-address">
+           <table id="auto-owner-table">
+               <tr>
+                   <td>{{ form.object_city }}{{ form.object_city.errors }}
+                   <label>{{ form.object_city.label }}</label></td>
+                   <td>{{ form.object_index }}{{ form.object_index.errors }}
+                   <label>{{ form.object_index.label }}</label></td>
+                   <td>{{ form.object_street }}{{ form.object_street.errors }}
+                   <label>{{ form.object_street.label }}</label></td>
+               </tr>
+               <tr>
+                   <td>
+                       {{ form.object_building }}{{ form.object_building.errors }}<label>{{ form.object_building.label }}</label>
+                   </td>
+                   <td>
+                       {{ form.object_housing }}{{ form.object_housing.errors }}<label>{{ form.object_housing.label }}</label>
+                   </td>
+                   <td>
+                       {{ form.object_flat }}{{ form.object_flat.errors }}<label>{{ form.object_flat.label }}</label>
+                   </td>
+               </tr>
+           </table>
+       </div></div>
+
+        <table id="tech-auto-data" style="margin-left: 0">
+            <tr>
+                <td class="short-input">
+                    <div>
+                    <h5>{{ form.object_size.label }}:</h5>
+                   {{ form.object_size }}
+                   {{ form.object_size.errors }}
+                    </div>
+                </td>
+                <td>
+                    <h5>{{ form.object_built_year.label }}:</h5>
+                    <div id="fake-select" class="built">
+                        <input name="object_built_year" class="fake"/>
+                        <span class="select-text"/>
+                        {{ form.object_built_year }}
+                    </div>
+                    {{ form.object_built_year.errors }}
+                </td>
+                <td>
+                    <h5>{{ form.last_repair.label }}:</h5>
+                    <div id="fake-select" class="repair">
+                        <input name="last_repair" class="fake"/>
+                        <span class="select-text"/>
+                        {{ form.last_repair }}
+                    </div>
+                    {{ form.last_repair.errors }}
+                </td>
+            </tr>
+            <tr><td colspan="3">&nbsp;</td></tr>
+            <tr>
+                <td>
+                    <h5>{{ form.object_floor.label }}:</h5>
+                    {{ form.object_floor }}
+                    {{ form.object_floor.errors }}
+                </td>
+                <td>
+                    <h5>{{ form.object_overhaul_year.label }}:</h5>
+                    <div id="fake-select" class="overhaul">
+                        <input name="object_overhaul_year" class="fake"/>
+                        <span class="select-text"/>
+                        {{ form.object_overhaul_year }}
+                    </div>
+<!--                    <h5>{{ form.object_overhaul_year.label }}:</h5>
+                    {{ form.object_overhaul_year }} -->
+                    {{ form.object_overhaul_year.errors }}
+                </td>
+                <td>
+                  <div id="building_type">
+                <h5>Тип здания:</h5>
+                <a value="1" href="#">Кирпичное</a>
+                <a value="2" href="#">Панельное</a>
+                <a value="3" href="#">Деревянное</a>
+                {{ form.building_type }}
+                {{ form.building_type.errors }}
+            </div></td>
+            </tr>
+        </table>
+
+        <div id="policy-start">
+            <h5>Дата оформления полиса</h5>
+            {{ form.policy_start }}
+            {{ form.policy_start.errors }}
+            <div class="discreet">Полис начинает действовать не ранее, чем через 5 дней после даты оформления. Страхование производится на 1 год.</div>
+        </div>
+
         <input type="button" class="backward-button" value="Назад"/>
         <input type="submit" class="forward-button" value="Дальше"/>
     </form>

@@ -85,6 +85,12 @@ TIME_CHOICES = (
     (datetime.time(15, 0), u"15:00 - 18:00")
 )
 
+BUILDING_CHOICES = (
+    (1, u'Кирпичное'),
+    (2, u'Панельное'),
+    (3, u'Деревянное')
+    )
+
 class CallRequests(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     date = models.DateTimeField(u'Дата заявки', auto_now_add=True)
@@ -319,6 +325,25 @@ class InsurancePolicyIFL(models.Model):
     live_building = models.CharField(u'Дом', max_length=16, null=True, blank=True)
     live_housing = models.CharField(u'Корпус', max_length=6, null=True, blank=True)
     live_flat = models.CharField(u'Квартира', max_length=6, null=True, blank=True)
+
+# STEP4-2 IFL
+    object_city = models.CharField(u'Населенный пункт', max_length=255, null=True, blank=True)
+    object_street = models.CharField(u'Улица', max_length=255, null=True, blank=True)
+    object_index = models.CharField(u'Индекс', max_length=6, null=True, blank=True)
+    object_building = models.CharField(u'Дом', max_length=4, null=True, blank=True)
+    object_housing = models.CharField(u'Корпус', max_length=4, null=True, blank=True)
+    object_flat = models.CharField(u'Квартира', max_length=6, null=True, blank=True)
+    object_built_year = models.PositiveIntegerField(u"Год постройки", null=True, blank=True)
+    object_overhaul_year = models.PositiveIntegerField(u"Год капитального ремонта", null=True, blank=True)
+    object_size = models.CharField(u'Общая площадь квартиры (кв. м.)', max_length=4, null=True, blank=True)
+    object_floor = models.CharField(u'Этаж', max_length=2, null=True, blank=True)
+
+    policy_start = models.DateField("Дата начала действия полиса", null=True, blank=True)
+    building_type = models.PositiveSmallIntegerField(u"Тип здания", choices=BUILDING_CHOICES, null=True, blank=True)
+
+    last_repair = models.PositiveIntegerField(u"Год проведения последней внутренней отделки",
+                                              null=True, blank=True)
+
 #STEP 4-3
     date = models.DateField("Дата доставки", null=True, blank=True)
     time = models.TimeField("Время доставки", null=True, blank=True, choices=TIME_CHOICES)
@@ -349,6 +374,7 @@ class InsurancePolicyForeign(models.Model):
     trip_type = models.CharField("Тип поездки", max_length=30)
     insurance_summ = models.PositiveIntegerField("Сумма страхования")
     countries = models.CharField("Страны действия", max_length=30)
+    territory = models.CharField("Территория действия", max_length=30)
     trip_purpose = models.CharField("Цель поездки", max_length=30)
 
     # extra data
@@ -380,6 +406,11 @@ class InsurancePolicyForeign(models.Model):
     live_building = models.CharField(u'Дом', max_length=16, null=True, blank=True)
     live_housing = models.CharField(u'Корпус', max_length=6, null=True, blank=True)
     live_flat = models.CharField(u'Квартира', max_length=6, null=True, blank=True)
+
+
+
+
+
 #STEP 4-3
     date = models.DateField("Дата доставки", null=True, blank=True)
     time = models.TimeField("Время доставки", null=True, blank=True, choices=TIME_CHOICES)

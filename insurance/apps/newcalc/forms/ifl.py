@@ -18,6 +18,7 @@ FRANCHISE_CHOICE = (
     (15000, 15000),
     (30000, 30000)
     )
+
 attrs_dict = {'class': 'required'}
 class Step1Form(forms.Form):
     property = forms.ModelChoiceField(label="Что страхуем",
@@ -142,8 +143,51 @@ class Step4Form(forms.Form):
     live_flat = forms.CharField(label="Квартира", max_length=4)
 
 
+from datetime import datetime
+year = datetime.now().year
+
+BUILT_CHOICES = [(i, i) for i in xrange(year, 1970, -1)]
+BUILT_CHOICES.insert(0, ("", "--------"))
+
+OVERHAUL_CHOICES = [(i, i) for i in xrange(year, 1970, -1)]
+OVERHAUL_CHOICES.insert(0, ("", "--------"))
+
+from polices.models import BUILDING_CHOICES
+
+
 class Step5Form(forms.Form):
-    pass
+    object_city = forms.CharField(label=u'Населенный пункт', min_length=2, max_length=255)
+    object_street = forms.CharField(label=u'Улица', min_length=2, max_length=255)
+    object_index = forms.CharField(label=u'Индекс', min_length=6, max_length=6)
+    object_building = forms.CharField(label=u'Дом', min_length=1, max_length=4)
+    object_housing = forms.CharField(label=u'Корпус', max_length=6, required=False)
+    object_flat = forms.CharField(label=u'Квартира', max_length=4)
+
+    object_built_year = forms.ChoiceField(label=u"Год постройки", choices=BUILT_CHOICES)
+    object_overhaul_year = forms.ChoiceField(label=u"Год капитального ремонта",
+                                             choices=OVERHAUL_CHOICES)
+    object_size = forms.CharField(label=u'Общая площадь квартиры (кв. м.)', min_length=2, max_length=4)
+    object_floor = forms.CharField(label=u'Этаж', max_length=2)
+
+    policy_start = forms.DateField(label=u"Дата начала действия полиса")
+    building_type = forms.ChoiceField(label=u"Тип здания", choices=BUILDING_CHOICES)
+
+    last_repair = forms.ChoiceField(label=u"Год проведения последней внутренней отделки",
+                                    choices=OVERHAUL_CHOICES)
+
+    def clean(self):
+        cd = self.cleaned_data
+        object_built_year = cd.get("object_built_year")
+        object_overhaul_year = cd.get("object_overhaul_year")
+        last_repair = cd.get("last_repair")
+
+        if (last_repair < object_built_year):
+            raise forms.ValidationError("Год отделки должен быть больше года постройки здания")
+
+        if (object_overhaul_year < object_built_year):
+            raise forms.ValidationError("Год ремонта должен быть больше года постройки здания")
+
+        return cd
 
 
 class Step6Form(forms.Form):
